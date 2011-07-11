@@ -1,0 +1,6 @@
+#To resolve all dependencies use 
+# $ play dependencies
+lib/
+modules/
+# Preventing workspace prefs from being comited:
+nbproject/
