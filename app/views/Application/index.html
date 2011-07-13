@@ -1,4 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
+ #{list items:a, as:'b' }
+     <li>${b?.id}: ${b.additionalInfo}</li>
+ #{/list}
 
-#{welcome /}

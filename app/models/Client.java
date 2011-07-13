@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.util.List;
+
 import siena.Column;
 import siena.Id;
 import siena.Model;
@@ -16,10 +18,15 @@ import siena.Table;
 @Table("Clients")
 public class Client extends Model{
     @Id
-    @Column("id")
-    public Integer id;
-    
-    @Column("client_name")
+    public Long id;
     public String name;
-    
+    String address;
+    List<MenuItem> menu;
+    ClientStatus status;
+    WorkHours workHours;
+    String contactPerson;
+    String contactPhone;
+    public static enum ClientStatus {
+
+    }
 }
