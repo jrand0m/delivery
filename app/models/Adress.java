@@ -1,10 +1,13 @@
 package models;
 
+import siena.Generator;
 import siena.Id;
 import siena.Model;
+import siena.Table;
 
+@Table("Adress")
 public class Adress extends Model {
-    @Id
+    @Id(Generator.AUTO_INCREMENT)
     public Long id;
     public String street;
     public String appartamentsNumber;

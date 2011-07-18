@@ -6,17 +6,15 @@ package models;
 
 import java.util.List;
 
-import siena.Column;
 import siena.Id;
 import siena.Model;
-import siena.Table;
 
 /**
- *
+ * 
  * @author mike
  */
-@Table("Clients")
-public class Client extends Model{
+
+public class Client extends Model {
     @Id
     public Long id;
     public String name;
@@ -26,6 +24,8 @@ public class Client extends Model{
     WorkHours workHours;
     String contactPerson;
     String contactPhone;
+    Float discount;
+
     public static enum ClientStatus {
 
     }
