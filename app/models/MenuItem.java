@@ -7,14 +7,16 @@ import siena.Model;
 
 public class MenuItem extends Model {
     @Id
-    Long id;
-    String name;
-    String description;
+    public Long id;
+    public String name;
+    public String description;
     /**
      * value in coins
      * */
-    Integer price;
-    Boolean avaliable;
-    Date menuItemCreated;
+    public Integer price;
+    public Boolean avaliable;
+    public Date menuItemCreated;
+    public MenuItemGroup group;
+    public Client client;
 
 }

@@ -13,4 +13,5 @@ public class Adress extends Model {
     public String appartamentsNumber;
     public String buldingNuber;
     public String additionalInfo;
+    public User userId;
 }

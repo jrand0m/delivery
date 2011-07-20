@@ -4,8 +4,6 @@
  */
 package models;
 
-import java.util.List;
-
 import siena.Id;
 import siena.Model;
 
@@ -18,15 +16,14 @@ public class Client extends Model {
     @Id
     public Long id;
     public String name;
-    String address;
-    List<MenuItem> menu;
-    ClientStatus status;
-    WorkHours workHours;
-    String contactPerson;
-    String contactPhone;
-    Float discount;
+    public String address;
+    public ClientStatus status;
+    public WorkHours workHours;
+    public String contactPerson;
+    public String contactPhone;
+    public Float discount;
 
     public static enum ClientStatus {
-
+	ACTIVE, DELETED
     }
 }

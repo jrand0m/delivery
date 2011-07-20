@@ -6,10 +6,11 @@ public class OrderItem extends MenuItem {
      * Archived real price from client (That was calculated in moment, when
      * order was approved).
      * */
-    Integer orderItemUserPrice;
+    public Integer orderItemUserPrice;
     /**
      * Archived price that should be paid by user (That was calculated in
      * moment, when order was approved).
      * */
-    Integer orderItemPrice;
+    public Integer orderItemPrice;
+    public Order orderId;
 }

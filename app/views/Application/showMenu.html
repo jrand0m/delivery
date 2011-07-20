@@ -1,0 +1,7 @@
+#{extends 'main.html' /}
+#{set title:'chelentano' /}
+<ol>
+ #{list items:menuItems, as:'item' }
+     <li>${item.name}: ${item.price}</li>
+ #{/list}
+</ol>

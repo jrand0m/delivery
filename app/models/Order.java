@@ -1,40 +1,38 @@
 package models;
 
 import java.util.Date;
-import java.util.List;
 
 import siena.Id;
 import siena.Model;
 
 public class Order extends Model {
     @Id
-    Long id;
-    Client client;
-    OrderStatus orderStatus;
-    List<OrderItem> items;
-    Date orderDate;
-    Date clientRecieved;
-    Date clientPlanedFinish;
-    Date clientRealFinish;
-    Date courierPlanedDeliveryTime;
-    Date courierOrderRecieved;
+    public Long id;
+    public Client client;
+    public OrderStatus orderStatus;
+    public Date orderDate;
+    public Date clientRecieved;
+    public Date clientPlanedFinish;
+    public Date clientRealFinish;
+    public Date courierPlanedDeliveryTime;
+    public Date courierOrderRecieved;
     /**
      * Courier delivery time;
      * */
-    Date courierOrderClosed;
+    public Date courierOrderClosed;
     /**
      * User order close date/time
      * */
-    Date orderClosed;
+    public Date orderClosed;
     /**
      * Price calculated by application using formula, that should be paid by
      * user. value in coins
      * */
-    Integer deliveryPrice;
-
-    Adress deliveryAddress;
+    public Integer deliveryPrice;
+    public User orderOwner;
+    public Adress deliveryAddress;
 
     public static enum OrderStatus {
-
+	OPEN, ACCEPTED, COOKED, DELIVERING, DELIVERED, DECLINED
     }
 }

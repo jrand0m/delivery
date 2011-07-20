@@ -1,6 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
- #{list items:a, as:'b' }
-     <li>${b?.id}: ${b.additionalInfo}</li>
+<ol>
+ #{list items:clients, as:'client' }
+     <li><a href="@{Application.showMenu(client.id)}">${client.name}</a></li>
  #{/list}
-
+</ol>
