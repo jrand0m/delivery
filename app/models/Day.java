@@ -4,11 +4,12 @@ import siena.Id;
 import siena.Model;
 
 public class Day extends Model {
-	final static public String TIME_FORMAT = "HH:mm";
+    final static public String TIME_FORMAT = "HH:mm";
 
-	@Id
-	public Long id;
-	public String from;
-	public String to;
-	public WorkHours workDay;
+    @Id
+    public Long id;
+    public String from;
+    public String to;
+    public WorkHours workDay;
+    public Boolean deleted = false;
 }

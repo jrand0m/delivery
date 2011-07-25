@@ -5,9 +5,10 @@ import siena.Model;
 import siena.NotNull;
 
 public class WorkHours extends Model {
-	@Id
-	public Long id;
-	@NotNull
-	public Client client;
-	public String description;
+    @Id
+    public Long id;
+    @NotNull
+    public Client client;
+    public String description;
+    public Boolean deleted = false;
 }

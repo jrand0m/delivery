@@ -20,33 +20,33 @@ import siena.NotNull;
  */
 
 public class User extends Model {
-	@Id(Generator.AUTO_INCREMENT)
-	public Long id;
-	@NotNull
-	public String name;
-	@NotNull
-	public String surname;
+    @Id(Generator.AUTO_INCREMENT)
+    public Long id;
+    @NotNull
+    public String name;
+    @NotNull
+    public String surname;
 
-	@Phone
-	public String phoneNumber;
-	public String miscInfo;
-	@Email
-	public String email;
+    @Phone
+    public String phoneNumber;
+    public String miscInfo;
+    @Email
+    public String email;
 
-	@NotNull
-	public String login; // FIXME need to be unique, but how ?
-	@NotNull
-	@Password
-	public String password;
+    @NotNull
+    public String login; // FIXME need to be unique, but how ?
+    @NotNull
+    @Password
+    public String password;
 
-	@NotNull
-	public UserStatus userStatus;
+    @NotNull
+    public UserStatus userStatus;
 
-	public Date joinDate;
-	public Date lastLoginDate;
+    public Date joinDate;
+    public Date lastLoginDate;
 
-	public static enum UserStatus {
-		ACTIVE, DELETED
-	}
+    public static enum UserStatus {
+	ACTIVE, DELETED
+    }
 
 }
