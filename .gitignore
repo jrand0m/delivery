@@ -6,3 +6,6 @@ modules/
 nbproject/
 /eclipse
 /tmp
+.classpath
+.project
+.settings/
