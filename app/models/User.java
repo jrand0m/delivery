@@ -9,6 +9,7 @@ import java.util.Date;
 import play.data.validation.Email;
 import play.data.validation.Password;
 import play.data.validation.Phone;
+import siena.Generator;
 import siena.Id;
 import siena.Model;
 import siena.NotNull;
@@ -19,8 +20,7 @@ import siena.NotNull;
  */
 
 public class User extends Model {
-	@Id
-	@NotNull
+	@Id(Generator.AUTO_INCREMENT)
 	public Long id;
 	@NotNull
 	public String name;
@@ -28,7 +28,6 @@ public class User extends Model {
 	public String surname;
 
 	@Phone
-	@NotNull
 	public String phoneNumber;
 	public String miscInfo;
 	@Email

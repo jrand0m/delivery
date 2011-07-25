@@ -16,7 +16,6 @@ import siena.NotNull;
 
 public class Client extends Model {
 	@Id
-	@NotNull
 	public Long id;
 	@NotNull
 	public String name;

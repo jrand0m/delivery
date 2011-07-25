@@ -6,10 +6,9 @@ import siena.Model;
 import siena.NotNull;
 import siena.Table;
 
-@Table("Adress")
-public class Adress extends Model {
+@Table("Address")
+public class Address extends Model {
 	@Id(Generator.AUTO_INCREMENT)
-	@NotNull
 	public Long id;
 	public String street;
 	public String appartamentsNumber;

@@ -1,7 +1,33 @@
 #{extends 'main.html' /}
-#{set title:'&('hi')' /}
+#{set title:'Private Locker' /}
+
+user, addressList, orderList
+<h1>Hello, ${user?.name}!</h1>
+<h4>Your Address book:</h4>
 <ol>
- #{list items:clients, as:'client' }
-     <li><a href="@{Application.showMenu(client.id)}">${client.name}</a></li>
+ #{list items:addressList, as:'address' }
+     <li>
+     <p>
+    street:  			${address?.street}            <br>
+    appartamentsNumber: ${address?.appartamentsNumber}<br>
+	buldingNuber:		${address?.buldingNuber}      <br>
+	additionalInfo:    	${address?.additionalInfo}    <br>
+	<a href="@{Locker.editAddress(address.id)}">edit</a>
+     </p>
+     </li>
+ #{/list}
+</ol>
+<H4>Your order history:</H4>
+<ol>
+ #{list items:orderList, as:'order' }
+     <li>
+     <p>
+     client:            ${order?.client.name}            <br>
+     orderStatus:		${order?.orderStatus}            <br>
+     orderDate:			${order?.orderDate}            <br>
+     deliveryPrice:		${order?.deliveryPrice}            <br>
+     deliveryAddress:	${order?.deliveryAddress.street},  ${order?.deliveryAddress?.buldingNuber}/${order?.deliveryAddress?.appartamentsNumber}        <br>
+     </p>
+     </li>
  #{/list}
 </ol>

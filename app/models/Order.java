@@ -8,7 +8,6 @@ import siena.NotNull;
 
 public class Order extends Model {
 	@Id
-	@NotNull
 	public Long id;
 	@NotNull
 	public Client client;
@@ -37,7 +36,7 @@ public class Order extends Model {
 	@NotNull
 	public User orderOwner;
 	@NotNull
-	public Adress deliveryAddress;
+	public Address deliveryAddress;
 
 	public static enum OrderStatus {
 		OPEN, ACCEPTED, COOKED, DELIVERING, DELIVERED, DECLINED

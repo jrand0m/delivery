@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.List;
 
-import models.Adress;
+import models.Address;
 import models.Order;
 import models.User;
 import play.mvc.Controller;
@@ -24,9 +24,18 @@ public class Locker extends Controller
 	public static void index()
 	{
 		String userName = Security.connected();
-		if( userName != null )
+		if( userName == null )
 		{
-			unauthorized();
+			try
+			{
+				Secure.login();
+			} catch( Throwable e )
+			{
+				//TODO checkout how to redirect back here !
+				forbidden();
+				e.printStackTrace();
+
+			}
 		}
 		List<User> users = User.all( User.class ).filter( "login", userName ).fetch();
 		if( users.size() == 0 )
@@ -34,12 +43,12 @@ public class Locker extends Controller
 			forbidden();
 		}
 		User user = users.get( 0 );
-		List<Adress> adressList = Model.all( Adress.class ).filter( "userId", user ).fetch();
+		List<Address> addressList = Model.all( Address.class ).filter( "userId", user ).fetch();
 		List<Order> orderList = Model.all( Order.class ).filter( "orderOwner", user ).fetch();
-		render( user, adressList, orderList );
+		render( user, addressList, orderList );
 	}
 
-	public static void addAdress( Adress newAdress )
+	public static void addAddress( Address newAddress )
 	{
 		String userName = Security.connected();
 		if( userName != null )
@@ -51,12 +60,12 @@ public class Locker extends Controller
 		{
 			forbidden();
 		}
-		newAdress.userId = user.get( 0 );
-		newAdress.insert();
+		newAddress.userId = user.get( 0 );
+		newAddress.insert();
 		ok();
 	}
 
-	public static void editAdress( Adress adress )
+	public static void editAddress( Address address )
 	{
 		String userName = Security.connected();
 		if( userName != null )
@@ -68,9 +77,9 @@ public class Locker extends Controller
 		{
 			forbidden();
 		}
-		adress.userId = user.get( 0 );
+		address.userId = user.get( 0 );
 
-		adress.insert();
+		address.insert();
 		ok();
 	}
 

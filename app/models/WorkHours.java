@@ -6,7 +6,6 @@ import siena.NotNull;
 
 public class WorkHours extends Model {
 	@Id
-	@NotNull
 	public Long id;
 	@NotNull
 	public Client client;

@@ -8,7 +8,6 @@ import siena.NotNull;
 
 public class MenuItem extends Model {
 	@Id
-	@NotNull
 	public Long id;
 	@NotNull
 	public String name;
