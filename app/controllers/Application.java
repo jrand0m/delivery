@@ -11,15 +11,6 @@ public class Application extends Controller {
 
     public static void index() {
 
-	// List<MenuItem> itemzz = Model.all(MenuItem.class).fetch();
-	//
-	// render(itemzz);
-	// List<Adress> a = Model.all(Adress.class).fetch();
-	// System.out.println(a.get(0).additionalInfo);
-	// Adress a = new Adress();
-	// a.additionalInfo = "asdfdsf";
-	// a.save();
-
 	List<Client> clients = Model.all(Client.class).fetch();
 	render(clients);
     }

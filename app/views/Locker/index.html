@@ -1,0 +1,7 @@
+#{extends 'main.html' /}
+#{set title:'&('hi')' /}
+<ol>
+ #{list items:clients, as:'client' }
+     <li><a href="@{Application.showMenu(client.id)}">${client.name}</a></li>
+ #{/list}
+</ol>

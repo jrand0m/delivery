@@ -4,3 +4,5 @@ lib/
 modules/
 # Preventing workspace prefs from being comited:
 nbproject/
+/eclipse
+/tmp
