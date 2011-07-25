@@ -6,8 +6,12 @@ package models;
 
 import java.util.Date;
 
+import play.data.validation.Email;
+import play.data.validation.Password;
+import play.data.validation.Phone;
 import siena.Id;
 import siena.Model;
+import siena.NotNull;
 
 /**
  * 
@@ -15,21 +19,35 @@ import siena.Model;
  */
 
 public class User extends Model {
-    @Id
-    public Long id;
-    public String name;
-    public String surname;
-    public Date joinDate;
-    public Date lastLoginDate;
-    public String login;
-    public String password;
-    public UserStatus userStatus;
-    public String phoneNumber;
-    public String miscInfo;
+	@Id
+	@NotNull
+	public Long id;
+	@NotNull
+	public String name;
+	@NotNull
+	public String surname;
 
-    public static enum UserStatus {
-	ACTIVE, DELETED
+	@Phone
+	@NotNull
+	public String phoneNumber;
+	public String miscInfo;
+	@Email
+	public String email;
 
-    }
+	@NotNull
+	public String login; // FIXME need to be unique, but how ?
+	@NotNull
+	@Password
+	public String password;
+
+	@NotNull
+	public UserStatus userStatus;
+
+	public Date joinDate;
+	public Date lastLoginDate;
+
+	public static enum UserStatus {
+		ACTIVE, DELETED
+	}
 
 }

@@ -1,11 +1,14 @@
 package models;
 
+import siena.NotNull;
+
 public class RegularDay extends Day {
 
-    public DAY_TYPE dayType;
+	@NotNull
+	public DAY_TYPE dayType;
 
-    enum DAY_TYPE {
-	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY, HOLLYDAY
-    }
+	enum DAY_TYPE {
+		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY, HOLLYDAY
+	}
 
 }
