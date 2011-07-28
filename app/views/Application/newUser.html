@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'chelentano' /}
+#{form @Application.registerNewUser() , id:'user' }
+  <label for="user.login">Login</label> <input name="user.login" type="text" /><br/>
+  <label for="user.password">Password</label> <input name="user.password" type="password" /><br/>
+  <label for="user.name">Name</label> <input name="user.name" type="text" /><br/>
+  <label for="user.surname">Surname</label> <input name="user.surname" type="text" /><br/>
+  <label for="user.phoneNumber">Phone No</label> <input name="user.phoneNumber" type="text" /> <br/>
+  <label for="user.email">email</label> <input name="user.email" type="text" /> <br/>
+ <input type="submit" />
+#{/form}

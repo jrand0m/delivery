@@ -6,7 +6,6 @@ import models.Address;
 import models.Order;
 import models.User;
 import play.mvc.Controller;
-import play.mvc.With;
 import siena.Model;
 
 /**
@@ -14,15 +13,14 @@ import siena.Model;
  * 
  * @author mike
  * */
-@With(Secure.class)
+// @With(Secure.class)
 public class Locker extends Controller {
 
     /**
      * Shows user's personal page
      */
     public static void index() {
-	String userName = Security.connected();
-	if (userName == null) {
+	if (!Security.isConnected()) {
 	    try {
 		Secure.login();
 	    } catch (Throwable e) {
@@ -31,6 +29,7 @@ public class Locker extends Controller {
 		e.printStackTrace();
 	    }
 	}
+	String userName = Security.connected();
 	List<User> users = User.all(User.class).filter("login", userName)
 		.fetch();
 	if (users.size() == 0) {
@@ -45,8 +44,8 @@ public class Locker extends Controller {
     }
 
     public static void addAddress(Address newAddress) {
-	String userName = Security.connected();
-	if (userName == null) {
+
+	if (!Security.isConnected()) {
 	    try {
 		Secure.login();
 	    } catch (Throwable e) {
@@ -56,6 +55,7 @@ public class Locker extends Controller {
 
 	    }
 	}
+	String userName = Security.connected();
 	List<User> user = User.all(User.class).filter("login", userName)
 		.fetch(1);
 	if (user.size() != 1) {

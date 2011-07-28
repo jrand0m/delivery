@@ -16,11 +16,11 @@ public class LogItem extends Model {
     public String oldValue;
     public Long classId;
 
-    public User modifiedBy;
+    public String modifiedBy;
     public Date modifiedOn;
 
     public LogItem(String className, String field, String newValue,
-	    String oldValue, Long classId, User modifiedBy, Date modifiedOn) {
+	    String oldValue, Long classId, String modifiedBy, Date modifiedOn) {
 	super();
 	this.className = className;
 	this.field = field;
@@ -32,8 +32,15 @@ public class LogItem extends Model {
     }
 
     public static void log(String className, String field, String newValue,
-	    String oldValue, Long classId, User modifiedBy, Date modifiedOn) {
+	    String oldValue, Long classId, String modifiedBy, Date modifiedOn) {
 	new LogItem(className, field, newValue, oldValue, classId, modifiedBy,
 		modifiedOn).insert();
+    }
+
+    public static void log(User user, String field, String newValue,
+	    String oldValue, String modifiedBy) {
+
+	new LogItem(User.class.getName(), field, newValue, oldValue, user.id,
+		modifiedBy, new Date()).insert();
     }
 }

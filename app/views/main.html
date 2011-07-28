@@ -11,6 +11,16 @@
         #{get 'moreScripts' /}
     </head>
     <body>
+        #{if user}
+        Hello, <a href="@{Locker.index()}">${user.name}</a>!
+        <a href="@{Secure.logout()}"> Logout <a/>
+        #{/if}
+        #{else}
+        <a href="@{Application.newUser()}">Register new User<a/>
+        <a href="@{Secure.login()}">Login<a/>
+        
+        #{/else}
+        
         #{doLayout /}
     </body>
 </html>
