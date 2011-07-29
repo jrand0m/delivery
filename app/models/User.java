@@ -46,7 +46,7 @@ public class User extends Model {
     public Date lastLoginDate;
 
     public static enum UserStatus {
-	ACTIVE, DELETED
+	ACTIVE, PENDING_APPROVEMENT, DELETED, ADMIN
     }
 
 }

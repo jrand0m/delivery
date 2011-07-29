@@ -6,6 +6,7 @@ import java.util.List;
 import models.Client;
 import models.MenuItem;
 import models.User;
+import models.User.UserStatus;
 import play.mvc.Controller;
 import play.mvc.Router;
 import siena.Model;
@@ -19,6 +20,7 @@ public class Application extends Controller {
 	// .filter("client", clients).fetch();
 	// List<Day> days = Model.all(Day.class).filter("workDay", whorkHours)
 	// .fetch();
+	//TODO Get Work hours
 	User user = getCurrentUser();
 	render(clients, /* whorkHours, days, */user);
     }
@@ -28,10 +30,11 @@ public class Application extends Controller {
 	if (Security.isConnected()) {
 	    List<User> users = User.all(User.class)
 		    .filter("login", Security.connected()).fetch();
-	    if (users.size() == 0) {
-		forbidden();
+	    if (users.size() != 0) {
+		user = users.get(0);
 	    }
-	    user = users.get(0);
+//		forbidden();
+	    
 	}
 	return user;
     }
@@ -51,7 +54,7 @@ public class Application extends Controller {
     public static void registerNewUser(User user) {
 	user.joinDate = new Date();
 	user.lastLoginDate = new Date();
-	user.userStatus = User.UserStatus.ACTIVE;
+	user.userStatus = UserStatus.PENDING_APPROVEMENT;
 	user.insert();
 	try {
 	    Secure.authenticate(user.login, user.password, false);

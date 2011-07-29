@@ -9,3 +9,5 @@ nbproject/
 .classpath
 .project
 .settings/
+/gae-1.4
+/war
