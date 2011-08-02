@@ -10,6 +10,4 @@ public class Day extends Model {
     public Long id;
     public String from;
     public String to;
-    public WorkHours workDay;
-    public Boolean deleted = false;
 }

@@ -1,9 +1,9 @@
 package controllers;
 
-import models.RegularDay;
+import models.Day;
 import controllers.CRUD.For;
 
-@For(RegularDay.class)
+@For(Day.class)
 public class AdminRegularDays extends CRUD {
 
 }

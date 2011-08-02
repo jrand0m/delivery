@@ -1,10 +1,8 @@
 package models;
 
-import java.util.Date;
+import siena.embed.EmbeddedMap;
 
-import siena.NotNull;
-
+@EmbeddedMap
 public class IrregularDay extends Day {
-	@NotNull
-	public Date date;
+    public Boolean deleted = false;
 }
