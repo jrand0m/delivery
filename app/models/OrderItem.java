@@ -1,10 +1,14 @@
 package models;
 
+import siena.Id;
+import siena.Model;
 import siena.NotNull;
 
-public class OrderItem extends MenuItem {
+public class OrderItem extends Model {
+    @Id
+    public Long id;
     @NotNull
-    Integer count;
+    public Integer count;
     /**
      * Archived real price from client (That was calculated in moment, when
      * order was approved).
@@ -19,5 +23,34 @@ public class OrderItem extends MenuItem {
     public Integer orderItemPrice;
     @NotNull
     public Order orderId;
-    public Boolean deleted = false;
+    public MenuItem menuItemId;
+    public boolean deleted = false;
+    public OrderItem(){
+	
+    }
+    public OrderItem(Integer count, Integer orderItemUserPrice,
+	    Integer orderItemPrice, Order orderId, MenuItem menuitem) {
+	this.menuItemId = menuitem;
+	this.count = count;
+	this.orderItemUserPrice = orderItemUserPrice;
+	this.orderItemPrice = orderItemPrice;
+	this.orderId = orderId;
+	this.deleted = false;
+    }
+    public OrderItem(MenuItem menuItem, Order order, User user) {
+	// TODO [Mike] (add calculations of a price here )
+	menuItemId = menuItem;
+	orderId = order;
+    }
+    public Order getOrder(){
+	
+	return orderId;//Model.all(Order.class).getByKey(orderId);
+    }
+    public MenuItem getMenuItem(){
+	return menuItemId;//Model.all(MenuItem.class).getByKey(menuItemId);
+    }
+    
+    
+    
+    
 }

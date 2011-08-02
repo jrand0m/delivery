@@ -5,6 +5,8 @@ import java.util.List;
 
 import models.Client;
 import models.MenuItem;
+import models.Order;
+import models.OrderItem;
 import models.User;
 import models.User.UserStatus;
 import play.mvc.Controller;
@@ -63,6 +65,51 @@ public class Application extends Controller {
 	    error();
 	}
 	redirect(Router.getFullUrl("Application.index"));
+    }
+    
+    public static void addOrderItem(Long id, Integer count){
+	
+	if(Security.isConnected()){
+	    String userLogin = Security.connected();
+	    User user = Model.all(User.class).filter("login", userLogin).get();
+	    MenuItem menuItem = Model.getByKey(MenuItem.class, id);
+	    Order order = Model.all(Order.class).filter("orderOwner", user).filter("orderStatus", Order.OrderStatus.OPEN).get();
+	    if (order == null){
+		order = new Order(); //TODO [Mike] Add constructor for this case
+		order.client = menuItem.client;
+		order.orderOwner = user;
+		
+	    }
+	    OrderItem orderitem = new OrderItem(menuItem,order, user) ;
+	    orderitem.insert();
+	    
+	}
+	ok();
+    }
+    
+    public static void delOrderItem(Long id){
+	if(Security.isConnected()){
+	    String userLogin = Security.connected();
+	    User user = Model.all(User.class).filter("login", userLogin).get();
+	    MenuItem menuItem = Model.getByKey(MenuItem.class, id);
+	    Order order = Model.all(Order.class).filter("orderOwner", user).filter("orderStatus", Order.OrderStatus.OPEN).get();
+	    if (order == null){
+		ok();
+		return;
+	    }
+	    //FIXME [Mike] what if there will be more than one OrderItem ? add check to addOrderItem ?
+	    OrderItem orderitem = Model.all(OrderItem.class).filter("orderId", order).filter("deleted", false).filter("menuItemId", menuItem).get();
+	    if (orderitem == null){
+		ok();
+		return;
+	    }
+	    orderitem.deleted = true;
+	    orderitem.update();
+//	    OrderItem orderitem = new OrderItem(menuItem,order, user) ;
+//	    orderitem.insert();
+	    
+	}
+	ok();
     }
 
 }
