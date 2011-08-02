@@ -5,6 +5,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import play.data.validation.Email;
 import play.data.validation.Password;
@@ -13,6 +14,7 @@ import siena.Generator;
 import siena.Id;
 import siena.Model;
 import siena.NotNull;
+import siena.Unique;
 
 /**
  * 
@@ -34,7 +36,8 @@ public class User extends Model {
     public String email;
 
     @NotNull
-    public String login; // FIXME need to be unique, but how ?
+    public String login; // FIXME need to be unique, but how ? [Mike] use @PreInsert + @PreUpdate
+    
     @NotNull
     @Password
     public String password;
@@ -47,6 +50,9 @@ public class User extends Model {
 
     public static enum UserStatus {
 	ACTIVE, PENDING_APPROVEMENT, DELETED, ADMIN
+    }
+    public List<Address> getAddresses(){
+	return Model.all(Address.class).filter("userId",this).filter("deleted", false).fetch();
     }
 
 }

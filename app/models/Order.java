@@ -1,10 +1,14 @@
 package models;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
+import siena.Filter;
 import siena.Id;
 import siena.Model;
 import siena.NotNull;
+import siena.Query;
 
 public class Order extends Model {
     @Id
@@ -37,10 +41,40 @@ public class Order extends Model {
     public User orderOwner;
     @NotNull
     public Address deliveryAddress;
-
+    @Filter("orderId")
+    public Query<OrderItem> items;
     public static enum OrderStatus {
 	OPEN, ACCEPTED, COOKED, DELIVERING, DELIVERED, DECLINED
     }
 
     public Boolean deleted = false;
+    
+    public List<OrderItem> getItems(){
+	return Model.all(OrderItem.class).filter("orderId", this/*.id*/).filter("deleted", false).fetch();
+    }
+    public Client getClient(){
+	return this.client;
+    }
+    public User getOwner(){
+	return this.orderOwner;
+    }
+    public int getCount(){
+	return Model.all(OrderItem.class).filter("orderId", this/*.id*/).filter("deleted", false).count();
+    }
+    public Integer getTotalUserPrice(){
+	List<OrderItem> items = getItems();
+	Integer totalPrice = new Integer(0);
+	for (OrderItem item : items) {
+	    totalPrice +=  item.orderItemUserPrice * item.count;
+	}
+	return totalPrice;
+    }
+    public Integer getTotalPrice(){
+	List<OrderItem> items = getItems();
+	Integer totalPrice = new Integer(0);
+	for (OrderItem item : items) {
+	    totalPrice +=  item.orderItemPrice * item.count;
+	}
+	return totalPrice;
+    }
 }

@@ -94,6 +94,7 @@ public class Application extends Controller {
 	    MenuItem menuItem = Model.getByKey(MenuItem.class, id);
 	    Order order = Model.all(Order.class).filter("orderOwner", user).filter("orderStatus", Order.OrderStatus.OPEN).get();
 	    if (order == null){
+		
 		ok();
 		return;
 	    }
