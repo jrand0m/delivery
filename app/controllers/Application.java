@@ -3,17 +3,35 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
-import models.Client;
-import models.MenuItem;
 import models.Order;
+import models.Order.OrderStatus;
 import models.OrderItem;
 import models.User;
 import models.User.UserStatus;
+import models.client.Client;
+import models.client.MenuItem;
+import play.mvc.Before;
 import play.mvc.Controller;
-import play.mvc.Router;
 import siena.Model;
 
 public class Application extends Controller {
+
+    @Before
+    public static void _prepare() {
+	User user = getCurrentUser();
+	renderArgs.put("user", user);
+	if (user != null) {
+	    Order order = Order.all(Order.class)
+		    .filter("deleted", Boolean.FALSE)
+		    .filter("orderStatus", Order.OrderStatus.OPEN).get();
+	    if (order != null) {
+
+		renderArgs.put("basketCount", order.getCount());
+	    }
+
+	}
+
+    }
 
     public static void index() {
 
@@ -22,9 +40,9 @@ public class Application extends Controller {
 	// .filter("client", clients).fetch();
 	// List<Day> days = Model.all(Day.class).filter("workDay", whorkHours)
 	// .fetch();
-	//TODO Get Work hours
-	User user = getCurrentUser();
-	render(clients, /* whorkHours, days, */user);
+	// TODO Get Work hours
+
+	render(clients /* whorkHours, days, */);
     }
 
     private static User getCurrentUser() {
@@ -35,8 +53,8 @@ public class Application extends Controller {
 	    if (users.size() != 0) {
 		user = users.get(0);
 	    }
-//		forbidden();
-	    
+	    // forbidden();
+
 	}
 	return user;
     }
@@ -45,8 +63,8 @@ public class Application extends Controller {
 	Client client = Model.getByKey(Client.class, id);
 	List<MenuItem> menuItems = Model.all(MenuItem.class)
 		.filter("client", client).fetch();
-	User user = getCurrentUser();
-	render(menuItems, user);
+	renderArgs.put("clientName", client.name);
+	render(menuItems);
     }
 
     public static void newUser() {
@@ -64,53 +82,75 @@ public class Application extends Controller {
 	    e.printStackTrace();
 	    error();
 	}
-	redirect(Router.getFullUrl("Application.index"));
+	index();
     }
-    
-    public static void addOrderItem(Long id, Integer count){
-	
-	if(Security.isConnected()){
+
+    public static void addOrderItem(Long id, Integer count) {
+
+	if (Security.isConnected()) {
 	    String userLogin = Security.connected();
 	    User user = Model.all(User.class).filter("login", userLogin).get();
 	    MenuItem menuItem = Model.getByKey(MenuItem.class, id);
-	    Order order = Model.all(Order.class).filter("orderOwner", user).filter("orderStatus", Order.OrderStatus.OPEN).get();
-	    if (order == null){
-		order = new Order(); //TODO [Mike] Add constructor for this case
+	    Order order = Model.all(Order.class).filter("orderOwner", user)
+		    .filter("orderStatus", Order.OrderStatus.OPEN).get();
+	    if (order == null) {
+		order = createNewOpenOrder(user);// TODO [Mike] Add constructor
+						 // for this
+		// case
 		order.client = menuItem.client;
 		order.orderOwner = user;
-		
+
 	    }
-	    OrderItem orderitem = new OrderItem(menuItem,order, user) ;
+	    OrderItem orderitem = new OrderItem(menuItem, order, user);
+	    orderitem.count = count;
+	    orderitem.orderItemUserPrice = menuItem.price;
+	    orderitem.orderItemPrice = menuItem.price;
 	    orderitem.insert();
-	    
+
 	}
 	ok();
     }
-    
-    public static void delOrderItem(Long id){
-	if(Security.isConnected()){
+
+    public static void delOrderItem(Long id) {
+	if (Security.isConnected()) {
 	    String userLogin = Security.connected();
 	    User user = Model.all(User.class).filter("login", userLogin).get();
 	    MenuItem menuItem = Model.getByKey(MenuItem.class, id);
-	    Order order = Model.all(Order.class).filter("orderOwner", user).filter("orderStatus", Order.OrderStatus.OPEN).get();
-	    if (order == null){
-		
+	    Order order = Model.all(Order.class).filter("orderOwner", user)
+		    .filter("orderStatus", Order.OrderStatus.OPEN).get();
+	    if (order == null) {
+
 		ok();
 		return;
 	    }
-	    //FIXME [Mike] what if there will be more than one OrderItem ? add check to addOrderItem ?
-	    OrderItem orderitem = Model.all(OrderItem.class).filter("orderId", order).filter("deleted", false).filter("menuItemId", menuItem).get();
-	    if (orderitem == null){
+	    // FIXME [Mike] what if there will be more than one OrderItem ? add
+	    // check to addOrderItem ?
+	    OrderItem orderitem = Model.all(OrderItem.class)
+		    .filter("orderId", order).filter("deleted", false)
+		    .filter("menuItemId", menuItem).get();
+	    if (orderitem == null) {
 		ok();
 		return;
 	    }
 	    orderitem.deleted = true;
 	    orderitem.update();
-//	    OrderItem orderitem = new OrderItem(menuItem,order, user) ;
-//	    orderitem.insert();
-	    
+	    // OrderItem orderitem = new OrderItem(menuItem,order, user) ;
+	    // orderitem.insert();
+
 	}
 	ok();
+    }
+
+    /**
+     * intended for local use so no 'public' modifier
+     * */
+    static Order createNewOpenOrder(User user) {
+	Order o = new Order();
+	o.orderStatus = OrderStatus.OPEN;
+	o.orderOwner = user;
+	o.deleted = Boolean.FALSE;
+	o.save();
+	return o;
     }
 
 }

@@ -3,6 +3,8 @@ package models;
 import java.util.Date;
 import java.util.List;
 
+import models.client.Client;
+
 import siena.Filter;
 import siena.Id;
 import siena.Model;
@@ -13,6 +15,10 @@ public class Order extends Model {
     private static final double GURANTEE_PROFIT_RATE = 1.3;
     @Id
     public Long id;
+    /**
+     * 
+     * @deprecated we can extract client from OrderItem.MenuItemId.client
+     * */
     @NotNull
     public Client client;
     @NotNull
@@ -43,12 +49,11 @@ public class Order extends Model {
     public Address deliveryAddress;
     @Filter("orderId")
     public Query<OrderItem> items;
+    public Boolean deleted = false;
 
     public static enum OrderStatus {
 	OPEN, ACCEPTED, COOKED, DELIVERING, DELIVERED, DECLINED
     }
-
-    public Boolean deleted = false;
 
     public List<OrderItem> getItems() {
 	return items.filter("deleted", false).fetch();
@@ -68,9 +73,12 @@ public class Order extends Model {
 
     public Integer getTotalPrice() {
 	List<OrderItem> items = getItems();
+
 	Integer totalPrice = new Integer(0);
 	for (OrderItem item : items) {
-	    totalPrice += item.orderItemUserPrice * item.count;
+
+	    totalPrice += item.orderItemUserPrice == null ? item.orderItemUserPrice = 0
+		    : item.orderItemUserPrice * item.count;
 	}
 	return totalPrice;
     }
@@ -79,7 +87,8 @@ public class Order extends Model {
 	List<OrderItem> items = getItems();
 	Integer totalPrice = new Integer(0);
 	for (OrderItem item : items) {
-	    totalPrice += item.orderItemPrice * item.count;
+	    totalPrice += item.orderItemUserPrice == null ? item.orderItemUserPrice = 0
+		    : item.orderItemUserPrice * item.count;
 	}
 	return totalPrice;
     }
