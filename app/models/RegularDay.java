@@ -1,4 +1,4 @@
-package models.clients;
+package models;
 
 import siena.NotNull;
 

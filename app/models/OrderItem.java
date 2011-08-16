@@ -1,6 +1,5 @@
-package models.user;
+package models;
 
-import models.clients.MenuItem;
 import siena.Id;
 import siena.Model;
 import siena.NotNull;

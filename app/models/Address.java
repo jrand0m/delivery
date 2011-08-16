@@ -1,6 +1,5 @@
 package models;
 
-import models.user.User;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import siena.Generator;

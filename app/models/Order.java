@@ -1,10 +1,8 @@
-package models.user;
+package models;
 
 import java.util.Date;
 import java.util.List;
 
-import models.Address;
-import models.clients.Client;
 import siena.Filter;
 import siena.Id;
 import siena.Model;
