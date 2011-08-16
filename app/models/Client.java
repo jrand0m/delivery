@@ -26,7 +26,7 @@ public class Client extends Model {
     public String contactPerson;
     @Phone
     public String contactPhone;
-    public Float discount;
+    public Double discount;
 
     /**
      * User who has rights to administer this account

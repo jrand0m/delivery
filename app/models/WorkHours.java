@@ -5,7 +5,6 @@ import java.util.Map;
 
 import siena.Id;
 import siena.Model;
-import siena.NotNull;
 import siena.embed.Embedded;
 
 import com.google.gson.JsonObject;
@@ -14,8 +13,6 @@ public class WorkHours extends Model {
     @Id
     public Long id;
 
-    @NotNull
-    public Client client;
     public String description;
     public Boolean deleted = false;
     public Day worrkDay;

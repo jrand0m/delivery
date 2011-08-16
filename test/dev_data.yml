@@ -1,4 +1,4 @@
-user.User(usr_uzor):
+User(usr_uzor):
     name: Vasyl
     surname: Petrovich
     phoneNumber: "+380630683088"
@@ -10,7 +10,7 @@ user.User(usr_uzor):
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
 
-user.User(usr_client):
+User(usr_client):
     name: Galyna
     surname: Petrovich
     phoneNumber: "+380630683088"
@@ -22,7 +22,7 @@ user.User(usr_client):
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
 
-user.User(usr_admin):
+User(usr_admin):
     name: Admin
     surname: Admin
     phoneNumber: "+380630683088"
@@ -34,3 +34,126 @@ user.User(usr_admin):
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
 
+# Addresses
+Address(adr_uzor):
+    street: kreshchatyk
+    appartamentsNumber: "123"
+    buldingNuber: "123"
+    additionalInfo: knock three times
+    userId: usr_uzor
+    deleted: false
+
+Address(adr_client):
+    street: kreshchatyk
+    appartamentsNumber: "123"
+    buldingNuber: "123"
+    additionalInfo: knock three times
+    userId: usr_client
+    deleted: false
+
+#work hours
+Day(day_work):
+    from: "10:00:00"
+    to: "22:00:00"
+
+Day(day_holy):
+    from: "10:00:00"
+    to: "22:00:00"
+
+IrregularDay(day_irregular):
+    from: "10:00:00"
+    to: "22:00:00"
+
+WorkHours(wrh_client1):
+    worrkDay: day_work
+    saturday: day_holy
+    sunday: day_holy
+    description: Standart time
+    deleted: false
+#TODO       public Map<String, IrregularDay> irregularDays;
+
+#Clients
+Client(client1):
+    name: Pizza Chlentano!11
+    address: Some street 11, 11
+    status: ACTIVE
+    workHours: wrh_client1
+    contactPerson: Judje Dred
+    contactPhone: "+3044555555"
+    discount: 10.1
+    clientUser: usr_client
+    deleted: false
+
+#Menu groups 
+MenuItemGroup(mgp_first):
+    name: Sups
+    description: mmm tasty !
+    generic: true
+    deleted: false
+
+MenuItemGroup(mgp_garnir):
+    name: Garnirs
+    description: mmm after sup it is time!
+    generic: true
+    deleted: false
+
+MenuItemGroup(mgp_pizza):
+    name: Pizzaz
+    description: mmm tasty !
+    generic: false
+    deleted: false
+
+#Menu Itemz
+MenuItem(mit_Sup1):
+    name: Sup #1
+    description: red and tasty
+    price: 1000
+    avaliable: true
+    menuItemCreated: 10.9.10
+    group: mgp_first
+    client: client1
+    deleted: false
+
+MenuItem(mit_Sup2):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1100
+    avaliable: true
+    menuItemCreated: 10.10.10
+    group: mgp_first
+    client: client1
+    deleted: false
+
+MenuItem(mit_Garnir1):
+    name: Poptato with sosiska
+    description: USSR toilet paper standart #1
+    price: 1500
+    avaliable: true
+    menuItemCreated: 13.9.10
+    group: mgp_garnir
+    client: client1
+    deleted: false
+
+MenuItem(mit_Garnir2):
+    name: Potato with cotleta
+    description: fresh and tasty
+    price: 1500
+    avaliable: true
+    menuItemCreated: 9.9.10
+    group: mgp_garnir
+    client: client1
+    deleted: false
+
+MenuItem(mit_pizza1):
+    name: Chelntano 1
+    description: fresh and tasty
+    price: 3000
+    avaliable: true
+    menuItemCreated: 9.9.10
+    group: mgp_pizza
+    client: client1
+    deleted: false
+
+#Order Itemz
+
+#Orderz
