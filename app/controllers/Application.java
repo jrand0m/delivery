@@ -6,9 +6,9 @@ import java.util.List;
 import models.clients.Client;
 import models.clients.MenuItem;
 import models.user.Order;
+import models.user.Order.OrderStatus;
 import models.user.OrderItem;
 import models.user.User;
-import models.user.Order.OrderStatus;
 import models.user.User.UserStatus;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -155,6 +155,7 @@ public class Application extends Controller
 
 		}
 		ok();
+
 	}
 
 	/**
