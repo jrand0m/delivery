@@ -1,0 +1,36 @@
+user.User(usr_uzor):
+    name: Vasyl
+    surname: Petrovich
+    phoneNumber: "+380630683088"
+    miscInfo: Extream Fapper
+    email: vasyl.superman@gmail.com
+    login: vasja
+    password: "123"
+    userStatus: ACTIVE
+    joinDate: 11.11.10
+    lastLoginDate: 11.11.10
+
+user.User(usr_client):
+    name: Galyna
+    surname: Petrovich
+    phoneNumber: "+380630683088"
+    miscInfo: Extream Fapper Club President
+    email: g.spot@gmail.com
+    login: galyna
+    password: "123"
+    userStatus: ACTIVE
+    joinDate: 11.11.10
+    lastLoginDate: 11.11.10
+
+user.User(usr_admin):
+    name: Admin
+    surname: Admin
+    phoneNumber: "+380630683088"
+    miscInfo: admin
+    email: admin@gmail.com
+    login: admin
+    password: "123"
+    userStatus: ADMIN
+    joinDate: 11.11.10
+    lastLoginDate: 11.11.10
+
