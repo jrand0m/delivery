@@ -2,10 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package models.user;
 
 import java.util.Date;
 import java.util.List;
+
+import models.Address;
 
 import play.data.validation.Email;
 import play.data.validation.Password;

@@ -2,6 +2,8 @@ package models;
 
 import java.util.Date;
 
+import models.user.User;
+
 import siena.Id;
 import siena.Model;
 

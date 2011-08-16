@@ -1,5 +1,6 @@
 package models;
 
+import models.user.User;
 import controllers.CRUD.Hidden;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;

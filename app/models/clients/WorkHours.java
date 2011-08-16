@@ -1,4 +1,4 @@
-package models;
+package models.clients;
 
 import java.util.Date;
 import java.util.Map;

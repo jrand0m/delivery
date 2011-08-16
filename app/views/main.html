@@ -12,15 +12,24 @@
     </head>
     <body>
         #{if user}
-        Hello, <a href="@{Locker.index()}">${user.name}</a>!
+        Hello,<img src = "@{'/public/images/user.png'}" /> <a href="@{Locker.index()}">${user.name}</a>!
+		
+			<span id="basket_span"><a href="@{Locker.basket()}"><img src = "@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
+		
         <a href="@{Secure.logout()}"> Logout <a/>
         #{/if}
         #{else}
-        <a href="@{Application.newUser()}">Register new User<a/>
-        <a href="@{Secure.login()}">Login<a/>
+        <a href="@{Application.newUser()}"><img src = "@{'/public/images/user--plus.png'}" />Register new User<a/>
+        <a href="@{Secure.login()}"><img src = "@{'/public/images/key-solid.png'}" />Login<a/>
         
         #{/else}
         
         #{doLayout /}
+		<div id="fotter">
+			<ul id="copyrghts">
+				<li>vdoma.com.ua(c) 2011. All rights reserverd. Logos and other art that may apear may be registered trademarks and belong to their rightfull owners.</li>
+				<li>Some Icons are Copyright &copy; <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>. All rights reserved.</li>
+			</ul>
+		</div>
     </body>
 </html>

@@ -1,4 +1,4 @@
-package models;
+package models.clients;
 
 import siena.Id;
 import siena.Model;
