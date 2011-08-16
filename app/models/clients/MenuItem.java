@@ -24,17 +24,17 @@ public class MenuItem extends Model {
     @NotNull
     public Client client;
     public Boolean deleted = false;
-    
-    public MenuItem(){
-	
+
+    public MenuItem() {
+
     }
+
     /**
-     * Cloning constructor
-     * generates new id
+     * Cloning constructor generates new id
      * */
     public MenuItem(MenuItem item) {
-	this(null, item.name, item.description,item.price,item.avaliable,item.menuItemCreated,
-		item.group,item.client, item.deleted);
+	this(null, item.name, item.description, item.price, item.avaliable,
+		item.menuItemCreated, item.group, item.client, item.deleted);
     }
 
     public MenuItem(Long id, String name, String description, Integer price,
@@ -51,6 +51,5 @@ public class MenuItem extends Model {
 	this.client = client;
 	this.deleted = deleted;
     }
-    
-    
+
 }
