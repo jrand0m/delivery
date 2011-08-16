@@ -1,6 +1,6 @@
 package controllers.admin;
 
-import models.clients.Day;
+import models.Day;
 import controllers.CRUD;
 import controllers.CRUD.For;
 

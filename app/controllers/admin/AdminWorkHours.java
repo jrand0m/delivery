@@ -1,6 +1,6 @@
 package controllers.admin;
 
-import models.clients.WorkHours;
+import models.WorkHours;
 import controllers.CRUD;
 import controllers.CRUD.For;
 

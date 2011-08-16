@@ -3,13 +3,13 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
-import models.clients.Client;
-import models.clients.MenuItem;
-import models.user.Order;
-import models.user.Order.OrderStatus;
-import models.user.OrderItem;
-import models.user.User;
-import models.user.User.UserStatus;
+import models.Client;
+import models.MenuItem;
+import models.Order;
+import models.OrderItem;
+import models.User;
+import models.Order.OrderStatus;
+import models.User.UserStatus;
 import play.Play;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -19,13 +19,13 @@ import siena.Model;
 public class Application extends Controller {
 
     public static void loadFix() {
-	// if( User.all( User.class ).count() == 0 )
-	{
+	if (Play.mode.isDev() && Model.all(User.class).fetch().size() == 0) {
+
 	    VirtualFile appRoot = VirtualFile.open(Play.applicationPath);
 	    Play.javaPath.add(0, appRoot.child("test"));
 	    try {
 		// SienaFixutre.deleteAll();
-		SienaFixutre.load("data.yml");
+		SienaFixutre.load("dev_data.yml");
 	    } catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

@@ -1,6 +1,6 @@
 package controllers.admin;
 
-import models.clients.MenuItemGroup;
+import models.MenuItemGroup;
 import controllers.CRUD;
 import controllers.CRUD.For;
 

@@ -1,6 +1,6 @@
 package controllers.admin;
 
-import models.user.User;
+import models.User;
 import controllers.CRUD;
 import controllers.CRUD.For;
 

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Address;
-import models.user.Order;
-import models.user.Order.OrderStatus;
-import models.user.OrderItem;
-import models.user.User;
+import models.Order;
+import models.OrderItem;
+import models.User;
+import models.Order.OrderStatus;
 import play.mvc.Controller;
 import play.mvc.Router;
 import play.mvc.With;

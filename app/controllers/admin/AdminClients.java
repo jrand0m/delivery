@@ -1,6 +1,6 @@
 package controllers.admin;
 
-import models.clients.Client;
+import models.Client;
 import controllers.CRUD;
 import controllers.CRUD.For;
 

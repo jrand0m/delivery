@@ -1,6 +1,6 @@
 package controllers.admin;
 
-import models.user.Order;
+import models.Order;
 import controllers.CRUD;
 import controllers.CRUD.For;
 
