@@ -47,9 +47,10 @@ public class User extends Model {
 
     public Date joinDate;
     public Date lastLoginDate;
+    public boolean deleted = false;
 
     public static enum UserStatus {
-	ACTIVE, PENDING_APPROVEMENT, DELETED, ADMIN;
+	ACTIVE, PENDING_APPROVEMENT, ADMIN, OWNER;
     }
 
     public List<Address> getAddresses() {

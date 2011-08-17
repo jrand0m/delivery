@@ -24,5 +24,5 @@ public class Address extends Model {
     public String additionalInfo;
     @NotNull
     public User userId;
-    public Boolean deleted = false;
+    public boolean deleted = false;
 }
