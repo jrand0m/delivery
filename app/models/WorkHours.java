@@ -14,7 +14,7 @@ public class WorkHours extends Model {
     public Long id;
 
     public String description;
-    public Boolean deleted = false;
+    public boolean deleted = false;
     public Day worrkDay;
     public Day saturday;
     public Day sunday;

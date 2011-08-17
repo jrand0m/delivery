@@ -47,7 +47,7 @@ public class Order extends Model {
     public Address deliveryAddress;
     @Filter("orderId")
     public Query<OrderItem> items;
-    public Boolean deleted = false;
+    public boolean deleted = false;
 
     public static enum OrderStatus {
 	OPEN, ACCEPTED, COOKED, DELIVERING, DELIVERED, DECLINED
