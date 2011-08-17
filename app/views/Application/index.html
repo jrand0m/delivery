@@ -2,6 +2,6 @@
 #{set title:'Home' /}
 <ol>
  #{list items:clients, as:'client' }
-     <li><a href="@{Application.showMenu(client.id)}">${client.name}</a></li>
+     <li><a href="@{Application.showMenu(client.id)}">${client.title}</a></li>
  #{/list}
 </ol>

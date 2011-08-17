@@ -8,22 +8,21 @@ import siena.Model;
 public class AccountingTransaction extends Model {
     @Id
     public Long id;
-    public AC_TRANSACTION_TYPE type;
+    public AC_TRANSACTION_STATE state;
     public Integer amount;
     public String desc;
     public Date operationDate;
-    public Boolean deleted = Boolean.FALSE;
+    public boolean deleted = false;
     public AccountingGroup group;
+    /**
+     * 
+     * */
+    public User target;
+    public Integer regularDayInMonthNo = -1;
 
-    public static enum AC_TRANSACTION_TYPE {
-	/**
-	 * ti sho v podatkove mozhna nesty
-	 * */
-	OFFICIAL,
-	/**
-	 * ti sho ne vhodjat' v podatkovi documenty (neoficiini)
-	 * */
-	INTERNAL
+    public static enum AC_TRANSACTION_STATE {
+
+	WAITING, APPROVED, PAID, RECIEVED;
 
     }
 

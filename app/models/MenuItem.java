@@ -17,13 +17,13 @@ public class MenuItem extends Model {
      * */
     @NotNull
     public Integer price;
-    public Boolean avaliable = false;
+    public boolean avaliable = false;
     @NotNull
     public Date menuItemCreated;
     public MenuItemGroup group;
     @NotNull
     public Client client;
-    public Boolean deleted = false;
+    public boolean deleted = false;
 
     public MenuItem() {
 

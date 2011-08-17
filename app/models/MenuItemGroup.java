@@ -11,5 +11,5 @@ public class MenuItemGroup extends Model {
     public String name;
     public String description;
     public Boolean generic = Boolean.FALSE;
-    public Boolean deleted = false;
+    public boolean deleted = false;
 }
