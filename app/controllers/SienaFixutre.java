@@ -51,6 +51,7 @@ public class SienaFixutre {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void load(String name) throws Exception {
 		VirtualFile yamlFile = null;
 
