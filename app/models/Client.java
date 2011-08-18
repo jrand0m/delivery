@@ -23,6 +23,6 @@ public class Client extends User {
     public Double discount;
 
     public Client() {
-	userStatus = UserStatus.OWNER;
+	userStatus = UserStatus.ACTIVE;
     }
 }

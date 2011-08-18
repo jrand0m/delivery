@@ -1,5 +1,10 @@
 package controllers;
 
+import java.util.List;
+
+import models.User;
+import siena.Model;
+
 /**
  * Overriden security model
  * 
@@ -11,9 +16,23 @@ package controllers;
 public class Security extends Secure.Security {
 
     static boolean authentify(String username, String password) {
+	List<User> users = Model.all(User.class).filter("login", username)
+		.fetch();
+	if (!users.isEmpty() && users.get(0).password.equals(password)) {
+	    return true;
+	}
+	return false;
+    }
 
-	// TODO [Mike] Make normal security model based on users!
-	return true;
+    public static boolean check(String role) {
+	if (isConnected()) {
+	    List<User> users = Model.all(User.class)
+		    .filter("login", connected()).fetch();
+	    if (users.get(0).role.toString().equals(role)) {
+		return true;
+	    }
+	}
+	return false;
     }
 
 }

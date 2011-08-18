@@ -45,12 +45,18 @@ public class User extends Model {
     @NotNull
     public UserStatus userStatus;
 
+    public UserRoles role;
+
     public Date joinDate;
     public Date lastLoginDate;
     public boolean deleted = false;
 
     public static enum UserStatus {
-	ACTIVE, PENDING_APPROVEMENT, ADMIN, OWNER;
+	ACTIVE, PENDING_APPROVEMENT, BANNED;
+    }
+
+    public static enum UserRoles {
+	USER, CLIENT, ADMIN, COURIER, CASHIER
     }
 
     public List<Address> getAddresses() {

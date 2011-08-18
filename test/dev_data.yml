@@ -7,6 +7,7 @@ User(usr_uzor):
     login: v
     password: "123"
     userStatus: ACTIVE
+    role: USER
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
 
@@ -18,7 +19,8 @@ User(usr_admin):
     email: admin@gmail.com
     login: admin
     password: "123"
-    userStatus: ADMIN
+    userStatus: ACTIVE
+    role: ADMIN
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
 
@@ -62,7 +64,8 @@ Client(client1):
     email: g.spot@gmail.com
     login: galyna
     password: "123"
-    userStatus: OWNER
+    userStatus: ACTIVE
+    role: CLIENT
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
     title: Pizza Chlentano!11

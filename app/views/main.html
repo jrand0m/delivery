@@ -11,6 +11,12 @@
         #{get 'moreScripts' /}
     </head>
     <body>
+        <div>
+            menu: 
+            <a href="@{Application.index}">home</a>
+            <a href="@{ClientAdmin.showPage}">client admin</a>
+            
+        </div>
         #{if user}
         Hello,<img src = "@{'/public/images/user.png'}" /> <a href="@{Locker.index()}">${user.name}</a>!
 		
