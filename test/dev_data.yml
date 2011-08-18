@@ -10,18 +10,6 @@ User(usr_uzor):
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
 
-User(usr_client):
-    name: Galyna
-    surname: Petrovich
-    phoneNumber: "+380630683088"
-    miscInfo: Extream Fapper Club President
-    email: g.spot@gmail.com
-    login: galyna
-    password: "123"
-    userStatus: ACTIVE
-    joinDate: 11.11.10
-    lastLoginDate: 11.11.10
-
 User(usr_admin):
     name: Admin
     surname: Admin
@@ -43,13 +31,6 @@ Address(adr_uzor):
     userId: usr_uzor
     deleted: false
 
-Address(adr_client):
-    street: kreshchatyk
-    appartamentsNumber: "123"
-    buldingNuber: "123"
-    additionalInfo: knock three times
-    userId: usr_client
-    deleted: false
 
 #work hours
 Day(day_work):
@@ -74,14 +55,30 @@ WorkHours(wrh_client1):
 
 #Clients
 Client(client1):
-    name: Pizza Chlentano!11
-    address: Some street 11, 11
-    status: ACTIVE
+    name: Galyna
+    surname: Petrovich
+    phoneNumber: "+380630683088"
+    miscInfo: Extream Fapper Club President
+    email: g.spot@gmail.com
+    login: galyna
+    password: "123"
+    userStatus: OWNER
+    joinDate: 11.11.10
+    lastLoginDate: 11.11.10
+    title: Pizza Chlentano!11
     workHours: wrh_client1
     contactPerson: Judje Dred
     contactPhone: "+3044555555"
     discount: 10.1
-    clientUser: usr_client
+    deleted: false
+
+
+Address(adr_client):
+    street: kreshchatyk
+    appartamentsNumber: "123"
+    buldingNuber: "123"
+    additionalInfo: knock three times
+    userId: client1
     deleted: false
 
 #Menu groups 
