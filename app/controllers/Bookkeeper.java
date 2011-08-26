@@ -15,6 +15,7 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 import siena.Model;
+import siena.Query;
 
 /**
  * @author Mike Stetsyshyn
@@ -22,20 +23,23 @@ import siena.Model;
  *         class to make accounting and reporting on our income and outcome
  */
 @With(Secure.class)
-@Check("Accounting")
+@Check("ADMIN")
 public class Bookkeeper extends Controller {
 
     @Before
     static void _prepare() {
-	// todo login check??
+	if (!Security.isConnected()){
+	    forbidden();
+	}
+	renderArgs.put("user", Model.all(User.class).filter("login", Security.connected()));
     }
 
     public static void index() {
-	showReport(null, null, null, true);
+	showReport(null, null, null);
     }
 
     public static void showReport(Long groupId, @As("dd/MM/yyyy") Date from,
-	    @As("dd/MM/yyyy") Date to, boolean excluding) {
+	    @As("dd/MM/yyyy") Date to) {
 	ArrayList<TransactionGroupHolder> transactions = new ArrayList<TransactionGroupHolder>();
 	if (groupId == null || groupId < 0) {
 	    List<AccountingGroup> groups = Model.all(AccountingGroup.class)
@@ -44,11 +48,11 @@ public class Bookkeeper extends Controller {
 		TransactionGroupHolder tgh = new TransactionGroupHolder();
 		tgh.setGroup(group);
 
-		List<AccountingTransaction> transacts = Model
-			.all(AccountingTransaction.class)
-			.filter("deleted", false).filter("group", group)
-			.fetch();
-		// TODO get by date
+		List<AccountingTransaction> transacts = addDateFilter(
+			Model.all(AccountingTransaction.class)
+				.filter("deleted", false)
+				.filter("group", group), from, to).fetch();
+
 		tgh.setTransactions(transacts);
 		transactions.add(tgh);
 	    }
@@ -58,14 +62,27 @@ public class Bookkeeper extends Controller {
 	    TransactionGroupHolder tgh = new TransactionGroupHolder();
 	    tgh.setGroup(group);
 
-	    List<AccountingTransaction> transacts = Model
-		    .all(AccountingTransaction.class).filter("deleted", false)
-		    .filter("group", group).fetch();
-	    // TODO get by date
+	    List<AccountingTransaction> transacts = addDateFilter(
+		    Model.all(AccountingTransaction.class)
+			    .filter("deleted", false).filter("group", group),
+		    from, to).fetch();
+
 	    tgh.setTransactions(transacts);
 	    transactions.add(tgh);
 	}
 	render(transactions);
+    }
+
+    private static Query<AccountingTransaction> addDateFilter(
+	    Query<AccountingTransaction> query, Date from, Date to) {
+	Query<AccountingTransaction> result = query;
+	if (from != null) {
+	    result = result.filter("operationDate>", from);
+	}
+	if (to != null) {
+	    result = result.filter("operationDate<", to);
+	}
+	return result;
     }
 
     public static void addTransaction(Integer amount, User target,
@@ -82,12 +99,17 @@ public class Bookkeeper extends Controller {
     }
 
     public static void modTransaction(Long id) {
-
+	
 	todo();
     }
 
     public static void delTransaction(Long id) {
 
-	todo();
+	AccountingTransaction transaction = Model.getByKey(AccountingTransaction.class, id);
+	transaction.deleted = false;
+	transaction.save();
+	//TODO Mike: Add messages...
+	ok();
+	
     }
 }

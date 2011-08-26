@@ -121,7 +121,7 @@ public class Application extends Controller {
 		order = createNewOpenOrder(user);// TODO [Mike] Add constructor
 		// for this
 		// case
-		order.client = menuItem.client;
+		//order.client = menuItem.client;
 		order.orderOwner = user;
 
 	    }
@@ -131,8 +131,11 @@ public class Application extends Controller {
 	    orderitem.orderItemPrice = menuItem.price;
 	    orderitem.insert();
 
+	}else if (session.contains("chartId")) {
+	    
 	}
-	ok();
+	
+	
     }
 
     public static void delOrderItem(Long id) {

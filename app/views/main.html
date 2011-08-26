@@ -21,6 +21,12 @@
         Hello,<img src = "@{'/public/images/user.png'}" /> <a href="@{Locker.index()}">${user.name}</a>!
 		
 			<span id="basket_span"><a href="@{Locker.basket()}"><img src = "@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
+			#{if user.role == user.UserRoles.ADMIN}
+				<a href="@{Bookkeeper.index()}">Bookkeeping</a>
+			#{/if}
+			#{if user.role == user.UserRoles.CLIENT}
+				<a href="@{Bookkeeper.index()}">Admin</a>
+			#{/if}
 		
         <a href="@{Secure.logout()}"> Logout <a/>
         #{/if}
