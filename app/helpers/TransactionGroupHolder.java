@@ -6,25 +6,25 @@ import models.AccountingGroup;
 import models.AccountingTransaction;
 
 public class TransactionGroupHolder {
-    private AccountingGroup group;
+    private AccountingGroup             group;
     private List<AccountingTransaction> transactions;
 
     public void setGroup(AccountingGroup group) {
-	this.group = group;
+        this.group = group;
 
     }
 
     public AccountingGroup getGroup() {
-	return this.group;
+        return this.group;
 
     }
 
     public List<AccountingTransaction> getTransactions() {
-	return transactions;
+        return transactions;
     }
 
     public void setTransactions(List<AccountingTransaction> transactions) {
-	this.transactions = transactions;
+        this.transactions = transactions;
     }
 
 }

@@ -8,8 +8,8 @@ public class ClientAdmin extends Controller {
 
     @Check("CLIENT")
     public static void showPage() {
-	String login = Security.connected();
-	render(login);
+        String login = Security.connected();
+        render(login);
     }
 
 }

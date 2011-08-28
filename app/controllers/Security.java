@@ -3,7 +3,6 @@ package controllers;
 import java.util.List;
 
 import models.User;
-import siena.Model;
 
 /**
  * Overriden security model
@@ -16,23 +15,21 @@ import siena.Model;
 public class Security extends Secure.Security {
 
     static boolean authentify(String username, String password) {
-	List<User> users = Model.all(User.class).filter("login", username)
-		.fetch();
-	if (!users.isEmpty() && users.get(0).password.equals(password)) {
-	    return true;
-	}
-	return false;
+        User user = User.find("login = ?", username).first();
+        if (user != null && user.password.equals(password)) {
+            return true;
+        }
+        return false;
     }
 
     public static boolean check(String role) {
-	if (isConnected()) {
-	    List<User> users = Model.all(User.class)
-		    .filter("login", connected()).fetch();
-	    if (users.get(0).role.toString().equals(role)) {
-		return true;
-	    }
-	}
-	return false;
+        if (isConnected()) {
+            User user = User.find("login = ?", connected()).first();
+            if (user.role.toString().equals(role)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
