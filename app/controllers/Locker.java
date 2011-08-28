@@ -24,14 +24,20 @@ public class Locker extends Controller {
     @Before
     public static void __prepare() {
         if (!Security.isConnected()) {
-            flash.put("url", Router.getFullUrl("Locker.index"));
-            try {
-                Secure.login();
-            } catch (Throwable e) {
-                // TODO checkout how to redirect back here !
-                forbidden();
-                e.printStackTrace();
+            if (session.contains("bid") && session.get("bid") != null) {
+                //unregistered user
                 return;
+            } else {
+                flash.put("url", Router.getFullUrl("Locker.index"));
+
+                try {
+                    Secure.login();
+                } catch (Throwable e) {
+                    // TODO checkout how to redirect back here !
+                    forbidden();
+                    e.printStackTrace();
+                    return;
+                }
             }
         }
         String userName = Security.connected();
@@ -56,6 +62,9 @@ public class Locker extends Controller {
     }
 
     public static void basket() {
+        if (session.contains(Application.ANONYMOUS_BASKET_ID)){
+            
+        }
         User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
         Order order = Order.find("orderOwner = ? and orderStatus = ?", user,
                 OrderStatus.OPEN).first();

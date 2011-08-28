@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 
 import play.db.jpa.Model;
@@ -52,7 +53,7 @@ public class Order extends Model {
 
     public Date                 orderDate;
     public User                 orderOwner;
-
+    
     public OrderStatus          orderStatus;
 
     private Integer getDeliveryCost() {
