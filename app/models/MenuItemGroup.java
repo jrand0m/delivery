@@ -8,13 +8,11 @@ import org.hibernate.annotations.Where;
 import play.db.jpa.Model;
 
 @Entity
-@Where(clause = "deleted = false")
+@Where(clause = "deleted = 0")
 public class MenuItemGroup extends Model {
     public boolean deleted = false;
 
     public String  description;
     public Boolean generic = Boolean.FALSE;
-    @Id
-    public Long    id;
     public String  name;
 }

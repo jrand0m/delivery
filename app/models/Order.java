@@ -1,18 +1,21 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Where;
 
 import play.db.jpa.Model;
 
 @Entity
-@Where(clause = "deleted = false")
+@Where(clause = "deleted = 0")
 public class Order extends Model {
     public static enum OrderStatus {
         ACCEPTED, COOKED, DECLINED, DELIVERED, DELIVERING, OPEN
@@ -36,11 +39,9 @@ public class Order extends Model {
      * */
 
     public Integer              deliveryPrice;
-    @Id
-    public Long                 id;
-
-    @OneToMany
-    public List<OrderItem>      items;
+    //@OneToMany
+    @OneToMany(mappedBy="order", cascade=CascadeType.ALL)
+    public List<OrderItem>      items = new ArrayList<OrderItem>();
 
     /**
      * User order close date/time

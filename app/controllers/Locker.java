@@ -76,7 +76,7 @@ public class Locker extends Controller {
         if (address == null) {
             redirect(Router.getFullUrl("Locker.index"));
         }
-        address.userId = (User) renderArgs.get(Application.USER_RENDER_KEY);
+        address.user = (User) renderArgs.get(Application.USER_RENDER_KEY);
         address.create();
         // TODO in future do it asynchronously!
         todo();
@@ -88,7 +88,7 @@ public class Locker extends Controller {
             error("Data inconsistency detected");
         }
 
-        address.userId = (User) renderArgs.get(Application.USER_RENDER_KEY);
+        address.user = (User) renderArgs.get(Application.USER_RENDER_KEY);
         Address base = Address.findById(address.id);
         if (!address.equals(base)) {
             // TODO Make logging

@@ -25,8 +25,6 @@ public class LogItem extends Model {
     public Long   classId;
     public String className;
     public String field;
-    @Id
-    public Long   id;
 
     public String modifiedBy;
     public Date   modifiedOn;

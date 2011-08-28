@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Transient;
 
 
 import org.hibernate.annotations.Where;
@@ -24,8 +27,7 @@ import play.data.validation.Phone;
  * @author mike
  */
 @Entity
-@PrimaryKeyJoinColumn(name="USER_ID")
-@Where(clause = "deleted = false")
+@DiscriminatorValue("CLIENT_USER")
 public class Client extends User {
 
     public String         contactPerson;
@@ -33,7 +35,7 @@ public class Client extends User {
     @Phone
     public String         contactPhone;
     public Double         discount;
-    @OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="client", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public Set<MenuItem> menuBook;
     public String         title;
     public WorkHours      workHours;

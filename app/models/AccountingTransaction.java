@@ -10,7 +10,7 @@ import org.hibernate.annotations.Where;
 import play.db.jpa.Model;
 
 @Entity
-@Where(clause = "deleted = false")
+@Where(clause = "deleted = 0")
 public class AccountingTransaction extends Model {
     public static enum AC_TRANSACTION_STATE {
 
@@ -21,8 +21,6 @@ public class AccountingTransaction extends Model {
     public boolean              deleted             = false;
     public String               desc;
     public AccountingGroup      group;
-    @Id
-    public Long                 id;
     public Date                 operationDate;
     public Integer              regularDayInMonthNo = -1;
     public AC_TRANSACTION_STATE state;
