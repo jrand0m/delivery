@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
 
@@ -19,7 +20,8 @@ public class AccountingTransaction extends Model {
     }
     public Integer              amount;
     public boolean              deleted             = false;
-    public String               desc;
+    public String               description;
+    @ManyToOne
     public AccountingGroup      group;
     public Date                 operationDate;
     public Integer              regularDayInMonthNo = -1;
@@ -28,6 +30,7 @@ public class AccountingTransaction extends Model {
     /**
      * 
      * */
+    @ManyToOne
     public User                 target;
 
 }

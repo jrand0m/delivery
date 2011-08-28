@@ -28,6 +28,7 @@ import org.hibernate.annotations.Where;
 import play.data.validation.Email;
 import play.data.validation.Password;
 import play.data.validation.Phone;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 /**
@@ -61,7 +62,7 @@ public class User extends Model {
     public Date          joinDate;
 
     public Date          lastLoginDate;
-
+    @Required
     public String        login;          // FIXME need to be unique, but how ?
                                           // [Mike] use
     // @PreInsert + @PreUpdate

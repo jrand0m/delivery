@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Where;
@@ -16,6 +17,7 @@ import play.db.jpa.Model;
 
 @Entity
 @Where(clause = "deleted = 0")
+@Table(name="Orders")
 public class Order extends Model {
     public static enum OrderStatus {
         ACCEPTED, COOKED, DECLINED, DELIVERED, DELIVERING, OPEN

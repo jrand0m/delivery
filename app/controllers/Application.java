@@ -22,25 +22,25 @@ public class Application extends Controller {
     public static final String USER_RENDER_KEY = "user";
 
     public static void loadFix() {
-        if (Play.mode.isDev()) {
-            if (User.count() > 0) {
-                Fixtures.deleteDatabase();
-            }
-            VirtualFile appRoot = VirtualFile.open(Play.applicationPath);
-            Play.javaPath.add(0, appRoot.child("test"));
-            try {
+        // if (Play.mode.isDev()) {
+        if (User.count() > 0) {
+            Fixtures.deleteDatabase();
+        }
+        VirtualFile appRoot = VirtualFile.open(Play.applicationPath);
+        Play.javaPath.add(0, appRoot.child("test"));
+        try {
 
-                Fixtures.loadModels("dev_data.yml");
-                renderText("fixtures loaded");
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                renderText("fixtures load failed: " + e.getMessage());
-            }
-            return;
+            Fixtures.loadModels("dev_data.yml");
+            renderText("fixtures loaded");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            renderText("fixtures load failed: " + e.getMessage());
+        }
+        return;
 
-        } else
-            ok();
+        // } else
+        // ok();
 
     }
 

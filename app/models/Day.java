@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
@@ -19,7 +20,8 @@ import play.db.jpa.Model;
 @DiscriminatorValue("BASIC_DAY")
 public class Day extends Model {
     final static public String TIME_FORMAT = "HH:mm";
-
+    @Column(name="from_time")
     public String              from;
+    @Column(name="to_time")
     public String              to;
 }

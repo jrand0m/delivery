@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
 
@@ -23,5 +24,6 @@ public class Address extends Model {
     @MaxSize(100)
     @MinSize(5)
     public String  street;
+    @ManyToOne
     public User    user;
 }

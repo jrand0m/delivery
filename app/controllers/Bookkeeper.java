@@ -115,7 +115,7 @@ public class Bookkeeper extends Controller {
             String description, Long groupId) {
         AccountingTransaction tran = new AccountingTransaction();
         tran.amount = amount;
-        tran.desc = description;
+        tran.description = description;
         tran.deleted = false;
         tran.group = AccountingGroup.findById(groupId);
         tran.state = AC_TRANSACTION_STATE.WAITING;

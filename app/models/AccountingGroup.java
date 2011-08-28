@@ -11,7 +11,7 @@ import play.db.jpa.Model;
 @Where(clause = "deleted = 0")
 public class AccountingGroup extends Model {
     public boolean deleted = false;
-    public String  desc;
+    public String  description;
     public String  name;
 
 }
