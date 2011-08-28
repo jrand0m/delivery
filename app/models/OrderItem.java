@@ -8,18 +8,15 @@ import org.hibernate.annotations.Where;
 import play.db.jpa.Model;
 
 @Entity
-@Where(clause = "deleted = false")
+@Where(clause = "deleted = 0")
 public class OrderItem extends Model {
     public Integer  count;
 
     public boolean  deleted = false;
 
-    @Id
-    public Long     id;
-
     public MenuItem menuItemId;
 
-    public Order    orderId;
+    public Order    order;
     /**
      * Archived price that should be paid by user (That was calculated in
      * moment, when order was approved).
@@ -41,14 +38,14 @@ public class OrderItem extends Model {
         this.count = count;
         this.orderItemUserPrice = orderItemUserPrice;
         this.orderItemPrice = orderItemPrice;
-        this.orderId = orderId;
+        this.order = orderId;
         this.deleted = false;
     }
 
     public OrderItem(MenuItem menuItem, Order order, User user) {
         // TODO [Mike] (add calculations of a price here )
         menuItemId = menuItem;
-        orderId = order;
+        this.order = order;
     }
 
     public MenuItem getMenuItem() {
@@ -57,7 +54,7 @@ public class OrderItem extends Model {
 
     public Order getOrder() {
 
-        return orderId;// Model.all(Order.class).getByKey(orderId);
+        return order;// Model.all(Order.class).getByKey(orderId);
     }
 
 }

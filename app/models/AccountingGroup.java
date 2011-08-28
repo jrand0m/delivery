@@ -8,12 +8,10 @@ import org.hibernate.annotations.Where;
 import play.db.jpa.Model;
 
 @Entity
-@Where(clause = "deleted = false")
+@Where(clause = "deleted = 0")
 public class AccountingGroup extends Model {
     public boolean deleted = false;
     public String  desc;
-    @Id
-    public Long    id;
     public String  name;
 
 }

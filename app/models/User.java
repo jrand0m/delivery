@@ -8,12 +8,20 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Where;
 
@@ -27,8 +35,13 @@ import play.db.jpa.Model;
  * @author mike
  */
 @Entity
-@Where(clause = "deleted = false")
-@Inheritance(strategy=InheritanceType.JOINED)
+@Where(clause = "deleted = 0")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+    name="USER_CLASS",
+    discriminatorType=DiscriminatorType.STRING
+)
+@DiscriminatorValue("GENERIC_USER")
 public class User extends Model {
     public static enum UserRoles {
         ADMIN, CASHIER, CLIENT, COURIER, USER
@@ -38,15 +51,12 @@ public class User extends Model {
         ACTIVE, BANNED, PENDING_APPROVEMENT;
     }
 
-    @OneToMany
+    @OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public List<Address> addressBook;
 
     public boolean       deleted = false;
     @Email
     public String        email;
-    @Id
-    @Column(name="USER_ID")
-    public Long          id;
 
     public Date          joinDate;
 
