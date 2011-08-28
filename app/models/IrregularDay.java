@@ -1,8 +1,11 @@
 package models;
 
-import siena.embed.EmbeddedMap;
+import javax.persistence.Entity;
 
-@EmbeddedMap
+import org.hibernate.annotations.Where;
+
+@Entity
+@Where(clause = "deleted = false")
 public class IrregularDay extends Day {
     public boolean deleted = false;
 }

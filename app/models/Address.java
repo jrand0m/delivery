@@ -1,28 +1,28 @@
 package models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.Where;
+
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
-import siena.Generator;
-import siena.Id;
-import siena.Model;
-import siena.NotNull;
-import siena.Table;
+import play.db.jpa.Model;
 
-@Table("Address")
+@Entity
+@Where(clause = "deleted = false")
 public class Address extends Model {
-    @Id(Generator.AUTO_INCREMENT)
-    public Long id;
-    @NotNull
+    @MaxSize(200)
+    public String  additionalInfo;
+    @MaxSize(5)
+    public String  appartamentsNumber;
+    @MaxSize(5)
+    public String  buldingNuber;
+    public boolean deleted = false;
+    @Id
+    public Long    id;
     @MaxSize(100)
     @MinSize(5)
-    public String street;
-    @MaxSize(5)
-    public String appartamentsNumber;
-    @MaxSize(5)
-    public String buldingNuber;
-    @MaxSize(200)
-    public String additionalInfo;
-    @NotNull
-    public User userId;
-    public boolean deleted = false;
+    public String  street;
+    public User    userId;
 }

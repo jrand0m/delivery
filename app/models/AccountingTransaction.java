@@ -2,28 +2,34 @@ package models;
 
 import java.util.Date;
 
-import siena.Id;
-import siena.Model;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+import org.hibernate.annotations.Where;
+
+import play.db.jpa.Model;
+
+@Entity
+@Where(clause = "deleted = false")
 public class AccountingTransaction extends Model {
+    public static enum AC_TRANSACTION_STATE {
+
+        APPROVED, PAID, RECIEVED, WAITING;
+
+    }
+    public Integer              amount;
+    public boolean              deleted             = false;
+    public String               desc;
+    public AccountingGroup      group;
     @Id
-    public Long id;
+    public Long                 id;
+    public Date                 operationDate;
+    public Integer              regularDayInMonthNo = -1;
     public AC_TRANSACTION_STATE state;
-    public Integer amount;
-    public String desc;
-    public Date operationDate;
-    public boolean deleted = false;
-    public AccountingGroup group;
+
     /**
      * 
      * */
-    public User target;
-    public Integer regularDayInMonthNo = -1;
-
-    public static enum AC_TRANSACTION_STATE {
-
-	WAITING, APPROVED, PAID, RECIEVED;
-
-    }
+    public User                 target;
 
 }

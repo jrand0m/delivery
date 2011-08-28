@@ -1,15 +1,20 @@
 package models;
 
-import siena.Id;
-import siena.Model;
-import siena.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+import org.hibernate.annotations.Where;
+
+import play.db.jpa.Model;
+
+@Entity
+@Where(clause = "deleted = false")
 public class MenuItemGroup extends Model {
-    @Id
-    public Long id;
-    @NotNull
-    public String name;
-    public String description;
-    public Boolean generic = Boolean.FALSE;
     public boolean deleted = false;
+
+    public String  description;
+    public Boolean generic = Boolean.FALSE;
+    @Id
+    public Long    id;
+    public String  name;
 }
