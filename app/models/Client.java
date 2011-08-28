@@ -42,5 +42,6 @@ public class Client extends User {
 
     public Client() {
         userStatus = UserStatus.ACTIVE;
+        role = UserRoles.CLIENT;
     }
 }

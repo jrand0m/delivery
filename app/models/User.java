@@ -23,12 +23,14 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 
 import play.data.validation.Email;
 import play.data.validation.Password;
 import play.data.validation.Phone;
 import play.data.validation.Required;
+import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
 
 /**
@@ -43,14 +45,20 @@ import play.db.jpa.Model;
     discriminatorType=DiscriminatorType.STRING
 )
 @DiscriminatorValue("GENERIC_USER")
-public class User extends Model {
+public class User extends GenericModel {
     public static enum UserRoles {
         ADMIN, CASHIER, CLIENT, COURIER, USER
     }
 
     public static enum UserStatus {
-        ACTIVE, BANNED, PENDING_APPROVEMENT;
+        ACTIVE, BANNED, PENDING_APPROVEMENT, ANONNYMOUS;
     }
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    public String id;
+    
+    
 
     @OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public List<Address> addressBook;

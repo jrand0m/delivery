@@ -20,6 +20,7 @@ import play.test.Fixtures;
 public class Application extends Controller {
 
     public static final String USER_RENDER_KEY = "user";
+    public static final String ANONYMOUS_BASKET_ID = "BID";
 
     public static void loadFix() {
         // if (Play.mode.isDev()) {
@@ -103,6 +104,9 @@ public class Application extends Controller {
         user.lastLoginDate = new Date();
         user.userStatus = UserStatus.PENDING_APPROVEMENT;
         user.create();
+        if (session.contains(ANONYMOUS_BASKET_ID) && session.get(ANONYMOUS_BASKET_ID) != null){
+//            List<Orders>
+        }
         try {
             Secure.authenticate(user.login, user.password, false);
         } catch (Throwable e) {

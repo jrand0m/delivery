@@ -31,6 +31,7 @@
         <a href="@{Secure.logout()}"> Logout <a/>
         #{/if}
         #{else}
+        <span id="basket_span"><a href="@{Locker.basket()}"><img src = "@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
         <a href="@{Application.newUser()}"><img src = "@{'/public/images/user--plus.png'}" />Register new User<a/>
         <a href="@{Secure.login()}"><img src = "@{'/public/images/key-solid.png'}" />Login<a/>
         
