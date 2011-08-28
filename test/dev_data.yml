@@ -30,7 +30,7 @@ Address(adr_uzor):
     appartamentsNumber: "123"
     buldingNuber: "123"
     additionalInfo: knock three times
-    userId: usr_uzor
+    user: usr_uzor
     deleted: false
 
 
@@ -81,7 +81,7 @@ Address(adr_client):
     appartamentsNumber: "123"
     buldingNuber: "123"
     additionalInfo: knock three times
-    userId: client1
+    user: client1
     deleted: false
 
 #Menu groups 

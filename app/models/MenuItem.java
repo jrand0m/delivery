@@ -2,6 +2,7 @@ package models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -14,10 +15,11 @@ import play.db.jpa.Model;
 @Where(clause = "deleted = 0")
 public class MenuItem extends Model {
     public boolean       avaliable = false;
-
+    @ManyToOne
     public Client        client;
     public boolean       deleted   = false;
     public String        description;
+    @Column(name="menuItemGroupId")
     public MenuItemGroup group;
 
     public Date          menuItemCreated;

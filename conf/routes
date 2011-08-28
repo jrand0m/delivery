@@ -12,7 +12,14 @@ GET     /favicon.ico                            404
 GET     /public/                                staticDir:public
 
 # Catch all
-*		/										module:crud
+%{
+	if (play.mode.isDev()){
+		}%
+*		/fix									Application.loadFix
+		%{
+	}
+}%
+*		/admin/									module:crud
 *       /                                       module:secure
 *       /{controller}/{action}                  {controller}.{action}
 

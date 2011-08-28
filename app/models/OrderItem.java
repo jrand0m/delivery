@@ -2,6 +2,8 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
 
@@ -15,7 +17,7 @@ public class OrderItem extends Model {
     public boolean  deleted = false;
 
     public MenuItem menuItemId;
-
+    @ManyToOne
     public Order    order;
     /**
      * Archived price that should be paid by user (That was calculated in
