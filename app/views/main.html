@@ -14,29 +14,29 @@
         <div>
             menu: 
             <a href="@{Application.index}">home</a>
-            <a href="@{ClientAdmin.showPage}">client admin</a>
-            
-        </div>
         #{if user}
-        Hello,<img src = "@{'/public/images/user.png'}" /> <a href="@{Locker.index()}">${user.name}</a>!
-		
-			<span id="basket_span"><a href="@{Locker.basket()}"><img src = "@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
 			#{if user.role == user.UserRoles.ADMIN}
 				<a href="@{Bookkeeper.index()}">Bookkeeping</a>
 			#{/if}
-			#{if user.role == user.UserRoles.CLIENT}
-				<a href="@{Bookkeeper.index()}">Admin</a>
-			#{/if}
+			#{else}
+				#{if user.role == user.UserRoles.CLIENT}
+	<a href="@{ClientAdmin.showPage}">Admin</a>
+				#{/if}
+				#{else}
+			Hello,<img src = "@{'/public/images/user.png'}" /> <a href="@{Locker.index()}">${user.name}</a>!
 		
-        <a href="@{Secure.logout()}"> Logout <a/>
+			<span id="basket_span"><a href="@{Locker.basket()}"><img src = "@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
+				#{/else}
+			#{/else}
+		
+        <a href="@{Secure.logout()}">Logout<a/>
         #{/if}
         #{else}
         <span id="basket_span"><a href="@{Locker.basket()}"><img src = "@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
         <a href="@{Application.newUser()}"><img src = "@{'/public/images/user--plus.png'}" />Register new User<a/>
         <a href="@{Secure.login()}"><img src = "@{'/public/images/key-solid.png'}" />Login<a/>
-        
         #{/else}
-        
+        </div>
         #{doLayout /}
 		<div id="fotter">
 			<ul id="copyrghts">

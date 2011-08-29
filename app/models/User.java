@@ -27,6 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 
 import play.data.validation.Email;
+import play.data.validation.Match;
 import play.data.validation.Password;
 import play.data.validation.Phone;
 import play.data.validation.Required;
@@ -62,7 +63,9 @@ public class User extends GenericModel {
 
     @OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public List<Address> addressBook;
-
+    @OneToMany(mappedBy="orderOwner", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    public List<Order>   orderBook;
+    
     public boolean       deleted = false;
     @Email
     public String        email;
@@ -70,6 +73,7 @@ public class User extends GenericModel {
     public Date          joinDate;
 
     public Date          lastLoginDate;
+    
     @Required
     public String        login;          // FIXME need to be unique, but how ?
                                           // [Mike] use

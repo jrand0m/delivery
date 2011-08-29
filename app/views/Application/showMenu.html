@@ -6,33 +6,54 @@
 
 <script type="text/javascript">
 	var _addToOrder = #{jsAction @Application.addOrderItem(':id', ':count') /};
-	/*function addToOrder(id){
-		var count = $('#count_'+id).value;
+	var _delFromOrder = #{jsAction @Application.delOrderItem(':id', ':count') /};
+	function addToOrder(id){
+		var count = $('#count_'+id).val();
 		var img =$('#img_add_'+id);
-		img.hide('fast', function(){ // hide +
-			img.src = "@{'/public/images/ui-progress-bar-indeterminate.gif'}"
-			img.show('fast',function(){ // show progress
-				$().ajax({
+		$.ajax({
 					url:_addToOrder({'id':id, 'count':count}),
 					success:function(obj){
 						img.hide('fast', function(){ // hide progress
-							img.src = "@{'/public/images/tick-button.png'}"
-							img.show('fast'); // show ok
-						});
-					}
-				});
-			});
+									console.debug("sent id:"+ id + "; count:" + count);
+									img.attr('src', "@{'/public/images/tick-button.png'}");
+									img.show('slow', function(){
+										img.hide('slow', function(){
+											img.attr('src', "@{'/public/images/plus-button.png'}");
+											img.show('slow');
+											}); 
+										
+										}); 
+								});
+							}
 		});
-		
-		
-	}*/
+	}
+	function delFromOrder(id){
+		var count = $('#count_'+id).val();
+		var img =$('#img_add_'+id);
+		$.ajax({
+					url:_delFromOrder({'id':id, 'count':count}),
+					success:function(obj){
+						img.hide('fast', function(){ // hide progress
+									console.debug("sent id:"+ id + "; count:" + count);
+									img.attr('src', "@{'/public/images/tick-button.png'}");
+									img.show('slow', function(){
+										img.hide('slow', function(){
+											img.attr('src', "@{'/public/images/plus-button.png'}");
+											img.show('slow');
+											}); 
+										
+										}); 
+								});
+							}
+		});
+	}
 </script>
 <ol>
  #{list items:menuItems, as:'item' }
-     *{<li>${item.name}: ${item.price} <input type="text" width="30px" id="count_${item.id}" value=1 /> <a href="javascript:_addToOrder({'id':${item.id},'count':1})"><img id="img_add_${item.id}" src="@{'/public/images/plus-button.png'}" /></a></li>
-	 }*
+     <li>${item.name}: ${item.price} <input type="text" width="30px" id="count_${item.id}" value=1 /> <a href="javascript:addToOrder(${item.id})"><img id="img_add_${item.id}" src="@{'/public/images/plus-button.png'}" /></a></li>
 	 
-	 <li>${item.name}: ${item.price}  <a href="@{Application.addOrderItem(item.id, 1)}"><img id="img_add_${item.id}" src="@{'/public/images/plus-button.png'}" /></a></li>
+	 
+	 *{<li>${item.name}: ${item.price}  <a href="@{Application.addOrderItem(item.id, 1)}"><img id="img_add_${item.id}" src="@{'/public/images/plus-button.png'}" /></a></li>}*
 	 
  #{/list}
 </ol>
