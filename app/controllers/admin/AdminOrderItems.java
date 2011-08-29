@@ -1,10 +1,10 @@
 package controllers.admin;
 
-import models.MenuItem;
+import models.OrderItem;
 import controllers.CRUD;
 import controllers.CRUD.For;
 
-@For(MenuItem.class)
+@For(OrderItem.class)
 public class AdminOrderItems extends CRUD {
 
 }

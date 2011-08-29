@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -23,16 +24,19 @@ public class Order extends Model {
     public static enum OrderStatus {
         ACCEPTED, COOKED, DECLINED, DELIVERED, DELIVERING, OPEN
     }
-    private static final double GURANTEE_PROFIT_RATE = 1.3;
+//    private static final double GURANTEE_PROFIT_RATE = 1.3;
 
-    public Date                 clientPlanedFinish;
-    public Date                 clientRealFinish;
-    public Date                 clientRecieved;
     /**
-     * Courier delivery time;
+     * Courier delivered order;
      * */
     public Date                 courierOrderClosed;
+    /**
+     * Courier picked up bundle
+     * */
     public Date                 courierOrderRecieved;
+    /**
+     * Estimated time of delivery to client
+     * */
     public Date                 courierPlanedDeliveryTime;
     public boolean              deleted              = false;
     public Address              deliveryAddress;
@@ -40,22 +44,32 @@ public class Order extends Model {
      * Price calculated by application using formula, that should be paid by
      * user. value in coins
      * */
-
     public Integer              deliveryPrice;
-    //@OneToMany
+
     @OneToMany(mappedBy="order", cascade=CascadeType.ALL)
     public List<OrderItem>      items = new ArrayList<OrderItem>();
 
     /**
+     * Order Created
+     * */
+    public Date                 orderCreated;
+    /**
      * User order close date/time
      * */
     public Date                 orderClosed;
-
+    
+    /**
+     * Time and date of order is accepted
+     * */
     public Date                 orderDate;
+    /**
+     *  User who made this order 
+     * */
+    @ManyToOne
     public User                 orderOwner;
     
     public OrderStatus          orderStatus;
-
+    /*
     private Integer getDeliveryCost() {
         return 20;
     }
@@ -83,6 +97,6 @@ public class Order extends Model {
                     : item.orderItemUserPrice * item.count;
         }
         return totalPrice;
-    }
+    } */
 
 }

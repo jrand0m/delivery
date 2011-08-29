@@ -39,7 +39,7 @@ public class Client extends User {
     public Set<MenuItem> menuBook;
     public String         title;
     public WorkHours      workHours;
-
+    
     public Client() {
         userStatus = UserStatus.ACTIVE;
         role = UserRoles.CLIENT;

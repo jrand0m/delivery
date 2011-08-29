@@ -15,8 +15,8 @@ public class OrderItem extends Model {
     public Integer  count;
 
     public boolean  deleted = false;
-
-    public MenuItem menuItemId;
+    @ManyToOne
+    public MenuItem menuItem;
     @ManyToOne
     public Order    order;
     /**
@@ -36,7 +36,7 @@ public class OrderItem extends Model {
 
     public OrderItem(Integer count, Integer orderItemUserPrice,
             Integer orderItemPrice, Order orderId, MenuItem menuitem) {
-        this.menuItemId = menuitem;
+        this.menuItem = menuitem;
         this.count = count;
         this.orderItemUserPrice = orderItemUserPrice;
         this.orderItemPrice = orderItemPrice;
@@ -46,17 +46,7 @@ public class OrderItem extends Model {
 
     public OrderItem(MenuItem menuItem, Order order, User user) {
         // TODO [Mike] (add calculations of a price here )
-        menuItemId = menuItem;
+        this.menuItem = menuItem;
         this.order = order;
     }
-
-    public MenuItem getMenuItem() {
-        return menuItemId;// Model.all(MenuItem.class).getByKey(menuItemId);
-    }
-
-    public Order getOrder() {
-
-        return order;// Model.all(Order.class).getByKey(orderId);
-    }
-
 }
