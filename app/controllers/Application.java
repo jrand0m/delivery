@@ -15,6 +15,7 @@ import models.User.UserStatus;
 import play.Logger;
 import play.Play;
 import play.data.validation.Required;
+import play.libs.Codec;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
@@ -22,9 +23,9 @@ import play.test.Fixtures;
 
 public class Application extends Controller {
 
-    public static final String USER_RENDER_KEY     = "user";
-    public static final String ANONYMOUS_BASKET_ID = "BID";
-    //TODO Make more flexible
+    public static final String  USER_RENDER_KEY          = "user";
+    public static final String  ANONYMOUS_BASKET_ID      = "BID";
+    // TODO Make more flexible
     public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
 
     public static void loadFix() {
@@ -54,15 +55,20 @@ public class Application extends Controller {
     public static void _prepare() {
         User user = getCurrentUser();
         renderArgs.put(USER_RENDER_KEY, user);
+        Order order = null;
         if (user != null) {
-            Order order = Order.find("orderStatus = ?", Order.OrderStatus.OPEN)
+            order = Order.find("orderStatus = ? and user =?",
+                    Order.OrderStatus.OPEN, user).first();
+        } else if (session.contains(ANONYMOUS_BASKET_ID)) {
+            order = Order.find("orderStatus = ? and anonBasketId = ?",
+                    Order.OrderStatus.OPEN, session.get(ANONYMOUS_BASKET_ID))
                     .first();
-            if (order != null) {
-                renderArgs.put("basketCount", order.items.size());
-            } else {
-                renderArgs.put("basketCount", 0);
-            }
+        }
 
+        if (order != null) {
+            renderArgs.put("basketCount", order.items.size());
+        } else {
+            renderArgs.put("basketCount", 0);
         }
 
     }
@@ -87,15 +93,11 @@ public class Application extends Controller {
             if (users.size() != 0) {
                 user = users.get(0);
             }
-            // forbidden();
-
-        } else if (session.contains(ANONYMOUS_BASKET_ID)) {
-            
-        }
+        } 
         return user;
     }
 
-    public static void showMenu(String id) {
+    public static void showMenu(Long id) {
         Client client = Client.findById(id);
         Set<MenuItem> menuItems = client.menuBook;
         renderArgs.put("clientName", client.title);
@@ -137,28 +139,24 @@ public class Application extends Controller {
                 Logger.debug("No open order found, creating one..");
                 order = createNewOpenOrder(user);
             }
-            createOrAddOrderItem(id, order, user, count);
+            createOrAddOrderItem(id, order, count);
             Logger.debug("Order item added, sending ok response");
             renderJSON("{}");
         } else if (session.contains(ANONYMOUS_BASKET_ID)) {
             String bid = session.get(ANONYMOUS_BASKET_ID);
             Logger.debug("Annonymous basket id: %s", bid);
-            User user = User.findById(bid);
-            if (user == null || user.userStatus != UserStatus.ANONNYMOUS) {
-                Logger.warn("Bad basket id: %s", bid);
-                session.remove(ANONYMOUS_BASKET_ID);
-                ok();
-                return;
-            }
-            Order order = Order.find("orderStatus = ? and orderOwner = ?",
-                    OrderStatus.OPEN, user).first();
-            createOrAddOrderItem(id, order, user, count);
+            Order order = Order.find("orderStatus = ? and anonBasketId = ?",
+                    OrderStatus.OPEN, bid).first();
+
+            createOrAddOrderItem(id, order, count);
         } else {
             Logger.debug("No basket found/user connected!");
-            User anon = createAnonymous();
-            session.put(ANONYMOUS_BASKET_ID, anon.id);
-            Order order = createNewOpenOrder(anon);
-            createOrAddOrderItem(id, order, anon, count);
+            String bid = Codec.UUID();
+            session.put(ANONYMOUS_BASKET_ID, bid);
+            Order order = createNewOpenOrder(null);
+            order.anonBasketId = bid;
+            order.save();
+            createOrAddOrderItem(id, order, count);
         }
 
     }
@@ -168,7 +166,6 @@ public class Application extends Controller {
         if (Security.isConnected()) {
             Logger.debug("Connected user login: %s", Security.connected());
             User user = (User) renderArgs.get(USER_RENDER_KEY);
-            MenuItem menuItem = MenuItem.findById(id);
             Order order = Order.find("orderOwner = ?  and orderStatus = ?",
                     user, Order.OrderStatus.OPEN).first();
             if (order == null) {
@@ -176,31 +173,51 @@ public class Application extends Controller {
                 ok();
                 return;
             }
-            OrderItem orderitem = OrderItem.find(
-                    "orderId = ? and menuItemId =? ", order, menuItem).first();
-            if (orderitem == null) {
-                Logger.debug("no such item found, sending ok response");
-                ok();
-                return;
-            }
-            orderitem.deleted = true;
-            orderitem.save();
+            deleteOrRemOrderItem(id, order, count);
             Logger.debug("Order item deleted, sending ok response");
         } else if (session.contains(ANONYMOUS_BASKET_ID)) {
-            Logger.debug("Annonymous basket id: %s",
-                    session.get(ANONYMOUS_BASKET_ID));
-
+            String bid = session.get(ANONYMOUS_BASKET_ID);
+            Logger.debug("Annonymous basket id: %s", bid);
+            Order order = Order.find("orderStatus = ? and anonBasketId = ?",
+                    OrderStatus.OPEN, bid).first();
+            deleteOrRemOrderItem(id, order, count);
         } else {
             Logger.debug("No basket found/user connected!");
+            String bid = Codec.UUID();
+            session.put(ANONYMOUS_BASKET_ID, bid);
+            Order order = createNewOpenOrder(null);
+            order.anonBasketId = bid;
+            order.save();
         }
         ok();
 
     }
 
-    static void createOrAddOrderItem(Long menuItemId,  Order order,  User user,
-            Integer count) {
-        
-        count=normalizeCount(count);
+    /**
+     * @param id
+     * @param order
+     */
+    private static void deleteOrRemOrderItem(Long id, Order order, Integer count) {
+        count = normalizeCount(count);
+        MenuItem menuItem = MenuItem.findById(id);
+        OrderItem orderitem = OrderItem.find("orderId = ? and menuItemId =? ",
+                order, menuItem).first();
+        if (orderitem == null) {
+            Logger.debug("no such item found, sending ok response");
+            return;
+        }
+        int remain = orderitem.count - count;
+        if (remain < 1) {
+            orderitem.deleted = true;
+        } else {
+            orderitem.count = remain;
+        }
+        orderitem.save();
+    }
+
+    static void createOrAddOrderItem(Long menuItemId, Order order, Integer count) {
+
+        count = normalizeCount(count);
         MenuItem menuItem = MenuItem.findById(menuItemId);
         if (menuItem == null) {
             Logger.warn("MenuItem not found:  %s", menuItemId.toString());
@@ -209,7 +226,8 @@ public class Application extends Controller {
         OrderItem orderItem = null;
         List<OrderItem> list = order.items;
         for (OrderItem i : list) {
-            Logger.debug("Checking %s vs %s (%s)", menuItem, i.menuItem, menuItem == i.menuItem);
+            Logger.debug("Checking %s vs %s (%s)", menuItem, i.menuItem,
+                    menuItem == i.menuItem);
             if (menuItem == i.menuItem) {
                 orderItem = i;
                 break;
@@ -217,19 +235,20 @@ public class Application extends Controller {
         }
         if (orderItem == null) {
             Logger.debug("Item not found, creating new");
-            orderItem = new OrderItem(menuItem, order, user);
+            orderItem = new OrderItem(menuItem, order);
             orderItem.count = count;
             orderItem.orderItemUserPrice = menuItem.price;
             orderItem.orderItemPrice = menuItem.price;
             orderItem.create();
         } else {
             Logger.debug("Item found, adding count");
-            if (orderItem.count+count>MAX_ITEM_COUNT_PER_ORDER){
+            if (orderItem.count + count > MAX_ITEM_COUNT_PER_ORDER) {
                 orderItem.count = MAX_ITEM_COUNT_PER_ORDER;
             } else {
-                orderItem.count+=count;
+                orderItem.count += count;
             }
             orderItem.save();
+            Logger.debug("New item count %i", orderItem.count);
         }
         Logger.debug("Created order item %s ", orderItem.id.toString());
     }
@@ -240,28 +259,19 @@ public class Application extends Controller {
      */
     private static Integer normalizeCount(Integer count) {
         count = Math.abs(count);
-        if (count>MAX_ITEM_COUNT_PER_ORDER){
+        if (count > MAX_ITEM_COUNT_PER_ORDER) {
             return MAX_ITEM_COUNT_PER_ORDER;
-        } else if (count == 0){
+        } else if (count == 0) {
             return 1;
         }
         return count;
-    }
-
-    static User createAnonymous() {
-        User user = new User();
-        user.role = UserRoles.USER;
-        user.userStatus = UserStatus.ANONNYMOUS;
-        user.create();
-        Logger.debug("Created anon with id: %s", user.id);
-        return user;
     }
 
     /**
      * intended for local use so no 'public' modifier
      * */
     static Order createNewOpenOrder(User user) {
-        Logger.debug("Creating new order for user: %s", user.id);
+        Logger.debug("Creating new order for user: %s", user);
         Order o = new Order();
         o.orderStatus = OrderStatus.OPEN;
         o.orderOwner = user;

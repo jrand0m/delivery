@@ -18,22 +18,23 @@ import models.User;
 public class Security extends Secure.Security {
 
     static boolean authentify(String username, String password) {
-        Logger.debug("Trying to login as %1$",username);
+        Logger.debug("Trying to login as %s",username);
         User user = User.find("login = ? or email = ?", username, username).first();
         if (user != null && user.password.equals(password)) {
-            Logger.debug("Login succesful");
+            Logger.debug("Login succesful for %s[%s]", user.login, user.role.toString());
             if (session.contains(Application.ANONYMOUS_BASKET_ID)){
                 String bid = session.get(Application.ANONYMOUS_BASKET_ID);
-                Logger.debug("Detected BID: %1$;", bid);
+                Logger.debug("Detected BID: %s;", bid);
                 session.remove(Application.ANONYMOUS_BASKET_ID);
-                List<Order> orders = Order.find("orderOwner = ? ", bid ).fetch();
-                Logger.debug("Found %1$ anonymous basket(s)", orders.size());
+                List<Order> orders = Order.find("anonBasketId = ? ", bid ).fetch();
+                Logger.debug("Found %s anonymous basket(s)", orders.size());
                 for (Order order :orders){
-//                    order.anonymousUUID = null;
+                    //TODO check case when user has logined on foregin pc ( move this conversion to be on-demand only. Ask user first! )
                     if (order.orderOwner!=null){
-                        Logger.warn("Order #%1$ already is assigned to user, but session uuid is same!", order.getId());
+                        Logger.warn("Order #%s already is assigned to user, but session uuid is same!", order.shortHandId());
                         continue;
-                    } 
+                    }
+                    order.anonBasketId = null;
                     order.orderOwner = User.find("login = ?",  username ).first();
                     order.save();
                     
