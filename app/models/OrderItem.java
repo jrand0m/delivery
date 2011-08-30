@@ -44,7 +44,7 @@ public class OrderItem extends Model {
         this.deleted = false;
     }
 
-    public OrderItem(MenuItem menuItem, Order order, User user) {
+    public OrderItem(MenuItem menuItem, Order order) {
         // TODO [Mike] (add calculations of a price here )
         this.menuItem = menuItem;
         this.order = order;

@@ -11,7 +11,7 @@ import play.db.jpa.Model;
 public class LogItem extends Model {
 
     public static void log(String className, String field, String newValue,
-            String oldValue, String classId, String modifiedBy, Date modifiedOn) {
+            String oldValue, Long classId, String modifiedBy, Date modifiedOn) {
         new LogItem(className, field, newValue, oldValue, classId, modifiedBy,
                 modifiedOn).save();
     }
@@ -19,10 +19,10 @@ public class LogItem extends Model {
     public static void log(User user, String field, String newValue,
             String oldValue, String modifiedBy) {
 
-        new LogItem(User.class.getName(), field, newValue, oldValue, user.id,
+        new LogItem(User.class.getName(), field, newValue, oldValue, user.getId(),
                 modifiedBy, new Date()).save();
     }
-    public String classId;
+    public Long classId;
     public String className;
     public String field;
 
@@ -33,7 +33,7 @@ public class LogItem extends Model {
 
     public String oldValue;
 
-    public LogItem(String className, String field, String newValue, String oldValue, String userId, String modifiedBy, Date modifiedOn) {
+    public LogItem(String className, String field, String newValue, String oldValue, Long userId, String modifiedBy, Date modifiedOn) {
         super();
         this.className = className;
         this.field = field;

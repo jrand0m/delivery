@@ -46,18 +46,15 @@ import play.db.jpa.Model;
     discriminatorType=DiscriminatorType.STRING
 )
 @DiscriminatorValue("GENERIC_USER")
-public class User extends GenericModel {
+public class User extends Model {
     public static enum UserRoles {
         ADMIN, CASHIER, CLIENT, COURIER, USER
     }
 
     public static enum UserStatus {
-        ACTIVE, BANNED, PENDING_APPROVEMENT, ANONNYMOUS;
+        ACTIVE, BANNED, PENDING_APPROVEMENT;
     }
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    public String id;
+
     
     
 
