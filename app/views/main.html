@@ -4,37 +4,37 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+        <link rel="stylesheet" media="screen" href="@@{'/public/stylesheets/main.css'}">
         #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+        <link rel="shortcut icon" type="image/png" href="@@{'/public/images/favicon.png'}">
+        <script src="@@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="utf-8"></script>
         #{get 'moreScripts' /}
     </head>
     <body>
         <div>
             menu: 
-            <a href="@{Application.index}">home</a>
+            <a href="@@{Application.index}">home</a>
         #{if user}
 			#{if user.role == user.UserRoles.ADMIN}
-				<a href="@{Bookkeeper.index()}">Bookkeeping</a>
+				<a href="@@{Bookkeeper.index()}">Bookkeeping</a>
 			#{/if}
 			#{else}
 				#{if user.role == user.UserRoles.CLIENT}
-	<a href="@{ClientAdmin.showPage}">Admin</a>
+	<a href="@@{ClientAdmin.showPage}">Admin</a>
 				#{/if}
 				#{else}
-			Hello,<img src = "@{'/public/images/user.png'}" /> <a href="@{Locker.index()}">${user.name}</a>!
+			Hello,<img src = "@@{'/public/images/user.png'}" /> <a href="@@{Locker.index()}">${user.name}</a>!
 		
-			<span id="basket_span"><a href="@{Locker.basket()}"><img src = "@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
+			<span id="basket_span"><a href="@@{Locker.basket()}"><img src = "@@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
 				#{/else}
 			#{/else}
 		
-        <a href="@{Secure.logout()}">Logout<a/>
+        <a href="@@{Secure.logout()}">Logout<a/>
         #{/if}
         #{else}
-        <span id="basket_span"><a href="@{Locker.basket()}"><img src = "@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
-        <a href="@{Application.newUser()}"><img src = "@{'/public/images/user--plus.png'}" />Register new User<a/>
-        <a href="@{Secure.login()}"><img src = "@{'/public/images/key-solid.png'}" />Login<a/>
+        <span id="basket_span"><a href="@@{Locker.basket()}"><img src = "@@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
+        <a href="@@{Application.newUser()}"><img src = "@@{'/public/images/user--plus.png'}" />Register new User<a/>
+        <a href="@@{Secure.login()}"><img src = "@@{'/public/images/key-solid.png'}" />Login<a/>
         #{/else}
         </div>
         #{doLayout /}
