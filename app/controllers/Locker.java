@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import controllers.Secure.Security;
+
 import models.Address;
 import models.Order;
 import models.Order.OrderStatus;
@@ -21,12 +23,12 @@ import play.mvc.With;
 public class Locker extends Controller {
     @Before
     public static void __prepare() {
-        Logger.debug("Accesing locker");
+        Logger.trace("Accesing locker %s ? %s", Security.connected() ,session.contains(Application.ANONYMOUS_BASKET_ID) );
         if (!Security.isConnected() && !session.contains(Application.ANONYMOUS_BASKET_ID)) {
-                Logger.debug("No credentials found... %s",!Security.isConnected() && !session.contains(Application.ANONYMOUS_BASKET_ID) );
+                Logger.trace("No credentials found... %s",!Security.isConnected() && !session.contains(Application.ANONYMOUS_BASKET_ID) );
                 flash.put("url", Router.getFullUrl("Locker.index"));
                 try {
-                    Secure.login();
+                   // Secure.login();
                 } catch (Throwable e) {
                     // TODO checkout how to redirect back here !
                     forbidden();
@@ -45,7 +47,7 @@ public class Locker extends Controller {
     }
     @Before(unless="basket")
     public static void allRoadsLeadToBasket(){
-        Logger.debug("Anonymous locker -> redirecting to basket()");
+        Logger.trace("Anonymous locker -> redirecting to basket()");
         if (!Security.isConnected()){basket();return;}
     }
 
@@ -53,7 +55,7 @@ public class Locker extends Controller {
      * Shows user's personal page
      */
     public static void index() {
-        Logger.debug("Entering index");
+        Logger.trace("Entering index");
         User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
         
         List<Address> addressList = user.addressBook;
@@ -63,10 +65,10 @@ public class Locker extends Controller {
     }
 
     public static void basket() {
-        Logger.debug("Entering basket");
+        Logger.trace("Entering basket");
         Order order = null;
         User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
-        if (user == null) {
+        if (user != null) {
             order = Order.find("orderOwner = ? and orderStatus = ?", user,
                     OrderStatus.OPEN).first();
         } else if (session.contains(Application.ANONYMOUS_BASKET_ID)) {

@@ -20,7 +20,20 @@ GET     /public/                                staticDir:public
 	}
 }%
 *		/admin/									module:crud
-*       /                                       module:secure
+
+##############################
+######## Security ############
+##############################
+
+GET			/login			Secure.login
+POST        /login          Secure.authenticate
+GET         /logout         Secure.logout
+
+##############################
+########/Security ############
+##############################
+
+
 *       /{controller}/{action}                  {controller}.{action}
 
 

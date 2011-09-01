@@ -1,8 +1,7 @@
 # Application dependencies
 
 require:
-    - play -> play [1.2.1,)
-    - play -> secure
+    - play -> play [1.2.3,)
     - play -> coffee 1.0
     - play -> crud
     - mysql -> mysql-connector-java 5.0.8

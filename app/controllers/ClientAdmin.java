@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.Secure.Security;
 import play.mvc.Controller;
 import play.mvc.With;
 
