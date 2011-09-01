@@ -21,7 +21,7 @@
     appartamentsNumber: ${address.appartamentsNumber}<br>
 	buldingNuber:		${address.buldingNuber}      <br>
 	additionalInfo:    	${address.additionalInfo}    <br>
-	<a href="@{Locker.editAddress(address.id)}">edit</a><a href="@{Locker.deleteAddress(address.id)}">delete</a>
+	<a href="@@{Locker.editAddress(address.id)}">edit</a><a href="@@{Locker.deleteAddress(address.id)}">delete</a>
      </p>
      </li>
  #{/list}
@@ -47,5 +47,5 @@
 </ol>
 #{/if}
 #{else}
-	No orders yet, <a href="@{Application.index()}">Make Order</a>!
+	No orders yet, <a href="@@{Application.index()}">Make Order</a>!
 #{/else}
