@@ -17,6 +17,6 @@ alert y x
 </script>
 <ul>
 #{list items:order.items, as:'item'}
-	<li>${item.menuItem.name}, $${item.orderItemUserPrice} * ${item.count} [<a href="@{Application.delOrderItem(item.id, item.count)}">x</a>]</li>
+	<li>${item.menuItem.name}, $${item.orderItemUserPrice} * ${item.count} [<a href="@@{Application.delOrderItem(item.id, item.count)}">x</a>]</li>
 #{/list}
 </ul>
