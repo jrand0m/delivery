@@ -13,6 +13,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 
+import controllers.Secure.Security;
+
 import models.AccountingGroup;
 import models.AccountingTransaction;
 import models.AccountingTransaction.AC_TRANSACTION_STATE;

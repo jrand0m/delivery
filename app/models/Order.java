@@ -54,6 +54,7 @@ public class Order extends GenericModel {
     public Integer              deliveryPrice;
 
     @OneToMany(mappedBy="order", cascade=CascadeType.ALL)
+    @Where(clause = "deleted = 0")
     public List<OrderItem>      items = new ArrayList<OrderItem>();
 
     /**
