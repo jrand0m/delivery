@@ -153,7 +153,7 @@ public class Application extends Controller {
             }
             createOrAddOrderItem(id, order, count);
             Logger.debug(">>> Order item added, sending ok response");
-            renderJSON("{}");
+            
         } else  {
             String bid = session.getId();
             Logger.debug(">>> Annonymous sid: %s", bid);
@@ -164,6 +164,7 @@ public class Application extends Controller {
             }
             createOrAddOrderItem(id, order, count);
         }
+        renderJSON("{}");
     }
 
     public static void delOrderItem(@Required Long id, @Required Integer count) {
@@ -190,7 +191,7 @@ public class Application extends Controller {
             }
             deleteOrRemOrderItem(id, order, count);
         }
-        ok();
+        renderJSON("{}");
 
     }
 
@@ -213,11 +214,17 @@ public class Application extends Controller {
         if (remain < 1) {
             Logger.debug(">>> Deleting id = %s, from order #%s", id, order.shortHandId());
             orderitem.deleted = true;
+            order.items.remove(orderitem);
+            if (order.items.size()==0){
+                order.client = null;
+                order.save();
+            }
         } else {
             Logger.debug(">>> Decreased count for id = %s, to = %s, order #%s", id, remain, order.shortHandId());
             orderitem.count = remain;
         }
         orderitem.save();
+        
     }
 
     private static void createOrAddOrderItem(Long menuItemId, Order order, Integer count) {
@@ -227,6 +234,15 @@ public class Application extends Controller {
         if (menuItem == null) {
             Logger.warn("MenuItem not found:  %s", menuItemId.toString());
             return;
+        }
+        if (order.client!=null&&!menuItem.client.equals(order.client)){
+            //TODO error message about "cannot add form other client"
+            todo();
+            return;
+        }
+        if (order.client==null){
+            order.client = menuItem.client;
+            order.save();
         }
         OrderItem orderItem = null;
         List<OrderItem> list = order.items;

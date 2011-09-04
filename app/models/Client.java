@@ -23,6 +23,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Where;
 
 import play.data.validation.Phone;
+import play.libs.Codec;
+import play.libs.Crypto;
 
 /**
  * 
@@ -33,7 +35,7 @@ import play.data.validation.Phone;
 public class Client extends User {
 
     public String         contactPerson;
-
+    public String         salt = Codec.UUID();
     @Phone
     public String         contactPhone;
     public Double         discount;
