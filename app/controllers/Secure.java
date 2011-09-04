@@ -6,6 +6,9 @@ package controllers;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import annotations.AllowAnonymous;
+import annotations.Check;
+
 import models.Order;
 import models.User;
 
@@ -22,13 +25,11 @@ public class Secure extends Controller {
 
     @Before(unless = { "login", "authenticate", "logout" })
     static void checkAccess() throws Throwable {
+        boolean allowAnon = getActionAnnotation(AllowAnonymous.class)!=null;
+        
         // Authent
-        if (!session.contains("username")
-                && !session.contains(Application.ANONYMOUS_BASKET_ID)) {
+        if (!session.contains("username") && !allowAnon) {
             flash.put("url", "GET".equals(request.method) ? request.url : "/"); // seems
-                                                                                // a
-                                                                                // good
-                                                                                // default
             login();
         }
         // Checks
@@ -147,13 +148,10 @@ public class Secure extends Controller {
             if (user != null && user.password.equals(password)) {
                 Logger.debug("Login succesful for %s[%s]", user.login,
                         user.role.toString());
-                if (session.contains(Application.ANONYMOUS_BASKET_ID)) {
-                    String bid = session.get(Application.ANONYMOUS_BASKET_ID);
-                    Logger.debug("Detected BID: %s;", bid);
-                    session.remove(Application.ANONYMOUS_BASKET_ID);
-                    List<Order> orders = Order.find("anonBasketId = ? ", bid)
+                    String bid = session.getId();
+                    List<Order> orders = Order.find("anonSID = ? ", bid)
                             .fetch();
-                    Logger.debug("Found %s anonymous basket(s)", orders.size());
+                    Logger.debug("Found %s anonymous basket(s) bound to unlogined user %s", orders.size());
                     for (Order order : orders) {
                         // TODO check case when user has logined on foregin pc (
                         // move this conversion to be on-demand only. Ask user
@@ -164,7 +162,7 @@ public class Secure extends Controller {
                                     order.shortHandId());
                             continue;
                         }
-                        order.anonBasketId = null;
+                        order.anonSID = null;
                         order.orderOwner = User.find("login = ?", username)
                                 .first();
                         order.save();
@@ -172,7 +170,7 @@ public class Secure extends Controller {
                     }
                     Logger.debug("Anonymous basket conversion complete!");
 
-                }
+                
 
                 return true;
             }

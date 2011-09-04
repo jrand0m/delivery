@@ -1,0 +1,24 @@
+#{extends 'main.html' /}
+#{set 'title'}
+    Order #${order.shortHandId()}
+#{/set}
+
+#{if order.items.size() == 0 }
+	<h3>no items yet</h3>
+#{/if}
+#{else}
+<ul>
+#{list items:order.items, as:'item'}
+	<li>${item.menuItem.name}, $${item.orderItemUserPrice} * ${item.count} [<a href="@@{Application.delOrderItem(item.id, item.count)}">x</a>]</li>
+#{/list}
+</ul>
+<div>Total price will be: <span>${order.getMenuTotal()}</span></div>
+<div>-</div>
+<div>Your Discount: <span>${order.getUserDiscount()}</span></div>
+<div>+</div>
+<div>Delivery price : <span>${order.getDeliveryPrice()}</span></div>
+<br>
+<div>Grand total: ${order.getGrandTotal()}</div>
+
+<div>make order <a href="@@{Application.deliveryAndPaymentMethod()}">now &gt;&gt;&gt;</a></div>
+#{/else}

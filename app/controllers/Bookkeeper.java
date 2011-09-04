@@ -13,6 +13,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 
+import annotations.Check;
+
 import controllers.Secure.Security;
 
 import models.AccountingGroup;

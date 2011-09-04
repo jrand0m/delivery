@@ -4,6 +4,7 @@
  */
 package models;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
 
@@ -37,11 +39,18 @@ public class Client extends User {
     public Double         discount;
     @OneToMany(mappedBy="client", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public Set<MenuItem> menuBook;
-    public String         title;
+    public String title;
+    @OneToOne
     public WorkHours      workHours;
     
     public Client() {
         userStatus = UserStatus.ACTIVE;
         role = UserRoles.CLIENT;
     }
+    
+    /**
+     * last request from client
+     * */
+    public Date lastConnection;
+    
 }
