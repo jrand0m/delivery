@@ -15,11 +15,11 @@
             menu: 
             <a href="@@{Application.index}">home</a>
         #{if user}
-			#{if user.role == user.UserRoles.ADMIN}
+			#{if user.role == models.User.UserRoles.ADMIN}
 				<a href="@@{Bookkeeper.index()}">Bookkeeping</a>
 			#{/if}
 			#{else}
-				#{if user.role == user.UserRoles.CLIENT}
+				#{if user.role == models.User.UserRoles.CLIENT}
 	<a href="@@{ClientAdmin.showPage}">Admin</a>
 				#{/if}
 				#{else}
