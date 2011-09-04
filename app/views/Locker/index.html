@@ -36,11 +36,11 @@
  #{list items:orderList, as:'order' }
      <li>
      <p>
-     client:            ${order?.client.name}            <br>
-     orderStatus:		${order?.orderStatus}            <br>
-     orderDate:			${order?.orderDate}            <br>
-     deliveryPrice:		${order?.deliveryPrice}            <br>
-     deliveryAddress:	${order?.deliveryAddress.street},  ${order?.deliveryAddress?.buldingNuber}/${order?.deliveryAddress?.appartamentsNumber}        <br>
+     client:            ${order.getClient()?.name}            <br>
+     orderStatus:		${order.orderStatus}            <br>
+     orderDate:			${order.orderDate}            <br>
+     Total				${order.getGrandTotal()}            <br>
+     deliveryAddress:	${order.deliveryAddress?.street},  ${order.deliveryAddress?.buldingNuber}/${order.deliveryAddress?.appartamentsNumber}        <br>
      </p>
      </li>
  #{/list}

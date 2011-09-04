@@ -13,6 +13,8 @@
 	<li>${item.menuItem.name}, $${item.orderItemUserPrice} * ${item.count} [<a href="@@{Application.delOrderItem(item.id, item.count)}">x</a>]</li>
 #{/list}
 </ul>
+<h1 style="color:red;">TODO DO HERE ORDER PAYMENT AND DELIVERY METHOD SELECTION</h1>
+<h2>dont forget about security!</h2>
 <div>Total price will be: <span>${order.getMenuTotal()}</span></div>
 <div>-</div>
 <div>Your Discount: <span>${order.getUserDiscount()}</span></div>
@@ -21,5 +23,5 @@
 <br>
 <div>Grand total: ${order.getGrandTotal()}</div>
 
-<div><a href="@@{Application.checkAndSend()}">Send now!</a></div>
+<div><a href="@@{Application.checkAndSend(order.id)}">Send now!</a></div>
 #{/else}

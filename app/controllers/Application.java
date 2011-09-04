@@ -70,6 +70,20 @@ public class Application extends Controller {
 
     }
     public static void deliveryAndPaymentMethod(){
+        Order order = null;
+        User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
+        if (user != null) {
+            order = Order.find("orderOwner = ? and orderStatus = ?", user,
+                    OrderStatus.OPEN).first();
+        } else {
+            order = Order.find("anonSID = ? and orderStatus = ?",
+                    session.getId(),
+                    OrderStatus.OPEN).first();
+        }
+        if (order == null){
+            order = createNewOpenOrder(null);
+        }
+        renderArgs.put("order", order);
         render("/Application/prepareOrder.html");
     }
     public static void index() {
@@ -117,10 +131,12 @@ public class Application extends Controller {
         index();
     }
     
-    public static void checkAndSend(Integer id){
+    public static void checkAndSend(String id){
+        Logger.debug("Sending... id = %s", id);
         Order o = Order.findById(id);
         o.orderStatus = OrderStatus.SENT;
-        
+        o.save();
+        Logger.debug("Sent... id = %s", id);
         ok();
     }
 
