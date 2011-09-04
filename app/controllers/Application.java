@@ -108,6 +108,7 @@ public class Application extends Controller {
         user.joinDate = new Date();
         user.lastLoginDate = new Date();
         user.userStatus = UserStatus.PENDING_APPROVEMENT;
+        user.role = UserRoles.USER;
         user.create();
         Logger.debug(">>> TODO: Try converting order history.");
         try {
