@@ -54,7 +54,7 @@ public class Application extends Controller {
         renderArgs.put(USER_RENDER_KEY, user);
         Order order = null;
         if (user != null) {
-            order = Order.find("orderStatus = ? and user =?",
+            order = Order.find("orderStatus = ? and orderOwner =?",
                     Order.OrderStatus.OPEN, user).first();
         } else {
             order = Order.find("orderStatus = ? and anonSID = ?",
