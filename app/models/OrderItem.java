@@ -19,14 +19,15 @@ public class OrderItem extends Model {
     public MenuItem menuItem;
     @ManyToOne
     public Order    order;
-    /**
-     * Archived price that should be paid by user (That was calculated in
-     * moment, when order was approved).
-     * */
-    public Integer  orderItemPrice;
+
     /**
      * Archived real price from client (That was calculated in moment, when
      * order was approved).
+     * */
+    public Integer  orderItemPrice;
+    /**
+     * Archived price that should be paid by user (That was calculated in
+     * moment, when order was approved).
      * */
     public Integer  orderItemUserPrice;
 

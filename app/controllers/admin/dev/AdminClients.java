@@ -1,4 +1,4 @@
-package controllers.admin;
+package controllers.admin.dev;
 
 import models.Client;
 import controllers.CRUD;

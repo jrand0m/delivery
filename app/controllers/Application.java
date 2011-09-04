@@ -10,6 +10,7 @@ import models.Client;
 import models.MenuItem;
 import models.Order;
 import models.Order.OrderStatus;
+import models.Order.PaymentStatus;
 import models.OrderItem;
 import models.User;
 import models.User.UserRoles;
@@ -26,12 +27,10 @@ import play.test.Fixtures;
 public class Application extends Controller {
 
     public static final String  USER_RENDER_KEY          = "user";
-    public static final String  ANONYMOUS_BASKET_ID      = "BID";
     // TODO Make more flexible
     public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
 
     public static void loadFix() {
-        // if (Play.mode.isDev()) {
         if (User.count() > 0) {
             Fixtures.deleteDatabase();
         }
@@ -47,10 +46,6 @@ public class Application extends Controller {
             renderText("fixtures load failed: " + e.getMessage());
         }
         return;
-
-        // } else
-        // ok();
-
     }
 
     @Before
@@ -61,9 +56,9 @@ public class Application extends Controller {
         if (user != null) {
             order = Order.find("orderStatus = ? and user =?",
                     Order.OrderStatus.OPEN, user).first();
-        } else if (session.contains(ANONYMOUS_BASKET_ID)) {
-            order = Order.find("orderStatus = ? and anonBasketId = ?",
-                    Order.OrderStatus.OPEN, session.get(ANONYMOUS_BASKET_ID))
+        } else {
+            order = Order.find("orderStatus = ? and anonSID = ?",
+                    Order.OrderStatus.OPEN, session.getId())
                     .first();
         }
 
@@ -74,17 +69,15 @@ public class Application extends Controller {
         }
 
     }
-
+    public static void deliveryAndPaymentMethod(){
+        render("/Application/prepareOrder.html");
+    }
     public static void index() {
 
         List<Client> clients = Client.findAll();
-        // List<WorkHours> whorkHours = Model.all(WorkHours.class)
-        // .filter("client", clients).fetch();
-        // List<Day> days = Model.all(Day.class).filter("workDay", whorkHours)
-        // .fetch();
-        // TODO Get Work hours
+        
 
-        render(clients /* whorkHours, days, */);
+        render(clients);
     }
 
     private static User getCurrentUser() {
@@ -111,15 +104,12 @@ public class Application extends Controller {
     }
 
     public static void registerNewUser(User user) {
-        Logger.trace("Registering new user %s", user.toString());
+        Logger.debug(">>> Registering new user %s", user.toString());
         user.joinDate = new Date();
         user.lastLoginDate = new Date();
         user.userStatus = UserStatus.PENDING_APPROVEMENT;
         user.create();
-        if (session.contains(ANONYMOUS_BASKET_ID)
-                && session.get(ANONYMOUS_BASKET_ID) != null) {
-            Logger.trace("Annonymous basket found , converting order history.");
-        }
+        Logger.debug(">>> TODO: Try converting order history.");
         try {
             Secure.authenticate(user.login, user.password, false);
         } catch (Throwable e) {
@@ -129,67 +119,63 @@ public class Application extends Controller {
 
         index();
     }
+    
+    public static void checkAndSend(Integer id){
+        Order o = Order.findById(id);
+        o.orderStatus = OrderStatus.SENT;
+        
+        ok();
+    }
 
     public static void addOrderItem(@Required Long id, @Required Integer count) {
-        Logger.trace("Adding items with id %s in count %s", id, count);
+        Logger.debug(">>> Adding items with id %s in count %s", id, count);
         if (Security.isConnected()) {
-            Logger.trace("Connected user login: %s", Security.connected());
+            Logger.debug(">>> Connected user login: %s", Security.connected());
             User user = (User) renderArgs.get(USER_RENDER_KEY);
             Order order = Order.find("orderOwner = ?  and orderStatus = ?",
                     user, Order.OrderStatus.OPEN).first();
             if (order == null) {
-                Logger.trace("No open order found, creating one..");
+                Logger.debug(">>> No open order found, creating one..");
                 order = createNewOpenOrder(user);
             }
             createOrAddOrderItem(id, order, count);
-            Logger.trace("Order item added, sending ok response");
+            Logger.debug(">>> Order item added, sending ok response");
             renderJSON("{}");
-        } else if (session.contains(ANONYMOUS_BASKET_ID)) {
-            String bid = session.get(ANONYMOUS_BASKET_ID);
-            Logger.trace("Annonymous basket id: %s", bid);
-            Order order = Order.find("orderStatus = ? and anonBasketId = ?",
+        } else  {
+            String bid = session.getId();
+            Logger.debug(">>> Annonymous sid: %s", bid);
+            Order order = Order.find("orderStatus = ? and anonSID = ?",
                     OrderStatus.OPEN, bid).first();
-
-            createOrAddOrderItem(id, order, count);
-        } else {
-            Logger.trace("No basket found/user connected!");
-            String bid = Codec.UUID();
-            session.put(ANONYMOUS_BASKET_ID, bid);
-            Order order = createNewOpenOrder(null);
-            order.anonBasketId = bid;
-            order.save();
+            if (order == null){
+                order = createNewOpenOrder(null);
+            }
             createOrAddOrderItem(id, order, count);
         }
-
     }
 
     public static void delOrderItem(@Required Long id, @Required Integer count) {
-        Logger.trace("Delitinging items with id %s in count %s", id, count);
+        Logger.debug(">>> Delitinging items with id %s in count %s", id, count);
         if (Security.isConnected()) {
-            Logger.trace("Connected user login: %s", Security.connected());
+            Logger.debug(">>> Connected user login: %s", Security.connected());
             User user = (User) renderArgs.get(USER_RENDER_KEY);
             Order order = Order.find("orderOwner = ?  and orderStatus = ?",
                     user, Order.OrderStatus.OPEN).first();
             if (order == null) {
-                Logger.trace("no order found, sending ok response");
+                Logger.debug(">>> no order found, sending ok response");
                 ok();
                 return;
             }
             deleteOrRemOrderItem(id, order, count);
-            Logger.trace("Order item deleted, sending ok response");
-        } else if (session.contains(ANONYMOUS_BASKET_ID)) {
-            String bid = session.get(ANONYMOUS_BASKET_ID);
-            Logger.trace("Annonymous basket id: %s", bid);
-            Order order = Order.find("orderStatus = ? and anonBasketId = ?",
+            Logger.debug(">>> Order item deleted, sending ok response");
+        } else  {
+            String bid = session.getId();
+            Logger.debug(">>> Annonymous basket id: %s", bid);
+            Order order = Order.find("orderStatus = ? and anonSID = ?",
                     OrderStatus.OPEN, bid).first();
+            if (order == null){
+                order = createNewOpenOrder(null);
+            }
             deleteOrRemOrderItem(id, order, count);
-        } else {
-            Logger.trace("No basket found/user connected!");
-            String bid = Codec.UUID();
-            session.put(ANONYMOUS_BASKET_ID, bid);
-            Order order = createNewOpenOrder(null);
-            order.anonBasketId = bid;
-            order.save();
         }
         ok();
 
@@ -200,27 +186,28 @@ public class Application extends Controller {
      * @param order
      */
     private static void deleteOrRemOrderItem(Long id, Order order, Integer count) {
-        Logger.trace("deleting or decreasinf item %s for order #%s, count %s", id, order.shortHandId(),count);
+        Logger.debug(">>> deleting or decreasinf item %s for order #%s, count %s", id, order.id,count);
+        Logger.debug(">>> session id: %s", session.getId());
         count = normalizeCount(count);
         MenuItem menuItem = MenuItem.findById(id);
         OrderItem orderitem = OrderItem.find("order = ? and menuItem =? ",
                 order, menuItem).first();
         if (orderitem == null) {
-            Logger.trace("no such item found, sending ok response");
+            Logger.debug(">>> no such item found, sending ok response");
             return;
         }
         int remain = orderitem.count - count;
         if (remain < 1) {
-            Logger.trace("Deleting id = %s, from order #%s", id, order.shortHandId());
+            Logger.debug(">>> Deleting id = %s, from order #%s", id, order.shortHandId());
             orderitem.deleted = true;
         } else {
-            Logger.trace("Decreased count for id = %s, to = %s, order #%s", id, remain, order.shortHandId());
+            Logger.debug(">>> Decreased count for id = %s, to = %s, order #%s", id, remain, order.shortHandId());
             orderitem.count = remain;
         }
         orderitem.save();
     }
 
-    static void createOrAddOrderItem(Long menuItemId, Order order, Integer count) {
+    private static void createOrAddOrderItem(Long menuItemId, Order order, Integer count) {
 
         count = normalizeCount(count);
         MenuItem menuItem = MenuItem.findById(menuItemId);
@@ -231,7 +218,7 @@ public class Application extends Controller {
         OrderItem orderItem = null;
         List<OrderItem> list = order.items;
         for (OrderItem i : list) {
-            Logger.trace("Checking %s vs %s (%s)", menuItem, i.menuItem,
+            Logger.debug(">>> Checking %s vs %s (%s)", menuItem, i.menuItem,
                     menuItem == i.menuItem);
             if (menuItem == i.menuItem) {
                 orderItem = i;
@@ -239,25 +226,43 @@ public class Application extends Controller {
             }
         }
         if (orderItem == null) {
-            Logger.trace("Item not found, creating new");
+            Logger.debug(">>> Item not found, creating new");
             orderItem = new OrderItem(menuItem, order);
             orderItem.count = count;
             orderItem.orderItemUserPrice = menuItem.price;
             orderItem.orderItemPrice = menuItem.price;
             orderItem.create();
         } else {
-            Logger.trace("Item found, adding count");
+            Logger.debug(">>> Item found, adding count");
             if (orderItem.count + count > MAX_ITEM_COUNT_PER_ORDER) {
                 orderItem.count = MAX_ITEM_COUNT_PER_ORDER;
             } else {
                 orderItem.count += count;
             }
             orderItem.save();
-            Logger.trace("New item count %i", orderItem.count);
+            Logger.debug(">>> New item count %i", orderItem.count);
         }
-        Logger.trace("Created order item %s ", orderItem.id.toString());
+        Logger.debug(">>> Created order item %s ", orderItem.id.toString());
     }
+    public static void basket() {
+        Logger.debug(">>> Entering basket");
+        Order order = null;
+        User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
+        if (user != null) {
+            order = Order.find("orderOwner = ? and orderStatus = ?", user,
+                    OrderStatus.OPEN).first();
+        } else {
+            order = Order.find("anonSID = ? and orderStatus = ?",
+                    session.getId(),
+                    OrderStatus.OPEN).first();
+        }
+        if (order == null){
+            order = createNewOpenOrder(null);
+        }
+        renderArgs.put("order", order);
+        render();
 
+    }
     /**
      * @param count
      * @return value within range [1;64]
@@ -275,14 +280,18 @@ public class Application extends Controller {
     /**
      * intended for local use so no 'public' modifier
      * */
-    static Order createNewOpenOrder(User user) {
-        Logger.trace("Creating new order for user: %s", user);
+   private static Order createNewOpenOrder(final User user) {
+        Logger.debug(">>> Creating new order for user: %s", user);
         Order o = new Order();
         o.orderStatus = OrderStatus.OPEN;
         o.orderOwner = user;
+        if (user == null){
+            o.anonSID = session.getId();
+        }
         o.deleted = false;
+        o.orderCreated = new Date();
         o.create();
-        Logger.trace("Created new order: %s", o.toString());
+        Logger.debug(">>> Created new order: %s", o.toString());
         return o;
     }
 
