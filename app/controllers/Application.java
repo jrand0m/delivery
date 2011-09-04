@@ -83,11 +83,7 @@ public class Application extends Controller {
     private static User getCurrentUser() {
         User user = null;
         if (Security.isConnected()) {
-            List<User> users = User.find("login = ?", Security.connected())
-                    .first();
-            if (users.size() != 0) {
-                user = users.get(0);
-            }
+            user = User.find("login = ?", Security.connected()).first();
         } 
         return user;
     }
