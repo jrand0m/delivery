@@ -1,7 +1,7 @@
 /**
  * 
  */
-package apimodels;
+package models.api;
 
 import java.util.List;
 

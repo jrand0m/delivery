@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+
 import org.hibernate.annotations.Where;
 
 import play.data.validation.MaxSize;

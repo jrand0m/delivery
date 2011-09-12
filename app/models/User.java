@@ -23,6 +23,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 

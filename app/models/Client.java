@@ -20,6 +20,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
 
 
+
 import org.hibernate.annotations.Where;
 
 import play.data.validation.Phone;

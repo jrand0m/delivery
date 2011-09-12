@@ -8,9 +8,9 @@ import java.util.List;
 
 import models.Order;
 import models.OrderItem;
+import models.api.Job;
+import models.api.MenuItem;
 
-import apimodels.Job;
-import apimodels.MenuItem;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

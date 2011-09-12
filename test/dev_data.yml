@@ -1,7 +1,7 @@
 User(usr_uzor):
     name: Vasyl
     surname: Petrovich
-    phoneNumber: "+380630683088"
+    phoneNumber: "380630683088"
     miscInfo: Extream Fapper
     email: vasyl.superman@gmail.com
     login: v
@@ -10,6 +10,7 @@ User(usr_uzor):
     role: USER
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
+    deleted: false
 
 User(usr_admin):
     name: Admin
@@ -71,7 +72,7 @@ Client(client1):
     title: Pizza Chlentano!11
     workHours: wrh_client1
     contactPerson: Judje Dred
-    contactPhone: "+3044555555"
+    contactPhone: "3044555555"
     discount: 10.1
     deleted: false
 

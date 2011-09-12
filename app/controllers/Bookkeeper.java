@@ -19,8 +19,8 @@ import controllers.Secure.Security;
 
 import models.AccountingGroup;
 import models.AccountingTransaction;
-import models.AccountingTransaction.AC_TRANSACTION_STATE;
 import models.User;
+import models.AccountingTransaction.AC_TRANSACTION_STATE;
 import play.Logger;
 import play.data.binding.As;
 import play.db.jpa.GenericModel.JPAQuery;
