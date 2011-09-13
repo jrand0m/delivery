@@ -6,6 +6,7 @@ package models.logging;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import models.User;
 
@@ -16,13 +17,10 @@ import play.db.jpa.Model;
  *
  */
 @Entity
+@Table(name = "UserLogs")
 public class UserLog extends Model {
     public User user;
-    public ACTION_TYPE actionType;
-    public enum ACTION_TYPE {
-        
-    }
+    public LOG_ACTION_TYPE actionType;
     public Date date;
     public String info;
-    public String info2;
 }

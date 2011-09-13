@@ -5,3 +5,5 @@ require:
     - play -> coffee 1.0
     - play -> crud
     - mysql -> mysql-connector-java 5.0.8
+    - play -> log4play 0.5
+    - play -> betterlogs 1.0
