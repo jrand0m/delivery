@@ -190,7 +190,7 @@ public class Application extends Controller {
 	int remain = orderitem.count - count;
 	if (remain < 1) {
 	    Logger.debug(">>> Deleting id = %s, from order #%s", id,
-		    order.shortHandId());
+		    order.getShortHandId());
 	    orderitem.deleted = true;
 	    order.items.remove(orderitem);
 	    if (order.items.size() == 0) {
@@ -199,7 +199,7 @@ public class Application extends Controller {
 	    }
 	} else {
 	    Logger.debug(">>> Decreased count for id = %s, to = %s, order #%s",
-		    id, remain, order.shortHandId());
+		    id, remain, order.getShortHandId());
 	    orderitem.count = remain;
 	}
 	orderitem.save();

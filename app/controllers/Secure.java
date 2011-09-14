@@ -159,7 +159,7 @@ public class Secure extends Controller {
                         if (order.orderOwner != null) {
                             Logger.warn(
                                     "Order #%s already is assigned to user, but session uuid is same!",
-                                    order.shortHandId());
+                                    order.getShortHandId());
                             continue;
                         }
                         order.anonSID = null;

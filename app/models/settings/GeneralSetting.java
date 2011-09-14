@@ -15,9 +15,7 @@ import play.db.jpa.Model;
  * This type is hard deletable
  * */
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class GeneralSetting extends Model
+abstract public class GeneralSetting extends Model
 {
 	@Required
 	@Min(3)
