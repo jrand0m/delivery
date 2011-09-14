@@ -1,5 +1,6 @@
 package helpers;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,9 +24,14 @@ public class PropertyVault {
 	
 	public static String getSystemValueFor(String key){
 		String value = null;
-		SystemSetting obj = SystemSetting.find("key = ?", key).first();
+		SystemSetting obj = SystemSetting.find("key = ? and isDefault = ? ", key, false).first();
 		if (obj != null){
 			value = obj.value;
+		}else {
+			obj = SystemSetting.find("key = ? and isDefault = ?", key, true).first();
+			if (obj != null){
+				value = obj.value;
+			}
 		}
 		return value;
 	}
@@ -82,6 +88,18 @@ public class PropertyVault {
 			obj = CourierSetting.find("key = ? and courier = ?", key, null).first();
 			if (obj!=null){
 				value = obj.value;
+				
+				/**
+				 *  ?????
+				 *  Change accordingly to new settings model
+				 *  ?????
+				 * */
+//				CourierSetting cs = new CourierSetting();
+//				cs.courier= courier;
+//				cs.dateChanged = new Date();
+//				cs.key = key;
+//				cs.value = value;
+//				cs.create();
 			}
 		}
 		return value;

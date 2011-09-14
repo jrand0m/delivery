@@ -12,10 +12,7 @@ import play.db.jpa.Model;
 
 @Entity
 @Table(name = "ClientSettings")
-public class ClientSetting extends Model {
-	public String key;
-	public String value;
-	public Date dateChanged;
+public class ClientSetting extends GeneralSetting {
 	/**
 	 * FIXME if null - default for all ?? consider
 	 * */

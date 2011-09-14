@@ -10,10 +10,7 @@ import models.User;
 import play.db.jpa.Model;
 @Entity
 @Table(name ="UserSettings")
-public class UserSetting extends Model {
-	public String key;
-	public String value;
-	public Date dateChanged;
+public class UserSetting extends GeneralSetting {
 	/**
 	 * FIXME if null - default for all ?? consider
 	 * */

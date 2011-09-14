@@ -1,6 +1,3 @@
-/**
- * 
- */
 package annotations;
 
 import java.lang.annotation.ElementType;

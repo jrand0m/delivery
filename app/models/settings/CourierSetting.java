@@ -10,10 +10,7 @@ import models.Courier;
 import play.db.jpa.Model;
 @Entity
 @Table (name = "CourierSettings")
-public class CourierSetting extends Model {
-	public String key;
-	public String value;
-	public Date dateChanged;
+public class CourierSetting extends GeneralSetting {
 	/**
 	 * FIXME if null - default for all ?? consider
 	 * */

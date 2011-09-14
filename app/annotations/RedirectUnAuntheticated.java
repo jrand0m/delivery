@@ -12,7 +12,7 @@ import play.mvc.Router.Route;
 
 /**
  * @author Mike
- *
+ * Redirection to page if user is not eligible to  use this method
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
