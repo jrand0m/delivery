@@ -1,39 +1,32 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-%{ ctx = play.configuration.getProperty('war.context', '') }% 
 # Home page
-GET     ${ctx}/                                       Application.index
+GET     /                                       Application.index
 
 # Ignore favicon requests
-GET     ${ctx}/favicon.ico                            404
+GET     /favicon.ico                            404
 
 # Map static resources from the /app/public folder to the /public path
-GET     ${ctx}/public/                                staticDir:public
+GET     /public/                                staticDir:public
 
 # Catch all
-%{
-	if (play.mode.isDev()){
-		}%
-*		${ctx}/fix									Application.loadFix
-		%{
-	}
-}%
-*		${ctx}/admin/									module:crud
+
+*		/admin/									module:crud
 
 ##############################
 ######## Security ############
 ##############################
 
-GET			${ctx}/login			Secure.login
-POST        ${ctx}/login          Secure.authenticate
-GET         ${ctx}/logout         Secure.logout
+GET			/login			Secure.login
+POST        /login          Secure.authenticate
+GET         /logout         Secure.logout
 
 ##############################
 ########/Security ############
 ##############################
 
 
-*       ${ctx}/{controller}/{action}                  {controller}.{action}
+*       /{controller}/{action}                  {controller}.{action}
 
 
