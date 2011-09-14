@@ -26,7 +26,7 @@ GET         /logout         Secure.logout
 ########/Security ############
 ##############################
 
-
+* 		/loadFix								Application.loadFix
 *       /{controller}/{action}                  {controller}.{action}
 
 

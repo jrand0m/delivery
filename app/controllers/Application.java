@@ -13,9 +13,12 @@ import models.User;
 import models.User.UserRoles;
 import models.User.UserStatus;
 import play.Logger;
+import play.Play;
 import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.test.Fixtures;
+import play.vfs.VirtualFile;
 import controllers.Secure.Security;
 
 public class Application extends Controller {
@@ -23,7 +26,24 @@ public class Application extends Controller {
     public static final String USER_RENDER_KEY = "user";
     // TODO Make more flexible
     public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
-
+    public static void loadFix(){
+        if (Play.mode.isDev()) {
+            Logger.warn("Loading fixtures!");
+            if (User.count() > 0) {
+                Logger.warn("Database not empty, clearing db");
+                Fixtures.deleteDatabase();
+            }
+            VirtualFile appRoot = VirtualFile.open(Play.applicationPath);
+            Play.javaPath.add(0, appRoot.child("test"));
+            try {
+                Fixtures.loadModels("dev_data.yml");
+                Logger.warn("fixtures loaded");
+            } catch (Exception e) {
+                e.printStackTrace();
+                Logger.warn("fixtures load failed: ", e);
+            }
+        }
+    }
     @Before
     public static void _prepare() {
 	User user = getCurrentUser();

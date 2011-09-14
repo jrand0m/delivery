@@ -154,7 +154,31 @@ MenuItem(mit_pizza1):
     group: mgp_pizza
     client: client1
     deleted: false
-
-#Order Itemz
-
 #Orderz
+Order(order1):
+    orderCreated: 9.9.11
+    client: client1
+    orderOwner: usr_uzor
+    address: adr_uzor
+    orderStatus: OPEN
+#Order Itemz
+OrderItem(Order1Item1):
+    menuItem: mit_pizza1
+    order: order1
+    count: 100
+
+Order(order2):
+    orderCreated: 9.9.11
+    client: client1
+    orderOwner: usr_uzor
+    address: adr_uzor
+    orderStatus: SENT
+
+OrderItem(Order2Item1):
+    menuItem: mit_pizza1
+    order: order2
+    count: 100 
+OrderItem(Order2Item2):
+    menuItem: mit_Sup1
+    order: order2
+    count: 10
