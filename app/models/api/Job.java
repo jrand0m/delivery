@@ -3,6 +3,7 @@
  */
 package models.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,5 +13,5 @@ import java.util.List;
 public class Job {
     public String id;
     public String status;
-    public List<MenuItem> list;
+    public List<MenuItem> list = new ArrayList<MenuItem>();
 }

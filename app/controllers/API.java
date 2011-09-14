@@ -6,6 +6,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Client;
 import models.Order;
 import models.OrderItem;
 import models.api.Job;
@@ -23,21 +24,21 @@ import play.mvc.Controller;
  *
  */
 public class API extends Controller {
-        public static void fetchJobs(Integer id){
-            List<Order> orders = Order.find("client = ?", id).fetch();
+        public static void g(Integer id){
+            Client client = Client.findById(new Long(id));
+            List<Order> orders = Order.find("client = ?", client).fetch();
             List<Job> jobs = new ArrayList<Job>(orders.size());
             for (Order order : orders){
                 Job job = new Job();
                 job.id = order.shortHandId();
-                job.status="GOOD";
+                job.status=order.orderStatus.toString();
                 for (OrderItem oi : order.items){
-                  //TODO get item details repacked to job
-                  //TODO add menu ingradients subitems
+                    job.list.add(new MenuItem(oi));
                 }
             }
             renderJSON(jobs);
         }
-        public static void push(String message){
+        public static void p(String message){
             
             
         }
