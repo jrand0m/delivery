@@ -36,7 +36,7 @@ import play.libs.Crypto;
 @DiscriminatorValue("CLIENT_USER")
 public class Client extends User {
     
-    
+    @OneToMany(mappedBy="client")
     public List <Comment> comments;
     
     

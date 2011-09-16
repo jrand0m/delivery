@@ -6,6 +6,7 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import play.db.jpa.Model;
@@ -22,7 +23,7 @@ public class Comment extends Model {
      * */
     @OneToOne
     public Order	order;
-    @OneToOne
+    @ManyToOne
     public Client 	client;
     
     public String 	text;
