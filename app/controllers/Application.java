@@ -5,17 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.annotations.Cache;
-
-import models.Restaurant;
 import models.MenuItem;
-import models.RestaurantNetwork;
 import models.Order;
-import enumerations.OrderStatus;
 import models.OrderItem;
+import models.Restaurant;
+import models.RestaurantNetwork;
 import models.User;
-import enumerations.UserRoles;
-import enumerations.UserStatus;
 import play.Logger;
 import play.Play;
 import play.cache.CacheFor;
@@ -25,6 +20,9 @@ import play.mvc.Controller;
 import play.test.Fixtures;
 import play.vfs.VirtualFile;
 import controllers.Secure.Security;
+import enumerations.OrderStatus;
+import enumerations.UserRoles;
+import enumerations.UserStatus;
 
 public class Application extends Controller {
 

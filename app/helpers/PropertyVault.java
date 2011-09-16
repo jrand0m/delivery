@@ -1,7 +1,7 @@
 package helpers;
 
-import models.Restaurant;
 import models.Courier;
+import models.Restaurant;
 import models.User;
 import models.settings.ClientSetting;
 import models.settings.CourierSetting;

@@ -13,18 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 
+import play.db.jpa.GenericModel;
 import enumerations.OrderStatus;
 import enumerations.PaymentStatus;
-
-import play.Logger;
-import play.db.jpa.GenericModel;
-import play.db.jpa.Model;
 
 @Entity
 @Where(clause = "deleted = 0")

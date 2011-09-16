@@ -3,15 +3,12 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
 
 import org.hibernate.annotations.Where;
 
-import enumerations.TransactionState;
-
 import play.db.jpa.Model;
+import enumerations.TransactionState;
 
 @Entity
 @Where(clause = "deleted = 0")

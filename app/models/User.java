@@ -7,36 +7,25 @@ package models;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Generated;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
-
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 
-import enumerations.UserRoles;
-import enumerations.UserStatus;
-
 import play.data.validation.Email;
-import play.data.validation.Match;
 import play.data.validation.Password;
 import play.data.validation.Phone;
 import play.data.validation.Required;
-import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
+import enumerations.UserRoles;
+import enumerations.UserStatus;
 
 /**
  * 

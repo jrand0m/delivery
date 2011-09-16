@@ -2,10 +2,6 @@ package models.settings;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-
 import play.data.validation.Max;
 import play.data.validation.Min;
 import play.data.validation.Required;

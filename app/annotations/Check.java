@@ -7,8 +7,6 @@ import java.lang.annotation.Target;
 
 import enumerations.UserRoles;
 
-import play.mvc.Before;
-
 /**
  * Annotation for security
  * Check roles in value for current logged in user

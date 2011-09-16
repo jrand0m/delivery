@@ -3,12 +3,10 @@
  */
 package models;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import play.db.jpa.Model;
-
 import models.device.CourierDevice;
+import play.db.jpa.Model;
 
 
 /**

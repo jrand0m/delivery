@@ -6,13 +6,8 @@ package controllers;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import annotations.AllowAnonymous;
-import annotations.Check;
-
 import models.Order;
 import models.User;
-import enumerations.UserRoles;
-
 import play.Logger;
 import play.Play;
 import play.data.validation.Required;
@@ -21,6 +16,9 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.utils.Java;
+import annotations.AllowAnonymous;
+import annotations.Check;
+import enumerations.UserRoles;
 
 public class Secure extends Controller {
 

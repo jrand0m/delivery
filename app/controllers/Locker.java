@@ -2,8 +2,6 @@ package controllers;
 
 import java.util.List;
 
-import controllers.Secure.Security;
-
 import models.Address;
 import models.Order;
 import models.User;
@@ -12,6 +10,7 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
 import play.mvc.With;
+import controllers.Secure.Security;
 
 /**
  * User Personal Page Controller

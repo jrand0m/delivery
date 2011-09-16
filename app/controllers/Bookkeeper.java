@@ -7,26 +7,17 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
-import org.hibernate.criterion.Restrictions;
-
-import annotations.Check;
-
-import controllers.Secure.Security;
-import enumerations.UserRoles;
 import models.AccountingGroup;
 import models.AccountingTransaction;
 import models.User;
-import play.Logger;
 import play.data.binding.As;
-import play.db.jpa.GenericModel.JPAQuery;
-import play.db.jpa.Model;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
+import annotations.Check;
+import controllers.Secure.Security;
+import enumerations.UserRoles;
 
 /**
  * @author Mike Stetsyshyn

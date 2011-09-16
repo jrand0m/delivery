@@ -1,13 +1,9 @@
 package models.settings;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import models.Restaurant;
-
-import play.db.jpa.Model;
 
 
 @Entity

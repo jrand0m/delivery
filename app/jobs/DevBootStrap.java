@@ -5,7 +5,6 @@ import play.Logger;
 import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
-import play.test.Fixtures;
 import play.vfs.VirtualFile;
 
 @OnApplicationStart

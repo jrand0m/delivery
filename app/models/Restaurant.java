@@ -10,24 +10,14 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Transient;
-
-
-
-import org.hibernate.annotations.Where;
 
 import play.data.validation.Phone;
 import play.db.jpa.Model;
 import play.libs.Codec;
-import play.libs.Crypto;
 
 /**
  * 

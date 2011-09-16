@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import models.User;
-
 import play.db.jpa.Model;
 
 /**

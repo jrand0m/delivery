@@ -6,15 +6,12 @@ package controllers;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import models.Restaurant;
 import models.Order;
-import enumerations.OrderStatus;
 import models.OrderItem;
+import models.Restaurant;
 import models.api.Job;
 import models.api.MenuItem;
 import play.Logger;
@@ -24,6 +21,8 @@ import play.mvc.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import enumerations.OrderStatus;
 
 /**
  * @author Mike
