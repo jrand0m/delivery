@@ -1,15 +1,35 @@
 package models.settings;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import models.Courier;
+import play.data.validation.Max;
+import play.data.validation.Min;
+import play.data.validation.Required;
+import play.db.jpa.Model;
 @Entity
 @Table (name = "CourierSettings")
-public class CourierSetting extends GeneralSetting {
+public class CourierSetting extends Model {
+	@Required
+	@Min(3)
+	@Max(32)
+	public String key;
+	@Required
+	@Min(1)
+	public String value;
+	@Required
+	public boolean isDefault = false;
 	/**
-	 * FIXME if null - default for all ?? consider
+	 * if null than no date
 	 * */
+	public Date startDate;
+	/**
+	 * if null than no date
+	 * */
+	public Date endDate;
 	public Courier courier;
 	 
 }

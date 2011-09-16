@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import enumerations.LogActionType;
+
 import models.User;
 import play.db.jpa.Model;
 
@@ -19,7 +21,7 @@ import play.db.jpa.Model;
 @Table(name = "UserLogs")
 public class UserLog extends Model {
     public User user;
-    public LOG_ACTION_TYPE actionType;
+    public LogActionType actionType;
     public Date date;
     public String info;
 }

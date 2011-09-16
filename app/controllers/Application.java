@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import jobs.DevBootStrap;
+
 import models.MenuItem;
 import models.Order;
 import models.OrderItem;
@@ -30,22 +32,9 @@ public class Application extends Controller {
     // TODO Make more flexible
     public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
     public static void loadFix(){
-        if (Play.mode.isDev()) {
-            Logger.warn("Loading fixtures!");
-            if (User.count() > 0) {
-                Logger.warn("Database not empty, clearing db");
-                Fixtures.deleteDatabase();
-            }
-            VirtualFile appRoot = VirtualFile.open(Play.applicationPath);
-            Play.javaPath.add(0, appRoot.child("test"));
-            try {
-                Fixtures.loadModels("dev_data.yml");
-                Logger.warn("fixtures loaded");
-            } catch (Exception e) {
-                e.printStackTrace();
-                Logger.warn("fixtures load failed: ", e);
-            }
-        }
+	Fixtures.deleteDatabase();
+	new DevBootStrap ().doJob();
+	renderText("Cleared db and forsed fixture load");
     }
     @Before
     public static void _prepare() {

@@ -59,16 +59,16 @@ public class PropertyVault {
 	return value;
     }
 
-    public static void setUserValueFor(String key, String value) {
-	setUserValueFor(key, value, false);
+    public static void setUserValueFor(User user, String key, String value) {
+	setUserValueFor(user, key, value, false);
     }
 
-    public static void setUserValueFor(String key, String value,
+    public static void setUserValueFor(User user, String key, String value,
 	    boolean asDefault) {
 	// getInstance().put(key, value);
     }
 
-    public static String getClientValueFor(Restaurant client, String key) {
+    public static String getRestaurantValueFor(Restaurant client, String key) {
 	String value = null;
 	ClientSetting obj = ClientSetting.find("key = ? and courier = ? ", key,
 		client).first();
@@ -84,11 +84,11 @@ public class PropertyVault {
 	return value;
     }
 
-    public static void setClientValueFor(String key, String value) {
-	setClientValueFor(key, value, false);
+    public static void setRestaurantValueFor(Restaurant restoraunt, String key, String value) {
+	setRestaurantValueFor(restoraunt, key, value, false);
     }
 
-    public static void setClientValueFor(String key, String value,
+    public static void setRestaurantValueFor(Restaurant restaurant, String key, String value,
 	    boolean asDefault) {
 	// getInstance().put(key, value);
     }
@@ -110,11 +110,11 @@ public class PropertyVault {
 	return value;
     }
 
-    public static void setCourierValueFor(String key, String value) {
-	setCourierValueFor(key, value, false);
+    public static void setCourierValueFor(Courier courier, String key, String value) {
+	setCourierValueFor(courier, key, value, false);
     }
 
-    public static void setCourierValueFor(String key, String value,
+    public static void setCourierValueFor(Courier courier, String key, String value,
 	    boolean asDefault) {
 	// getInstance().put(key, value);
     }

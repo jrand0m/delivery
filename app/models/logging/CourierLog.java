@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import enumerations.LogActionType;
+
 import models.Courier;
 import play.db.jpa.Model;
 
@@ -20,7 +22,7 @@ import play.db.jpa.Model;
 public class CourierLog extends Model
 {
 	public Courier courier;
-	public LOG_ACTION_TYPE actionType;
+	public LogActionType actionType;
 	public Date date;
 	public String info;
 }

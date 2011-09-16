@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -29,7 +30,7 @@ public class Restaurant extends Model {
     
     @OneToMany(mappedBy="client")
     public List <Comment> 	comments;
-
+    
     public User 		user;
     
     /**
@@ -44,7 +45,7 @@ public class Restaurant extends Model {
     @OneToMany(mappedBy="client", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public Set<MenuItem> 	menuBook 	= new HashSet<MenuItem>();
     public String title;
-    @OneToOne
+    @OneToOne(fetch=FetchType.LAZY)
     public WorkHours      	workHours;
     
     /**
