@@ -1,6 +1,6 @@
 package helpers;
 
-import models.Client;
+import models.Restaurant;
 import models.Courier;
 import models.User;
 import models.settings.ClientSetting;
@@ -68,7 +68,7 @@ public class PropertyVault {
 	// getInstance().put(key, value);
     }
 
-    public static String getClientValueFor(Client client, String key) {
+    public static String getClientValueFor(Restaurant client, String key) {
 	String value = null;
 	ClientSetting obj = ClientSetting.find("key = ? and courier = ? ", key,
 		client).first();

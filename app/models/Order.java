@@ -19,6 +19,9 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 
+import enumerations.OrderStatus;
+import enumerations.PaymentStatus;
+
 import play.Logger;
 import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
@@ -27,20 +30,9 @@ import play.db.jpa.Model;
 @Where(clause = "deleted = 0")
 @Table(name="Orders")
 public class Order extends GenericModel {
-    public static enum OrderStatus {
-        OPEN(10), SENT(20), RECIEVED(30), ACCEPTED(40), COOKED(50), DELIVERING(60),  DELIVERED(70),  DECLINED(0);
-        private Integer i;
-        OrderStatus(Integer ord){
-            
-        }
-        public Integer getOrdinal(){
-            return i;
-        }
-    }
     
-    public static enum PaymentStatus {
-        NOT_PAID, PAID, MANUAL_PAYMENT 
-    }
+    
+
     
 //    private static final double GURANTEE_PROFIT_RATE = 1.3;
     @Id
@@ -92,7 +84,7 @@ public class Order extends GenericModel {
     public User                 orderOwner;
     
     @ManyToOne
-    public Client                 client;
+    public Restaurant                 client;
     
     public OrderStatus          orderStatus = OrderStatus.OPEN;
     public PaymentStatus        paymentStatus = PaymentStatus.NOT_PAID;

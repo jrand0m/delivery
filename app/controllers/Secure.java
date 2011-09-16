@@ -11,6 +11,7 @@ import annotations.Check;
 
 import models.Order;
 import models.User;
+import enumerations.UserRoles;
 
 import play.Logger;
 import play.Play;
@@ -44,7 +45,7 @@ public class Secure extends Controller {
     }
 
     private static void check(Check check) throws Throwable {
-        for (String profile : check.value()) {
+        for (UserRoles profile : check.value()) {
             boolean hasProfile = (Boolean) Security.invoke("check", profile);
             if (!hasProfile) {
                 Security.invoke("onCheckFailed", profile);

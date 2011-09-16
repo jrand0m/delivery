@@ -27,6 +27,9 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 
+import enumerations.UserRoles;
+import enumerations.UserStatus;
+
 import play.data.validation.Email;
 import play.data.validation.Match;
 import play.data.validation.Password;
@@ -48,16 +51,6 @@ import play.db.jpa.Model;
 )
 @DiscriminatorValue("GENERIC_USER")
 public class User extends Model {
-    public static enum UserRoles {
-        ADMIN, CASHIER, CLIENT, COURIER, USER
-    }
-
-    public static enum UserStatus {
-        ACTIVE, BANNED, PENDING_APPROVEMENT;
-    }
-
-    
-    
 
     @OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public List<Address> addressBook;

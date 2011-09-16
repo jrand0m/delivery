@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import enumerations.UserRoles;
+
 import play.mvc.Before;
 
 /**
@@ -19,5 +21,6 @@ public @interface Check {
 	/**
 	 * roles to check (array of strings eg. <pre>@Check(value = { "ADMIN", "CLIENT", "OTHR" })</pre>)
 	 * */
-    String[] value();
+    UserRoles[] value();
+    
 }

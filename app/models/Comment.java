@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import enumerations.CommentStatus;
+
 import play.db.jpa.Model;
 
 /**
@@ -24,7 +26,7 @@ public class Comment extends Model {
     @OneToOne
     public Order	order;
     @ManyToOne
-    public Client 	client;
+    public Restaurant 	client;
     
     public String 	text;
     public Integer 	commonRating;
@@ -34,9 +36,5 @@ public class Comment extends Model {
      * Based on user prefs set default, and ask if to hide his name;
      * */
     public boolean showAsAnonymous;
-    public static enum CommentStatus {
-	
-	NOT_REVIEWED, APPROVED,  REJECTED
-	
-    }
+
 }

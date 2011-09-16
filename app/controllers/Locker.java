@@ -7,7 +7,6 @@ import controllers.Secure.Security;
 import models.Address;
 import models.Order;
 import models.User;
-import models.Order.OrderStatus;
 import play.Logger;
 import play.mvc.Before;
 import play.mvc.Controller;

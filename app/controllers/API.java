@@ -11,9 +11,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import models.Client;
+import models.Restaurant;
 import models.Order;
-import models.Order.OrderStatus;
+import enumerations.OrderStatus;
 import models.OrderItem;
 import models.api.Job;
 import models.api.MenuItem;
@@ -35,9 +35,9 @@ public class API extends Controller {
             notFound();
             return;
         }
-        Client client = Client.findById(new Long(id));
+        Restaurant client = Restaurant.findById(new Long(id));
         List<Order> orders = Order.find("client = ? and orderStatus = ? ",
-                client, Order.OrderStatus.SENT).fetch();
+                client, OrderStatus.SENT).fetch();
         Logger.info("Found %d orders", orders.size());
         List<Job> jobs = new ArrayList<Job>(orders.size());
         for (Order order : orders) {

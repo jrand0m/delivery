@@ -1,19 +1,24 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import models.Client;
+import org.hibernate.annotations.Cache;
+
+import models.Restaurant;
 import models.MenuItem;
+import models.RestaurantNetwork;
 import models.Order;
-import models.Order.OrderStatus;
+import enumerations.OrderStatus;
 import models.OrderItem;
 import models.User;
-import models.User.UserRoles;
-import models.User.UserStatus;
+import enumerations.UserRoles;
+import enumerations.UserStatus;
 import play.Logger;
 import play.Play;
+import play.cache.CacheFor;
 import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -51,10 +56,10 @@ public class Application extends Controller {
 	Order order = null;
 	if (user != null) {
 	    order = Order.find("orderStatus = ? and orderOwner =?",
-		    Order.OrderStatus.OPEN, user).first();
+		    OrderStatus.OPEN, user).first();
 	} else {
 	    order = Order.find("orderStatus = ? and anonSID = ?",
-		    Order.OrderStatus.OPEN, session.getId()).first();
+		    OrderStatus.OPEN, session.getId()).first();
 	}
 
 	if (order != null) {
@@ -81,11 +86,15 @@ public class Application extends Controller {
 	renderArgs.put("order", order);
 	render("/Application/prepareOrder.html");
     }
-
+    @CacheFor("2m")
     public static void index() {
-
-	List<Client> clients = Client.findAll();
-
+	List<RestaurantNetwork> metas = RestaurantNetwork.findAll();
+	List<Restaurant> combined = new ArrayList<Restaurant>();
+	for (RestaurantNetwork meta: metas){
+	    combined.addAll(meta.restoraunts); //removing restaurants that is in networks
+	}
+	List<Restaurant> clients = Restaurant.findAll();
+	clients.removeAll(combined);
 	render(clients);
     }
 
@@ -98,7 +107,7 @@ public class Application extends Controller {
     }
 
     public static void showMenu(Long id) {
-	Client client = Client.findById(id);
+	Restaurant client = Restaurant.findById(id);
 	Set<MenuItem> menuItems = client.menuBook;
 	renderArgs.put("clientName", client.title);
 	render(menuItems);
@@ -141,7 +150,7 @@ public class Application extends Controller {
 	    Logger.debug(">>> Connected user login: %s", Security.connected());
 	    User user = (User) renderArgs.get(USER_RENDER_KEY);
 	    Order order = Order.find("orderOwner = ?  and orderStatus = ?",
-		    user, Order.OrderStatus.OPEN).first();
+		    user, OrderStatus.OPEN).first();
 	    if (order == null) {
 		Logger.debug(">>> No open order found, creating one..");
 		order = createNewOpenOrder(user);
@@ -168,7 +177,7 @@ public class Application extends Controller {
 	    Logger.debug(">>> Connected user login: %s", Security.connected());
 	    User user = (User) renderArgs.get(USER_RENDER_KEY);
 	    Order order = Order.find("orderOwner = ?  and orderStatus = ?",
-		    user, Order.OrderStatus.OPEN).first();
+		    user, OrderStatus.OPEN).first();
 	    if (order == null) {
 		Logger.debug(">>> no order found, sending ok response");
 		ok();

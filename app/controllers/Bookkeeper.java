@@ -16,11 +16,10 @@ import org.hibernate.criterion.Restrictions;
 import annotations.Check;
 
 import controllers.Secure.Security;
-
+import enumerations.UserRoles;
 import models.AccountingGroup;
 import models.AccountingTransaction;
 import models.User;
-import models.AccountingTransaction.AC_TRANSACTION_STATE;
 import play.Logger;
 import play.data.binding.As;
 import play.db.jpa.GenericModel.JPAQuery;
@@ -35,7 +34,7 @@ import play.mvc.With;
  *         class to make accounting and reporting on our income and outcome
  */
 @With(Secure.class)
-@Check("ADMIN")
+@Check(UserRoles.ADMIN)
 public class Bookkeeper extends Controller {
 
     @Before
@@ -122,7 +121,7 @@ public class Bookkeeper extends Controller {
         tran.description = description;
         tran.deleted = false;
         tran.group = AccountingGroup.findById(groupId);
-        tran.state = AC_TRANSACTION_STATE.WAITING;
+        tran.state = enumerations.AC_TRANSACTION_STATE.WAITING;
         tran.operationDate = new Date();
         tran.create();
         todo();

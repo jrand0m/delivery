@@ -13,6 +13,6 @@ public class MenuItemGroup extends Model {
     public boolean deleted = false;
 
     public String  description;
-    public Boolean generic = Boolean.FALSE;
+    public boolean generic = Boolean.FALSE;
     public String  name;
 }

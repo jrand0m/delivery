@@ -1,10 +1,10 @@
 package controllers.admin.dev;
 
-import models.Client;
+import models.Restaurant;
 import controllers.CRUD;
 import controllers.CRUD.For;
 
-@For(Client.class)
+@For(Restaurant.class)
 public class AdminClients extends CRUD {
 
 }

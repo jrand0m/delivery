@@ -16,7 +16,7 @@ import play.db.jpa.Model;
 public class MenuItem extends Model {
     public boolean       avaliable = false;
     @ManyToOne
-    public Client        client;
+    public Restaurant        client;
     public boolean       deleted   = false;
     public String        description;
     @Column(name="menuItemGroupId")
@@ -37,7 +37,7 @@ public class MenuItem extends Model {
 
     public MenuItem(Long id, String name, String description, Integer price,
             Boolean avaliable, Date menuItemCreated, MenuItemGroup group,
-            Client client, Boolean deleted) {
+            Restaurant client, Boolean deleted) {
         super();
         this.id = id;
         this.name = name;

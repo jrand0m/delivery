@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import models.Client;
+import models.Restaurant;
 
 import play.db.jpa.Model;
 
@@ -16,5 +16,5 @@ public class ClientSetting extends GeneralSetting {
 	/**
 	 * FIXME if null - default for all ?? consider
 	 * */
-	public Client client;
+	public Restaurant client;
 }
