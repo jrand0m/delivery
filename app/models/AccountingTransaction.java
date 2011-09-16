@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
 
-import enumerations.AC_TRANSACTION_STATE;
+import enumerations.TransactionState;
 
 import play.db.jpa.Model;
 
@@ -24,7 +24,7 @@ public class AccountingTransaction extends Model {
     public AccountingGroup      group;
     public Date                 operationDate;
     public Integer              regularDayInMonthNo = -1;
-    public AC_TRANSACTION_STATE state;
+    public TransactionState state;
 
     /**
      * 

@@ -121,7 +121,7 @@ public class Bookkeeper extends Controller {
         tran.description = description;
         tran.deleted = false;
         tran.group = AccountingGroup.findById(groupId);
-        tran.state = enumerations.AC_TRANSACTION_STATE.WAITING;
+        tran.state = enumerations.TransactionState.WAITING;
         tran.operationDate = new Date();
         tran.create();
         todo();

@@ -7,6 +7,6 @@ package enumerations;
  * @author Mike
  *
  */
-public enum DAY_TYPE {
+public enum DayType {
     FRIDAY, HOLLYDAY, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY
 }

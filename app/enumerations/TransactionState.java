@@ -7,7 +7,7 @@ package enumerations;
  * @author Mike
  *
  */
-public enum AC_TRANSACTION_STATE {
+public enum TransactionState {
 
     APPROVED, PAID, RECIEVED, WAITING;
 
