@@ -14,6 +14,7 @@ import models.settings.UserSetting;
  * 
  * 2) each method must handle them self a default value extraction/putting
  * 
+ * 
  * */
 @SuppressWarnings("undefined")
 public class PropertyVault {
