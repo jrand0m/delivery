@@ -30,11 +30,20 @@ import play.libs.Crypto;
 /**
  * 
  * @author mike
+ * 
  */
 @Entity
 @DiscriminatorValue("CLIENT_USER")
 public class Client extends User {
-
+    
+    
+    public List <Comment> comments;
+    
+    
+    /**
+     * Updates by job at 4 oclock every day based on approved comments for past 30 days
+     * */
+    public Integer 	raiting;
     public String         contactPerson;
     public String         salt = Codec.UUID();
     @Phone
