@@ -27,7 +27,17 @@ import play.libs.Codec;
  */
 @Entity
 public class Restaurant extends Model {
-    
+    public static final class FIELDS{
+	public static final String COMMENTS= "comments";
+	public static final String USER= "user";
+	public static final String RAITING= "raiting";
+	public static final String CONTACTPERSON= "contactPerson";
+	public static final String DISCOUNT= "discount";
+	public static final String MENUBOOK= "menuBook";
+	public static final String TITLE= "title";
+	public static final String WORKHOURS= "workHours";
+	public static final String LASTCONNECTION= "lastConnection";
+}
     @OneToMany(mappedBy="restaurant")
     public List <Comment> 	comments;
     
@@ -41,10 +51,10 @@ public class Restaurant extends Model {
     public String         	salt 		= Codec.UUID();
     @Phone
     public String         	contactPhone;
-    public Double         discount;
+    public Double         	discount;
     @OneToMany(mappedBy="reataurant", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public Set<MenuItem> 	menuBook 	= new HashSet<MenuItem>();
-    public String title;
+    public String 		title;
     @OneToOne(fetch=FetchType.LAZY)
     public WorkHours      	workHours;
     

@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("REGULAR_DAY")
 public class RegularDay extends Day {
-
+    public static final class FIELDS{
+	public static final String DAYTYPE = "dayType";
+    }
     enum DAY_TYPE {
         FRIDAY, HOLLYDAY, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY
     }

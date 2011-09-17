@@ -12,6 +12,16 @@ import play.db.jpa.Model;
 @Entity
 @Where(clause = "deleted = 0")
 public class Address extends Model {
+    
+    public final static class FIELDS{
+	public final static String ADDITIONALINFO= "additionalInfo";
+	public final static String APPARTAMENTSNUMBER = "appartamentsNumber";
+	public final static String BULDINGNUBER =  "buldingNuber";
+	public final static String DELETED = "deleted" ;
+	public final static String STREET = "street";
+	public final static String USER = "user";
+    }
+    
     @MaxSize(200)
     public String  additionalInfo;
     @MaxSize(5)

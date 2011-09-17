@@ -40,7 +40,21 @@ import enumerations.UserStatus;
 )
 @DiscriminatorValue("GENERIC_USER")
 public class User extends Model {
-
+public static final class FIELDS{
+	public static final String ADDRESSBOOK = "addressBook";
+	public static final String ORDERBOOK = "orderBook";
+	public static final String DELETED = "deleted";
+	public static final String EMAIL = "email";
+	public static final String JOINDATE = "joinDate";
+	public static final String LASTLOGINDATE = "lastLoginDate";
+	public static final String MISCINFO = "miscInfo";
+	public static final String NAME = "name";
+	public static final String PASSWORD = "password";
+	public static final String PHONENUMBER = "phoneNumber";
+	public static final String ROLE = "role";
+	public static final String SURNAME = "surname";
+	public static final String USERSTATUS = "userStatus";
+}
     @OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public List<Address> addressBook;
     @OneToMany(mappedBy="orderOwner", fetch=FetchType.LAZY, cascade=CascadeType.ALL)

@@ -18,7 +18,15 @@ import enumerations.CommentStatus;
  */
 @Entity
 public class Comment extends Model {
-    
+    public static final class FIELDS{
+	public static final String ORDER = "order";
+	public static final String RESTAURANT = "restaurant";
+	public static final String TEXT = "text";
+	public static final String COMMONRATING = "commonRating";
+	public static final String DATE = "date";
+	public static final String STATUS = "status";
+	public static final String SHOWASANONYMOUS = "showAsAnonymous";
+    }
     /**
      * allow only registered users !
      * */

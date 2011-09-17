@@ -10,6 +10,15 @@ import play.db.jpa.Model;
 @Entity
 @Where(clause = "deleted = 0")
 public class OrderItem extends Model {
+    public static final class FIELDS{
+	public static final String COUNT = "count";
+	public static final String DELETED = "deleted";
+	public static final String MENUITEM = "menuItem";
+	public static final String ORDER = "order";
+	public static final String ORDERITEMPRICE = "orderItemPrice";
+	public static final String ORDERITEMUSERPRICE = "orderItemUserPrice";
+    }
+    
     public Integer  count;
 
     public boolean  deleted = false;

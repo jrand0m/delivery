@@ -12,7 +12,14 @@ import play.db.jpa.Model;
 @Entity
 @Table(name = "SystemSettings")
 public class SystemSetting extends Model {
-	@Required
+	public static final class FIELDS{
+	public static final String  KEY= "key";
+	public static final String VALUE= "value";
+	public static final String ISDEFAULT= "isDefault";
+	public static final String STARTDATE= "startDate";
+	public static final String ENDDATE= "endDate";
+	}
+    	@Required
 	@Min(3)
 	@Max(32)
 	public String key;

@@ -26,7 +26,25 @@ import enumerations.PaymentStatus;
 @Table(name="Orders")
 public class Order extends GenericModel {
     
-    
+    public static final class FIELDS{
+	public static final String ID = "id";
+	public static final String COURIERORDERCLOSED = "courierOrderClosed";
+	public static final String COURIERORDERRECIEVED = "courierOrderRecieved";
+	public static final String COURIERPLANEDDELIVERYTIME = "courierPlanedDeliveryTime";
+	public static final String DELETED = "deleted";
+	public static final String DELIVERYADDRESS = "deliveryAddress";
+	public static final String DELIVERYPRICE = "deliveryPrice";
+	public static final String ORDERCREATED = "orderCreated";
+	public static final String ITEMS = "items";
+	public static final String ORDERCLOSED = "orderClosed";
+	public static final String ORDERDATE = "orderDate";
+	public static final String ORDEROWNER = "orderOwner";
+	public static final String RESTAURANT = "restaurant";
+	public static final String ORDERSTATUS = "orderStatus";
+	public static final String ANONSID = "anonSID";
+	public static final String SHORTHANDID = "shortHandId";
+	
+    }
 
     
 //    private static final double GURANTEE_PROFIT_RATE = 1.3;
