@@ -29,13 +29,18 @@ import enumerations.OrderStatus;
  * 
  */
 public class API extends Controller {
+    /**
+     * 
+     */
+    private static final String BY_RESTAURANT_AND_ORDER_STATUS = Order.FIELDS.RESTAURANT + " = ? and "+Order.FIELDS.ORDER_STATUS+" = ? ";
+
     public static void g(@Required Integer id) {
         if (id == null) {
             notFound();
             return;
         }
         Restaurant restaurant = Restaurant.findById(new Long(id));
-        List<Order> orders = Order.find("restaurant = ? and orderStatus = ? ",
+        List<Order> orders = Order.find(BY_RESTAURANT_AND_ORDER_STATUS,
                 restaurant, OrderStatus.SENT).fetch();
         Logger.info("Found %d orders", orders.size());
         List<Job> jobs = new ArrayList<Job>(orders.size());

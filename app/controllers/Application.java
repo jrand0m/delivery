@@ -28,6 +28,11 @@ import enumerations.UserStatus;
 
 public class Application extends Controller {
 
+
+    
+    
+    
+
     public static final String USER_RENDER_KEY = "user";
     // TODO Make more flexible
     public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
@@ -42,10 +47,10 @@ public class Application extends Controller {
 	renderArgs.put(USER_RENDER_KEY, user);
 	Order order = null;
 	if (user != null) {
-	    order = Order.find("orderStatus = ? and orderOwner =?",
-		    OrderStatus.OPEN, user).first();
+	    order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
+		    user, OrderStatus.OPEN ).first();
 	} else {
-	    order = Order.find("orderStatus = ? and anonSID = ?",
+	    order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
 		    OrderStatus.OPEN, session.getId()).first();
 	}
 
@@ -61,11 +66,11 @@ public class Application extends Controller {
 	Order order = null;
 	User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
 	if (user != null) {
-	    order = Order.find("orderOwner = ? and orderStatus = ?", user,
+	    order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
 		    OrderStatus.OPEN).first();
 	} else {
-	    order = Order.find("anonSID = ? and orderStatus = ?",
-		    session.getId(), OrderStatus.OPEN).first();
+	    order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
+		    OrderStatus.OPEN, session.getId()).first();
 	}
 	if (order == null) {
 	    order = createNewOpenOrder(null);
@@ -88,7 +93,7 @@ public class Application extends Controller {
     private static User getCurrentUser() {
 	User user = null;
 	if (Security.isConnected()) {
-	    user = User.find("login = ?", Security.connected()).first();
+	    user = User.find(User.HQL.BY_LOGIN, Security.connected()).first();
 	}
 	return user;
     }
@@ -136,7 +141,7 @@ public class Application extends Controller {
 	if (Security.isConnected()) {
 	    Logger.debug(">>> Connected user login: %s", Security.connected());
 	    User user = (User) renderArgs.get(USER_RENDER_KEY);
-	    Order order = Order.find("orderOwner = ?  and orderStatus = ?",
+	    Order order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
 		    user, OrderStatus.OPEN).first();
 	    if (order == null) {
 		Logger.debug(">>> No open order found, creating one..");
@@ -148,7 +153,7 @@ public class Application extends Controller {
 	} else {
 	    String bid = session.getId();
 	    Logger.debug(">>> Annonymous sid: %s", bid);
-	    Order order = Order.find("orderStatus = ? and anonSID = ?",
+	    Order order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
 		    OrderStatus.OPEN, bid).first();
 	    if (order == null) {
 		order = createNewOpenOrder(null);
@@ -163,7 +168,7 @@ public class Application extends Controller {
 	if (Security.isConnected()) {
 	    Logger.debug(">>> Connected user login: %s", Security.connected());
 	    User user = (User) renderArgs.get(USER_RENDER_KEY);
-	    Order order = Order.find("orderOwner = ?  and orderStatus = ?",
+	    Order order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
 		    user, OrderStatus.OPEN).first();
 	    if (order == null) {
 		Logger.debug(">>> no order found, sending ok response");
@@ -175,7 +180,7 @@ public class Application extends Controller {
 	} else {
 	    String bid = session.getId();
 	    Logger.debug(">>> Annonymous basket id: %s", bid);
-	    Order order = Order.find("orderStatus = ? and anonSID = ?",
+	    Order order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
 		    OrderStatus.OPEN, bid).first();
 	    if (order == null) {
 		order = createNewOpenOrder(null);
@@ -197,7 +202,7 @@ public class Application extends Controller {
 	Logger.debug(">>> session id: %s", session.getId());
 	count = normalizeCount(count);
 	MenuItem menuItem = MenuItem.findById(id);
-	OrderItem orderitem = OrderItem.find("order = ? and menuItem =? ",
+	OrderItem orderitem = OrderItem.find(OrderItem.HQL.BY_ORDER_AND_MENU_ITEM,
 		order, menuItem).first();
 	if (orderitem == null) {
 	    Logger.debug(">>> no such item found, sending ok response");
@@ -275,11 +280,11 @@ public class Application extends Controller {
 	Order order = null;
 	User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
 	if (user != null) {
-	    order = Order.find("orderOwner = ? and orderStatus = ?", user,
+	    order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
 		    OrderStatus.OPEN).first();
 	} else {
-	    order = Order.find("anonSID = ? and orderStatus = ?",
-		    session.getId(), OrderStatus.OPEN).first();
+	    order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
+		     OrderStatus.OPEN, session.getId()).first();
 	}
 	if (order == null) {
 	    order = createNewOpenOrder(null);

@@ -40,12 +40,17 @@ import enumerations.UserStatus;
 )
 @DiscriminatorValue("GENERIC_USER")
 public class User extends Model {
-public static final class FIELDS{
+    public static final class HQL{
+	public static final String BY_LOGIN = User.FIELDS.USER_LOGIN+" = ?";
+	public static final String BY_LOGIN_OR_EMAIL =User.FIELDS.USER_LOGIN+" = ? or "+User.FIELDS.USER_EMAIL+" = ?";;
+    }
+    public static final class FIELDS{
 	public static final String USER_ADDRESS_BOOK = "addressBook";
 	public static final String USER_ORDER_BOOK = "orderBook";
 	public static final String USER_DELETED = "deleted";
 	public static final String USER_EMAIL = "email";
 	public static final String USER_JOIN_DATE = "joinDate";
+	public static final String USER_LOGIN = "login";
 	public static final String USER_LAST_LOGIN_DATE = "lastLoginDate";
 	public static final String USER_MISC_INFO = "miscInfo";
 	public static final String USER_NAME = "name";

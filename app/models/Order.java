@@ -26,23 +26,29 @@ import enumerations.PaymentStatus;
 @Table(name="Orders")
 public class Order extends GenericModel {
     
+    public static final class HQL{
+	public static final String BY_ORDER_OWNER_AND_ORDER_STATUS = Order.FIELDS.ORDER_OWNER + " = ? and "+Order.FIELDS.ORDER_STATUS+" = ?";
+	public static final String BY_ORDER_STATUS_AND_ANON_SID = Order.FIELDS.ORDER_STATUS + " = ? and "+Order.FIELDS.ANONSID+" = ?";
+	public static final String BY_OWNER = Order.FIELDS.ORDER_OWNER+ " = ?";
+	public static final String BY_ANONSID = Order.FIELDS.ANONSID+ " = ? ";
+    }
     public static final class FIELDS{
-	public static final String ORDER_ID = "id";
-	public static final String ORDER_COURIER_ORDERCLOSED = "courierOrderClosed";
-	public static final String ORDER_COURIER_ORDER_RECIEVED = "courierOrderRecieved";
-	public static final String ORDER_COURIER_PLANED_DELIVERY_TIME = "courierPlanedDeliveryTime";
-	public static final String ORDER_DELETED = "deleted";
-	public static final String ORDER_DELIVERY_ADDRESS = "deliveryAddress";
-	public static final String ORDER_DELIVERY_PRICE = "deliveryPrice";
-	public static final String ORDER_ORDER_CREATED = "orderCreated";
-	public static final String ORDER_ITEMS = "items";
-	public static final String ORDER_ORDER_CLOSED = "orderClosed";
-	public static final String ORDER_ORDER_DATE = "orderDate";
-	public static final String ORDER_ORDER_OWNER = "orderOwner";
-	public static final String ORDER_RESTAURANT = "restaurant";
-	public static final String ORDER_ORDER_STATUS = "orderStatus";
-	public static final String ORDER_ANONSID = "anonSID";
-	public static final String ORDER_SHORTHAND_ID = "shortHandId";
+	public static final String ID = "id";
+	public static final String COURIER_ORDERCLOSED = "courierOrderClosed";
+	public static final String COURIER_ORDER_RECIEVED = "courierOrderRecieved";
+	public static final String COURIER_PLANED_DELIVERY_TIME = "courierPlanedDeliveryTime";
+	public static final String DELETED = "deleted";
+	public static final String DELIVERY_ADDRESS = "deliveryAddress";
+	public static final String DELIVERY_PRICE = "deliveryPrice";
+	public static final String ORDER_CREATED = "orderCreated";
+	public static final String ITEMS = "items";
+	public static final String ORDER_CLOSED = "orderClosed";
+	public static final String ORDER_DATE = "orderDate";
+	public static final String ORDER_OWNER = "orderOwner";
+	public static final String RESTAURANT = "restaurant";
+	public static final String ORDER_STATUS = "orderStatus";
+	public static final String ANONSID = "anonSID";
+	public static final String SHORTHAND_ID = "shortHandId";
 	
     }
 

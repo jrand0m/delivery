@@ -119,7 +119,7 @@ public class Secure extends Controller {
 
     public static class Security extends Controller {
 
-        /**
+       	/**
          * @Deprecated
          * 
          * @param username
@@ -142,13 +142,13 @@ public class Secure extends Controller {
          */
         static boolean authenticate(String username, String password) {
             Logger.debug("Trying to login as %s", username);
-            User user = User.find("login = ? or email = ?", username, username)
+            User user = User.find(User.HQL.BY_LOGIN_OR_EMAIL, username, username)
                     .first();
             if (user != null && user.password.equals(password)) {
                 Logger.debug("Login succesful for %s[%s]", user.login,
                         user.role.toString());
                     String bid = session.getId();
-                    List<Order> orders = Order.find("anonSID = ? ", bid)
+                    List<Order> orders = Order.find(Order.HQL.BY_ANONSID, bid)
                             .fetch();
                     Logger.debug("Found %s anonymous basket(s) bound to unlogined user %s", orders.size());
                     for (Order order : orders) {
@@ -162,7 +162,7 @@ public class Secure extends Controller {
                             continue;
                         }
                         order.anonSID = null;
-                        order.orderOwner = User.find("login = ?", username)
+                        order.orderOwner = User.find(User.HQL.BY_LOGIN, username)
                                 .first();
                         order.save();
 
@@ -187,7 +187,7 @@ public class Secure extends Controller {
          */
         public static boolean check(String role) {
             if (isConnected()) {
-                User user = User.find("login = ?", connected()).first();
+                User user = User.find(User.HQL.BY_LOGIN, connected()).first();
                 if (user.role.toString().equals(role)) {
                     return true;
                 }

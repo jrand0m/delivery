@@ -32,7 +32,7 @@ public class Bookkeeper extends Controller {
     static void _prepare() {
         User user = null;
         if (Security.isConnected()) {
-            List<User> users = User.find("login = ?", Security.connected())
+            List<User> users = User.find(User.HQL.BY_LOGIN, Security.connected())
                     .first();
             if (users.size() != 0) {
                 user = users.get(0);
@@ -61,8 +61,7 @@ public class Bookkeeper extends Controller {
                 transactions.add(tgh);
             }
         } else {
-            AccountingGroup group = AccountingGroup.find("id = ?", groupId)
-                    .first();
+            AccountingGroup group = AccountingGroup.findById(groupId);
             TransactionGroupHolder tgh = new TransactionGroupHolder();
             tgh.setGroup(group);
             List<AccountingTransaction> transacts = listTransacts(group, from,

@@ -10,13 +10,17 @@ import play.db.jpa.Model;
 @Entity
 @Where(clause = "deleted = 0")
 public class OrderItem extends Model {
+    
+    public static final class HQL{
+	public static final String BY_ORDER_AND_MENU_ITEM = OrderItem.FIELDS.ORDER+" = ? and "+OrderItem.FIELDS.MENUITEM+" =? ";
+    }
     public static final class FIELDS{
-	public static final String OI_COUNT = "count";
-	public static final String OI_DELETED = "deleted";
-	public static final String OI_MENUITEM = "menuItem";
-	public static final String OI_ORDER = "order";
-	public static final String OI_ORDER_ITEM_PRICE = "orderItemPrice";
-	public static final String OI_ORDER_ITEM_USER_PRICE = "orderItemUserPrice";
+	public static final String COUNT = "count";
+	public static final String DELETED = "deleted";
+	public static final String MENUITEM = "menuItem";
+	public static final String ORDER = "order";
+	public static final String ORDER_ITEM_PRICE = "orderItemPrice";
+	public static final String ORDER_ITEM_USER_PRICE = "orderItemUserPrice";
     }
     
     public Integer  count;

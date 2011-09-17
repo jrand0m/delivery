@@ -28,7 +28,7 @@ public class Locker extends Controller {
             
         }
         String userName = Security.connected();
-        User user = User.find("login = ?", userName).first();
+        User user = User.find(User.HQL.BY_LOGIN, userName).first();
         if (user == null) {
             forbidden();
             return;
@@ -45,7 +45,7 @@ public class Locker extends Controller {
         
         List<Address> addressList = user.addressBook;
 
-        List<Order> orderList = Order.find("orderOwner = ?", user).fetch();
+        List<Order> orderList = Order.find(Order.HQL.BY_OWNER, user).fetch();
         render(user, addressList, orderList);
     }
 
