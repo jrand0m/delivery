@@ -8,20 +8,17 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import play.db.jpa.Model;
 import enumerations.LogActionType;
 import enumerations.LogLevel;
-
-import models.User;
-import play.db.jpa.Model;
 
 /**
  * @author Mike
  *
  */
 @Entity
-@Table(name = "UserLogs")
-public class UserLog extends Model {
-    public User user;
+@Table(name = "SystemLogs")
+public class SystemLog extends Model {
     public LogActionType actionType;
     public LogLevel level;
     public Date date;

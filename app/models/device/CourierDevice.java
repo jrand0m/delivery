@@ -14,6 +14,6 @@ import play.db.jpa.Model;
  */
 @Entity
 @DiscriminatorValue("COURIER_DEVICE")
-public class CourierDevice extends Model {
+public class CourierDevice extends GenericDevice {
 
 }
