@@ -19,8 +19,8 @@ import play.db.jpa.Model;
 @DiscriminatorValue("BASIC_DAY")
 public class Day extends Model {
     public static final class FIELDS{
-	public static final String FROM = "from";
-	public static final String TO = "to";
+	public static final String DAY_FROM = "from";
+	public static final String DAY_TO = "to";
     }
     final static public String TIME_FORMAT = "HH:mm";
     @Column(name="from_time")

@@ -27,22 +27,22 @@ import enumerations.PaymentStatus;
 public class Order extends GenericModel {
     
     public static final class FIELDS{
-	public static final String ID = "id";
-	public static final String COURIERORDERCLOSED = "courierOrderClosed";
-	public static final String COURIERORDERRECIEVED = "courierOrderRecieved";
-	public static final String COURIERPLANEDDELIVERYTIME = "courierPlanedDeliveryTime";
-	public static final String DELETED = "deleted";
-	public static final String DELIVERYADDRESS = "deliveryAddress";
-	public static final String DELIVERYPRICE = "deliveryPrice";
-	public static final String ORDERCREATED = "orderCreated";
-	public static final String ITEMS = "items";
-	public static final String ORDERCLOSED = "orderClosed";
-	public static final String ORDERDATE = "orderDate";
-	public static final String ORDEROWNER = "orderOwner";
-	public static final String RESTAURANT = "restaurant";
-	public static final String ORDERSTATUS = "orderStatus";
-	public static final String ANONSID = "anonSID";
-	public static final String SHORTHANDID = "shortHandId";
+	public static final String ORDER_ID = "id";
+	public static final String ORDER_COURIER_ORDERCLOSED = "courierOrderClosed";
+	public static final String ORDER_COURIER_ORDER_RECIEVED = "courierOrderRecieved";
+	public static final String ORDER_COURIER_PLANED_DELIVERY_TIME = "courierPlanedDeliveryTime";
+	public static final String ORDER_DELETED = "deleted";
+	public static final String ORDER_DELIVERY_ADDRESS = "deliveryAddress";
+	public static final String ORDER_DELIVERY_PRICE = "deliveryPrice";
+	public static final String ORDER_ORDER_CREATED = "orderCreated";
+	public static final String ORDER_ITEMS = "items";
+	public static final String ORDER_ORDER_CLOSED = "orderClosed";
+	public static final String ORDER_ORDER_DATE = "orderDate";
+	public static final String ORDER_ORDER_OWNER = "orderOwner";
+	public static final String ORDER_RESTAURANT = "restaurant";
+	public static final String ORDER_ORDER_STATUS = "orderStatus";
+	public static final String ORDER_ANONSID = "anonSID";
+	public static final String ORDER_SHORTHAND_ID = "shortHandId";
 	
     }
 

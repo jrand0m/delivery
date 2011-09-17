@@ -22,11 +22,11 @@ import play.db.jpa.Model;
 @Table(name = "DeviceLogs")
 public class DeviceLog extends Model {
     public static final class FIELDS{
-	public static final String DEVICE = "device";
-	public static final String ACTIONTYPE= "actionType";
-	public static final String LEVEL= "level";
-	public static final String DATE= "date";
-	public static final String INFO= "info";
+	public static final String DEVICELOG_DEVICE = "device";
+	public static final String DEVICELOG_ACTIONTYPE= "actionType";
+	public static final String DEVICELOG_LEVEL= "level";
+	public static final String DEVICELOG_DATE= "date";
+	public static final String DEVICELOG_INFO= "info";
     }
     public GenericDevice device ;
     public LogActionType actionType;

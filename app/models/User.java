@@ -41,19 +41,19 @@ import enumerations.UserStatus;
 @DiscriminatorValue("GENERIC_USER")
 public class User extends Model {
 public static final class FIELDS{
-	public static final String ADDRESSBOOK = "addressBook";
-	public static final String ORDERBOOK = "orderBook";
-	public static final String DELETED = "deleted";
-	public static final String EMAIL = "email";
-	public static final String JOINDATE = "joinDate";
-	public static final String LASTLOGINDATE = "lastLoginDate";
-	public static final String MISCINFO = "miscInfo";
-	public static final String NAME = "name";
-	public static final String PASSWORD = "password";
-	public static final String PHONENUMBER = "phoneNumber";
-	public static final String ROLE = "role";
-	public static final String SURNAME = "surname";
-	public static final String USERSTATUS = "userStatus";
+	public static final String USER_ADDRESS_BOOK = "addressBook";
+	public static final String USER_ORDER_BOOK = "orderBook";
+	public static final String USER_DELETED = "deleted";
+	public static final String USER_EMAIL = "email";
+	public static final String USER_JOIN_DATE = "joinDate";
+	public static final String USER_LAST_LOGIN_DATE = "lastLoginDate";
+	public static final String USER_MISC_INFO = "miscInfo";
+	public static final String USER_NAME = "name";
+	public static final String USER_PASSWORD = "password";
+	public static final String USER_PHONENUMBER = "phoneNumber";
+	public static final String USER_ROLE = "role";
+	public static final String USER_SURNAME = "surname";
+	public static final String USER_USERS_TATUS = "userStatus";
 }
     @OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public List<Address> addressBook;

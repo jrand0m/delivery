@@ -14,14 +14,14 @@ import play.db.jpa.Model;
 @Where(clause = "deleted = 0")
 public class MenuItem extends Model {
     public static final class FIELDS{
-	public static final String AVALIABLE = "avaliable";
-	public static final String DELETED = "deleted";
-	public static final String RESTAURANT = "restaurant";
-	public static final String GROUP = "group";
-	public static final String DESCRIPTION = "description";
-	public static final String MENUITEMCREATED = "menuItemCreated";
-	public static final String NAME = "name";
-	public static final String PRICE = "price";
+	public static final String MENU_ITEM_AVALIABLE = "avaliable";
+	public static final String MENU_ITEM_DELETED = "deleted";
+	public static final String MENU_ITEM_RESTAURANT = "restaurant";
+	public static final String MENU_ITEM_GROUP = "group";
+	public static final String MENU_ITEM_DESCRIPTION = "description";
+	public static final String MENU_ITEM_MENUITEM_CREATED = "menuItemCreated";
+	public static final String MENU_ITEM_NAME = "name";
+	public static final String MENU_ITEM_PRICE = "price";
     }
     
     

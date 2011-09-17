@@ -14,12 +14,12 @@ import play.db.jpa.Model;
 public class Address extends Model {
     
     public final static class FIELDS{
-	public final static String ADDITIONALINFO= "additionalInfo";
-	public final static String APPARTAMENTSNUMBER = "appartamentsNumber";
-	public final static String BULDINGNUBER =  "buldingNuber";
-	public final static String DELETED = "deleted" ;
-	public final static String STREET = "street";
-	public final static String USER = "user";
+	public final static String ADDRESS_ADDITIONAL_INFO= "additionalInfo";
+	public final static String ADDRESS_APPARTAMENTS_NUMBER = "appartamentsNumber";
+	public final static String ADDRESS_BULDING_NUBER =  "buldingNuber";
+	public final static String ADDRESS_DELETED = "deleted" ;
+	public final static String ADDRESS_STREET = "street";
+	public final static String ADDRESS_USER = "user";
     }
     
     @MaxSize(200)

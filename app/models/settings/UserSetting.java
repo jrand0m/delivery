@@ -15,12 +15,12 @@ import models.User;
 @Table(name ="UserSettings")
 public class UserSetting extends Model {
 	public static final class FIELDS{
-	    public static final String KEY= "key";
-	    public static final String VALUE= "value";
-	    public static final String ISDEFAULT= "isDefault";
-	    public static final String STARTDATE= "startDate";
-	    public static final String ENDDATE= "endDate";
-	    public static final String USER= "user";
+	    public static final String USERSETTING_KEY= "key";
+	    public static final String USERSETTING_VALUE= "value";
+	    public static final String USERSETTING_ISDEFAULT= "isDefault";
+	    public static final String USERSETTING_STARTDATE= "startDate";
+	    public static final String USERSETTING_ENDDATE= "endDate";
+	    public static final String USERSETTING_USER= "user";
 	}
     
     @Required

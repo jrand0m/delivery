@@ -20,10 +20,10 @@ import enumerations.LogLevel;
 @Table(name = "SystemLogs")
 public class SystemLog extends Model {
     public static final class FIELDS{
-	public static final String ACTIONTYPE = "actionType";
-	public static final String LEVEL = "level";
-	public static final String DATE = "date";
-	public static final String INFO= "info";
+	public static final String SYSTEMLOG_ACTIONTYPE = "actionType";
+	public static final String SYSTEMLOG_LEVEL = "level";
+	public static final String SYSTEMLOG_DATE = "date";
+	public static final String SYSTEMLOG_INFO= "info";
 }
     
     public LogActionType actionType;

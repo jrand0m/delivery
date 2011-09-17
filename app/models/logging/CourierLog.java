@@ -23,11 +23,11 @@ import play.db.jpa.Model;
 public class CourierLog extends Model
 {
     public static final class FIELDS{
-	public static final String COURIER = "courier";
-	public static final String ACTIONTYPE = "actionType";
-	public static final String LEVEL = "level";
-	public static final String DATE = "date";
-	public static final String INFO = "info";
+	public static final String RESTAURANT_DEVICE_COURIER = "courier";
+	public static final String RESTAURANT_DEVICE_ACTIONTYPE = "actionType";
+	public static final String RESTAURANT_DEVICE_LEVEL = "level";
+	public static final String RESTAURANT_DEVICE_DATE = "date";
+	public static final String RESTAURANT_DEVICE_INFO = "info";
     }
 	public Courier courier;
 	public LogActionType actionType;

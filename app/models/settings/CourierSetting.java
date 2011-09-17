@@ -14,12 +14,12 @@ import play.db.jpa.Model;
 @Table (name = "CourierSettings")
 public class CourierSetting extends Model {
 	public static final class FIELDS{
-	    public static final String KEY = "key";
-	    public static final String VALUE = "value";
-	    public static final String ISDEFAULT = "isDefault";
-	    public static final String STARTDATE = "startDate";
-	    public static final String ENDDATE = "endDate";
-	    public static final String COURIER = "courier";
+	    public static final String COURIERSETTING_KEY = "key";
+	    public static final String COURIERSETTING_VALUE = "value";
+	    public static final String COURIERSETTING_ISDEFAULT = "isDefault";
+	    public static final String COURIERSETTING_STARTDATE = "startDate";
+	    public static final String COURIERSETTING_ENDDATE = "endDate";
+	    public static final String COURIERSETTING_COURIER = "courier";
 	}
     	
     	@Required

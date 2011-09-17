@@ -13,11 +13,11 @@ import play.db.jpa.Model;
 @Table(name = "SystemSettings")
 public class SystemSetting extends Model {
 	public static final class FIELDS{
-	public static final String  KEY= "key";
-	public static final String VALUE= "value";
-	public static final String ISDEFAULT= "isDefault";
-	public static final String STARTDATE= "startDate";
-	public static final String ENDDATE= "endDate";
+	public static final String SYSTEMSETTING_KEY= "key";
+	public static final String SYSTEMSETTING_VALUE= "value";
+	public static final String SYSTEMSETTING_ISDEFAULT= "isDefault";
+	public static final String SYSTEMSETTING_STARTDATE= "startDate";
+	public static final String SYSTEMSETTING_ENDDATE= "endDate";
 	}
     	@Required
 	@Min(3)

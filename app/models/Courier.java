@@ -16,7 +16,7 @@ import play.db.jpa.Model;
 @Entity
 public class Courier extends Model {
     public static final class FIELDS{
-	public static final String DEVICE = "device";
+	public static final String COURIER_DEVICE = "device";
     }
     public CourierDevice device;
 }

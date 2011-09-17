@@ -28,15 +28,15 @@ import play.libs.Codec;
 @Entity
 public class Restaurant extends Model {
     public static final class FIELDS{
-	public static final String COMMENTS= "comments";
-	public static final String USER= "user";
-	public static final String RAITING= "raiting";
-	public static final String CONTACTPERSON= "contactPerson";
-	public static final String DISCOUNT= "discount";
-	public static final String MENUBOOK= "menuBook";
-	public static final String TITLE= "title";
-	public static final String WORKHOURS= "workHours";
-	public static final String LASTCONNECTION= "lastConnection";
+	public static final String RESTAURANT_COMMENTS= "comments";
+	public static final String RESTAURANT_USER= "user";
+	public static final String RESTAURANT_RAITING= "raiting";
+	public static final String RESTAURANT_CONTACT_PERSON= "contactPerson";
+	public static final String RESTAURANT_DISCOUNT= "discount";
+	public static final String RESTAURANT_MENU_BOOK= "menuBook";
+	public static final String RESTAURANT_TITLE= "title";
+	public static final String RESTAURANT_WORK_HOURS= "workHours";
+	public static final String RESTAURANT_LAST_CONNECTION= "lastConnection";
 }
     @OneToMany(mappedBy="restaurant")
     public List <Comment> 	comments;
