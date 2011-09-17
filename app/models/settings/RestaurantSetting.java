@@ -14,8 +14,8 @@ import models.Restaurant;
 
 
 @Entity
-@Table(name = "ClientSettings")
-public class ClientSetting extends Model{
+@Table(name = "RestaurantSettings")
+public class RestaurantSetting extends Model{
 	
 	@Required
 	@Min(3)
@@ -34,5 +34,5 @@ public class ClientSetting extends Model{
 	 * if null than no date
 	 * */
 	public Date endDate;
-	public Restaurant client;
+	public Restaurant restaurant;
 }

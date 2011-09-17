@@ -48,7 +48,7 @@ IrregularDay(day_irregular):
     from: "10:00:00"
     to: "22:00:00"
 
-WorkHours(wrh_client1):
+WorkHours(wrh_restaurant1):
     worrkDay: day_work
     saturday: day_holy
     sunday: day_holy
@@ -56,8 +56,8 @@ WorkHours(wrh_client1):
     deleted: false
 #TODO       public Map<String, IrregularDay> irregularDays;
 
-#Clients
-Client(client1):
+#Restaurants
+Restaurant(restaurant1):
     name: Galyna
     surname: Petrovich
     phoneNumber: "+380630683088"
@@ -66,23 +66,23 @@ Client(client1):
     login: galyna
     password: "123"
     userStatus: ACTIVE
-    role: CLIENT
+    role: RESTAURANT
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
     title: Pizza Chlentano!11
-    workHours: wrh_client1
+    workHours: wrh_restaurant1
     contactPerson: Judje Dred
     contactPhone: "3044555555"
     discount: 10.1
     deleted: false
 
 
-Address(adr_client):
+Address(adr_restaurant):
     street: kreshchatyk
     appartamentsNumber: "123"
     buldingNuber: "123"
     additionalInfo: knock three times
-    user: client1
+    user: restaurant1
     deleted: false
 
 #Menu groups 
@@ -112,7 +112,7 @@ MenuItem(mit_Sup1):
     avaliable: true
     menuItemCreated: 10.9.10
     group: mgp_first
-    client: client1
+    restaurant: restaurant1
     deleted: false
 
 MenuItem(mit_Sup2):
@@ -122,7 +122,7 @@ MenuItem(mit_Sup2):
     avaliable: true
     menuItemCreated: 10.10.10
     group: mgp_first
-    client: client1
+    restaurant: restaurant1
     deleted: false
 
 MenuItem(mit_Garnir1):
@@ -132,7 +132,7 @@ MenuItem(mit_Garnir1):
     avaliable: true
     menuItemCreated: 13.9.10
     group: mgp_garnir
-    client: client1
+    restaurant: restaurant1
     deleted: false
 
 MenuItem(mit_Garnir2):
@@ -142,7 +142,7 @@ MenuItem(mit_Garnir2):
     avaliable: true
     menuItemCreated: 9.9.10
     group: mgp_garnir
-    client: client1
+    restaurant: restaurant1
     deleted: false
 
 MenuItem(mit_pizza1):
@@ -152,12 +152,12 @@ MenuItem(mit_pizza1):
     avaliable: true
     menuItemCreated: 9.9.10
     group: mgp_pizza
-    client: client1
+    restaurant: restaurant1
     deleted: false
 #Orderz
 Order(order1):
     orderCreated: 9.9.11
-    client: client1
+    restaurant: restaurant1
     orderOwner: usr_uzor
     address: adr_uzor
     orderStatus: OPEN
@@ -169,7 +169,7 @@ OrderItem(Order1Item1):
 
 Order(order2):
     orderCreated: 9.9.11
-    client: client1
+    restaurant: restaurant1
     orderOwner: usr_uzor
     address: adr_uzor
     orderStatus: SENT

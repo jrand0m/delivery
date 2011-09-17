@@ -43,7 +43,7 @@ public class Order extends GenericModel {
      * */
     public Date                 courierOrderRecieved;
     /**
-     * Estimated time of delivery to client
+     * Estimated time of delivery to restaurant
      * */
     public Date                 courierPlanedDeliveryTime;
     public boolean              deleted              = false;
@@ -79,7 +79,7 @@ public class Order extends GenericModel {
     public User                 orderOwner;
     
     @ManyToOne
-    public Restaurant                 client;
+    public Restaurant                 restaurant;
     
     public OrderStatus          orderStatus = OrderStatus.OPEN;
     public PaymentStatus        paymentStatus = PaymentStatus.NOT_PAID;

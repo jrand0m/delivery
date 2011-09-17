@@ -80,9 +80,9 @@ public class Application extends Controller {
 	for (RestaurantNetwork meta: metas){
 	    combined.addAll(meta.restoraunts); //removing restaurants that is in networks
 	}
-	List<Restaurant> clients = Restaurant.findAll();
-	clients.removeAll(combined);
-	render(clients);
+	List<Restaurant> restaurants = Restaurant.findAll();
+	restaurants.removeAll(combined);
+	render(restaurants);
     }
 
     private static User getCurrentUser() {
@@ -94,9 +94,9 @@ public class Application extends Controller {
     }
 
     public static void showMenu(Long id) {
-	Restaurant client = Restaurant.findById(id);
-	Set<MenuItem> menuItems = client.menuBook;
-	renderArgs.put("clientName", client.title);
+	Restaurant restaurant = Restaurant.findById(id);
+	Set<MenuItem> menuItems = restaurant.menuBook;
+	renderArgs.put("restaurantName", restaurant.title);
 	render(menuItems);
     }
 
@@ -210,7 +210,7 @@ public class Application extends Controller {
 	    orderitem.deleted = true;
 	    order.items.remove(orderitem);
 	    if (order.items.size() == 0) {
-		order.client = null;
+		order.restaurant = null;
 		order.save();
 	    }
 	} else {
@@ -231,13 +231,13 @@ public class Application extends Controller {
 	    Logger.warn("MenuItem not found:  %s", menuItemId.toString());
 	    return;
 	}
-	if (order.client != null && !menuItem.client.equals(order.client)) {
-	    // TODO error message about "cannot add form other client"
+	if (order.restaurant != null && !menuItem.restaurant.equals(order.restaurant)) {
+	    // TODO error message about "cannot add form other restaurant"
 	    todo();
 	    return;
 	}
-	if (order.client == null) {
-	    order.client = menuItem.client;
+	if (order.restaurant == null) {
+	    order.restaurant = menuItem.restaurant;
 	    order.save();
 	}
 	OrderItem orderItem = null;

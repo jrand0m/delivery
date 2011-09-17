@@ -17,7 +17,7 @@ import enumerations.UserRoles;
 public @interface Check {
 
 	/**
-	 * roles to check (array of strings eg. <pre>@Check(value = { "ADMIN", "CLIENT", "OTHR" })</pre>)
+	 * roles to check (array of strings eg. <pre>@Check(value = { "ADMIN", "RESTAURANT", "OTHR" })</pre>)
 	 * */
     UserRoles[] value();
     

@@ -28,7 +28,7 @@ import play.libs.Codec;
 @Entity
 public class Restaurant extends Model {
     
-    @OneToMany(mappedBy="client")
+    @OneToMany(mappedBy="restaurant")
     public List <Comment> 	comments;
     
     public User 		user;
@@ -42,14 +42,14 @@ public class Restaurant extends Model {
     @Phone
     public String         	contactPhone;
     public Double         discount;
-    @OneToMany(mappedBy="client", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="reataurant", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public Set<MenuItem> 	menuBook 	= new HashSet<MenuItem>();
     public String title;
     @OneToOne(fetch=FetchType.LAZY)
     public WorkHours      	workHours;
     
     /**
-     * last request from client updated on request
+     * last request from restaurant updated on request
      * */
     public Date 		lastConnection;
     

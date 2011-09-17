@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 <ol>
- #{list items:clients, as:'client' }
-     <li><a href="@@{Application.showMenu(client.id)}">${client.title}</a></li>
+ #{list items:restaurants, as:'restaurant' }
+     <li><a href="@@{Application.showMenu(restaurant.id)}">${restaurant.title}</a></li>
  #{/list}
 </ol>

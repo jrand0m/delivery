@@ -19,9 +19,9 @@ import play.db.jpa.Model;
  *
  */
 @Entity
-@Table(name = "ClientLogs")
-public class ClientLog extends Model {
-    public Restaurant client;
+@Table(name = "RestaurantLogs")
+public class RestaurantLog extends Model {
+    public Restaurant restaurant;
     public LogActionType actionType;
     public LogLevel level;
     

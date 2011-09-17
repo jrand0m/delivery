@@ -34,9 +34,9 @@ public class API extends Controller {
             notFound();
             return;
         }
-        Restaurant client = Restaurant.findById(new Long(id));
-        List<Order> orders = Order.find("client = ? and orderStatus = ? ",
-                client, OrderStatus.SENT).fetch();
+        Restaurant restaurant = Restaurant.findById(new Long(id));
+        List<Order> orders = Order.find("restaurant = ? and orderStatus = ? ",
+                restaurant, OrderStatus.SENT).fetch();
         Logger.info("Found %d orders", orders.size());
         List<Job> jobs = new ArrayList<Job>(orders.size());
         for (Order order : orders) {

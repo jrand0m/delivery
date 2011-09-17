@@ -19,7 +19,7 @@ public class OrderItem extends Model {
     public Order    order;
 
     /**
-     * Archived real price from client (That was calculated in moment, when
+     * Archived real price from restaurant (That was calculated in moment, when
      * order was approved).
      * */
     public Integer  orderItemPrice;

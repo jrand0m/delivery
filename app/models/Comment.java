@@ -25,7 +25,7 @@ public class Comment extends Model {
     @OneToOne
     public Order	order;
     @ManyToOne
-    public Restaurant 	client;
+    public Restaurant 	restaurant;
     
     public String 	text;
     public Integer 	commonRating;

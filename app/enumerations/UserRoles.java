@@ -8,5 +8,5 @@ package enumerations;
  *
  */
 public enum UserRoles {
-    ADMIN, CASHIER, CLIENT, COURIER, USER
+    ADMIN, CASHIER, RESTAURANT, COURIER, USER
 }

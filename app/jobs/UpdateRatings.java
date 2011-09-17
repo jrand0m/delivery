@@ -59,7 +59,7 @@ public class UpdateRatings extends Job {
 	    Long startTime = System.currentTimeMillis();
 	    LinkedHashMap<Restaurant, ArrayList<Integer>> map = new LinkedHashMap<Restaurant, ArrayList<Integer>>();
 	    for (Comment comment : comments) {
-		Restaurant rest = comment.client;
+		Restaurant rest = comment.restaurant;
 		if(!map.containsKey(rest)){
 		    map.put(rest, new ArrayList<Integer>());
 		}

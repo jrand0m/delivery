@@ -7,9 +7,9 @@ import controllers.Secure.Security;
 import enumerations.UserRoles;
 
 @With(Secure.class)
-public class ClientAdmin extends Controller {
+public class RestaurantAdmin extends Controller {
 
-    @Check(UserRoles.CLIENT)
+    @Check(UserRoles.RESTAURANT)
     public static void showPage() {
         String login = Security.connected();
         render(login);

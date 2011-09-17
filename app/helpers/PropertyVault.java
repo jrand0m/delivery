@@ -3,7 +3,7 @@ package helpers;
 import models.Courier;
 import models.Restaurant;
 import models.User;
-import models.settings.ClientSetting;
+import models.settings.RestaurantSetting;
 import models.settings.CourierSetting;
 import models.settings.SystemSetting;
 import models.settings.UserSetting;
@@ -69,14 +69,14 @@ public class PropertyVault {
 	// getInstance().put(key, value);
     }
 
-    public static String getRestaurantValueFor(Restaurant client, String key) {
+    public static String getRestaurantValueFor(Restaurant restaurant, String key) {
 	String value = null;
-	ClientSetting obj = ClientSetting.find("key = ? and courier = ? ", key,
-		client).first();
+	RestaurantSetting obj = RestaurantSetting.find("key = ? and courier = ? ", key,
+		restaurant).first();
 	if (obj != null) {
 	    value = obj.value;
 	} else {
-	    obj = ClientSetting.find("key = ? and client = ?", key, null)
+	    obj = RestaurantSetting.find("key = ? and restaurant = ?", key, null)
 		    .first();
 	    if (obj != null) {
 		value = obj.value;

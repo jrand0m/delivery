@@ -19,8 +19,8 @@
 				<a href="@@{Bookkeeper.index()}">Bookkeeping</a>
 			#{/if}
 			#{else}
-				#{if user.role == models.User.UserRoles.CLIENT}
-	<a href="@@{ClientAdmin.showPage}">Admin</a>
+				#{if user.role == models.User.UserRoles.RESTAURANT}
+	<a href="@@{RestaurantAdmin.showPage}">Admin</a>
 				#{/if}
 				#{else}
 			Hello,<img src = "@@{'/public/images/user.png'}" /> <a href="@@{Locker.index()}">${user.name}</a>!

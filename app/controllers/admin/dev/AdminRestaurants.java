@@ -5,6 +5,6 @@ import controllers.CRUD;
 import controllers.CRUD.For;
 
 @For(Restaurant.class)
-public class AdminClients extends CRUD {
+public class AdminRestaurants extends CRUD {
 
 }
