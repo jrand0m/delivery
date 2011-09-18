@@ -30,4 +30,8 @@ GET         /logout         Secure.logout
 * 		/loadFix								Application.loadFix
 *       /{controller}/{action}                  {controller}.{action}
 
+##############################
+######## Modules #############
+##############################
 
+*     /     									module:play-messages
