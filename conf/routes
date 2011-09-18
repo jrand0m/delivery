@@ -34,4 +34,4 @@ GET         /logout         Secure.logout
 ######## Modules #############
 ##############################
 
-*     /     									module:play-messages
+*     /     									module:messages

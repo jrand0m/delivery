@@ -1,5 +1,4 @@
-# You can specialize this file for each language.
-# For example, for French create a messages.fr file
-#
+# Saved by @messages on Mon Sep 19 00:46:53 EEST 2011
+common.logout=вийти
 reserved=Зарезервовано
-secure.title=Авторизація
+secure.title=Авторизація

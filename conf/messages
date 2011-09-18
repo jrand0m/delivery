@@ -1,0 +1,17 @@
+# Saved by @messages on Mon Sep 19 00:46:39 EEST 2011
+admin.restaurant.events.tabtitle=Акції
+admin.restaurant.footertext=2011&copy; <a href\="http\://vdoma.com.ua">vdoma.com.ua</a> Усі права захищено.
+admin.restaurant.invoices.tabtitle=Розрахунки
+admin.restaurant.menu.tabtitle=Меню Ресторану
+admin.restaurant.profile.tabtitle=Профайл Ресторану
+admin.restaurant.reports.tabtitle=Доповіді
+admin.restaurant.shop.tabtitle=Товари
+admin.restaurant.summary.tabtitle=Підсумки
+common.loggedinas=Ви влоговані як %s
+common.logout=вийти
+reserved=Зарезервовано
+secure.password=Пароль \:
+secure.remember=пам'ятати мене
+secure.signin=залогуватися
+secure.title=Авторизація
+secure.username=Ім'я користувача \:
