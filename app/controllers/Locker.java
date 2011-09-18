@@ -10,7 +10,6 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
 import play.mvc.With;
-import controllers.Secure.Security;
 
 /**
  * User Personal Page Controller

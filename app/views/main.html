@@ -15,12 +15,12 @@
             menu: 
             <a href="@@{Application.index}">home</a>
         #{if user}
-			#{if user.role == models.User.UserRoles.ADMIN}
+			#{if user.role == enumerations.UserRoles.ADMIN}
 				<a href="@@{Bookkeeper.index()}">Bookkeeping</a>
 			#{/if}
 			#{else}
-				#{if user.role == models.User.UserRoles.RESTAURANT}
-	<a href="@@{RestaurantAdmin.showPage}">Admin</a>
+				#{if user.role == enumerations.UserRoles.RESTAURANT}
+	<a href="@@{RestaurantAdmin.index()}">Admin</a>
 				#{/if}
 				#{else}
 			Hello,<img src = "@@{'/public/images/user.png'}" /> <a href="@@{Locker.index()}">${user.name}</a>!

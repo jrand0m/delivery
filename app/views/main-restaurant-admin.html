@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>#{get 'title' /}</title>
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="@@{'/public/stylesheets/main-admin.css'}" media="screen" />
+	#{get 'moreStyles' /}
+	<script src="@@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+	#{get 'moreScripts' /}
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<a href="@@{RestaurantAdmin.index()}" class="logo">
+				<img src="@@{'/public/images/admin/logo-admin.jpg'}" alt="logo" title="logo" />
+			</a>
+			<ul class="login_block">
+				<li><a href="#">Hello, Titty!</a>|</li>
+				<li><a href="#">logout</a></li>
+			</ul>
+			<h1 class="fuck_yeh">Eat foot, be healthy, bich!</h1>
+			<ul class="mainnav">
+				<li><a href="@@{RestaurantAdmin.index()}">Reports</a></li>
+				<li><a href="#">Menu</a></li>
+				<li><a href="#">Evants</a></li>
+				<li><a href="#">Invoices</a></li>
+				<li><a href="#">Shop</a></li>
+			</ul>
+		</div>
+		<div id="content">
+			#{doLayout /}
+		</div>
+		<div id="footer">
+			<a href="http://vdoma.com.ua/">2011&copy; vdoma.com.ua</a>
+		</div>
+	</div>
+</body>

@@ -33,9 +33,6 @@ import enumerations.UserStatus;
  */
 @Entity
 @Where(clause = "deleted = 0")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "USER_CLASS", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("GENERIC_USER")
 public class User extends Model {
     public static final class HQL {
 	public static final String BY_LOGIN = User.FIELDS.USER_LOGIN + " = ?";
