@@ -33,18 +33,17 @@ import enumerations.UserStatus;
  */
 @Entity
 @Where(clause = "deleted = 0")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(
-    name="USER_CLASS",
-    discriminatorType=DiscriminatorType.STRING
-)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "USER_CLASS", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("GENERIC_USER")
 public class User extends Model {
-    public static final class HQL{
-	public static final String BY_LOGIN = User.FIELDS.USER_LOGIN+" = ?";
-	public static final String BY_LOGIN_OR_EMAIL =User.FIELDS.USER_LOGIN+" = ? or "+User.FIELDS.USER_EMAIL+" = ?";;
+    public static final class HQL {
+	public static final String BY_LOGIN = User.FIELDS.USER_LOGIN + " = ?";
+	public static final String BY_LOGIN_OR_EMAIL = User.FIELDS.USER_LOGIN
+		+ " = ? or " + User.FIELDS.USER_EMAIL + " = ?";;
     }
-    public static final class FIELDS{
+
+    public static final class FIELDS {
 	public static final String USER_ADDRESS_BOOK = "addressBook";
 	public static final String USER_ORDER_BOOK = "orderBook";
 	public static final String USER_DELETED = "deleted";
@@ -59,37 +58,38 @@ public class User extends Model {
 	public static final String USER_ROLE = "role";
 	public static final String USER_SURNAME = "surname";
 	public static final String USER_USERS_TATUS = "userStatus";
-}
-    @OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    }
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Address> addressBook;
-    @OneToMany(mappedBy="orderOwner", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    public List<Order>   orderBook;
-    
-    public boolean       deleted = false;
+    @OneToMany(mappedBy = "orderOwner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Order> orderBook;
+
+    public boolean deleted = false;
     @Email
-    public String        email;
+    public String email;
 
-    public Date          joinDate;
+    public Date joinDate;
 
-    public Date          lastLoginDate;
-    
+    public Date lastLoginDate;
+
     @Required
-    public String        login;          // FIXME need to be unique, but how ?
-                                          // [Mike] use
+    public String login; // FIXME need to be unique, but how ?
+			 // [Mike] use
     // @PreInsert + @PreUpdate
 
-    public String        miscInfo;
+    public String miscInfo;
 
-    public String        name;
+    public String name;
 
     @Password
-    public String        password;
+    public String password;
     @Phone
-    public String        phoneNumber;
-    public UserRoles     role;
+    public String phoneNumber;
+    public UserRoles role;
 
-    public String        surname;
+    public String surname;
 
-    public UserStatus    userStatus;
+    public UserStatus userStatus;
 
 }

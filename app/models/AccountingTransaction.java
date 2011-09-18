@@ -13,7 +13,7 @@ import enumerations.TransactionState;
 @Entity
 @Where(clause = "deleted = 0")
 public class AccountingTransaction extends Model {
-    public final static class FIELDS{
+    public final static class FIELDS {
 	public final static String AT_AMOUNT = "amount";
 	public final static String AT_DELETED = "deleted";
 	public final static String AT_DESCRIPTION = "description";
@@ -23,19 +23,20 @@ public class AccountingTransaction extends Model {
 	public final static String AT_STATE = "state";
 	public final static String AT_TARGET = "target";
     }
-    public Integer              amount;
-    public boolean              deleted             = false;
-    public String               description;
+
+    public Integer amount;
+    public boolean deleted = false;
+    public String description;
     @ManyToOne
-    public AccountingGroup      group;
-    public Date                 operationDate;
-    public Integer              regularDayInMonthNo = -1;
+    public AccountingGroup group;
+    public Date operationDate;
+    public Integer regularDayInMonthNo = -1;
     public TransactionState state;
 
     /**
      * 
      * */
     @ManyToOne
-    public User                 target;
+    public User target;
 
 }

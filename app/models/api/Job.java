@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Mike
- *
+ * 
  */
 public class Job {
     public String id;

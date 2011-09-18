@@ -5,7 +5,7 @@ package enumerations;
 
 /**
  * @author Mike
- *
+ * 
  */
 public enum TransactionState {
 

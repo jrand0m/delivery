@@ -9,8 +9,7 @@ import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
 
 /**
- * @author Mike
- * On application start for prod env
+ * @author Mike On application start for prod env
  */
 @OnApplicationStart
 public class ProdBootstrap extends Job {
@@ -20,10 +19,10 @@ public class ProdBootstrap extends Job {
     }
 
     /**
-     * Loading default values to system if there is no such 
+     * Loading default values to system if there is no such
      */
     private void loadSystemDefaultSettings() {
-	if (SystemSetting.count()==0){
+	if (SystemSetting.count() == 0) {
 	    Fixtures.loadModels("default_settings.yaml");
 	}
     }

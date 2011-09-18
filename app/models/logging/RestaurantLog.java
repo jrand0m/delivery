@@ -16,23 +16,23 @@ import play.db.jpa.Model;
 
 /**
  * @author Mike
- *
+ * 
  */
 @Entity
 @Table(name = "RestaurantLogs")
 public class RestaurantLog extends Model {
-    public static final class FIELDS{
-	public static final String RESTAURANTLOG_RESTAURANT= "restaurant";
-	public static final String RESTAURANTLOG_ACTIONTYPE= "actionType";
-	public static final String RESTAURANTLOG_LEVEL= "level";
-	public static final String RESTAURANTLOG_DATE= "date";
-	public static final String RESTAURANTLOG_INFO= "info";
-}
-    
+    public static final class FIELDS {
+	public static final String RESTAURANTLOG_RESTAURANT = "restaurant";
+	public static final String RESTAURANTLOG_ACTIONTYPE = "actionType";
+	public static final String RESTAURANTLOG_LEVEL = "level";
+	public static final String RESTAURANTLOG_DATE = "date";
+	public static final String RESTAURANTLOG_INFO = "info";
+    }
+
     public Restaurant restaurant;
     public LogActionType actionType;
     public LogLevel level;
-    
+
     public Date date;
     public String info;
 }

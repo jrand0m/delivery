@@ -21,7 +21,7 @@ import play.jobs.Job;
 import play.jobs.On;
 
 /**
- * @author Mike 
+ * @author Mike
  * 
  */
 @On("0 4 * * * ?")
@@ -53,37 +53,43 @@ public class UpdateRatings extends Job {
 								       * value>
 								       */
 	if (comments != null && !comments.isEmpty()) {
-	    Logger.info("UpdateRatings Job: starting to collect ratings for last %s days", gapInDays);
+	    Logger.info(
+		    "UpdateRatings Job: starting to collect ratings for last %s days",
+		    gapInDays);
 	    Long startTime = System.currentTimeMillis();
 	    LinkedHashMap<Restaurant, ArrayList<Integer>> map = new LinkedHashMap<Restaurant, ArrayList<Integer>>();
 	    for (Comment comment : comments) {
 		Restaurant rest = comment.restaurant;
-		if(!map.containsKey(rest)){
+		if (!map.containsKey(rest)) {
 		    map.put(rest, new ArrayList<Integer>());
 		}
-		ArrayList<Integer> list =  map.get(rest);
+		ArrayList<Integer> list = map.get(rest);
 		list.add(comment.commonRating);
 	    }
-	    Logger.info("UpdateRatings Job: Collecting finished in %s s. Starting refresh...", (System.currentTimeMillis() - startTime) /1000F );
+	    Logger.info(
+		    "UpdateRatings Job: Collecting finished in %s s. Starting refresh...",
+		    (System.currentTimeMillis() - startTime) / 1000F);
 	    Iterator<Restaurant> iterator = map.keySet().iterator();
-	    while(iterator.hasNext()){
+	    while (iterator.hasNext()) {
 		Restaurant r = iterator.next();
 		ArrayList<Integer> ratings = map.get(r);
 		Integer totals = 0;
-		for (Integer rating :ratings){
+		for (Integer rating : ratings) {
 		    totals += rating;
 		}
-		Integer average = totals/ratings.size();
-		if (average > 5){
+		Integer average = totals / ratings.size();
+		if (average > 5) {
 		    average = 5;
-		} else if (average<1){
+		} else if (average < 1) {
 		    average = 1;
 		}
 		r.raiting = average;
 		r.save();
 	    }
-	    Logger.info("UpdateRatings Job: Finished refreshing (total time: %s s)", (System.currentTimeMillis() - startTime) /1000F );
-	}else{
+	    Logger.info(
+		    "UpdateRatings Job: Finished refreshing (total time: %s s)",
+		    (System.currentTimeMillis() - startTime) / 1000F);
+	} else {
 	    Logger.warn("UpdateRatings Job: No data to process!");
 	}
 

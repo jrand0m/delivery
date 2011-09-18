@@ -6,14 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use Carefully!
- * Allow to use method from secured class by unlogined user
+ * Use Carefully! Allow to use method from secured class by unlogined user
  * 
  * @author Mike
- *
+ * 
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
+@Target({ ElementType.METHOD })
 public @interface AllowAnonymous {
     String[] value();
 }

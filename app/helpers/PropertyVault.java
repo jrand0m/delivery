@@ -16,7 +16,7 @@ import models.settings.UserSetting;
  * 
  * 
  * */
-@SuppressWarnings("undefined")
+
 public class PropertyVault {
 
     public static String getSystemValueFor(String key) {
@@ -71,13 +71,13 @@ public class PropertyVault {
 
     public static String getRestaurantValueFor(Restaurant restaurant, String key) {
 	String value = null;
-	RestaurantSetting obj = RestaurantSetting.find("key = ? and courier = ? ", key,
-		restaurant).first();
+	RestaurantSetting obj = RestaurantSetting.find(
+		"key = ? and courier = ? ", key, restaurant).first();
 	if (obj != null) {
 	    value = obj.value;
 	} else {
-	    obj = RestaurantSetting.find("key = ? and restaurant = ?", key, null)
-		    .first();
+	    obj = RestaurantSetting.find("key = ? and restaurant = ?", key,
+		    null).first();
 	    if (obj != null) {
 		value = obj.value;
 	    }
@@ -85,12 +85,13 @@ public class PropertyVault {
 	return value;
     }
 
-    public static void setRestaurantValueFor(Restaurant restoraunt, String key, String value) {
+    public static void setRestaurantValueFor(Restaurant restoraunt, String key,
+	    String value) {
 	setRestaurantValueFor(restoraunt, key, value, false);
     }
 
-    public static void setRestaurantValueFor(Restaurant restaurant, String key, String value,
-	    boolean asDefault) {
+    public static void setRestaurantValueFor(Restaurant restaurant, String key,
+	    String value, boolean asDefault) {
 	// getInstance().put(key, value);
     }
 
@@ -111,12 +112,13 @@ public class PropertyVault {
 	return value;
     }
 
-    public static void setCourierValueFor(Courier courier, String key, String value) {
+    public static void setCourierValueFor(Courier courier, String key,
+	    String value) {
 	setCourierValueFor(courier, key, value, false);
     }
 
-    public static void setCourierValueFor(Courier courier, String key, String value,
-	    boolean asDefault) {
+    public static void setCourierValueFor(Courier courier, String key,
+	    String value, boolean asDefault) {
 	// getInstance().put(key, value);
     }
 

@@ -78,7 +78,8 @@ public class Application extends Controller {
     }
 
     public static void index() {
-	List<Restaurant> restaurants = (List<Restaurant>) Cache.get("restaurants");
+	List<Restaurant> restaurants = (List<Restaurant>) Cache
+		.get("restaurants");
 	if (restaurants == null) {
 	    List<RestaurantNetwork> metas = RestaurantNetwork.findAll();
 

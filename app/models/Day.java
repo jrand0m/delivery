@@ -11,20 +11,18 @@ import javax.persistence.InheritanceType;
 import play.db.jpa.Model;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(
-    name="DAY_TYPE",
-    discriminatorType=DiscriminatorType.STRING
-)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DAY_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("BASIC_DAY")
 public class Day extends Model {
-    public static final class FIELDS{
+    public static final class FIELDS {
 	public static final String DAY_FROM = "from";
 	public static final String DAY_TO = "to";
     }
+
     final static public String TIME_FORMAT = "HH:mm";
-    @Column(name="from_time")
-    public String              from;
-    @Column(name="to_time")
-    public String              to;
+    @Column(name = "from_time")
+    public String from;
+    @Column(name = "to_time")
+    public String to;
 }

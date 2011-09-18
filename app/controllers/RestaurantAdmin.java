@@ -11,8 +11,8 @@ public class RestaurantAdmin extends Controller {
 
     @Check(UserRoles.RESTAURANT)
     public static void showPage() {
-        String login = Security.connected();
-        render(login);
+	String login = Security.connected();
+	render(login);
     }
 
 }

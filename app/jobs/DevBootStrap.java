@@ -13,10 +13,10 @@ public class DevBootStrap extends Job {
     @Override
     public void doJob() {
 	if (Play.mode.isDev()) {
-	    
+
 	    if (User.count() > 0) {
 		Logger.warn("Database not empty, skiping fixture load");
-		
+
 	    } else {
 		VirtualFile appRoot = VirtualFile.open(Play.applicationPath);
 		Play.javaPath.add(0, appRoot.child("test"));
