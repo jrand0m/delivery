@@ -2,6 +2,7 @@ package models.settings;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -27,6 +28,7 @@ public class RestaurantSetting extends Model{
 	@Required
 	@Min(3)
 	@Max(32)
+    	@Column(name="_key" )
 	public String key;
 	@Required
 	@Min(1)

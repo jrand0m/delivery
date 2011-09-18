@@ -16,12 +16,13 @@ public class DevBootStrap extends Job {
 	    
 	    if (User.count() > 0) {
 		Logger.warn("Database not empty, skiping fixture load");
-		// Fixtures.deleteDatabase();
+		
 	    } else {
 		VirtualFile appRoot = VirtualFile.open(Play.applicationPath);
 		Play.javaPath.add(0, appRoot.child("test"));
 		try {
 		    Logger.warn("Loading fixtures!");
+		    Fixtures.deleteDatabase();
 		    Fixtures.loadModels("dev_data.yml");
 		    Logger.warn("Fixtures loaded");
 		} catch (Exception e) {

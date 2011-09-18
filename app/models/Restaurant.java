@@ -52,7 +52,7 @@ public class Restaurant extends Model {
     @Phone
     public String         	contactPhone;
     public Double         	discount;
-    @OneToMany(mappedBy="reataurant", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="restaurant", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     public Set<MenuItem> 	menuBook 	= new HashSet<MenuItem>();
     public String 		title;
     @OneToOne(fetch=FetchType.LAZY)

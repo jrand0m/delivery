@@ -21,12 +21,10 @@ import play.jobs.Job;
 import play.jobs.On;
 
 /**
- * @author Mike # .---------------- хвилина (0 - 59) # | .------------- година
- *         (0 - 23) # | | .---------- день місяця (1 - 31) # | | | .-------
- *         місяць (1 - 12) АБО jan,feb,mar,apr ... # | | | | .---- день тижня (0
- *         - 6) (неділя=0 чи 7) АБО sun,mon,tue,wed,thu,fri,sat # | | | | |
+ * @author Mike 
+ * 
  */
-@On("* 4 * * *")
+@On("0 4 * * * ?")
 public class UpdateRatings extends Job {
     private static long MILLISECONDS_IN_DAY = 1000/* ms */* 60/* s */* 60/* m */* 24/* h */;
 

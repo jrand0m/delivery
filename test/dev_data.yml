@@ -55,9 +55,7 @@ WorkHours(wrh_restaurant1):
     description: Standart time
     deleted: false
 #TODO       public Map<String, IrregularDay> irregularDays;
-
-#Restaurants
-Restaurant(restaurant1):
+User(res_admin):
     name: Galyna
     surname: Petrovich
     phoneNumber: "+380630683088"
@@ -69,6 +67,9 @@ Restaurant(restaurant1):
     role: RESTAURANT
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
+#Restaurants
+Restaurant(restaurant1):
+    user: res_admin
     title: Pizza Chlentano!11
     workHours: wrh_restaurant1
     contactPerson: Judje Dred
@@ -82,7 +83,7 @@ Address(adr_restaurant):
     appartamentsNumber: "123"
     buldingNuber: "123"
     additionalInfo: knock three times
-    user: restaurant1
+    user: res_admin
     deleted: false
 
 #Menu groups 

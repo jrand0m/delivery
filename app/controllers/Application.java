@@ -15,6 +15,7 @@ import models.RestaurantNetwork;
 import models.User;
 import play.Logger;
 import play.Play;
+import play.cache.Cache;
 import play.cache.CacheFor;
 import play.data.validation.Required;
 import play.mvc.Before;
@@ -28,27 +29,24 @@ import enumerations.UserStatus;
 
 public class Application extends Controller {
 
-
-    
-    
-    
-
     public static final String USER_RENDER_KEY = "user";
     // TODO Make more flexible
     public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
-    public static void loadFix(){
+
+    public static void loadFix() {
 	Fixtures.deleteDatabase();
-	new DevBootStrap ().doJob();
+	new DevBootStrap().doJob();
 	renderText("Cleared db and forsed fixture load");
     }
+
     @Before
     public static void _prepare() {
 	User user = getCurrentUser();
 	renderArgs.put(USER_RENDER_KEY, user);
 	Order order = null;
 	if (user != null) {
-	    order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
-		    user, OrderStatus.OPEN ).first();
+	    order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
+		    OrderStatus.OPEN).first();
 	} else {
 	    order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
 		    OrderStatus.OPEN, session.getId()).first();
@@ -78,15 +76,21 @@ public class Application extends Controller {
 	renderArgs.put("order", order);
 	render("/Application/prepareOrder.html");
     }
-    @CacheFor("2m")
+
     public static void index() {
-	List<RestaurantNetwork> metas = RestaurantNetwork.findAll();
-	List<Restaurant> combined = new ArrayList<Restaurant>();
-	for (RestaurantNetwork meta: metas){
-	    combined.addAll(meta.restoraunts); //removing restaurants that is in networks
+	List<Restaurant> restaurants = (List<Restaurant>) Cache.get("restaurants");
+	if (restaurants == null) {
+	    List<RestaurantNetwork> metas = RestaurantNetwork.findAll();
+
+	    List<Restaurant> combined = new ArrayList<Restaurant>();
+	    for (RestaurantNetwork meta : metas) {
+		combined.addAll(meta.restoraunts); // removing restaurants that
+						   // is in networks
+	    }
+	    restaurants = Restaurant.findAll();
+	    restaurants.removeAll(combined);
+	    Cache.set("restaurants", restaurants, "1min");
 	}
-	List<Restaurant> restaurants = Restaurant.findAll();
-	restaurants.removeAll(combined);
 	render(restaurants);
     }
 
@@ -202,8 +206,8 @@ public class Application extends Controller {
 	Logger.debug(">>> session id: %s", session.getId());
 	count = normalizeCount(count);
 	MenuItem menuItem = MenuItem.findById(id);
-	OrderItem orderitem = OrderItem.find(OrderItem.HQL.BY_ORDER_AND_MENU_ITEM,
-		order, menuItem).first();
+	OrderItem orderitem = OrderItem.find(
+		OrderItem.HQL.BY_ORDER_AND_MENU_ITEM, order, menuItem).first();
 	if (orderitem == null) {
 	    Logger.debug(">>> no such item found, sending ok response");
 	    return;
@@ -236,7 +240,8 @@ public class Application extends Controller {
 	    Logger.warn("MenuItem not found:  %s", menuItemId.toString());
 	    return;
 	}
-	if (order.restaurant != null && !menuItem.restaurant.equals(order.restaurant)) {
+	if (order.restaurant != null
+		&& !menuItem.restaurant.equals(order.restaurant)) {
 	    // TODO error message about "cannot add form other restaurant"
 	    todo();
 	    return;
@@ -284,7 +289,7 @@ public class Application extends Controller {
 		    OrderStatus.OPEN).first();
 	} else {
 	    order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
-		     OrderStatus.OPEN, session.getId()).first();
+		    OrderStatus.OPEN, session.getId()).first();
 	}
 	if (order == null) {
 	    order = createNewOpenOrder(null);

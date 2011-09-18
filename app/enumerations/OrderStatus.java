@@ -8,12 +8,12 @@ package enumerations;
  *
  */
 public enum OrderStatus {
-    OPEN(10), SENT(20), RECIEVED(30), ACCEPTED(40), COOKED(50), DELIVERING(60),  DELIVERED(70),  DECLINED(0);
-    private Integer i;
-    OrderStatus(Integer ord){
+    OPEN(), SENT(), RECIEVED(), ACCEPTED(), COOKED(), DELIVERING(),  DELIVERED(),  DECLINED();
+    
+    /*OrderStatus(Integer ord){
         
     }
     public Integer getOrdinal(){
         return i;
-    }
+    }*/
 }

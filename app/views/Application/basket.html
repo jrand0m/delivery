@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 #{set 'title'}
-    Order #${order.shortHandId()}
+    Order #${order.getShortHandId()}
 #{/set}
 
 #{if order.items.size() == 0 }
