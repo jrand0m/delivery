@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import play.data.validation.Phone;
+import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import play.libs.Codec;
 
@@ -27,7 +28,7 @@ import play.libs.Codec;
  */
 @Entity
 public class Restaurant extends Model {
-    public static final class FIELDS{
+    public static class FIELDS{
 	public static final String RESTAURANT_COMMENTS= "comments";
 	public static final String RESTAURANT_USER= "user";
 	public static final String RESTAURANT_RAITING= "raiting";
@@ -37,10 +38,12 @@ public class Restaurant extends Model {
 	public static final String RESTAURANT_TITLE= "title";
 	public static final String RESTAURANT_WORK_HOURS= "workHours";
 	public static final String RESTAURANT_LAST_CONNECTION= "lastConnection";
+	public static final String RESTAURANT_LOGO= "logo";
+	
 }
     @OneToMany(mappedBy="restaurant")
     public List <Comment> 	comments;
-    
+    public Blob 		logo;
     public User 		user;
     
     /**

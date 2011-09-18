@@ -24,7 +24,7 @@ public class ProdBootstrap extends Job {
      */
     private void loadSystemDefaultSettings() {
 	if (SystemSetting.count()==0){
-	    Fixtures.loadModels("deafault_settings.yaml");
+	    Fixtures.loadModels("default_settings.yaml");
 	}
     }
 }

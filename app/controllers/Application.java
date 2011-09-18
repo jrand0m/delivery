@@ -89,7 +89,7 @@ public class Application extends Controller {
 	    }
 	    restaurants = Restaurant.findAll();
 	    restaurants.removeAll(combined);
-	    Cache.set("restaurants", restaurants, "1min");
+	    Cache.set("restaurants", restaurants, "3min");
 	}
 	render(restaurants);
     }

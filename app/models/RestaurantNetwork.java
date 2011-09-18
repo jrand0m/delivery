@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class RestaurantNetwork extends Restaurant {
-    public static final class FIELDS{
+    public static final class FIELDS {
 	public static final String RN_RESTORAUNTS = "restoraunts";
     }
     @OneToMany
