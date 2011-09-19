@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package models.users;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +16,9 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+
+import models.Address;
+import models.Order;
 
 import org.hibernate.annotations.Where;
 

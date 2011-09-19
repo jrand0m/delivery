@@ -11,7 +11,7 @@ import play.data.validation.Min;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
-import models.User;
+import models.users.User;
 
 @Entity
 @Table(name = "UserSettings")

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import models.users.User;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 

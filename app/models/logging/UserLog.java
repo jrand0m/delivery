@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import enumerations.LogActionType;
 import enumerations.LogLevel;
 
-import models.User;
+import models.users.User;
 import play.db.jpa.Model;
 
 /**

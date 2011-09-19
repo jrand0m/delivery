@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import models.users.User;
+
 import org.hibernate.annotations.Where;
 
 import play.db.jpa.Model;
