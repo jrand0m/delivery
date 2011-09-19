@@ -88,7 +88,7 @@ public class API extends Controller {
 	    String jsonedObj = g.toJson(job);
 	    Logger.info("key: %s;  jsoned repr: %s; md5: %s", key, jsonedObj,
 		    Codec.hexMD5(jsonedObj));
-	    if (!Codec.hexMD5(jsonedObj).equalsIgnoreCase(val)) {
+	    if (Codec.hexMD5(jsonedObj).equalsIgnoreCase(val)) {
 		list.add(key);
 		continue;
 	    }
