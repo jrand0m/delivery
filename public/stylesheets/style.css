@@ -1,0 +1,64 @@
+* {margin: 0; padding: 0;}
+a img{border: 0 none;}
+a, input{outline: 0px none;}
+body{font-family: 'Open Sans Condensed', sans-serif; font-size: 16px; color: #000;}
+textarea{resize: none;}
+li{list-style: none;}
+div#wrapper{margin: 0 auto; width: 1011px; background: url(/public/images/wpar_bg_right.png) repeat-y right top transparent; padding-right: 9px;}
+div#wrapper div#wrapper_inner{display: inline-block; width: 984px; background: url(/public/images/wrap_bg_left.png) repeat-y left top transparent; padding-left: 18px; padding-right: 9px; padding-top: 9px}
+div#wrapper div#wrapper_inner div#header{}
+div#wrapper div#wrapper_inner div#header div.header_top{margin-bottom: 15px;min-height: 75px; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
+*+html div#wrapper div#wrapper_inner div#header div.header_top{height: 75px;}
+div#wrapper div#wrapper_inner div#header div.header_top a.logo{float: left; margin-left: 9px; margin-top: -10px;}
+div#wrapper div#wrapper_inner div#header div.header_top h1{color: #000; font-weight: normal; display: inline; margin-top: 6px; text-shadow: 1px 1px 1px #E6E6E6; filter: Shadow(Color=#E6E6E6, Direction=45, Strength=2);}
+div#wrapper div#wrapper_inner div#header div.header_top div.right_links{float: right; width: 201px;}
+*+html div#wrapper div#wrapper_inner div#header div.header_top div.right_links{margin-top: -40px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang{font-family: Tahoma; font-size: 12px; margin-top: 6px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang li{float: left; margin-right: 9px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a:hover{color: #000; text-decoration: none;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a{color: #666;}
+div#wrapper div#wrapper_inner div#header div.header_top a.enter{font-family: Tahoma; font-size: 12px; float: right; font-weight: bold; margin-top: 35px; margin-right: 9px;}
+div#wrapper div#wrapper_inner div#header div.header_top a.enter{color: #fff;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: left; margin-left: 127px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li{float: left; margin-left: 70px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-child{margin-left: 0px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a{color: #fff; font-size: 22px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive a{text-decoration: none;}
+div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 46px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form{float: right; padding-right: 6px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{border-radius: 0 4px 4px 0; font-size: 17px; background: url(/public/images/inp_sel_bg.gif) repeat-x 0 0 transparent; border: none; height: 28px; line-height: 28px; width: 290px; padding: 0 5px; font-family: 'Open Sans Condensed', sans-serif;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{border-radius: 3px; margin-top: 10px; margin-left: 10px; float: left; border: 1px solid #c03409; height: 28px; width: 100px; color: #fff; text-shadow: -1px -1px 0px #c9c9c9; filter: Shadow(Color=#c9c9c9, Direction=135, Strength=2); background: url(/public/images/search_but_bg.gif) repeat-x 0 0 transparent; font-family: 'Open Sans Condensed', sans-serif; font-size: 17px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form label{line-height: 46px; margin-right: 16px;text-shadow: 1px 1px 1px #E6E6E6; float: left; font-size: 18px; color: #fff;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceInputWrapper{float: left; margin-top: 10px;}
+*+html div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceInputWrapper{margin-top: 9px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper {margin-top: 10px; border-radius: 4px 0px 0px 4px; min-width: 118px; position: relative; height: 28px; float: left; background: url(/public/images/inp_sel_bg.gif) repeat-x 0 0 transparent;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper div span {width: 108px; line-height: 28px; position: absolute; height: 28px; color: #000; cursor: pointer; font-size: 17px; text-align: center;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper div a {display: block; right: 0px; width: 100%; position: absolute; height: 28px; background: url(/public/images/arrow_down.gif) no-repeat right 3px transparent;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul {background-color: #fff; line-height: 24px; overflow: hidden; display: none; z-index: 100; left: 0px; width: 108px; list-style-type: none; position: absolute; top: 25px; height: auto;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a {color: #000; text-align: center; display: block; font-size: 17px; text-decoration: none}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a:hover {background-color: #e6e6e6;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a.selected {background-color: #e6e6e6;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceHidden {display: none;}
+
+div#wrapper div#wrapper_inner div#content{padding-top: 15px;}
+div#wrapper div#wrapper_inner div#content div.main_cont{padding-bottom: 10px;}
+div.rest_item_prev{width: 230px; margin-right: 13px; padding-bottom: 20px; float: left; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3; }
+div.rest_item_prev h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal;  height: 40px; line-height: 17px; padding: 3px 10px;}
+div.rest_item_prev h1 span{font-size: 13px;}
+div.rest_item_prev h1 b{display: inline-block; font-weight: normal; height: 23px; margin-bottom: -5px; overflow: hidden; white-space: nowrap; width: 132px;}
+div.rest_item_prev h1 a{font-family: Tahoma; font-size: 13px; font-weight: bold; position: absolute; right: 10px; top: 3px;}
+div.rest_item_prev div.logo{height: 110px; position: relative; width: 210px; padding: 0 10px; text-align: center; display: table-cell; vertical-align: middle;}
+div.rest_item_prev div.logo i{display: inline-block; height: 100%; vertical-align: middle;}
+div.rest_item_prev div.logo img.logo{vertical-align: middle; max-width: 210px; max-height: 110px}
+div.rest_item_prev p{padding-left: 27px; padding-right: 10px; margin-left: 10px; font-size: 15px; margin-bottom: 5px; line-height: 20px;}
+div.rest_item_prev p.info{background: url(/public/images/information-frame.png) no-repeat left 5px transparent; max-height: 40px; overflow: hidden;}
+div.rest_item_prev p.work_time{background: url(/public/images/clock-select.png) no-repeat left center transparent;}
+div.rest_item_prev p.dostavka{background: url(/public/images/car-red.png) no-repeat left center transparent;}
+div.rest_item_prev a.menu_but{background: url(/public/images/menu_but_bg.gif) repeat-x 0 0 transparent; width: 160px; display: inline-block; height: 36px; margin-left: 35px; font-size: 19px; color: #000; text-decoration: none; line-height: 36px; border-radius: 3px; border: 1px solid #c03409; text-align: center;}
+div.rest_item_prev form.rform{float: left; margin-bottom: 14px; margin-left: 37px; margin-top: 3px;}
+div.rest_item_prev form.rform label.rlabel{float: left; display: inline !important;}
+div.rest_item_prev form.rform .ui-stars-star{margin-top: 3px;}
+div.rest_item_prev form.rform .ui-stars-cancel{visibility: hidden}
+div.rest_offline h1{background-color: #979797; background-image: none;}
+div.rest_offline a.menu_but{background-position: 0 -36px; border: 1px solid #979797;}
+div.rest_network_view{background-color: #fc7c0d;}

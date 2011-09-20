@@ -1,5 +1,0 @@
-SystemSetting:
-    key: "ratingsRefreshTimeGap"
-    value: "30"
-    isDefaut: true
-    
