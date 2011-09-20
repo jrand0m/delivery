@@ -11,7 +11,7 @@ import play.data.validation.Min;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
-import models.users.User;
+import models.users.EndUser;
 
 @Entity
 @Table(name = "UserSettings")
@@ -43,5 +43,5 @@ public class UserSetting extends Model {
      * if null than no date
      * */
     public Date endDate;
-    public User user;
+    public EndUser user;
 }

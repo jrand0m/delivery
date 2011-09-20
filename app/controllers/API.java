@@ -5,6 +5,7 @@ package controllers;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,11 +54,17 @@ public class API extends Controller {
 	    }
 	    jobs.add(job);
 	}
+	restaurant.device.lastPing = new Date();
+	restaurant.device.save();
 	renderJSON(jobs);
     }
 
     public static void p(String message) {
 
+    }
+    
+    public static void bind(Integer id){
+	
     }
 
     public static void c(String m) {

@@ -14,7 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import models.users.User;
+import models.geo.UserAddress;
+import models.users.EndUser;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
@@ -76,7 +77,7 @@ public class Order extends GenericModel {
     public Date courierPlanedDeliveryTime;
     public boolean deleted = false;
     @ManyToOne
-    public Address deliveryAddress;
+    public UserAddress deliveryAddress;
     /**
      * Price calculated by application using formula, that should be paid by
      * user. value in coins
@@ -104,7 +105,7 @@ public class Order extends GenericModel {
      * User who made this order
      * */
     @ManyToOne
-    public User orderOwner;
+    public EndUser orderOwner;
 
     @ManyToOne
     public Restaurant restaurant;

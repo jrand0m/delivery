@@ -1,10 +1,10 @@
 package controllers.admin.dev;
 
-import models.User;
+import models.users.EndUser;
 import controllers.CRUD;
 import controllers.CRUD.For;
 
-@For(User.class)
+@For(EndUser.class)
 public class AdminUsers extends CRUD {
 
 }

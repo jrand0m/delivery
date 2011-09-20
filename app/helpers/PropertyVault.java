@@ -2,11 +2,11 @@ package helpers;
 
 import models.Courier;
 import models.Restaurant;
-import models.User;
 import models.settings.RestaurantSetting;
 import models.settings.CourierSetting;
 import models.settings.SystemSetting;
 import models.settings.UserSetting;
+import models.users.EndUser;
 
 /**
  * 1) @deprecated this is temporary implementation of interface, consider
@@ -44,7 +44,7 @@ public class PropertyVault {
 	// getInstance().put(key, value);
     }
 
-    public static String getUserValueFor(User user, String key) {
+    public static String getUserValueFor(EndUser user, String key) {
 	String value = null;
 	UserSetting obj = UserSetting.find("key = ? and user = ?", key, user)
 		.first();
@@ -60,11 +60,11 @@ public class PropertyVault {
 	return value;
     }
 
-    public static void setUserValueFor(User user, String key, String value) {
+    public static void setUserValueFor(EndUser user, String key, String value) {
 	setUserValueFor(user, key, value, false);
     }
 
-    public static void setUserValueFor(User user, String key, String value,
+    public static void setUserValueFor(EndUser user, String key, String value,
 	    boolean asDefault) {
 	// getInstance().put(key, value);
     }

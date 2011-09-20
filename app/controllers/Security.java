@@ -9,7 +9,13 @@ import java.util.List;
 import enumerations.UserRoles;
 
 import models.Order;
-import models.User;
+import models.users.AnonymousEndUser;
+import models.users.CourierUser;
+import models.users.EndUser;
+import models.users.RestaurantAdministration;
+import models.users.RestaurantBarman;
+import models.users.SystemAdministrator;
+import models.users.User;
 import play.Logger;
 import play.Play;
 import play.mvc.Controller;
@@ -44,11 +50,11 @@ public class Security extends Controller {
      */
     static boolean authenticate(String username, String password) {
 	Logger.debug("Trying to login as %s", username);
-	User user = User.find(User.HQL.BY_LOGIN_OR_EMAIL, username, username)
+	EndUser user = EndUser.find(EndUser.HQL.BY_LOGIN_OR_EMAIL, username, username)
 		.first();
 	if (user != null && user.password.equals(password)) {
 	    Logger.debug("Login succesful for %s[%s]", user.login,
-		    user.role.toString());
+		    user.getClass().toString());
 	    String bid = session.getId();
 	    List<Order> orders = Order.find(Order.HQL.BY_ANONSID, bid).fetch();
 	    Logger.debug(
@@ -65,7 +71,7 @@ public class Security extends Controller {
 		    continue;
 		}
 		order.anonSID = null;
-		order.orderOwner = User.find(User.HQL.BY_LOGIN, username)
+		order.orderOwner = EndUser.find(EndUser.HQL.BY_LOGIN, username)
 			.first();
 		order.save();
 
@@ -88,12 +94,33 @@ public class Security extends Controller {
      */
     public static boolean check(UserRoles role) {
 	if (isConnected()) {
-	    User user = User.find(User.HQL.BY_LOGIN, connected()).first();
-	    if (user.role == role) {
-		return true;
+	    User user = User.find(EndUser.HQL.BY_LOGIN, connected()).first();
+	    switch  (role){
+	    case RESTAURANT_ADMIN:
+		if (user instanceof RestaurantAdministration) return true;
+		break;
+	    case RESTORAUNT_BARMAN:
+		if (user instanceof RestaurantBarman) return true;
+		break;
+	    case SYS_ADMIN:
+		if (user instanceof SystemAdministrator) return true;
+		break;
+	    case COURIER:
+		if (user instanceof CourierUser) return true;
+		break;
+	    case END_USER:
+		if (user instanceof EndUser) return true;
+		break;
+	    case ANONYMOUS_USER:
+		if (user instanceof AnonymousEndUser) return true;
+		break;
+	    default:
+		return false;
+	
 	    }
 	}
 	return false;
+	
     }
 
     /**

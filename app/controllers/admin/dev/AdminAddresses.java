@@ -1,10 +1,10 @@
 package controllers.admin.dev;
 
-import models.Address;
+import models.geo.UserAddress;
 import controllers.CRUD;
 import controllers.CRUD.For;
 
-@For(Address.class)
+@For(UserAddress.class)
 public class AdminAddresses extends CRUD {
 
 }

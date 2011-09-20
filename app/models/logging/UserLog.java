@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import enumerations.LogActionType;
 import enumerations.LogLevel;
 
-import models.users.User;
+import models.users.EndUser;
 import play.db.jpa.Model;
 
 /**
@@ -30,7 +30,7 @@ public class UserLog extends Model {
 	public static final String USERLOG_INFO = "info";
     }
 
-    public User user;
+    public EndUser user;
     public LogActionType actionType;
     public LogLevel level;
     public Date date;

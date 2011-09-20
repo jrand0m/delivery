@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 
 import models.AccountingGroup;
 import models.AccountingTransaction;
-import models.User;
+import models.users.EndUser;
 import play.data.binding.As;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -24,14 +24,14 @@ import enumerations.UserRoles;
  *         class to make accounting and reporting on our income and outcome
  */
 @With(Secure.class)
-@Check(UserRoles.ADMIN)
+@Check(UserRoles.SYS_ADMIN)
 public class Bookkeeper extends Controller {
 
     @Before
     static void _prepare() {
-	User user = null;
+	EndUser user = null;
 	if (Security.isConnected()) {
-	    List<User> users = User.find(User.HQL.BY_LOGIN,
+	    List<EndUser> users = EndUser.find(EndUser.HQL.BY_LOGIN,
 		    Security.connected()).first();
 	    if (users.size() != 0) {
 		user = users.get(0);
@@ -103,7 +103,7 @@ public class Bookkeeper extends Controller {
 	return query.getResultList();
     }
 
-    public static void addTransaction(Integer amount, User target,
+    public static void addTransaction(Integer amount, EndUser target,
 	    String description, Long groupId) {
 	AccountingTransaction tran = new AccountingTransaction();
 	tran.amount = amount;

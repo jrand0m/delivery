@@ -1,48 +1,27 @@
-<!DOCTYPE html>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
     <head>
         <title>#{get 'title' /}</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" media="screen" href="@@{'/public/stylesheets/main.css'}">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/style.css'}" media="screen" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/demos.css'}?b38"/>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/jquery.fancybox-1.3.4.css'}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/jquery.ui.stars.css'}?v=3.0.0b38"/>
+		<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/jquery.fancybox-1.3.4.css'}" media="screen" />
         #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/ico" href="@@{'/public/images/favicon.ico'}">
-        <script src="@@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+        <link rel="shortcut icon" type="image/ico" href="@{'/public/images/favicon.ico'}">
+		
+        <script src="@{'/public/javascripts/jquery.min.js'}" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="@{'/public/javascripts/jquery.jNice.js'}"></script>
+		<script type="text/javascript" src="@{'/public/javascripts/jquery.ui.stars.js'}"></script>
+		<script type="text/javascript" src="@{'/public/javascripts/jquery-ui.custom.min.js'}?v=1.8"></script>
+		<script type="text/javascript" src="@{'/public/javascripts/jquery.ui.stars.js'}?v=3.0.0b38"></script>
+		<script type="text/javascript" src="@{'/public/javascripts/jquery.mousewheel-3.0.4.pack.js'}"></script>
+		<script type="text/javascript" src="@{'/public/javascripts/jquery.fancybox-1.3.4.js'}"></script>
         #{get 'moreScripts' /}
     </head>
     <body>
-        <div>
-            menu: 
-            <a href="@@{Application.index}">home</a>
-        #{if user}
-			#{if user.role == enumerations.UserRoles.ADMIN}
-				<a href="@@{Bookkeeper.index()}">Bookkeeping</a>
-			#{/if}
-			#{else}
-				#{if user.role == enumerations.UserRoles.RESTAURANT}
-	<a href="@@{RestaurantAdmin.index()}">Admin</a>
-				#{/if}
-				#{else}
-			Hello,<img src = "@@{'/public/images/user.png'}" /> <a href="@@{Locker.index()}">${user.name}</a>!
-		
-			<span id="basket_span"><a href="@@{Application.basket()}"><img src = "@@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
-				#{/else}
-			#{/else}
-		
-        <a href="@@{Secure.logout()}">Logout<a/>
-        #{/if}
-        #{else}
-        <span id="basket_span"><a href="@@{Application.basket()}"><img src = "@@{'/public/images/shopping-basket.png'}" /></a>#{if basketCount}+${basketCount}#{/if}#{else}0#{/else}</span>
-        <a href="@@{Application.newUser()}"><img src = "@@{'/public/images/user--plus.png'}" />Register new User<a/>
-        <a href="@@{Secure.login()}"><img src = "@@{'/public/images/key-solid.png'}" />Login<a/>
-        #{/else}
-        </div>
-        #{doLayout /}
-		<div id="fotter">
-			<ul id="copyrghts">
-				<li>vdoma.com.ua(c) 2011. All rights reserverd. Logos and other art that may apear may be registered trademarks and belong to their rightfull owners.</li>
-				<li>Some Icons are Copyright &copy; <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>. All rights reserved.</li>
-			</ul>
-		</div>
+        
     </body>
 </html>

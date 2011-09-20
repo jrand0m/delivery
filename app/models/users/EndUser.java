@@ -16,8 +16,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
-import models.Address;
 import models.Order;
+import models.geo.UserAddress;
 
 import org.hibernate.annotations.Where;
 
@@ -33,8 +33,8 @@ public class EndUser extends User {
         public static final String USER_ADDRESS_BOOK = "addressBook";
         public static final String USER_ORDER_BOOK = "orderBook";
     }
-    @OneToMany(mappedBy = Address.FIELDS.ADDRESS_USER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Address> addressBook;
+    @OneToMany(mappedBy = UserAddress.FIELDS.USER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<UserAddress> addressBook;
     @OneToMany(mappedBy = Order.FIELDS.ORDER_OWNER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Order> orderBook;
 }

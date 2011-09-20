@@ -2,9 +2,9 @@ package controllers;
 
 import java.util.List;
 
-import models.Address;
 import models.Order;
-import models.User;
+import models.geo.UserAddress;
+import models.users.EndUser;
 import play.Logger;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -31,7 +31,7 @@ public class Locker extends Controller {
 
 	}
 	String userName = Security.connected();
-	User user = User.find(User.HQL.BY_LOGIN, userName).first();
+	EndUser user = EndUser.find(EndUser.HQL.BY_LOGIN, userName).first();
 	if (user == null) {
 	    forbidden();
 	    return;
@@ -44,33 +44,33 @@ public class Locker extends Controller {
      */
     public static void index() {
 	Logger.debug(">>> Entering index");
-	User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
+	EndUser user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
 
-	List<Address> addressList = user.addressBook;
+	List<UserAddress> addressList = user.addressBook;
 
 	List<Order> orderList = Order.find(Order.HQL.BY_OWNER, user).fetch();
 	render(user, addressList, orderList);
     }
 
-    public static void addAddress(Address address) {
+    public static void addAddress(UserAddress address) {
 
 	if (address == null) {
 	    redirect(Router.getFullUrl("Locker.index"));
 	}
-	address.user = (User) renderArgs.get(Application.USER_RENDER_KEY);
+	address.user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
 	address.create();
 	// TODO in future do it asynchronously!
 	todo();
     }
 
-    public static void editAddress(Address address) {
+    public static void editAddress(UserAddress address) {
 
 	if (address.id == null) {
 	    error("Data inconsistency detected");
 	}
 
-	address.user = (User) renderArgs.get(Application.USER_RENDER_KEY);
-	Address base = Address.findById(address.id);
+	address.user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
+	UserAddress base = UserAddress.findById(address.id);
 	if (!address.equals(base)) {
 	    // TODO Make logging
 	    // LogItem.log(Address.class.getName(), field, newValue, oldValue,
@@ -85,7 +85,7 @@ public class Locker extends Controller {
     public static void deleteAddress(Long id) {
 	if (id != null) {
 	    // TODO add logging
-	    Address address = Address.findById(id);
+	    UserAddress address = UserAddress.findById(id);
 	    address.deleted = true;
 	    address.save();
 	}

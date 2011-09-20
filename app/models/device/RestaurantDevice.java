@@ -3,6 +3,8 @@
  */
 package models.device;
 
+import java.util.Date;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -23,5 +25,7 @@ public class RestaurantDevice extends GenericDevice {
     // UUID to encrypt messages
     public String encriptionKey;
     public Long restaurantId;
+    public Date lastPing;
+    
 
 }

@@ -11,10 +11,11 @@ import models.Order;
 import models.OrderItem;
 import models.Restaurant;
 import models.RestaurantNetwork;
-import models.User;
+import models.users.EndUser;
 import play.Logger;
 import play.cache.Cache;
 import play.data.validation.Required;
+import play.i18n.Lang;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.test.Fixtures;
@@ -25,7 +26,7 @@ import enumerations.UserStatus;
 public class Application extends Controller {
 
     public static final String USER_RENDER_KEY = "user";
-    // TODO Make more flexible
+    // TODO Make more flexible(extract to SystemSetting)
     public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
 
     public static void loadFix() {
@@ -36,7 +37,7 @@ public class Application extends Controller {
 
     @Before
     public static void _prepare() {
-	User user = getCurrentUser();
+	EndUser user = getCurrentUser();
 	renderArgs.put(USER_RENDER_KEY, user);
 	Order order = null;
 	if (user != null) {
@@ -57,7 +58,7 @@ public class Application extends Controller {
 
     public static void deliveryAndPaymentMethod() {
 	Order order = null;
-	User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
+	EndUser user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
 	if (user != null) {
 	    order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
 		    OrderStatus.OPEN).first();
@@ -90,10 +91,10 @@ public class Application extends Controller {
 	render(restaurants);
     }
 
-    private static User getCurrentUser() {
-	User user = null;
+    private static EndUser getCurrentUser() {
+	EndUser user = null;
 	if (Security.isConnected()) {
-	    user = User.find(User.HQL.BY_LOGIN, Security.connected()).first();
+	    user = EndUser.find(EndUser.HQL.BY_LOGIN, Security.connected()).first();
 	}
 	return user;
     }
@@ -109,12 +110,11 @@ public class Application extends Controller {
 	render();
     }
 
-    public static void registerNewUser(User user) {
+    public static void registerNewUser(EndUser user) {
 	Logger.debug(">>> Registering new user %s", user.toString());
 	user.joinDate = new Date();
 	user.lastLoginDate = new Date();
 	user.userStatus = UserStatus.PENDING_APPROVEMENT;
-	user.role = UserRoles.USER;
 	user.create();
 	Logger.debug(">>> TODO: Try converting order history.");
 	try {
@@ -140,7 +140,7 @@ public class Application extends Controller {
 	Logger.debug(">>> Adding items with id %s in count %s", id, count);
 	if (Security.isConnected()) {
 	    Logger.debug(">>> Connected user login: %s", Security.connected());
-	    User user = (User) renderArgs.get(USER_RENDER_KEY);
+	    EndUser user = (EndUser) renderArgs.get(USER_RENDER_KEY);
 	    Order order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
 		    user, OrderStatus.OPEN).first();
 	    if (order == null) {
@@ -167,7 +167,7 @@ public class Application extends Controller {
 	Logger.debug(">>> Delitinging items with id %s in count %s", id, count);
 	if (Security.isConnected()) {
 	    Logger.debug(">>> Connected user login: %s", Security.connected());
-	    User user = (User) renderArgs.get(USER_RENDER_KEY);
+	    EndUser user = (EndUser) renderArgs.get(USER_RENDER_KEY);
 	    Order order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
 		    user, OrderStatus.OPEN).first();
 	    if (order == null) {
@@ -279,7 +279,7 @@ public class Application extends Controller {
     public static void basket() {
 	Logger.debug(">>> Entering basket");
 	Order order = null;
-	User user = (User) renderArgs.get(Application.USER_RENDER_KEY);
+	EndUser user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
 	if (user != null) {
 	    order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
 		    OrderStatus.OPEN).first();
@@ -294,6 +294,26 @@ public class Application extends Controller {
 	render();
 
     }
+
+    /**
+     * Change Language
+     * */
+    public static void changeLang(String lang) {
+	if (!Lang.set(lang)) {
+	    Lang.set("uk");
+	    badRequest();
+	}
+
+	index();
+    }
+    
+    public static void serveLogo(long id) {
+	   final Restaurant restaurant = Restaurant.findById(id);
+	   notFoundIfNull(restaurant);
+	   response.setContentTypeIfNotSet(restaurant.logo.type());
+	   renderBinary(restaurant.logo.get());
+    }
+
 
     /**
      * @param count
@@ -312,7 +332,7 @@ public class Application extends Controller {
     /**
      * intended for local use so no 'public' modifier
      * */
-    private static Order createNewOpenOrder(final User user) {
+    private static Order createNewOpenOrder(final EndUser user) {
 	Logger.debug(">>> Creating new order for user: %s", user);
 	Order o = new Order();
 	o.orderStatus = OrderStatus.OPEN;

@@ -1,6 +1,6 @@
 package jobs;
 
-import models.User;
+import models.users.EndUser;
 import play.Logger;
 import play.Play;
 import play.jobs.Job;
@@ -14,7 +14,7 @@ public class DevBootStrap extends Job {
     public void doJob() {
 	if (Play.mode.isDev()) {
 
-	    if (User.count() > 0) {
+	    if (EndUser.count() > 0) {
 		Logger.warn("Database not empty, skiping fixture load");
 
 	    } else {

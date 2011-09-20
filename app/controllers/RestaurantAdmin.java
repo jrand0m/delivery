@@ -6,7 +6,7 @@ import annotations.Check;
 import enumerations.UserRoles;
 
 @With(Secure.class)
-@Check(UserRoles.RESTAURANT)
+@Check(UserRoles.RESTAURANT_ADMIN)
 public class RestaurantAdmin extends Controller {
 
     public static void summary() {
