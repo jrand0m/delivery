@@ -17,8 +17,8 @@ import models.Restaurant;
 @Table(name = "RestaurantSettings")
 public class RestaurantSetting extends Model {
     public static final class FIELDS {
-	public static final String RESTAURANTSETTING_KEY = "key";
-	public static final String RESTAURANTSETTING_VALUE = "value";
+	public static final String RESTAURANTSETTING_stg_key = "stg_key";
+	public static final String RESTAURANTSETTING_stg_value = "stg_value";
 	public static final String RESTAURANTSETTING_ISDEFAULT = "isDefault";
 	public static final String RESTAURANTSETTING_STARTDATE = "startDate";
 	public static final String RESTAURANTSETTING_ENDDATE = "endDate";
@@ -28,11 +28,12 @@ public class RestaurantSetting extends Model {
     @Required
     @Min(3)
     @Max(32)
-    @Column(name = "_key")
-    public String key;
+    @Column(name = "_stg_key")
+    public String stg_key;
     @Required
     @Min(1)
-    public String value;
+    @Column(name = "_stg_value")
+    public String stg_value;
     @Required
     public boolean isDefault = false;
     /**

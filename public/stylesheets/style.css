@@ -19,6 +19,7 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a{color: #666;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{font-family: Tahoma; font-size: 12px; float: right; font-weight: bold; margin-top: 35px; margin-right: 9px;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{color: #fff;}
+div#wrapper div#wrapper_inner div#header div.header_top a.enter span:first-letter{font-size:200%;color:#8A2BE2;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: left; margin-left: 127px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li{float: left; margin-left: 70px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-child{margin-left: 0px;}

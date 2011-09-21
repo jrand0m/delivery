@@ -15,10 +15,10 @@
 					success:function(obj){
 						img.hide('fast', function(){ // hide progress
 									console.debug("sent id:"+ id + "; count:" + count);
-									img.attr('src', "@@{'/public/images/tick-button.png'}");
+									img.attr('src', "@{'/public/images/tick-button.png'}");
 									img.show('slow', function(){
 										img.hide('slow', function(){
-											img.attr('src', "@@{'/public/images/plus-button.png'}");
+											img.attr('src', "@{'/public/images/plus-button.png'}");
 											img.show('slow');
 											}); 
 										
@@ -35,10 +35,10 @@
 					success:function(obj){
 						img.hide('fast', function(){ // hide progress
 									console.debug("sent id:"+ id + "; count:" + count);
-									img.attr('src', "@@{'/public/images/tick-button.png'}");
+									img.attr('src', "@{'/public/images/tick-button.png'}");
 									img.show('slow', function(){
 										img.hide('slow', function(){
-											img.attr('src', "@@{'/public/images/plus-button.png'}");
+											img.attr('src', "@{'/public/images/plus-button.png'}");
 											img.show('slow');
 											}); 
 										
@@ -50,10 +50,10 @@
 </script>
 <ol>
  #{list items:menuItems, as:'item' }
-     <li>${item.name}: ${item.price} <input type="text" width="30px" id="count_${item.id}" value=1 /> <a href="javascript:addToOrder(${item.id})"><img id="img_add_${item.id}" src="@@{'/public/images/plus-button.png'}" /></a></li>
+     <li>${item.name}: ${item.price} <input type="text" width="30px" id="count_${item.id}" value=1 /> <a href="javascript:addToOrder(${item.id})"><img id="img_add_${item.id}" src="@{'/public/images/plus-button.png'}" /></a></li>
 	 
 	 
-	 *{<li>${item.name}: ${item.price}  <a href="@@{Application.addOrderItem(item.id, 1)}"><img id="img_add_${item.id}" src="@@{'/public/images/plus-button.png'}" /></a></li>}*
+	 *{<li>${item.name}: ${item.price}  <a href="@{Application.addOrderItem(item.id, 1)}"><img id="img_add_${item.id}" src="@{'/public/images/plus-button.png'}" /></a></li>}*
 	 
  #{/list}
 </ol>

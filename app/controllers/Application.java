@@ -313,7 +313,6 @@ public class Application extends Controller {
 	   notFoundIfNull(restaurant);
 	   InputStream is;
 	   if (restaurant.logo.exists()){
-	       
 	       response.setContentTypeIfNotSet(restaurant.logo.type());
 	       is = restaurant.logo.get();
 	   } else {

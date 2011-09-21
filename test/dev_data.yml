@@ -181,11 +181,3 @@ OrderItem(Order2Item2):
     menuItem: mit_Sup1
     order: order2
     count: 10
-models.settings.SystemSetting:
-    key: "ratingsRefreshTimeGap"
-    value: "30"
-    isDefaut: true
-models.settings.SystemSetting:
-    key: "pingTime"
-    value: "400000"
-    isDefaut: true    

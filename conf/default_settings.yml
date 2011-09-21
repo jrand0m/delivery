@@ -1,0 +1,8 @@
+models.settings.SystemSetting(stng_ratingsRefresh):
+    stg_key: "ratingsRefreshTimeGap"
+    stg_value: "30"
+    isDefaultSetting: true
+models.settings.SystemSetting(stng_pingTime):
+    stg_key: "pingTime"
+    stg_value: "400000"
+    isDefaultSetting: true    

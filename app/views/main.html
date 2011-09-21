@@ -26,20 +26,27 @@
 		<div id="wrapper_inner">
 			<div id="header">
 				<div class="header_top">
-					<a href="/" class="logo"><img alt="На головну!" title="На головну!" src="img/logo.png" /></a>
-					<h1>Втамуй свій голод вдома. Ми доставляємо!</h1>
+					<a href="@{Application.index()}" class="logo"><img alt="На головну!" title="На головну!" src="@{'/public/images/logo.png'}" /></a>
+					<h1>&{'common.slogan'}</h1>
 					<div class="right_links">
 						<ul class="lang">
 							<li class="${"uk".equals(lang)?"active":""}"><a href="@{Application.changeLang("uk")}">українською</a></li>
 							<li class="${"ru".equals(lang)?"active":""}"><a href="@{Application.changeLang("ru")}">по-русски</a></li>
 							<li class="${"en".equals(lang)?"active":""}"><a href="@{Application.changeLang("en")}">in english</a></li>
 						</ul>
-						<a class="enter" href="#">увійти</a>
+						#{if controllers.Security.isConnected()}
+							<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+							<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+							
+						#{/if}
+						#{else}
+							<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+						#{/else}
 					</div>
 					<ul class="main_nav">
-						<li><a title="Переглянути список ресторанів" href="#">Список ресторанів</a></li>
-						<li class="unactive"><a title="Переглянути список раніше замовлених мною страв" href="#">Мої замовлення</a></li>
-						<li><a title="Умови доставки та оплати" href="#">Доставка/оплата</a></li>
+						<li><a title="&{'header.nav.restorauntlist.tooltip'}" href="#">&{'header.nav.restorauntlist.text'}</a></li>
+						<li class="unactive"><a title="&{'header.nav.orderhistory.tooltip'}" href="#">&{'header.nav.orderhistory.text'}</a></li>
+						<li><a title="&{'header.nav.deliveryandpayment.tooltip'}" href="#">&{'header.nav.deliveryandpayment.text'}</a></li>
 					</ul>
 				</div>
 				<div class="header_bottom">

@@ -15,9 +15,9 @@ import play.db.jpa.Model;
 @Table(name = "SystemSettings")
 public class SystemSetting extends Model {
     public static final class FIELDS {
-	public static final String SYSTEMSETTING_KEY = "key";
-	public static final String SYSTEMSETTING_VALUE = "value";
-	public static final String SYSTEMSETTING_ISDEFAULT = "isDefault";
+	public static final String SYSTEMSETTING_stg_key = "stg_key";
+	public static final String SYSTEMSETTING_stg_value = "stg_value";
+	public static final String SYSTEMSETTING_ISDEFAULT_SETTING = "isDefaultSetting";
 	public static final String SYSTEMSETTING_STARTDATE = "startDate";
 	public static final String SYSTEMSETTING_ENDDATE = "endDate";
     }
@@ -25,13 +25,14 @@ public class SystemSetting extends Model {
     @Required
     @Min(3)
     @Max(32)
-    @Column(name = "_key")
-    public String key;
+    @Column(name = "_stg_key")
+    public String stg_key;
     @Required
     @Min(1)
-    public String value;
+    @Column(name = "_stg_value")
+    public String stg_value;
     @Required
-    public boolean isDefault = false;
+    public boolean isDefaultSetting = false;
     /**
      * if null than no date
      * */

@@ -27,6 +27,16 @@ public class ProdBootstrap extends Job {
 	if (SystemSetting.count() == 0) {
 	    Logger.warn("No settings found, loading defaults");
 	    Fixtures.loadModels("default_settings.yml");
+//	    SystemSetting s = new SystemSetting();
+//	    s.stg_key = "pingTime";
+//	    s.stg_value = "400000";
+//	    s.isDefaultSetting = true;
+//	    s.create();
+//	    s = new SystemSetting();
+//	    s.stg_key = "ratingsRefreshTimeGap";
+//	    s.stg_value = "30";
+//	    s.isDefaultSetting = true;
+//	    s.create(); 
 	}
 	Logger.warn("Done");
     }
