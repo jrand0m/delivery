@@ -2,7 +2,9 @@ package models;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
 import javax.persistence.Entity;
@@ -32,32 +34,34 @@ public class WorkHours extends Model {
     public boolean deleted = false;
 
     public String description;
-    @OneToMany(mappedBy = Day.FIELDS.ROOT, fetch=FetchType.EAGER)
-    public TreeSet<IrregularDay> irregularDays = new TreeSet<IrregularDay>();
-    @OneToMany(mappedBy = Day.FIELDS.ROOT, fetch=FetchType.EAGER)
-    public TreeSet<RegularDay> regularDays = new TreeSet<RegularDay>();
+    @OneToMany(fetch=FetchType.EAGER)
+    public Set<IrregularDay> irregularDays = new HashSet<IrregularDay>();
+    @OneToMany(fetch=FetchType.EAGER)
+    public Set<RegularDay> regularDays = new HashSet<RegularDay>();
     
 
 
     public String today() {
+	
 	Calendar cal = Calendar.getInstance();
 	if (!irregularDays.isEmpty()){
 	    IrregularDay id = new IrregularDay();
 	    id.day = cal.get(Calendar.DAY_OF_MONTH);
 	    id.month = cal.get(Calendar.MONTH)+1;
 	    id.day = cal.get(Calendar.YEAR);
-	    IrregularDay candidate =  irregularDays.ceiling(id);
+	    TreeSet<IrregularDay>sortedIrregularDays = new TreeSet(irregularDays);
+	    IrregularDay candidate =  sortedIrregularDays.ceiling(id);
 	    if ( id.equals(candidate) ){
 		return candidate.toString();
 	    }
 	    Logger.debug("there is exception days(%s)! getting all ", irregularDays.size());
-	    irregularDays.floor(id);
+	    sortedIrregularDays.floor(id);
 	}
 	if (!regularDays.isEmpty()){
 	    RegularDay d = new RegularDay();
 	    d.dayType = DayType.convert(cal.get(cal.DAY_OF_WEEK));
-	    
-	    d =  regularDays.ceiling(d);
+	    TreeSet<RegularDay>sortedRegularDays = new TreeSet<RegularDay>(regularDays);
+	    d =  sortedRegularDays.ceiling(d);
 	    if (d != null){
 		return d.toString();
 	    }

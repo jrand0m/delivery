@@ -60,7 +60,10 @@ public class Restaurant extends Model {
 	public static final String RESTAURANT_CITY = "city";
 	public static final String RESTAURANT_DEVICE= "device";
 	public static final String DESCRIPTIONS="descriptions";
+	public static final String DELETED="deleted";
+	
     }
+    public boolean deleted = false;
     public Address address;
     /**
      * All comments given to this restaurant
@@ -123,8 +126,13 @@ public class Restaurant extends Model {
     public boolean isOnline(){
 	Boolean online = (Boolean) Cache.get("isOnline_"+getId());
 	if (online==null){
-	    long waitTimeInMiliseconds = Long.parseLong(PropertyVault.getSystemValueFor("pingtime"));
+	    long waitTimeInMiliseconds = Long.parseLong(PropertyVault.getSystemValueFor("pingTime"));
+	    if (device != null){
 	    online = System.currentTimeMillis()- device.lastPing.getTime()<waitTimeInMiliseconds;
+	    } else {
+		//FIXME Hardcore workaround on device null;
+		online = true;
+	    }
 	    long waitTimeInMin = (waitTimeInMiliseconds/1000/60)+1;
 	    
 	    Cache.set("isOnline_"+getId(), online, waitTimeInMin+"mn");
@@ -143,7 +151,8 @@ public class Restaurant extends Model {
 	
     }
     public String addressToString(){
-	return address.toString();
+	//FIXME Hardcore workaround
+	return address!=null?address.toString():Messages.get("restaurant.noaddress");
     }
     public String workHoursToday(){
 	return workHours.today();

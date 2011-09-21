@@ -1,4 +1,4 @@
-# Saved by @messages on Mon Sep 19 00:46:39 EEST 2011
+# Saved by @messages on Wed Sep 21 02:11:32 EEST 2011
 admin.restaurant.events.tabtitle=Акції
 admin.restaurant.footertext=2011&copy; <a href\="http\://vdoma.com.ua">vdoma.com.ua</a> Усі права захищено.
 admin.restaurant.invoices.tabtitle=Розрахунки
@@ -10,12 +10,15 @@ admin.restaurant.summary.tabtitle=Підсумки
 common.loggedinas=Ви влоговані як %s
 common.logout=вийти
 reserved=Зарезервовано
+restaurant.noaddress=адреса не вказана
+restaurant.network.caption=Мережа ресторанів
+restaurant.network.selectbtn=Вибрати ресторан
+restaurant.nodescription=<нема опису>
+restaurant.offline=офф-лайн
+restaurant.online=онлайн
+restaurant.workhours.undefined=час не визначено
 secure.password=Пароль \:
 secure.remember=пам'ятати мене
 secure.signin=залогуватися
 secure.title=Авторизація
-secure.username=Ім'я користувача \:restaurant.network.caption=Мережа ресторанів
-restaurant.network.selectbtn=Вибрати ресторан
-restaurant.online=онлайн
-restaurant.offline=офф-лайн
-restaurant.workhours.undefined=час не визначено
+secure.username=Ім'я користувача \:

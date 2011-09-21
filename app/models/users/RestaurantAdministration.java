@@ -13,5 +13,5 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("A")
 public class RestaurantAdministration extends RestaurantUser {
-
+    
 }

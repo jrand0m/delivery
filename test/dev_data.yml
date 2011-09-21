@@ -1,4 +1,4 @@
-User(usr_uzor):
+models.users.EndUser(usr_uzor):
     name: Vasyl
     surname: Petrovich
     phoneNumber: "380630683088"
@@ -7,12 +7,11 @@ User(usr_uzor):
     login: v
     password: "123"
     userStatus: ACTIVE
-    role: USER
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
     deleted: false
 
-User(usr_admin):
+models.users.SystemAdministrator(usr_admin):
     name: Admin
     surname: Admin
     phoneNumber: "+380630683088"
@@ -21,12 +20,11 @@ User(usr_admin):
     login: admin
     password: "123"
     userStatus: ACTIVE
-    role: ADMIN
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
 
 # Addresses
-Address(adr_uzor):
+models.geo.UserAddress(adr_uzor):
     street: kreshchatyk
     appartamentsNumber: "123"
     buldingNuber: "123"
@@ -55,7 +53,7 @@ WorkHours(wrh_restaurant1):
     description: Standart time
     deleted: false
 #TODO       public Map<String, IrregularDay> irregularDays;
-User(res_admin):
+models.users.RestaurantAdministration(res_admin):
     name: Galyna
     surname: Petrovich
     phoneNumber: "+380630683088"
@@ -78,7 +76,7 @@ Restaurant(restaurant1):
     deleted: false
 
 
-Address(adr_restaurant):
+models.geo.Address(adr_restaurant):
     street: kreshchatyk
     appartamentsNumber: "123"
     buldingNuber: "123"
@@ -183,3 +181,11 @@ OrderItem(Order2Item2):
     menuItem: mit_Sup1
     order: order2
     count: 10
+models.settings.SystemSetting:
+    key: "ratingsRefreshTimeGap"
+    value: "30"
+    isDefaut: true
+models.settings.SystemSetting:
+    key: "pingTime"
+    value: "400000"
+    isDefaut: true    
