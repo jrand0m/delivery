@@ -1,0 +1,9 @@
+#DCWMainOrderTable {width: 100%; background-color:#FFA; height: 100%;}
+#DCWAuthForm {position: absolute; left: 50%; top: 50%;}
+
+.DCWOrdersColumn {vertical-align: top;}
+.DCWOrderPriceDiv {float: right;}
+.DCWTableBorder {width: 20px;}
+
+
+.DCWAuthAltInput {color: #999;}
