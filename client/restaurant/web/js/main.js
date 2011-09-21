@@ -35,7 +35,9 @@ var DCWMain = {
 
 	init: function(){
 		this.initVars();
-		$('body').append($(document.createElement('table')).attr("id", "DCWMainOrderTable"));
+		$('body').append(
+			$(document.createElement('table'))
+			.attr("id", "DCWMainOrderTable"));
 		this.initAuthBox();
 	},
 	
@@ -94,10 +96,12 @@ var DCWMain = {
 		passwordTextBox.attr("type","password");
 		passwordTextBox.addClass('DCWInput');
 		passwordTextBox.addClass('DCWAuthInput');
+		
 		var passWrapper = $(document.createElement('div')).addClass('DCWAuthBoxWrapper');
-			
-		authForm.append(passWrapper.append(passAltText));
-		authForm.append(passWrapper.append(passwordTextBox));
+		
+		passWrapper.append(passAltText);
+		passWrapper.append(passwordTextBox);
+		authForm.append(passWrapper);
 		
 		passwordTextBox.hide();
 		
@@ -132,6 +136,9 @@ var DCWMain = {
 			.append(btnOk));
 		
 		$('body').append(authForm);
+		authForm.css('margin-left',-authForm.width()/2);
+		authForm.css('margin-top',-authForm.height()/2);
+
 		btnOk.width(passwordTextBox.width());
 	},
 	
@@ -146,17 +153,25 @@ var DCWMain = {
 		newOrders.attr("id","DCWNewOrdersColumn");
 		newOrders.addClass("DCWOrdersColumn");
 		
+		var newOrdersContent = $(document.createElement('div'));
+		newOrdersContent.attr("id","DCWNewOrdersColumnContent");
+		newOrdersContent.addClass("DCWOrdersColumnContent");
+		
+		row.append(newOrders.append(newOrdersContent));
+		
+		var activeOrdersContent = $(document.createElement('div'));
+		activeOrdersContent.attr("id","DCWActiveOrdersColumnContent");
+		activeOrdersContent.addClass("DCWOrdersColumnContent");
+		
 		var activeOrders = $(document.createElement('td'));
 		activeOrders.attr("id","DCWActiveOrdersColumn");
 		activeOrders.addClass("DCWOrdersColumn");
-		
-		row.append(newOrders);
-		
+				
 		var tableSeparator = $(document.createElement('td'));
 		tableSeparator.addClass("DCWTableSeparator").addClass("DCWTableBorder");
 		row.append(tableSeparator);
 		
-		row.append(activeOrders);
+		row.append(activeOrders.append(activeOrdersContent));
 		
 		var rightTableBorder = $(document.createElement('td'));
 		rightTableBorder.addClass("DCWRightTableBorder").addClass("DCWTableBorder");
@@ -168,11 +183,11 @@ var DCWMain = {
 		var thisObj = this;
 		$(testVals).each(function(elem){
 			var elemDom = thisObj.getNewOrderDiv(testVals[elem]);
-			newOrders.append(elemDom);
+			newOrdersContent.append(elemDom);
 		});
 		
 		$(testVals).each(function(elem){
-			activeOrders.append(thisObj.getActiveOrderDiv(testVals2[elem]));
+			activeOrdersContent.append(thisObj.getActiveOrderDiv(testVals2[elem]));
 		});
 	},
 	
