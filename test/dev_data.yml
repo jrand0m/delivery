@@ -65,6 +65,9 @@ models.users.RestaurantAdministration(res_admin):
     role: RESTAURANT
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
+
+models.device.RestaurantDevice(device1):
+    lastPing: 9.9.11
 #Restaurants
 Restaurant(restaurant1):
     user: res_admin
@@ -74,6 +77,7 @@ Restaurant(restaurant1):
     contactPhone: "3044555555"
     discount: 10.1
     deleted: false
+    device: device1
 
 
 models.geo.Address(adr_restaurant):
