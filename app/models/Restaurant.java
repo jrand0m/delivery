@@ -127,7 +127,7 @@ public class Restaurant extends Model {
 	Boolean online = (Boolean) Cache.get("isOnline_"+getId());
 	if (online==null){
 	    long waitTimeInMiliseconds = Long.parseLong(PropertyVault.getSystemValueFor("pingTime"));
-	    if (device != null){
+	    if (device != null && device.lastPing != null){
 	    online = System.currentTimeMillis()- device.lastPing.getTime()<waitTimeInMiliseconds;
 	    } else {
 		//FIXME Hardcore workaround on device null;

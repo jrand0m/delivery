@@ -24,7 +24,6 @@ public class RestaurantDevice extends GenericDevice {
 
     // UUID to encrypt messages
     public String encriptionKey;
-    public Long restaurantId;
     public Date lastPing;
     
 
