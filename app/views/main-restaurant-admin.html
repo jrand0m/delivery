@@ -7,31 +7,37 @@
 	<title>#{get 'title' /}</title>
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/main-admin.css'}" media="screen" />
+	<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/admin-style.css'}" media="screen" />
 	#{get 'moreStyles' /}
-	<script src="@@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+	<script src="@{'/public/javascripts/jquery.min.js'}" type="text/javascript" charset="utf-8"></script>
 	#{get 'moreScripts' /}
 </head>
 <body>
 	<div id="wrapper">
 		<div id="header">
-			<a href="@{RestaurantAdmin.summary()}" class="logo">
-				<img src="@{'/public/images/admin/logo-admin.jpg'}" alt="logo" title="logo" />
-			</a>
-			<ul class="login_block">
-				<li><a href="#">&{'common.loggedinas', login}</a>|</li>
-				<li><a href="#">logout</a></li>
-			</ul>
-			<h1 class="fuck_yeh">#{get 'slogan' /}</h1>
-			<ul class="mainnav">
-				<li><a href="@{RestaurantAdmin.summary()}">&{'admin.restaurant.summary.tabtitle'}</a></li>
-				<li><a href="@{RestaurantAdmin.showReports()}">&{'admin.restaurant.reports.tabtitle'}</a></li>
-				<li><a href="@{RestaurantAdmin.showProfile()}">&{'admin.restaurant.profile.tabtitle'}</a></li>
-				<li><a href="@{RestaurantAdmin.showMenu()}">&{'admin.restaurant.menu.tabtitle'}</a></li>
-				<li><a href="@{RestaurantAdmin.showEvents()}">&{'admin.restaurant.events.tabtitle'}</a></li>
-				<li><a href="@{RestaurantAdmin.showInvoices()}">&{'admin.restaurant.invoices.tabtitle'}</a></li>
-				<li><a href="@{RestaurantAdmin.showShop()}">&{'admin.restaurant.shop.tabtitle'}</a></li>
-			</ul>
+			<div class="header_top">
+				<a href="@{RestaurantAdmin.summary()}" class="logo">
+				         <img alt="На головну!" title="На головну!" src="@{'/public/images/logo.png'}" /></a>
+				<div class="right_links">
+					<a class="enter" href="#">увійти</a>
+					<a class="enter gihurda" href="#">&{'common.loggedinas', login}Ви увійшли як <span>хуйпіздаджигурда</span></a>
+				</div>
+				<div class="right_links">
+					<a class="tsupport enter" href="#">Довідка</a>
+					<a class="tsupport enter" href="callto:jrand0m"><img src="@{'/public/images/skype_pic.png'}" />Зв'язатитсь з підтримкою</a>
+				</div>
+			</div>
+			<div class="header_bottom">
+				<ul class="mainnav">
+					<li><a href="@{RestaurantAdmin.summary()}">&{'admin.restaurant.summary.tabtitle'}</a></li>
+					<li><a href="@{RestaurantAdmin.showReports()}">&{'admin.restaurant.reports.tabtitle'}</a></li>
+					<li class="active_item"><a href="@{RestaurantAdmin.showProfile()}">&{'admin.restaurant.profile.tabtitle'}</a></li>
+					<li><a href="@{RestaurantAdmin.showMenu()}">&{'admin.restaurant.menu.tabtitle'}</a></li>
+					<li><a href="@{RestaurantAdmin.showEvents()}">&{'admin.restaurant.events.tabtitle'}</a></li>
+					<li><a href="@{RestaurantAdmin.showInvoices()}">&{'admin.restaurant.invoices.tabtitle'}</a></li>
+					<li><a href="@{RestaurantAdmin.showShop()}">&{'admin.restaurant.shop.tabtitle'}</a></li>
+				</ul>
+			</div>
 		</div>
 		<div id="content">
 			#{doLayout /}

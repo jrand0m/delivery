@@ -50,7 +50,7 @@ public class Security extends Controller {
      */
     static boolean authenticate(String username, String password) {
 	Logger.debug("Trying to login as %s", username);
-	EndUser user = EndUser.find(EndUser.HQL.BY_LOGIN_OR_EMAIL, username, username)
+	User user = User.find(User.HQL.BY_LOGIN_OR_EMAIL, username, username)
 		.first();
 	if (user != null && user.password.equals(password)) {
 	    Logger.debug("Login succesful for %s[%s]", user.login,
