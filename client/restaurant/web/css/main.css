@@ -1,9 +1,32 @@
 #DCWMainOrderTable {width: 100%; background-color:#FFA; height: 100%;}
-#DCWAuthForm {position: absolute; left: 50%; top: 50%;}
+#DCWAuthForm {}
 
-.DCWOrdersColumn {vertical-align: top;}
+#DCWDialogBackgroundDiv {    
+	background: none repeat scroll 0 0 #333333;
+    display: none;
+    height: 100%;
+    left: 0;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    width: 100%;
+	z-index: 100;}
+#DCWDialogFrame {
+	left: 50%; 
+	top: 50%;
+    position: fixed;
+    z-index: 101;}
+
+.DCWOrdersColumn {vertical-align: top; width: 50%; overflow: hidden;}
+.DCWOrdersColumnContent {}
 .DCWOrderPriceDiv {float: right;}
+.DCWDishContent {color: #666; overflow: hidden;}
+	.DCWDishName {float: left;}
+	.DCWDishCount {float: left;}
+	.DCWDishPrice {float: right;}
 .DCWTableBorder {width: 20px;}
-
+.DCWRightFloat {float: right; width: 10px; height: 10px; overflow: hidden;}
+.DCWLeftFloat {float: left; width: 10px; height: 10px; overflow: hidden;}
+.DCW10px {width: 10px; height: 10px; overflow: hidden;}
 
 .DCWAuthAltInput {color: #999;}
