@@ -89,7 +89,7 @@ public class API extends Controller {
 			order.orderStatus = OrderStatus.DECLINED;
 			order.orderClosed = new Date();
 			//FIXME see how long message can be 
-			order.declineMessage = p.comment != null ? p.comment.substring(0, 250) : "" ;
+			order.declineMessage = p.comment; //!= null ? p.comment.substring(0, 250) : "" ;
 			break;
 		case TAKEN:
 			order.orderStatus = OrderStatus.DELIVERING;
