@@ -36,6 +36,8 @@ public class Order extends GenericModel {
 		+ " = ? and " + Order.FIELDS.ANONSID + " = ?";
 	public static final String BY_OWNER = Order.FIELDS.ORDER_OWNER + " = ?";
 	public static final String BY_ANONSID = Order.FIELDS.ANONSID + " = ? ";
+	public static final String BY_SHORT_ID = Order.FIELDS.SHORTHAND_ID + " = ?";
+	public static final String BY_SHORT_ID_OR_LIKE_FULL_ID = Order.FIELDS.SHORTHAND_ID + " = ? or " + Order.FIELDS.ID + " like ?" ;
     }
 
     public static final class FIELDS {
@@ -50,6 +52,7 @@ public class Order extends GenericModel {
 	public static final String ITEMS = "items";
 	public static final String ORDER_CLOSED = "orderClosed";
 	public static final String ORDER_DATE = "orderDate";
+	public static final String ORDER_COOKED = "orderCooked";
 	public static final String ORDER_OWNER = "orderOwner";
 	public static final String RESTAURANT = "restaurant";
 	public static final String ORDER_STATUS = "orderStatus";
@@ -96,7 +99,10 @@ public class Order extends GenericModel {
      * User order close date/time
      * */
     public Date orderClosed;
-
+    /**
+     * Order cooked
+     * */
+    public Date orderCooked;
     /**
      * Time and date of order is accepted
      * */
@@ -117,6 +123,8 @@ public class Order extends GenericModel {
      * */
     public String anonSID;
     public String shortHandId;
+    
+    public String declineMessage;
 
     /**
      * Function for getting short id

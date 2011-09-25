@@ -8,7 +8,39 @@ package enumerations;
  * 
  */
 public enum OrderStatus {
-    OPEN(), SENT(), RECIEVED(), ACCEPTED(), COOKED(), DELIVERING(), DELIVERED(), DECLINED();
+    /**
+     * Starting opint of order
+     * */
+	OPEN(), 
+	/**
+	 * User confirms order
+	 * */
+	SENT(), 
+	
+	/**
+	 * Device recieved
+	 * */
+	RECIEVED(), 
+	/**
+	 * Caffe is cooking
+	 * */
+	ACCEPTED(), 
+	/**
+	 * Caffe have cooked
+	 * */
+	COOKED(), 
+	/**
+	 * Caffe passed to courier
+	 * */
+	DELIVERING(), 
+	/**
+	 * Courier delivered to user
+	 * */
+	DELIVERED(), 
+	/**
+	 * canceled order *
+	 */
+	DECLINED();
 
     /*
      * OrderStatus(Integer ord){
