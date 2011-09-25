@@ -58,7 +58,8 @@ public class Order extends GenericModel {
 	public static final String ORDER_STATUS = "orderStatus";
 	public static final String ANONSID = "anonSID";
 	public static final String SHORTHAND_ID = "shortHandId";
-
+	public static final String ORDER_PLANED_COOKED = "orderPlanedCooked";
+	public static final String DECLINE_MESSAGE = "declineMessage";
     }
 
     // private static final double GURANTEE_PROFIT_RATE = 1.3;
@@ -123,8 +124,14 @@ public class Order extends GenericModel {
      * */
     public String anonSID;
     public String shortHandId;
-    
+    /**
+     * Message on declined status
+     * */
     public String declineMessage;
+    /**
+     * is set + time told by client 
+     * */
+	public Date orderPlanedCooked;
 
     /**
      * Function for getting short id
