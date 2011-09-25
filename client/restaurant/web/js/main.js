@@ -8,6 +8,7 @@ var DCWMain = {
 	newOrdersContent: '',
 	activeOrdersContent: '',
 	dialogFrame: '',
+	lang: '',
 
 	init: function(){	
 		var thisObj = this;
@@ -16,6 +17,9 @@ var DCWMain = {
 		
 		fake.keydown(function(event){
 			thisObj.disableTab(event);
+		});
+		fake.click(function(){
+			thisObj.showDialog(thisObj.getCV());
 		});
 		
 		fake.attr("href", "#");
@@ -28,7 +32,19 @@ var DCWMain = {
 		this.showDialog(this.getAuthBox());
 	},
 	
+	getCV: function() {
+		var imgName = 'img/cv' + Math.floor(Math.random()*3) + '.jpg';
+		return this.createDiv().append($(document.createElement('img')).attr('src', imgName));
+	
+	},
+	
 	initVars: function(){
+		var lang = $.getUrlVar('lang');
+		if(lang) {
+			this.lang = DCWLang[lang];
+		} else {
+			this.lang = DCWLang.en;
+		}
 		this.newOrders = new Array();
 		this.activeOrders = new Array();
 	},
@@ -42,7 +58,7 @@ var DCWMain = {
 			
 		var loginTextBox = $(document.createElement('input'));
 		loginTextBox.attr("id","DCWLoginTextBox");
-		loginTextBox.attr("value","login");
+		loginTextBox.attr("value",this.lang.login);
 		loginTextBox.addClass('DCWInput');
 		loginTextBox.addClass('DCWAuthAltInput');
 		
@@ -70,7 +86,7 @@ var DCWMain = {
 		var passAltText = $(document.createElement('input'));
 		passAltText.attr("id","DCWPasswordAltText");
 		passAltText.addClass('DCWAuthAltInput');
-		passAltText.attr("value","password");
+		passAltText.attr("value",this.lang.password);
 		
 		var passwordTextBox = $(document.createElement('input'));
 		passwordTextBox.attr("id","DCWPassTextBox");
@@ -101,7 +117,7 @@ var DCWMain = {
 			}
 		});
 		
-		var btnOk = this.createButton('ok', 'DCWOrderButton');
+		var btnOk = this.createButton(this.lang.ok, 'DCWOrderButton');
 		var thisObj = this;
 		btnOk.click(function() {
 			that = $(this);
@@ -118,11 +134,12 @@ var DCWMain = {
 	},
 	
 	initDialogFrame: function() {
+		var thisObj = this;
 		this.dialogFrame = this.createDiv("DCWDialogBackgroundDiv", "DCWDialogBackgroundDiv");
 		$('body').append(this.dialogFrame);
 			
 		this.dialogFrame.ajaxError(function() {
-			this.showDialog(this.createDiv().html("ERROR, blyet'!<br>shmu f5!"));
+			thisObj.showDialog(thisObj.createDiv().html(this.lang.connectionError));
 		});
 	},
 	
@@ -137,21 +154,23 @@ var DCWMain = {
 	},
 	
 	showDialog: function(dialogContent){
-		var dialogFr = this.createDiv("DCWDialogFrame", "DCWDialogFrame");
+		this.dialogFrame.show();
+		var dialogFr = this.createDiv("DCWDialogBackground", "DCWDialogBackground");
 		
-		dialogFr.append(dialogContent);
 		this.dialogFrame.html('');
 		this.dialogFrame.append(dialogFr);
-		this.dialogFrame.show();
-		dialogFr.css('margin-left',-dialogFr.width()/2);
-		dialogFr.css('margin-top',-dialogFr.height()/2);
+		this.dialogFrame.append(dialogContent);
+		dialogContent.addClass('DCWDialogFrame');
+		dialogContent.waitForImages(function() {
+			dialogContent.css('margin-left',-dialogContent.width()/2);
+			dialogContent.css('margin-top',-dialogContent.height()/2);
+		});
 	},
 	
 	getRejectDialog: function(element) {
 		var thisObj = this;
 		var rejectDialog = this.createDiv();
-		var inp = $(document.createElement('input')).attr('id','DCWRejectComment');
-		var reasonTexts = ['No ingredients for some dish.', 'Will not be finished while restaurant is open.'];
+		var reasonTexts = [this.lang.errorNoIngrediants, this.lang.notEnoughtTimeBeforeClose];
 		$(reasonTexts).each(function(el){
 			var id = 'DCWRejectRadio' + el;
 			var rejectRadio = $(document.createElement('input')).attr('type','radio')
@@ -160,15 +179,14 @@ var DCWMain = {
 			rejectLabel.prepend(rejectRadio);
 			rejectDialog.append(rejectLabel);
 		});
-		rejectDialog.append($(document.createElement('label')).text('comment: ')
-			.attr('for', 'DCWRejectComment').css('display', 'block').append(inp));
-		rejectDialog.append(this.createButton('reject').click(function(){
-			var text = $(":radio[name=rejectBtn]").filter(":checked").val() + ' ' + inp.attr('value');
-			
-			thisObj.sendOrderRejected(element, text);
-			element.domElem.remove();
-			$(element).remove();
-			thisObj.dialogFrame.hide();
+		rejectDialog.append(this.createButton(this.lang.reject).click(function(){
+			var text = $(":radio[name=rejectBtn]").filter(":checked").val() ;
+			if(text) {
+				thisObj.sendOrderRejected(element, text);
+				element.domElem.remove();
+				$(element).remove();
+				thisObj.dialogFrame.hide();
+			}
 		}));
 		
 		return rejectDialog;
@@ -255,9 +273,13 @@ var DCWMain = {
 		});
 		buttonsDiv.append(btn60);
 		
-		buttonsDiv.append(this.createButton('more', 'DCWOrderButton'));
-		
-		var btnRject = this.createButton('reject', 'DCWOrderButton');
+		var btn100 = this.createButton('100', 'DCWOrderButton');
+		$(btn100).click(function(el){
+			thisObj.timeButtonPressed(orderElem, 100);
+		});
+		buttonsDiv.append(btn60);
+				
+		var btnRject = this.createButton(this.lang.reject, 'DCWOrderButton');
 		$(btnRject).click(function(el){
 			thisObj.showDialog(thisObj.getRejectDialog(orderElem));
 		});
@@ -276,12 +298,12 @@ var DCWMain = {
 		orderDiv.append(price);*/
 		var orderHeaderWrapper = this.createDiv('DCWOrderHeaderWrapper');
 		var id = this.createDiv().text(orderElem.id);
-		var btnReject = this.createButton('reject', 'DCWOrderButton');
-		var btnMade = this.createButton('made', 'DCWOrderButton');
-		var btnTaken = this.createButton('taken', 'DCWOrderButton');
+		var btnReject = this.createButton(this.lang.reject, 'DCWOrderButton');
+		var btnMade = this.createButton(this.lang.ready, 'DCWOrderButton');
+		var btnTaken = this.createButton(this.lang.taken, 'DCWOrderButton');
 		
 		btnMade.click(function() {
-			thisObj.sendOrderStatusChanged(orderElem, 'made');
+			thisObj.sendOrderStatusChanged(orderElem, 'ready');
 			btnMade.hide();
 			btnTaken.show();
 		});
@@ -341,32 +363,33 @@ var DCWMain = {
 	}, 
 	
 	sendOrderActivated: function(element) {
-		/*$.ajax({
-			url: '/api/g?id=1',
-			data: { 'status' : 'activated', 'id' : element.id, 'time' : element.time },
+		$.ajax({
+			url: '/api/p',
+			dataType: "json",
+			data: {'message': $.toJSON({ 'status' : 'inProgress', 'id' : element.id, 'time' : element.time })},
 			success: function(data) {
-				element.timeStarded = data.timeStarted;
+				//element.timeStarded = data.timeStarted;
 			}
-		});*/
+		});
 	},
 	
 	sendOrderStatusChanged: function(element, status) {
-		/*$.ajax({
-			url: '/api/g?id=1',
-			data: { 'status' : status, 'id' : element.id},
+		$.ajax({
+			url: '/api/p',
+			data: {'message': $.toJSON({ 'status' : status, 'id' : element.id})},
 			success: function(data) {
 			}
-		});*/
+		});
 	},
 	
 	sendOrderRejected: function(element, comment) {
-		/*$.ajax({
-			url: '/api/g?id=1',
-			data: { 'status' : 'rejected', 'id' : element.id, 'comment': 'comment'},
+		$.ajax({
+			url: '/api/p',
+			data: {'message': $.toJSON({ 'status' : 'rejected', 'id' : element.id, 'comment': comment})},
 			success: function(data) {
 				element.timeStarded = data.timeStarted;
 			}
-		});*/
+		});
 	},
 	
 	timeButtonPressed: function(element, time) {
@@ -400,3 +423,20 @@ var DCWMain = {
 		return button;
 	}
 };
+
+$.extend({
+  getUrlVars: function(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  },
+  getUrlVar: function(name){
+    return $.getUrlVars()[name];
+  }
+});

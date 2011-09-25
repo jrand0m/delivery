@@ -2,11 +2,13 @@
 #DCWMainOrderTable {width: 100%; background-color:#FFA; height: 100%;}
 #DCWAuthForm {}
 
-#DCWDialogBackgroundDiv {background: none repeat scroll 0 0 #333333; 
-	display: none; height: 100%; left: 0; opacity: 0.5; position: fixed;
+
+#DCWDialogBackgroundDiv {display: none;}
+#DCWDialogBackground {background: none repeat scroll 0 0 #333333; 
+	height: 100%; left: 0; opacity: 0.5; position: fixed;
     top: 0; width: 100%; z-index: 100;}
 	
-#DCWDialogFrame {left: 50%; top: 50%; position: fixed; z-index: 101; background-color: #fff;}
+.DCWDialogFrame {opacity: 1; left: 50%; top: 50%; position: fixed; z-index: 101; background-color: #fff;}
 
 .DCWOrdersColumn {vertical-align: top; width: 50%; overflow: hidden;}
 .DCWOrdersColumnContent {}
