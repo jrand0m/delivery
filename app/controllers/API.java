@@ -41,6 +41,7 @@ public class API extends Controller {
 			+ " = ? and " + Order.FIELDS.ORDER_STATUS + " = ? ";
 
 	public static void g(@Required Integer id) {
+		Logger.debug("g in id = %s", id);
 		if (id == null) {
 			notFound();
 			return;
@@ -63,7 +64,9 @@ public class API extends Controller {
 		renderJSON(jobs);
 	}
 
-	public static void p(String message) {		
+	public static void p(String message) {
+		
+		Logger.debug("p in message = %s", message);
 		Gson g = new Gson();
 		PushMessage p = g.fromJson(message, PushMessage.class);
 		if (p.id==null || p.id.length() <8){
@@ -80,7 +83,7 @@ public class API extends Controller {
 		case INPROGRESS:
 			order.orderStatus = OrderStatus.ACCEPTED;
 			order.orderDate = new Date();
-			order.orderCooked = new Date(System.currentTimeMillis()+p.time*60*1000);
+			order.orderPlanedCooked = new Date(System.currentTimeMillis()+p.time*60*1000);
 			break;
 		case REJECTED:
 			order.orderStatus = OrderStatus.DECLINED;
