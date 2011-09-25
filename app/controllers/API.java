@@ -80,6 +80,7 @@ public class API extends Controller {
 		case INPROGRESS:
 			order.orderStatus = OrderStatus.ACCEPTED;
 			order.orderDate = new Date();
+			order.orderCooked = new Date(System.currentTimeMillis()+p.time*60*1000);
 			break;
 		case REJECTED:
 			order.orderStatus = OrderStatus.DECLINED;
