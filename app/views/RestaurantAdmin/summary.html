@@ -2,42 +2,98 @@
 #{set 'title'}
     ${login} administration page
 #{/set}
+#{set 'moreScripts'}
+	<script type="text/javascript" src="http://www.highcharts.com/js/testing-stock-exporting.js"></script>
+	<script type="text/javascript" src="http://www.highcharts.com/samples/data/usdeur.js"></script>
+	<script type="text/javascript" >
+jQuery(function() {
+    // Create the chart    
+    window.chart = new Highcharts.StockChart({
+        chart: {
+            renderTo: 'incomeChart'
+        },
+        /*
+        rangeSelector: {
+            selected: 1
+        },
+        
+        title: {
+            text: 'USD to EUR exchange rate'
+        },*/
+        
+        xAxis: {
+            maxZoom: 14 * 24 * 3600000 // fourteen days
+        },
+        yAxis: {
+            title: {
+                text: 'Exchange rate'
+            }
+        },
+        
+        series: [{
+            name: 'USD to EUR',
+            data: usdeur
+        }]
+    });
+});
+</script>
+#{/set}
 			<div id="left_cont">
 				<div class="top_left_cont">
-					<H1>top_left_cont</H1>
+					<H1>Загальний підсумок</H1>
 					<div class="inner_div">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean placerat vehicula erat, quis commodo lorem aliquet sit amet. Cras interdum tempus tortor, vel posuere lorem egestas nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin rutrum dui quis ligula fermentum tempus tincidunt sem iaculis. Pellentesque vel dignissim ante. Vestibulum eget lacus at elit luctus auctor. Vestibulum sit amet magna massa, id condimentum tellus. Nullam porttitor convallis massa, et dictum nunc egestas sit amet. Fusce ac quam magna, sit amet suscipit leo. Mauris tincidunt, tortor eu dictum consectetur, tortor velit venenatis diam, sed malesuada quam justo ac diam. Nunc et neque massa, ut laoreet ipsum. Phasellus eget justo sit amet erat placerat pretium. Nam eu lorem lorem.</p>
-						<p>Nunc velit dolor, ultrices at sollicitudin ac, lobortis sed augue. Praesent fermentum vestibulum enim non mollis. Praesent at dolor eget libero ultricies tristique eu eget sapien. Donec pretium posuere massa ac consectetur. Curabitur gravida mattis vehicula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce odio risus, mattis eu tristique et, porttitor non magna. Morbi in mattis metus. Duis velit purus, tristique sed consequat iaculis, pretium vel mauris. Mauris vel est lorem, eu molestie massa. Pellentesque suscipit, quam non congue vestibulum, felis arcu congue urna, id scelerisque risus ipsum ac tellus. Nullam iaculis, quam quis semper eleifend, nulla ipsum congue sapien, fermentum placerat risus tortor quis risus.</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean placerat vehicula erat, quis commodo lorem aliquet sit amet. Cras interdum tempus tortor, vel posuere lorem egestas nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin rutrum dui quis ligula fermentum tempus tincidunt sem iaculis. Pellentesque vel dignissim ante. Vestibulum eget lacus at elit luctus auctor. Vestibulum sit amet magna massa, id condimentum tellus. Nullam porttitor convallis massa, et dictum nunc egestas sit amet. Fusce ac quam magna, sit amet suscipit leo. Mauris tincidunt, tortor eu dictum consectetur, tortor velit venenatis diam, sed malesuada quam justo ac diam. Nunc et neque massa, ut laoreet ipsum. Phasellus eget justo sit amet erat placerat pretium. Nam eu lorem lorem.</p>
-						<p>Nunc velit dolor, ultrices at sollicitudin ac, lobortis sed augue. Praesent fermentum vestibulum enim non mollis. Praesent at dolor eget libero ultricies tristique eu eget sapien. Donec pretium posuere massa ac consectetur. Curabitur gravida mattis vehicula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce odio risus, mattis eu tristique et, porttitor non magna. Morbi in mattis metus. Duis velit purus, tristique sed consequat iaculis, pretium vel mauris. Mauris vel est lorem, eu molestie massa. Pellentesque suscipit, quam non congue vestibulum, felis arcu congue urna, id scelerisque risus ipsum ac tellus. Nullam iaculis, quam quis semper eleifend, nulla ipsum congue sapien, fermentum placerat risus tortor quis risus.</p>
+						%s замовленнь було зроблено у вашому ресторані %s користувачами. Залишено %s коментарів. 
+						За сьогодні отримано %s чистого прибутку( %s за весь час співпраці). 
+					</div>
+				</div>
+				<div class="top_left_cont">
+					<H1>Графік прибутку</H1>
+					<div class="inner_div">
+						<div id="incomeChart"></div>
 					</div>
 				</div>
 				<div class="left_left_cont">
-					<h1>left_left_cont</h1>
+					<h1>5 самих популярних товарів</h1>
 					<div class="inner_div">
-						<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus facilisis imperdiet nisl, a ullamcorper est mattis id. Curabitur orci turpis, cursus at gravida nec, placerat eget ante. Nulla hendrerit condimentum quam id volutpat. Curabitur augue diam, consectetur ut sodales at, semper in ipsum. Sed posuere dapibus justo ut mollis. Quisque nec felis at est sodales tincidunt non ut turpis. Mauris posuere viverra tortor ac suscipit. Vivamus tristique sagittis leo, vel laoreet sapien dictum sit amet. Pellentesque viverra enim quis metus varius a tincidunt neque tempor.</p>
-						<p>Etiam lacus orci, tincidunt at ornare quis, vehicula id orci. Nunc ut libero id diam pellentesque tempor ac sed justo. Donec facilisis lacinia tristique. Curabitur metus purus, posuere sit amet mattis ultricies, interdum et sapien. In bibendum, nisl et scelerisque ultrices, nunc ipsum aliquam turpis, vehicula rhoncus lacus urna vitae ligula. Cras auctor augue sit amet odio eleifend nec sagittis felis ultrices. Etiam euismod nulla sed ipsum ornare adipiscing. Vestibulum cursus scelerisque vehicula. Maecenas consequat velit id orci aliquet commodo. Donec vestibulum dapibus tellus non accumsan. Donec aliquam ornare euismod.</p>
+						#{if popularItems}
+						<ul>
+							#{list items:popularItems, as:'item'}
+							<li>fuu</li>
+							#{/list}
+						</ul>
+						#{/if}
+						#{else}
+							&{'restaurant.admin.summary.noorders'}
+						#{/else}
 					</div>
 				</div>
 				<div class="right_left_cont">
-					<h1>right_left_cont</h1>
+					<h1>5 останніх не прочитаних коментарів</h1>
 					<div class="inner_div">
-						<p>Etiam lacus orci, tincidunt at ornare quis, vehicula id orci. Nunc ut libero id diam pellentesque tempor ac sed justo. Donec facilisis lacinia tristique. Curabitur metus purus, posuere sit amet mattis ultricies, interdum et sapien. In bibendum, nisl et scelerisque ultrices, nunc ipsum aliquam turpis, vehicula rhoncus lacus urna vitae ligula. Cras auctor augue sit amet odio eleifend nec sagittis felis ultrices. Etiam euismod nulla sed ipsum ornare adipiscing. Vestibulum cursus scelerisque vehicula. Maecenas consequat velit id orci aliquet commodo. Donec vestibulum dapibus tellus non accumsan. Donec aliquam ornare euismod.</p>
-						<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus facilisis imperdiet nisl, a ullamcorper est mattis id. Curabitur orci turpis, cursus at gravida nec, placerat eget ante. Nulla hendrerit condimentum quam id volutpat. Curabitur augue diam, consectetur ut sodales at, semper in ipsum. Sed posuere dapibus justo ut mollis. Quisque nec felis at est sodales tincidunt non ut turpis. Mauris posuere viverra tortor ac suscipit. Vivamus tristique sagittis leo, vel laoreet sapien dictum sit amet. Pellentesque viverra enim quis metus varius a tincidunt neque tempor.</p>
+						#{if comments}
+						<ul>
+							#{list items:comments, as:'comment'}
+							<li>fuu</li>
+							#{/list}
+						</ul>
+						#{/if}
+						#{else}
+							&{'restaurant.admin.summary.nocomments'}
+						#{/else}
 					</div>
 				</div>
 			</div>
 			<div id="right_cont">
 				<div class="right_block">
-					<h1>right_block</h1>
+					<h1>&nbsp;</h1>
 					<div class="inner_div">
-						<p>Nunc velit dolor, ultrices at sollicitudin ac, lobortis sed augue. Praesent fermentum vestibulum enim non mollis. Praesent at dolor eget libero ultricies tristique eu eget sapien. Donec pretium posuere massa ac consectetur. Curabitur gravida mattis vehicula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce odio risus, mattis eu tristique et, porttitor non magna. Morbi in mattis metus. Duis velit purus, tristique sed consequat iaculis, pretium vel mauris. Mauris vel est lorem, eu molestie massa. Pellentesque suscipit, quam non congue vestibulum, felis arcu congue urna, id scelerisque risus ipsum ac tellus. Nullam iaculis, quam quis semper eleifend, nulla ipsum congue sapien, fermentum placerat risus tortor quis risus.</p>
+						<p>&nbsp;</p>
 					</div>
 				</div>
 				<div class="right_block">
-					<h1>right_block</h1>
+					<h1>&nbsp;</h1>
 					<div class="inner_div">
-						<p>Etiam lacus orci, tincidunt at ornare quis, vehicula id orci. Nunc ut libero id diam pellentesque tempor ac sed justo. Donec facilisis lacinia tristique. Curabitur metus purus, posuere sit amet mattis ultricies, interdum et sapien. In bibendum, nisl et scelerisque ultrices, nunc ipsum aliquam turpis, vehicula rhoncus lacus urna vitae ligula. Cras auctor augue sit amet odio eleifend nec sagittis felis ultrices. Etiam euismod nulla sed ipsum ornare adipiscing. Vestibulum cursus scelerisque vehicula. Maecenas consequat velit id orci aliquet commodo. Donec vestibulum dapibus tellus non accumsan. Donec aliquam ornare euismod.</p>
+						<p>&nbsp;</p>
 					</div>
 				</div>
 			</div>
