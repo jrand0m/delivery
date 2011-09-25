@@ -25,7 +25,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Where(clause = "deleted = 0")
+
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DEVICE_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("GENERIC_DEVICE")
@@ -36,7 +36,7 @@ public class GenericDevice extends Model {
 	public static final String GENERIC_DEVICE_DEVICE_TYPE = "DEVICE_TYPE";
 	public static final String GENERIC_DEVICE_STATUS = "status";
     }
-
+    public boolean deleted = false;
     public String deviceVersion;
     public Date deviceActivatedDate;
     @Column(insertable = false, updatable = false)

@@ -17,12 +17,12 @@
 
 
 #{list items:restaurants, as:'restaurant' }
-	%{ntw = restaurant instanceof RestaurantNetwork}%
+	%{ ntw = restaurant instanceof models.RestaurantNetwork}%
 					<div class="rest_item_prev %{restaurant.isOnline()?"":"rest_offline"}%  %{ntw?"rest_network_view":""}%">
 						<h1>
 							<b>${restaurant.title}</b><br />
-							<span>${'restaurant.addressToString()'}</span>
-							<a>${'restaurant.isOnlineAsString()'}</a>
+							<span>${restaurant.addressToString()}</span>
+							<a>${restaurant.isOnlineAsString()}</a>
 						</h1>
 						<div class="logo">
 							<i></i><img class="logo" src="@{Application.serveLogo(restaurant.id)}" />
@@ -38,11 +38,10 @@
 							<input type="radio" name="rate" value="4" title="Good" id="rate4-3" /> <label for="rate4-3">Good</label><br />
 							<input type="radio" name="rate" value="5" title="Excellent" id="rate5-3" checked="checked" /> <label for="rate5-3">Excellent</label><br />
 						</form>
-					#{if not ntw }
+					%{ if (!ntw) { }%
 						<a class="menu_but" href="@{Application.showMenu(restaurant.id)}" title="Перегляньте меню цього ресторану">Меню</a>
 					</div>
-					#{/if}
-					#{else}
+					%{ } else { }%
 						<a class="menu_but" id="various1" href="#n${restaurant.id}" title="Перегляньте меню цього ресторану">&{'restaurant.network.selectbtn'}</a>
 					</div>
 					<div style="display: none;">
@@ -71,6 +70,6 @@
 								<a class="menu_but" href="@{Application.showMenu(subrest.id)}" title="Перегляньте меню цього ресторану">Меню</a>
 							</div>
 						#{/list}
-					#{/else}
+					%{}}%
 #{/list}
 

@@ -1,11 +1,14 @@
-# You can specialize this file for each language.
-# For example, for French create a messages.fr file
-#
-secure.title=Authorization
-secure.username=Username:
-secure.password=Password:
-secure.remember=Remember me
-secure.signin=Sign in
+# Saved by @messages on Wed Sep 21 13:11:21 EEST 2011
+reserved=reserved
+restaurant.network.caption=Restaurant network
+restaurant.network.selectbtn=Choose restaurant
+restaurant.noaddress=no address defined
+restaurant.nodescription=<no description>
+restaurant.workhours.undefined=whore hours undefined
 secure.error=Oops, unknown username or password.
 secure.logout=You have been logged out.
-reserved=reserved
+secure.password=Password\:
+secure.remember=Remember me
+secure.signin=Sign in
+secure.title=Authorization
+secure.username=Username\:

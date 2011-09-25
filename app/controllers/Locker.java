@@ -26,15 +26,14 @@ public class Locker extends Controller {
 	    Logger.debug(">>> Anonymous locker -> redirecting to basket()");
 	    if (!Security.isConnected()) {
 		Application.basket();
-		return;
 	    }
 
 	}
 	String userName = Security.connected();
 	EndUser user = EndUser.find(EndUser.HQL.BY_LOGIN, userName).first();
 	if (user == null) {
+	    Logger.debug(">>> locker -> user is null -> forbidden");
 	    forbidden();
-	    return;
 	}
 	renderArgs.put(Application.USER_RENDER_KEY, user);
     }

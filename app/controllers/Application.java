@@ -1,5 +1,9 @@
 package controllers;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +17,7 @@ import models.Restaurant;
 import models.RestaurantNetwork;
 import models.users.EndUser;
 import play.Logger;
+import play.Play;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.i18n.Lang;
@@ -299,19 +304,21 @@ public class Application extends Controller {
      * Change Language
      * */
     public static void changeLang(String lang) {
-	if (!Lang.set(lang)) {
-	    Lang.set("uk");
-	    badRequest();
-	}
-
+	Lang.change(lang);
 	index();
     }
     
-    public static void serveLogo(long id) {
+    public static void serveLogo(long id) throws IOException {
 	   final Restaurant restaurant = Restaurant.findById(id);
 	   notFoundIfNull(restaurant);
-	   response.setContentTypeIfNotSet(restaurant.logo.type());
-	   renderBinary(restaurant.logo.get());
+	   InputStream is;
+	   if (restaurant.logo.exists()){
+	       response.setContentTypeIfNotSet(restaurant.logo.type());
+	       is = restaurant.logo.get();
+	   } else {
+	       is = new FileInputStream(Play.applicationPath+"/public/images/no_image.jpg");
+	   }
+	   renderBinary(is);
     }
 
 

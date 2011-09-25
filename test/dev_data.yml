@@ -1,4 +1,4 @@
-User(usr_uzor):
+models.users.EndUser(usr_uzor):
     name: Vasyl
     surname: Petrovich
     phoneNumber: "380630683088"
@@ -7,12 +7,11 @@ User(usr_uzor):
     login: v
     password: "123"
     userStatus: ACTIVE
-    role: USER
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
     deleted: false
 
-User(usr_admin):
+models.users.SystemAdministrator(usr_admin):
     name: Admin
     surname: Admin
     phoneNumber: "+380630683088"
@@ -21,12 +20,11 @@ User(usr_admin):
     login: admin
     password: "123"
     userStatus: ACTIVE
-    role: ADMIN
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
 
 # Addresses
-Address(adr_uzor):
+models.geo.UserAddress(adr_uzor):
     street: kreshchatyk
     appartamentsNumber: "123"
     buldingNuber: "123"
@@ -55,7 +53,7 @@ WorkHours(wrh_restaurant1):
     description: Standart time
     deleted: false
 #TODO       public Map<String, IrregularDay> irregularDays;
-User(res_admin):
+models.users.RestaurantAdministration(res_admin):
     name: Galyna
     surname: Petrovich
     phoneNumber: "+380630683088"
@@ -67,6 +65,9 @@ User(res_admin):
     role: RESTAURANT
     joinDate: 11.11.10
     lastLoginDate: 11.11.10
+
+models.device.RestaurantDevice(device1):
+    lastPing: 9.9.11
 #Restaurants
 Restaurant(restaurant1):
     user: res_admin
@@ -76,9 +77,10 @@ Restaurant(restaurant1):
     contactPhone: "3044555555"
     discount: 10.1
     deleted: false
+    device: device1
 
 
-Address(adr_restaurant):
+models.geo.Address(adr_restaurant):
     street: kreshchatyk
     appartamentsNumber: "123"
     buldingNuber: "123"

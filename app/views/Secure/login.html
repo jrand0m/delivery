@@ -1,5 +1,7 @@
-#{extends 'Secure/layout.html' /}
-
+#{extends 'main.html' /}
+#{set 'moreScripts'}
+	<script type="text/javascript" src="@{'/public/javascripts/inputs_and_labels.js'}"></script>
+#{/set}
 <div id="login">
 	
 	<h1>&{'secure.title'}</h1>
@@ -17,11 +19,11 @@
 			</p>
 		#{/if}
 	
-		<p id="username-field">
+		<p class="tl" id="username-field">
 			<label for="username">&{'secure.username'}</label>
 			<input type="text" name="username" id="username" value="${flash.username}" />
 		</p>
-		<p id="password-field">
+		<p class="tl" id="password-field">
 			<label for="password">&{'secure.password'}</label>
 			<input type="password" name="password" id="password" value="" />
 		</p>

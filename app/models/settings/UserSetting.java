@@ -17,8 +17,8 @@ import models.users.EndUser;
 @Table(name = "UserSettings")
 public class UserSetting extends Model {
     public static final class FIELDS {
-	public static final String USERSETTING_KEY = "key";
-	public static final String USERSETTING_VALUE = "value";
+	public static final String USERSETTING_stg_key = "stg_key";
+	public static final String USERSETTING_stg_value = "stg_value";
 	public static final String USERSETTING_ISDEFAULT = "isDefault";
 	public static final String USERSETTING_STARTDATE = "startDate";
 	public static final String USERSETTING_ENDDATE = "endDate";
@@ -28,11 +28,12 @@ public class UserSetting extends Model {
     @Required
     @Min(3)
     @Max(32)
-    @Column(name = "_key")
-    public String key;
+    @Column(name = "_stg_key")
+    public String stg_key;
     @Required
     @Min(1)
-    public String value;
+    @Column(name = "_stg_value")
+    public String stg_value;
     @Required
     public boolean isDefault = false;
     /**

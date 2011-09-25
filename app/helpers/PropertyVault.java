@@ -21,15 +21,15 @@ public class PropertyVault {
 
     public static String getSystemValueFor(String key) {
 	String value = null;
-	SystemSetting obj = SystemSetting.find("key = ? and isDefault = ? ",
+	SystemSetting obj = SystemSetting.find(SystemSetting.FIELDS.SYSTEMSETTING_stg_key + " = ? and "+SystemSetting.FIELDS.SYSTEMSETTING_ISDEFAULT_SETTING+" = ? ",
 		key, false).first();
 	if (obj != null) {
-	    value = obj.value;
+	    value = obj.stg_value;
 	} else {
-	    obj = SystemSetting.find("key = ? and isDefault = ?", key, true)
+	    obj = SystemSetting.find(SystemSetting.FIELDS.SYSTEMSETTING_stg_key+"= ? and "+SystemSetting.FIELDS.SYSTEMSETTING_ISDEFAULT_SETTING+" = ?", key, true)
 		    .first();
 	    if (obj != null) {
-		value = obj.value;
+		value = obj.stg_value;
 	    }
 	}
 	return value;
@@ -49,12 +49,12 @@ public class PropertyVault {
 	UserSetting obj = UserSetting.find("key = ? and user = ?", key, user)
 		.first();
 	if (obj != null) {
-	    value = obj.value;
+	    value = obj.stg_value;
 	} else {
 	    obj = CourierSetting.find("key = ? and user = ?", key, null)
 		    .first();
 	    if (obj != null) {
-		value = obj.value;
+		value = obj.stg_value;
 	    }
 	}
 	return value;
@@ -74,12 +74,12 @@ public class PropertyVault {
 	RestaurantSetting obj = RestaurantSetting.find(
 		"key = ? and courier = ? ", key, restaurant).first();
 	if (obj != null) {
-	    value = obj.value;
+	    value = obj.stg_value;
 	} else {
 	    obj = RestaurantSetting.find("key = ? and restaurant = ?", key,
 		    null).first();
 	    if (obj != null) {
-		value = obj.value;
+		value = obj.stg_value;
 	    }
 	}
 	return value;
@@ -100,12 +100,12 @@ public class PropertyVault {
 	CourierSetting obj = CourierSetting.find("key = ? and courier = ?",
 		key, courier).first();
 	if (obj != null) {
-	    value = obj.value;
+	    value = obj.stg_value;
 	} else {
 	    obj = CourierSetting.find("key = ? and courier = ?", key, null)
 		    .first();
 	    if (obj != null) {
-		value = obj.value;
+		value = obj.stg_value;
 
 	    }
 	}

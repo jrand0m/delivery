@@ -4,6 +4,7 @@
 package jobs;
 
 import models.settings.SystemSetting;
+import play.Logger;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
@@ -22,8 +23,21 @@ public class ProdBootstrap extends Job {
      * Loading default values to system if there is no such
      */
     private void loadSystemDefaultSettings() {
+	Logger.warn("System settings check..");
 	if (SystemSetting.count() == 0) {
-	    Fixtures.loadModels("default_settings.yaml");
+	    Logger.warn("No settings found, loading defaults");
+	    Fixtures.loadModels("default_settings.yml");
+//	    SystemSetting s = new SystemSetting();
+//	    s.stg_key = "pingTime";
+//	    s.stg_value = "400000";
+//	    s.isDefaultSetting = true;
+//	    s.create();
+//	    s = new SystemSetting();
+//	    s.stg_key = "ratingsRefreshTimeGap";
+//	    s.stg_value = "30";
+//	    s.isDefaultSetting = true;
+//	    s.create(); 
 	}
+	Logger.warn("Done");
     }
 }
