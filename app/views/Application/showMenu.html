@@ -1,59 +1,93 @@
 #{extends 'main.html' /}
 #{set 'title'}
-    ${restaurantName} menu list
+    ${restaurant.title} menu list
 #{/set}
-    
-
-<script type="text/javascript">
-	var _addToOrder = #{jsAction @Application.addOrderItem(':id', ':count') /};
-	var _delFromOrder = #{jsAction @Application.delOrderItem(':id', ':count') /};
-	function addToOrder(id){
-		var count = $('#count_'+id).val();
-		var img =$('#img_add_'+id);
-		$.ajax({
-					url:_addToOrder({'id':id, 'count':count}),
-					success:function(obj){
-						img.hide('fast', function(){ // hide progress
-									console.debug("sent id:"+ id + "; count:" + count);
-									img.attr('src', "@{'/public/images/tick-button.png'}");
-									img.show('slow', function(){
-										img.hide('slow', function(){
-											img.attr('src', "@{'/public/images/plus-button.png'}");
-											img.show('slow');
-											}); 
-										
-										}); 
-								});
+#{set 'moreScripts'}
+#{/set}
+				<div class="left_cont">
+					<div class="rest_menu">
+						<h1>
+							${restaurant.title},
+							<span>${restaurant.addressToString()}</span>
+							<a>${restaurant.isOnlineAsString()}</a>
+						</h1>
+						<table>
+						%{
+							int size = menuItems.size();
+							for (int base = 0; base < size; base+=4) { 
+						}%
+							<tr>
+							%{
+								for (int i = base; (i<base+4)&&(i< size); i++ ){
+									models.MenuItemGroup grp = menuItems.get(i);
+							}%
+									<td><a href="#${grp.anchorName()}">${grp.name}</a></td>
+							%{
+								}
+							}%
+							</tr>
+						%{
 							}
-		});
-	}
-	function delFromOrder(id){
-		var count = $('#count_'+id).val();
-		var img =$('#img_add_'+id);
-		$.ajax({
-					url:_delFromOrder({'id':id, 'count':count}),
-					success:function(obj){
-						img.hide('fast', function(){ // hide progress
-									console.debug("sent id:"+ id + "; count:" + count);
-									img.attr('src', "@{'/public/images/tick-button.png'}");
-									img.show('slow', function(){
-										img.hide('slow', function(){
-											img.attr('src', "@{'/public/images/plus-button.png'}");
-											img.show('slow');
-											}); 
-										
-										}); 
-								});
-							}
-		});
-	}
-</script>
-<ol>
- #{list items:menuItems, as:'item' }
-     <li>${item.name}: ${item.price} <input type="text" width="30px" id="count_${item.id}" value=1 /> <a href="javascript:addToOrder(${item.id})"><img id="img_add_${item.id}" src="@{'/public/images/plus-button.png'}" /></a></li>
-	 
-	 
-	 *{<li>${item.name}: ${item.price}  <a href="@{Application.addOrderItem(item.id, 1)}"><img id="img_add_${item.id}" src="@{'/public/images/plus-button.png'}" /></a></li>}*
-	 
- #{/list}
-</ol>
+						}%
+						</table>
+					</div>
+					
+					#{list items:menuItems, as:'grp'}
+					<div class="det_rest_menu">	
+						<h1>${grp.name}</h1>
+						<a name="${grp.anchorName()}"></a>
+						<table> <!-- class="od" -->
+							%{
+								for (int i = 0; i < grp.items.size(); i++){
+								models.MenuItem itm = grp.items.get(i);
+								boolean odd = i%2!=0;
+							}%
+							<tr class="${odd == true ? "od" : "even"}">
+								<th><a href="#" title="Додайте цей продукт до кошика. Це дуже смачно!"></a></th>
+								<td>
+									<p>${itm.name}</p>
+									<p class="descr">${itm.description}</p>
+								</td>
+								<td>₴ ${itm.price()}</td>
+							</tr>
+							%{}}%
+						</table>
+					</div>
+					#{/list}
+				</div>
+				<div class="right_cont">
+					<div class="right_block" id="basket">
+						<h1>Кошик</h1>
+						<div class="rb_cont">
+							<form action="#">
+								<table>
+									<!-- -->
+									<tr>
+										<th><span class="minus"></span><input type="text" value="2" name="pcs" onclick="javascript:this.value=''" onblur="javascript:if(this.value=='')this.value='2' " /><span class="plus"></span></th>
+										<td>
+											<p>Канапка з ікрою</p>
+											<p class="descr">Хліб, ікра, масло</p>
+										</td>
+										<td>12 грн</td>
+									</tr>
+									<!-- -->
+									<tr class="total total2">
+										<th></th>
+										<td>
+											<p>Доставка</p>
+										</td>
+										<td>10 грн</td>
+									</tr>
+									<tr class="total">
+										<th></th>
+										<td>
+											<p>Загальна сумма</p>
+										</td>
+										<td>220 грн</td>
+									</tr>
+								</table>
+								<input type="submit" name="basket_submit" value="До касси" />
+							</form>
+						</div>
+					</div>
+				</div>

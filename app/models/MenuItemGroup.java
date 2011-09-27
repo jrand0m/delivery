@@ -1,8 +1,16 @@
 package models;
 
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
+import org.hibernate.annotations.WhereJoinTable;
 
 import play.db.jpa.Model;
 
@@ -14,11 +22,20 @@ public class MenuItemGroup extends Model {
 	public static final String MENU_ITEM_GROUP_DESCRIPTION = "description";
 	public static final String MENU_ITEM_GROUP_GENERIC = "generic";
 	public static final String MENU_ITEM_GROUP_NAME = "name";
+	public static final String RESTAURANT = "restaurant";
+	
     }
 
     public boolean deleted = false;
-
+    @ManyToOne
+    public Restaurant restaurant;
+    @OneToMany(mappedBy= MenuItem.FIELDS.MENU_ITEM_GROUP )
+    public List<MenuItem> items;
     public String description;
     public boolean generic = Boolean.FALSE;
     public String name;
+    
+    public String anchorName(){
+	return "i"+hashCode(); 
+    }
 }

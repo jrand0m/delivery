@@ -94,18 +94,21 @@ MenuItemGroup(mgp_first):
     description: mmm tasty !
     generic: true
     deleted: false
+    restaurant: restaurant1
 
 MenuItemGroup(mgp_garnir):
     name: Garnirs
     description: mmm after sup it is time!
     generic: true
     deleted: false
+    restaurant: restaurant1
 
 MenuItemGroup(mgp_pizza):
     name: Pizzaz
     description: mmm tasty !
     generic: false
     deleted: false
+    restaurant: restaurant1
 
 #Menu Itemz
 MenuItem(mit_Sup1):
@@ -114,47 +117,137 @@ MenuItem(mit_Sup1):
     price: 1000
     avaliable: true
     menuItemCreated: 10.9.10
-    group: mgp_first
+    menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
 
 MenuItem(mit_Sup2):
     name: Sup #2
     description: white, with mushrooms
-    price: 1100
+    price: 1111
     avaliable: true
     menuItemCreated: 10.10.10
-    group: mgp_first
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup26):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup25):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup24):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup23):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup2222):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup123):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup243):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup233):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup223):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
+    restaurant: restaurant1
+    deleted: false
+MenuItem(mit_Sup124):
+    name: Sup #2
+    description: white, with mushrooms
+    price: 1111
+    avaliable: true
+    menuItemCreated: 10.10.10
+    menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
 
 MenuItem(mit_Garnir1):
     name: Poptato with sosiska
     description: USSR toilet paper standart #1
-    price: 1500
+    price: 1560
     avaliable: true
     menuItemCreated: 13.9.10
-    group: mgp_garnir
+    menuItemGroup: mgp_garnir
     restaurant: restaurant1
     deleted: false
 
 MenuItem(mit_Garnir2):
     name: Potato with cotleta
     description: fresh and tasty
-    price: 1500
+    price: 1510
     avaliable: true
     menuItemCreated: 9.9.10
-    group: mgp_garnir
+    menuItemGroup: mgp_garnir
     restaurant: restaurant1
     deleted: false
 
 MenuItem(mit_pizza1):
     name: Chelntano 1
     description: fresh and tasty
-    price: 3000
+    price: 3006
     avaliable: true
     menuItemCreated: 9.9.10
-    group: mgp_pizza
+    menuItemGroup: mgp_pizza
     restaurant: restaurant1
     deleted: false
 #Orderz

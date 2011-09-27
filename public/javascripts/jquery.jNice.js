@@ -12,14 +12,15 @@
 			/***************************
 			  Buttons
 			 ***************************/
-			var setButton = function(){
-				$(this).replaceWith('<button id="'+ this.id +'" name="'+ this.name +'" type="'+ this.type +'" class="'+ this.className +'"><span><span>'+ $(this).attr('value') +'</span></span>');
-			};
-			$('input:submit, input:reset', this).each(setButton);
+			//var setButton = function(){
+		//		$(this).replaceWith('<button id="'+ this.id +'" name="'+ this.name +'" type="'+ this.type +'" class="'+ this.className +'"><span><span>'+ $(this).attr('value') +'</span></span>');
+		//	};
+		//	$('input:submit, input:reset', this).each(setButton);
 			
 			/***************************
 			  Text Fields 
-			 ***************************/
+			***************************/
+			
 			var setText = function(){
 				var $input = $(this);
 				$input.addClass("jNiceInput").wrap('<div class="jNiceInputWrapper"><div class="jNiceInputInner"><div></div></div></div>');
@@ -34,7 +35,6 @@
 			$('input:text:visible, input:password', this).each(setText);
 			/* If this is safari we need to add an extra class */
 			if (safari){$('.jNiceInputWrapper').each(function(){$(this).addClass('jNiceSafari').find('input').css('width', $(this).width()+11);});}
-			
 			/***************************
 			  Check Boxes 
 			 ***************************/
