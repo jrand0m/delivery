@@ -12,6 +12,8 @@
 
 .DCWOrdersColumn {vertical-align: top; width: 50%; overflow: hidden;}
 .DCWOrdersColumnContent {}
+	.DCWDelayedOrder {background-color: #f00;}
+	.DCWTimeToFinish {display: inline;}
 .DCWOrderPriceDiv {float: right;}
 .DCWDishContent {color: #666; overflow: hidden;}
 	.DCWDishName {float: left;}

@@ -184,7 +184,7 @@ var DCWMain = {
 			if(text) {
 				thisObj.sendOrderRejected(element, text);
 				element.domElem.remove();
-				$(element).remove();
+				thisObj.removeElement(element);
 				thisObj.dialogFrame.hide();
 			}
 		}));
@@ -298,6 +298,7 @@ var DCWMain = {
 		orderDiv.append(price);*/
 		var orderHeaderWrapper = this.createDiv('DCWOrderHeaderWrapper');
 		var id = this.createDiv().text(orderElem.id);
+		var timeToFinish = this.createDiv('DCWTimeToFinish').html(orderElem.time/60000);
 		var btnReject = this.createButton(this.lang.reject, 'DCWOrderButton');
 		var btnMade = this.createButton(this.lang.ready, 'DCWOrderButton');
 		var btnTaken = this.createButton(this.lang.taken, 'DCWOrderButton');
@@ -319,6 +320,7 @@ var DCWMain = {
 		});
 		
 		var btnDiv = this.createDiv('DCWActiveOrdersBtnsWrapper');
+		btnDiv.append(timeToFinish);
 		btnDiv.append(btnMade);
 		btnDiv.append(btnTaken);
 		btnDiv.append(btnReject);
@@ -328,7 +330,7 @@ var DCWMain = {
 		orderHeaderWrapper.append(id);
 		orderDiv.append(orderHeaderWrapper);
 		this.activeOrders[this.activeOrders.length] = orderElem;
-		orderElem.domElem = orderDiv;
+		thisObj.removeElement(orderElem);
 		orderDiv.append(this.getDishesList(orderElem.list));
 		orderElem.domElem = orderDiv;
 		return orderDiv;
@@ -360,7 +362,26 @@ var DCWMain = {
 				});
 			}
 		});
+		
+		this.updateTimes();
+		
+		window.setTimeout(function(){
+			thisObj.getNewOrders();
+		}, 20000);
 	}, 
+	
+	updateTimes: function() {
+		$(this.activeOrders).each(function(){
+			this.time = this.time-20000;
+			var isPositive = this.time > 0;
+			if(isPositive) {
+				$('.DCWTimeToFinish', this.domElem).html(Math.ceil(this.time / 60000));
+			} else  {
+				$('.DCWTimeToFinish', this.domElem).html(0);
+				this.domElem.addClass('DCWDelayedOrder');
+			}
+		});
+	},
 	
 	sendOrderActivated: function(element) {
 		$.ajax({
@@ -394,7 +415,7 @@ var DCWMain = {
 	
 	timeButtonPressed: function(element, time) {
 		element.domElem.remove();
-		element.time = time;
+		element.time = time * 60000;
 		this.activeOrdersContent.append(this.getActiveOrderDiv(element));
 		this.sendOrderActivated(element, time);
 	},
@@ -421,6 +442,12 @@ var DCWMain = {
 			}
 		}
 		return button;
+	},
+	
+	removeElement: function(array, element) {
+		array = jQuery.grep(array, function(value) {
+			return value != element;
+		});
 	}
 };
 
