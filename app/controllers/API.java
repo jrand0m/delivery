@@ -40,7 +40,7 @@ public class API extends Controller {
 	private static final String BY_RESTAURANT_AND_ORDER_STATUS = Order.FIELDS.RESTAURANT
 			+ " = ? and " + Order.FIELDS.ORDER_STATUS + " = ? ";
 
-	public static void g(@Required Integer id) {
+	public static void g(@Required Integer id, @As("dd/MM/yyyy") java.util.Date from) {
 		Logger.debug("g in id = %s", id);
 		if (id == null) {
 			notFound();
