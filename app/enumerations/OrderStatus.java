@@ -16,11 +16,14 @@ public enum OrderStatus {
 	 * User confirms order
 	 * */
 	SENT(), 
-	
 	/**
-	 * Device recieved/courier approved
+	 * confirmed validity
 	 * */
-	CONFIRMED(), 
+	CONFIRMED(),
+	/**
+	 * Device recieved
+	 * */
+	RECIEVED(), 
 	/**
 	 * Caffe is cooking
 	 * */
@@ -42,9 +45,26 @@ public enum OrderStatus {
 	 */
 	DECLINED();
 
-    /*
-     * OrderStatus(Integer ord){
-     * 
-     * } public Integer getOrdinal(){ return i; }
-     */
+	public static OrderStatus convert (String string){
+	    if ("OPEN".equalsIgnoreCase(string)){
+		return OPEN;
+	    }else if ("SENT".equalsIgnoreCase(string)){
+		return SENT;
+	    }else if ("RECIEVED".equalsIgnoreCase(string)){
+		return RECIEVED;
+	    }else if ("ACCEPTED".equalsIgnoreCase(string)){
+		return ACCEPTED;
+	    }else if ("COOKED".equalsIgnoreCase(string)){
+		return COOKED;
+	    }else if ("DELIVERING".equalsIgnoreCase(string)){
+		return DELIVERING;
+	    }else if ("DELIVERED".equalsIgnoreCase(string)){
+		return DELIVERED;
+	    }else if ("DECLINED".equalsIgnoreCase(string)){
+		return DECLINED;
+	    } else if ("CONFIRMED".equalsIgnoreCase(string)){
+		return CONFIRMED;
+	    }
+	    return null;
+	}
 }
