@@ -23,6 +23,7 @@ GET     /favicon.ico                            staticFile:/public/images/favico
 GET			/login			Secure.login
 POST        /login          Secure.authenticate
 GET         /logout         Secure.logout
+GET         /client/        staticDir:client
 
 ##############################
 ########/Security ############
