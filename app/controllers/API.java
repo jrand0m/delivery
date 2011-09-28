@@ -3,25 +3,23 @@
  */
 package controllers;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import models.Order;
 import models.OrderItem;
 import models.Restaurant;
-import models.api.Job;
+import models.api.CaffeJobsList;
 import models.api.MenuItem;
+import models.api.PushMessage;
 import play.Logger;
 import play.data.validation.Required;
-import play.libs.Codec;
 import play.mvc.Controller;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import enumerations.OrderStatus;
 
@@ -30,24 +28,33 @@ import enumerations.OrderStatus;
  * 
  */
 public class API extends Controller {
-    /**
-     * 
-     */
-    private static final String BY_RESTAURANT_AND_ORDER_STATUS = Order.FIELDS.RESTAURANT
-	    + " = ? and " + Order.FIELDS.ORDER_STATUS + " = ? ";
+    //TODO extract to Order HQL
+    private static final String BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
+	    + " = ? and " + Order.FIELDS.ORDER_STATUS + " in ? ";
+    private static final String BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = BY_RESTAURANT_AND_ORDER_STATUS_IN
+	    + " and " + Order.FIELDS.ORDER_CONFIRMED + " < ?";
 
-    public static void g(@Required Integer id) {
+    public static void g(@Required Integer id, Long from) {
+	Logger.debug("g in id = %s", id);
 	if (id == null) {
 	    notFound();
 	    return;
 	}
 	Restaurant restaurant = Restaurant.findById(new Long(id));
-	List<Order> orders = Order.find(BY_RESTAURANT_AND_ORDER_STATUS,
-		restaurant, OrderStatus.SENT).fetch();
+	List<Order> orders;
+	Collection<OrderStatus> statuses = Arrays.asList(OrderStatus.ACCEPTED,
+		OrderStatus.COOKED, OrderStatus.CONFIRMED);
+	if (from != null) {
+	    orders = Order.find(BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM,
+		    restaurant, statuses, new Date(from)).fetch();
+	} else {
+	    orders = Order.find(BY_RESTAURANT_AND_ORDER_STATUS_IN, restaurant,
+		    statuses).fetch();
+	}
 	Logger.info("Found %d orders", orders.size());
-	List<Job> jobs = new ArrayList<Job>(orders.size());
+	List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
 	for (Order order : orders) {
-	    Job job = new Job();
+	    CaffeJobsList job = new CaffeJobsList();
 	    job.id = order.getShortHandId();
 	    for (OrderItem oi : order.items) {
 		job.list.add(new MenuItem(oi));
@@ -61,51 +68,44 @@ public class API extends Controller {
 
     public static void p(String message) {
 
-    }
-    
-    public static void bind(Integer id){
-	
-    }
-
-    public static void c(String m) {
-	Logger.info("Recieved message <%s>", m);
-
+	Logger.debug("p in message = %s", message);
 	Gson g = new Gson();
-	Type type = new TypeToken<HashMap<String, String>>() {
-	}.getType();
-	Map<String, String> h = g.fromJson(m.trim(), type);
-	List<String> list = new ArrayList<String>();
-	for (String key : h.keySet()) {
-	    String val = h.get(key);
-	    Order o = Order.findByShortId(key);
-	    if (o == null) {
-		Logger.error("Uexisting obj");
-
-		// TODO what to do when unexisting object ? skip
-		continue;
-		// error();
-		// return ;
-	    }
-
-	    Job job = new Job();
-	    job.id = o.getShortHandId();
-	    for (OrderItem oi : o.items) {
-		job.list.add(new MenuItem(oi));
-	    }
-	    String jsonedObj = g.toJson(job);
-	    Logger.info("key: %s;  jsoned repr: %s; md5: %s", key, jsonedObj,
-		    Codec.hexMD5(jsonedObj));
-	    if (Codec.hexMD5(jsonedObj).equalsIgnoreCase(val)) {
-		list.add(key);
-		continue;
-	    }
-	    o.orderStatus = OrderStatus.RECIEVED;
-	    o.save();
-	    // TODO maby we need to postprocess orders wich we recived. logging
-	    // to devices log ! change order status to recieved
+	PushMessage p = g.fromJson(message, PushMessage.class);
+	if (p.id == null || p.id.length() < 8) {
+	    notFound();
 	}
-	renderJSON(list);
 
+	Order order = Order.find(Order.HQL.BY_SHORT_ID_OR_LIKE_FULL_ID, p.id,
+		p.id + "%").first();
+	notFoundIfNull(order);
+	switch (OrderStatus.convert(p.status)) {
+	case COOKED:
+	    order.orderStatus = OrderStatus.COOKED;
+	    order.orderCooked = new Date();
+	    break;
+	case ACCEPTED:
+	    order.orderStatus = OrderStatus.ACCEPTED;
+	    order.orderAccepted = new Date();
+	    order.orderPlanedCooked = new Date(System.currentTimeMillis()
+		    + p.time * 60 * 1000);
+	    break;
+	case DECLINED:
+	    order.orderStatus = OrderStatus.DECLINED;
+	    order.orderClosed = new Date();
+	    // FIXME see how long message can be
+	    order.declineMessage = p.comment; // != null ?
+					      // p.comment.substring(0, 250) :
+					      // "" ;
+	    break;
+	case DELIVERING:
+	    order.orderStatus = OrderStatus.DELIVERING;
+	    order.orderTaken = new Date();
+	    break;
+	default:
+	    notFound();
+	}
+	order.save();
+	ok();
     }
 
 }

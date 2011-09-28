@@ -59,7 +59,7 @@ public class Security extends Controller {
 	    List<Order> orders = Order.find(Order.HQL.BY_ANONSID, bid).fetch();
 	    Logger.debug(
 		    "Found %s anonymous basket(s) bound to unlogined user %s",
-		    orders.size());
+		    orders.size(), user.login);
 	    for (Order order : orders) {
 		// TODO check case when user has logined on foregin pc (
 		// move this conversion to be on-demand only. Ask user

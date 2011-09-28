@@ -111,7 +111,7 @@ public class Restaurant extends Model {
      * */
     public Double discount;
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public Set<MenuItem> menuBook = new HashSet<MenuItem>();
+    public List<MenuItemGroup> menuBook = new ArrayList<MenuItemGroup>();
     /**
      * Restaurant Title
      * */

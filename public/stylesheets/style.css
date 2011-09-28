@@ -7,7 +7,7 @@ li{list-style: none;}
 div#wrapper{margin: 0 auto; width: 1011px; background: url(/public/images/wpar_bg_right.png) repeat-y right top transparent; padding-right: 9px;}
 div#wrapper div#wrapper_inner{display: inline-block; width: 984px; background: url(/public/images/wrap_bg_left.png) repeat-y left top transparent; padding-left: 18px; padding-right: 9px; padding-top: 9px}
 div#wrapper div#wrapper_inner div#header{}
-div#wrapper div#wrapper_inner div#header div.header_top{margin-bottom: 15px;min-height: 75px; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
+div#wrapper div#wrapper_inner div#header div.header_top{margin-bottom: 15px; min-height: 75px; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 *+html div#wrapper div#wrapper_inner div#header div.header_top{height: 75px;}
 div#wrapper div#wrapper_inner div#header div.header_top a.logo{float: left; margin-left: 9px; margin-top: -10px;}
 div#wrapper div#wrapper_inner div#header div.header_top h1{color: #000; font-weight: normal; display: inline; margin-top: 6px; text-shadow: 1px 1px 1px #E6E6E6; filter: Shadow(Color=#E6E6E6, Direction=45, Strength=2);}
@@ -19,16 +19,15 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a{color: #666;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{font-family: Tahoma; font-size: 12px; float: right; font-weight: bold; margin-top: 35px; margin-right: 9px;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{color: #fff;}
-div#wrapper div#wrapper_inner div#header div.header_top a.enter span:first-letter{font-size:200%;color:#8A2BE2;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: left; margin-left: 127px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li{float: left; margin-left: 70px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-child{margin-left: 0px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a{color: #fff; font-size: 22px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive a{text-decoration: none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 46px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
-div#wrapper div#wrapper_inner div#header div.header_bottom form{float: right; padding-right: 6px;}
-div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{border-radius: 0 4px 4px 0; font-size: 17px; background: url(/public/images/inp_sel_bg.gif) repeat-x 0 0 transparent; border: none; height: 28px; line-height: 28px; width: 290px; padding: 0 5px; font-family: 'Open Sans Condensed', sans-serif;}
-div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{border-radius: 3px; margin-top: 10px; margin-left: 10px; float: left; border: 1px solid #c03409; height: 28px; width: 100px; color: #fff; text-shadow: -1px -1px 0px #c9c9c9; filter: Shadow(Color=#c9c9c9, Direction=135, Strength=2); background: url(/public/images/search_but_bg.gif) repeat-x 0 0 transparent; font-family: 'Open Sans Condensed', sans-serif; font-size: 17px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form{float: left; margin-left: 6px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{font-size: 17px; background: url(/public/images/inp_sel_bg.gif) repeat-x 0 0 transparent; border: none; height: 28px; line-height: 28px; width: 360px; border-radius: 0 5px 5px 0; padding: 0 35px 0 5px; font-family: 'Open Sans Condensed', sans-serif;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{background: url(/public/images/search_ico.png) no-repeat scroll center center transparent; border: medium none; cursor: pointer;  float: left; height: 28px; /*margin-left: -33px;*/ margin-top: 10px; width: 33px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form label{line-height: 46px; margin-right: 16px;text-shadow: 1px 1px 1px #E6E6E6; float: left; font-size: 18px; color: #fff;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceInputWrapper{float: left; margin-top: 10px;}
 *+html div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceInputWrapper{margin-top: 9px;}
@@ -39,7 +38,8 @@ div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrap
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a {color: #000; text-align: center; display: block; font-size: 17px; text-decoration: none}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a:hover {background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a.selected {background-color: #e6e6e6;}
-div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceHidden {display: none;}
+div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {color: #FFFFFF; float: right; font-size: 17px; font-weight: bold; line-height: 42px; margin-right: 10px;}
+.jNiceHidden {display: none;}
 
 div#wrapper div#wrapper_inner div#content{padding-top: 15px;}
 div#wrapper div#wrapper_inner div#content div.main_cont{padding-bottom: 10px;}
@@ -63,3 +63,121 @@ div.rest_item_prev form.rform .ui-stars-cancel{visibility: hidden}
 div.rest_offline h1{background-color: #979797; background-image: none;}
 div.rest_offline a.menu_but{background-position: 0 -36px; border: 1px solid #979797;}
 div.rest_network_view{background-color: #fc7c0d;}
+
+div#wrapper div#wrapper_inner div#content div.left_cont{width: 680px; float: left;}
+div#wrapper div#wrapper_inner div#content div.right_cont{width: 295px; float: right; padding-right: 2px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1 span{font-size: 13px; /*display: block;*/ margin-left: 7px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1 a{font-family: Tahoma; font-size: 13px; font-weight: bold; position: absolute; right: 10px; top: 3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont{padding: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.img_wrap{float: left; width: 160px; height: 110px; text-align: center; display: table-cell; vertical-align: middle;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.img_wrap i{display: inline-block; height: 100%; vertical-align: middle;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.img_wrap img{vertical-align: middle; max-width: 150px; max-height: 100px}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties{float: left; width: 190px; margin-left: 15px; font-size: 18px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description {float: right; width: 285px; padding-right: 5px; position: relative; min-height: 110px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description a.menu{position: absolute; bottom: 5px; right: 0; text-align: center; text-decoration: none; background: url(/public/images/menu_but_bg.gif) repeat-x scroll 0 0 transparent; height: 34px; line-height: 34px; width: 160px; border: 1px solid #C03409; border-radius: 3px 3px 3px 3px; color: #000000; display: inline-block; font-size: 19px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description p{max-height: 66px; overflow: hidden; font-size: 13.5px; line-height: 16px;}
+
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block{width: 295px; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block h1{background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block div.rb_cont{padding: 5px;}
+
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off{}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off h1{background-image: none; background-color: #979797;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off div.rlp_cont div.description a.menu{background-position: 0 -36px; border: 1px solid #979797;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.rating {background: url(/public/images/star--arrow.png) no-repeat left center transparent; padding-left: 27px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.work_time {background: url(/public/images/clock-select.png) no-repeat left center transparent; padding-left: 27px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.dostavka {background: url(/public/images/car-red.png) no-repeat left center transparent; padding-left: 27px; }
+
+div#login {width: 220px; margin: 0 auto; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#login h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#login form{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
+div#login input[type="text"], div#login input[type="password"]{font-family: Open Sans Condensed; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#login input[type="text"]{margin-bottom: 2px;}
+div#login p.tl label{float: left; margin-bottom: -22px; margin-left: 10px; position: relative; top: 13px; z-index: 2;}
+div#login p.error{text-align: center; color: red; font-size: 14px; text-decoration: blink;}
+div#login p#remember-field{margin-bottom: -10px;}
+div#login input[type="submit"]{ background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: Open Sans Condensed; height: 31px; margin-top: -15px; width: 73px;}
+
+
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 span{font-size: 13px; /*display: block;*/ margin-left: 7px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 a{font-family: Tahoma; font-size: 13px; font-weight: bold; position: absolute; right: 10px; top: 3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table{padding: 5px 10px; width: 100%; line-height: 26px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td{width: 25%; vertical-align: top;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a{color: #000; padding: 3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a:hover{background-color: #cccccc;}
+
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket{}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket h1{font-weight: bold;background: url(/public/images/ico_shopping_cart.png) no-repeat 260px center #E83F0B; color: #fff;}
+
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table{padding: 5px 10px; width: 100%; border-collapse: collapse;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th{width: 5%; vertical-align: top; padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a{width: 12px; display: inline-block; margin-top: 4px;height: 12px; background: url(/public/images/add_but.png) no-repeat 0 0 transparent;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover th a{background-position: 0 -12px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p{line-height: 19px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child{text-decoration: underline;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p.descr{font-size: 13px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td{padding: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr.od{background-color: #f5f5f5;}
+/*div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:nth-child(even){background-color: #f5f5f5;}*/
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover{background-color: #cccccc; cursor: pointer;}
+
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table{padding-bottom: 10px; border-collapse: collapse;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span{float: left; width: 12px; height: 12px; margin-top: 4px; background: url(/public/images/plus_minus_delete_but2.gif) no-repeat transparent;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.minus{background-position: 0 -12px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.minus:hover{background-position: 0 -48px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.plus{background-position: 0 0;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.plus:hover{background-position: 0 -36px; cursor: copy;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th input{float: left; width: 17px; height: 18px; line-height: 18px; border: 1px solid #ccc; font-family: Tahoma; font-size: 13px; text-align: center; border-radius: 3px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th {width: 45px; vertical-align: top;padding-top: 4px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table td {vertical-align: top; padding-top: 5px; min-width: 60px; }
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table td p{line-height: 18px; font-weight: bold;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table td p.descr{font-size: 13px; font-weight: normal;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr td:last-child{text-decoration: underline; text-align: right; white-space: nowrap;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td{color: #E83F0B; text-decoration: none; white-space: nowrap;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total2{border-top: 1px solid #ededed;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total2 td{padding-top: 5px; padding-bottom: 0;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total{line-height: 15px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td p{padding-left: 5px; color: #E83F0B;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]{border-radius: 5px; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border: medium none; color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; margin: 10px 0 10px 23px; width: 250px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]:hover{background-color: #fd9808; background-image: none; cursor: pointer; text-shadow: 1px 1px 1px #E83F0B;}
+
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form{margin-top: 10px; padding: 5px 10px; line-height: 20px; line-height: 35px; width: 100%; border-collapse: collapse;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form th{font-weight: normal; text-align: right; font-size: 18px; padding-right: 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td{vertical-align: middle;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td label{float: left; margin-right: 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{height: 25px; width: 170px; padding: 0 10px; line-height: 25px; font-size: 16px; font-family: Open Sans Condensed; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input.wrong_data{border: 2px solid #E83F0B; box-shadow: 1px 1px 1px #E83F0B; position: relative;
+    top: 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{color: #E83F0B; display: block; font-family: tahoma; font-size: 10px; margin-top: -5px;}
+.jRadioWrapper {z-index: 2; position: relative; float: left; margin-right: 22px; margin-top: 10px;}
+.jNiceRadio {background: transparent url(/public/images/radio.jpg) no-repeat center top; height: 17px; width: 17px; position:absolute; left:0px; top:0px; cursor:pointer; vertical-align:middle;}
+.jNiceChecked {background-position: center bottom;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total{border-collapse: collapse; width: 325px; border-top: 1px solid #E83F0B; float: right; font-size: 18px; margin-top: 10px; margin-right: 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total span{background-color: #fff; padding: 0 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total th{width: 75%; text-align: left; font-weight: normal;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total td{width: 25%; text-align: right; font-weight: bold;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total{border-top: 1px solid #ededed;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.pretotal th{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.pretotal td{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total th{text-transform: uppercase; padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total td{padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total th, div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total td{background: url(/public/images/dot.jpg) repeat-x -4px 16px transparent;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]{border-radius: 5px; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border: medium none; color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; margin: 10px 0 10px 23px; width: 250px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]:hover{background-color: #fd9808; background-image: none; cursor: pointer; text-shadow: 1px 1px 1px #E83F0B;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr:last-child td{background-image: none; text-align: center;}
+
+div#wrapper div#wrapper_inner div#footer{min-height: 75px; margin-top: 10px; width: 100%; float: left; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
+div#wrapper div#wrapper_inner div#footer table{width: 100%; height: 75px;}
+div#wrapper div#wrapper_inner div#footer table td{width: 33%;padding-left: 3%;}
+div#wrapper div#wrapper_inner div#footer table td.social_icons a{margin-right: 10px;}
+
+

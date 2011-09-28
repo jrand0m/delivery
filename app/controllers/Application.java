@@ -11,6 +11,7 @@ import java.util.Set;
 
 import jobs.DevBootStrap;
 import models.MenuItem;
+import models.MenuItemGroup;
 import models.Order;
 import models.OrderItem;
 import models.Restaurant;
@@ -106,8 +107,8 @@ public class Application extends Controller {
 
     public static void showMenu(Long id) {
 	Restaurant restaurant = Restaurant.findById(id);
-	Set<MenuItem> menuItems = restaurant.menuBook;
-	renderArgs.put("restaurantName", restaurant.title);
+	List<MenuItemGroup> menuItems = restaurant.menuBook;
+	renderArgs.put("restaurant", restaurant);
 	render(menuItems);
     }
 
