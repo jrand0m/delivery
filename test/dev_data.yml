@@ -278,3 +278,33 @@ OrderItem(Order2Item2):
     menuItem: mit_Sup1
     order: order2
     count: 10
+Order(order3):
+    orderCreated: 9.9.11
+    restaurant: restaurant1
+    orderOwner: usr_uzor
+    address: adr_uzor
+    orderStatus: CONFIRMED
+
+OrderItem(Order3Item1):
+    menuItem: mit_pizza1
+    order: order3
+    count: 100 
+OrderItem(Order3Item2):
+    menuItem: mit_Sup1
+    order: order3
+    count: 10
+Order(order4):
+    orderCreated: 9.9.11
+    restaurant: restaurant1
+    orderOwner: usr_uzor
+    address: adr_uzor
+    orderStatus: ACCEPTED
+
+OrderItem(Order4Item1):
+    menuItem: mit_pizza1
+    order: order4
+    count: 100 
+OrderItem(Order4Item2):
+    menuItem: mit_Sup1
+    order: order4
+    count: 10

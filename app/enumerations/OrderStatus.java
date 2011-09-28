@@ -18,9 +18,9 @@ public enum OrderStatus {
 	SENT(), 
 	
 	/**
-	 * Device recieved
+	 * Device recieved/courier approved
 	 * */
-	RECIEVED(), 
+	CONFIRMED(), 
 	/**
 	 * Caffe is cooking
 	 * */

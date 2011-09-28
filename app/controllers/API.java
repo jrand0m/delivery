@@ -5,7 +5,10 @@ package controllers;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +28,7 @@ import play.mvc.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.thoughtworks.xstream.converters.enums.EnumSetConverter;
 
 import enumerations.OrderStatus;
 import enumerations.PushStatus;
@@ -34,11 +38,9 @@ import enumerations.PushStatus;
  * 
  */
 public class API extends Controller {
-	/**
-     * 
-     */
-	private static final String BY_RESTAURANT_AND_ORDER_STATUS = Order.FIELDS.RESTAURANT
-			+ " = ? and " + Order.FIELDS.ORDER_STATUS + " = ? ";
+	private static final String BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
+			+ " = ? and " + Order.FIELDS.ORDER_STATUS + " in ? ";
+	private static final String BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = BY_RESTAURANT_AND_ORDER_STATUS_IN + " and " + Order.FIELDS.ORDER_CONFIRMED + " > ?";
 
 	public static void g(@Required Integer id, Long from) {
 		Logger.debug("g in id = %s", id);
@@ -47,8 +49,15 @@ public class API extends Controller {
 			return;
 		}
 		Restaurant restaurant = Restaurant.findById(new Long(id));
-		List<Order> orders = Order.find(BY_RESTAURANT_AND_ORDER_STATUS,
-				restaurant, OrderStatus.SENT).fetch();
+		List<Order> orders ;
+		Collection<OrderStatus> statuses = Arrays.asList(OrderStatus.ACCEPTED,OrderStatus.COOKED,OrderStatus.CONFIRMED);
+		if (from !=null){
+		    orders = Order.find(BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM,
+				restaurant,  statuses, new Date(from)).fetch();
+		}else{
+		    orders = Order.find(BY_RESTAURANT_AND_ORDER_STATUS_IN,
+				restaurant, statuses).fetch();
+		}
 		Logger.info("Found %d orders", orders.size());
 		List<Job> jobs = new ArrayList<Job>(orders.size());
 		for (Order order : orders) {
@@ -82,7 +91,7 @@ public class API extends Controller {
 			break;
 		case INPROGRESS:
 			order.orderStatus = OrderStatus.ACCEPTED;
-			order.orderDate = new Date();
+			order.orderAccepted = new Date();
 			order.orderPlanedCooked = new Date(System.currentTimeMillis()+p.time*60*1000);
 			break;
 		case REJECTED:
@@ -93,7 +102,7 @@ public class API extends Controller {
 			break;
 		case TAKEN:
 			order.orderStatus = OrderStatus.DELIVERING;
-			order.courierOrderRecieved = new Date();
+			order.orderTaken = new Date();
 			break;
 		default:
 			notFound();
