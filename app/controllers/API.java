@@ -35,7 +35,7 @@ public class API extends Controller {
     private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
 	    + " = ? and " + Order.FIELDS.ORDER_STATUS + " in (?,?,?) ";
     private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN
-	    + " and " + Order.FIELDS.ORDER_CONFIRMED + " < ?";
+	    + " and " + Order.FIELDS.ORDER_CONFIRMED + " > ?";
 
     public static void g(@Required Integer id, Long from) {
 	Logger.debug("g in id = %s", id);
@@ -48,14 +48,14 @@ public class API extends Controller {
 	    notFound();
 	}
 	List<Order> orders;
-//	Collection<Enum<OrderStatus>> statuses = new ArrayList<OrderStatus>(){{ 
+
+//XXX	Collection<Enum<OrderStatus>> statuses = new ArrayList<OrderStatus>(){{ 
 //	    	add();
 //	    	add(OrderStatus.COOKED);
 //	    	add();
 //	    }};
 	
 	if (from != null) {
-	    
 	    orders = Order.find(JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM,
 		    restaurant, OrderStatus.ACCEPTED,OrderStatus.COOKED,OrderStatus.CONFIRMED, new Date(from)).fetch();
 	} else {
@@ -63,13 +63,16 @@ public class API extends Controller {
 		    OrderStatus.ACCEPTED, OrderStatus.COOKED,OrderStatus.CONFIRMED).fetch();
 	}
 	
-	
-	
 	Logger.info("Found %d orders", orders.size());
 	List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
 	for (Order order : orders) {
 	    CaffeJobsList job = new CaffeJobsList();
 	    job.id = order.getShortHandId();
+	    job.status = order.orderStatus.toString();
+	    job.price = order.getGrandTotal();
+	    job.paymentStatus = order.paymentStatus.toString();
+	    job.time = order.orderConfirmed.getTime();
+	    job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED?order.orderPlanedCooked.getTime()-System.currentTimeMillis():null; 
 	    for (OrderItem oi : order.items) {
 		job.list.add(new MenuItem(oi));
 	    }

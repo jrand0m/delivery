@@ -22,7 +22,7 @@ public class OrderItem extends Model {
 	public static final String MENUITEM = "menuItem";
 	public static final String ORDER = "order";
 	public static final String ORDER_ITEM_PRICE = "orderItemPrice";
-	public static final String ORDER_ITEM_USER_PRICE = "orderItemUserPrice";
+//	public static final String ORDER_ITEM_USER_PRICE = "orderItemUserPrice";
     }
 
     public Integer count;
@@ -42,17 +42,17 @@ public class OrderItem extends Model {
      * Archived price that should be paid by user (That was calculated in
      * moment, when order was approved).
      * */
-    public Integer orderItemUserPrice;
+   /* public Integer orderItemUserPrice;*/
 
     public OrderItem() {
 
     }
 
-    public OrderItem(Integer count, Integer orderItemUserPrice,
+    public OrderItem(Integer count, /*Integer orderItemUserPrice,*/
 	    Integer orderItemPrice, Order orderId, MenuItem menuitem) {
 	this.menuItem = menuitem;
 	this.count = count;
-	this.orderItemUserPrice = orderItemUserPrice;
+//	this.orderItemUserPrice = orderItemUserPrice;
 	this.orderItemPrice = orderItemPrice;
 	this.order = orderId;
 	this.deleted = false;

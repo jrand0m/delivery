@@ -266,8 +266,6 @@ public class Application extends Controller {
 	    Logger.debug(">>> Item not found, creating new");
 	    orderItem = new OrderItem(menuItem, order);
 	    orderItem.count = count;
-	    orderItem.orderItemUserPrice = menuItem.price;
-	    orderItem.orderItemPrice = menuItem.price;
 	    orderItem.create();
 	} else {
 	    Logger.debug(">>> Item found, adding count");
