@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import enumerations.DayType;
 
@@ -15,7 +17,7 @@ public class RegularDay extends Day implements Comparable<RegularDay> {
     }
 
 
-
+    @Enumerated(value = EnumType.STRING)
     public DayType dayType;
 
     /* (non-Javadoc)

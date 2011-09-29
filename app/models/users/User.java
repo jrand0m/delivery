@@ -9,6 +9,8 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
@@ -64,7 +66,7 @@ public abstract class User extends Model {
     public String password;
     @Phone
     public String phoneNumber;
-
+    @Enumerated(value = EnumType.STRING)
     public UserStatus userStatus;
 
     /**

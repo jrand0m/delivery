@@ -6,6 +6,8 @@ package models.logging;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import enumerations.LogActionType;
@@ -31,7 +33,9 @@ public class UserLog extends Model {
     }
 
     public EndUser user;
+    @Enumerated(value = EnumType.STRING)
     public LogActionType actionType;
+    @Enumerated(value = EnumType.STRING)
     public LogLevel level;
     public Date date;
     public String info;
