@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="wrap_content"
+	android:layout_height="wrap_content" xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<EditText 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:id="@+id/pin"
+		android:text="PIN" />
+
+	<LinearLayout 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:orientation="horizontal">
+		
+		<Button 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:id="@+id/auth_ok"
+			android:text="ok" />
+
+		<Button 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:id="@+id/auth_cancel"
+			android:text="cancel" />
+	</LinearLayout>
+</LinearLayout>
