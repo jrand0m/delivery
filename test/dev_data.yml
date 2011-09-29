@@ -7,8 +7,8 @@ models.users.EndUser(usr_uzor):
     login: v
     password: "123"
     userStatus: ACTIVE
-    joinDate: 11.11.10
-    lastLoginDate: 11.11.10
+    joinDate: 2010-09-08
+    lastLoginDate: 2010-09-08
     deleted: false
 
 models.users.SystemAdministrator(usr_admin):
@@ -20,8 +20,8 @@ models.users.SystemAdministrator(usr_admin):
     login: admin
     password: "123"
     userStatus: ACTIVE
-    joinDate: 11.11.10
-    lastLoginDate: 11.11.10
+    joinDate: 2010-09-08
+    lastLoginDate: 2010-09-08
 
 # Addresses
 models.geo.UserAddress(adr_uzor):
@@ -63,11 +63,11 @@ models.users.RestaurantAdministration(res_admin):
     password: "123"
     userStatus: ACTIVE
     role: RESTAURANT
-    joinDate: 11.11.10
-    lastLoginDate: 11.11.10
+    joinDate: 2010-09-08
+    lastLoginDate: 2010-09-08
 
 models.device.RestaurantDevice(device1):
-    lastPing: 9.9.11
+    lastPing: 2011-09-08
 #Restaurants
 Restaurant(restaurant1):
     user: res_admin
@@ -116,7 +116,7 @@ MenuItem(mit_Sup1):
     description: red and tasty
     price: 1000
     avaliable: true
-    menuItemCreated: 10.9.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -126,7 +126,7 @@ MenuItem(mit_Sup2):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -135,7 +135,7 @@ MenuItem(mit_Sup26):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08 17:00:11
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -144,7 +144,7 @@ MenuItem(mit_Sup25):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -153,7 +153,7 @@ MenuItem(mit_Sup24):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -162,7 +162,7 @@ MenuItem(mit_Sup23):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -171,7 +171,7 @@ MenuItem(mit_Sup2222):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -180,7 +180,7 @@ MenuItem(mit_Sup123):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -189,7 +189,7 @@ MenuItem(mit_Sup243):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -198,7 +198,7 @@ MenuItem(mit_Sup233):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -207,7 +207,7 @@ MenuItem(mit_Sup223):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -216,7 +216,7 @@ MenuItem(mit_Sup124):
     description: white, with mushrooms
     price: 1111
     avaliable: true
-    menuItemCreated: 10.10.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_first
     restaurant: restaurant1
     deleted: false
@@ -226,7 +226,7 @@ MenuItem(mit_Garnir1):
     description: USSR toilet paper standart #1
     price: 1560
     avaliable: true
-    menuItemCreated: 13.9.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_garnir
     restaurant: restaurant1
     deleted: false
@@ -236,7 +236,7 @@ MenuItem(mit_Garnir2):
     description: fresh and tasty
     price: 1510
     avaliable: true
-    menuItemCreated: 9.9.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_garnir
     restaurant: restaurant1
     deleted: false
@@ -246,13 +246,13 @@ MenuItem(mit_pizza1):
     description: fresh and tasty
     price: 3006
     avaliable: true
-    menuItemCreated: 9.9.10
+    menuItemCreated: 2010-09-08
     menuItemGroup: mgp_pizza
     restaurant: restaurant1
     deleted: false
 #Orderz
 Order(order1):
-    orderCreated: 9.9.11
+    orderCreated: 2011-09-08
     restaurant: restaurant1
     orderOwner: usr_uzor
     address: adr_uzor
@@ -264,7 +264,7 @@ OrderItem(Order1Item1):
     count: 100
 
 Order(order2):
-    orderCreated: 9.9.11
+    orderCreated: 2011-09-08
     restaurant: restaurant1
     orderOwner: usr_uzor
     address: adr_uzor
@@ -279,32 +279,36 @@ OrderItem(Order2Item2):
     order: order2
     count: 10
 Order(order3):
-    orderCreated: 9.9.11
+    orderCreated: 2011-09-08
     restaurant: restaurant1
     orderOwner: usr_uzor
     address: adr_uzor
+    orderConfirmed: 2011-09-08
     orderStatus: CONFIRMED
 
 OrderItem(Order3Item1):
     menuItem: mit_pizza1
     order: order3
-    count: 100 
+    count: 2
+    orderItemPrice: 1000
 OrderItem(Order3Item2):
     menuItem: mit_Sup1
     order: order3
-    count: 10
+    count: 14
 Order(order4):
-    orderCreated: 9.9.11
+    orderCreated: 2011-09-08
     restaurant: restaurant1
     orderOwner: usr_uzor
     address: adr_uzor
+    orderConfirmed: 2011-09-08
     orderStatus: ACCEPTED
+    orderPlanedCooked: 2011-11-09
 
 OrderItem(Order4Item1):
     menuItem: mit_pizza1
     order: order4
-    count: 100 
+    count: 3 
 OrderItem(Order4Item2):
     menuItem: mit_Sup1
     order: order4
-    count: 10
+    count: 5
