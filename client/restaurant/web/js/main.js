@@ -9,6 +9,7 @@ var DCWMain = {
 	activeOrdersContent: '',
 	dialogFrame: '',
 	lang: '',
+	isAuthorized: false,
 
 	init: function(){	
 		var thisObj = this;
@@ -124,6 +125,7 @@ var DCWMain = {
 			
 			if(thisObj.authorize(loginTextBox.attr('value'), passwordTextBox.attr('value'))) {
 				thisObj.dialogFrame.hide();
+				thisObj.isAuthorized = true;
 				thisObj.showContent();
 			}				
 		});
@@ -139,7 +141,7 @@ var DCWMain = {
 		$('body').append(this.dialogFrame);
 			
 		this.dialogFrame.ajaxError(function() {
-			thisObj.showDialog(thisObj.createDiv().html(this.lang.connectionError));
+			thisObj.showDialog(thisObj.createDiv().html(thisObj.lang.connectionError));
 		});
 	},
 	
@@ -154,6 +156,7 @@ var DCWMain = {
 	},
 	
 	showDialog: function(dialogContent){
+		var dialogContent = $(dialogContent);
 		this.dialogFrame.show();
 		var dialogFr = this.createDiv("DCWDialogBackground", "DCWDialogBackground");
 		
@@ -304,13 +307,13 @@ var DCWMain = {
 		var btnTaken = this.createButton(this.lang.taken, 'DCWOrderButton');
 		
 		btnMade.click(function() {
-			thisObj.sendOrderStatusChanged(orderElem, 'ready');
+			thisObj.sendOrderStatusChanged(orderElem, 'COOKED');
 			btnMade.hide();
 			btnTaken.show();
 		});
 		
 		btnTaken.click(function() {
-			thisObj.sendOrderStatusChanged(orderElem, 'taken');
+			thisObj.sendOrderStatusChanged(orderElem, 'DELIVERING');
 			orderElem.domElem.remove();
 			orderElem.remove();
 		});
@@ -350,24 +353,27 @@ var DCWMain = {
 	},
 	
 	getNewOrders: function() {
+		if(this.isAuthorized) {
 		var thisObj = this;
 		
-		$.ajax({
-			url: '/api/g?id=1',
-			success: function(data) {
-				
-				$(data).each(function(elem){
-					var elemDom = thisObj.getNewOrderDiv(data[elem]);
-					thisObj.newOrdersContent.append(elemDom);
-				});
-			}
-		});
-		
-		this.updateTimes();
-		
-		window.setTimeout(function(){
-			thisObj.getNewOrders();
-		}, 20000);
+			$.ajax({
+				url: '/api/g?id=1',
+				success: function(data) {
+					alert(JSON.stringify(data));
+					
+					$(data).each(function(elem){
+						var elemDom = thisObj.getNewOrderDiv(data[elem]);
+						thisObj.newOrdersContent.append(elemDom);
+					});
+				}
+			});
+			
+			this.updateTimes();
+			
+			window.setTimeout(function(){
+				thisObj.getNewOrders();
+			}, 20000);
+		}
 	}, 
 	
 	updateTimes: function() {
@@ -387,7 +393,7 @@ var DCWMain = {
 		$.ajax({
 			url: '/api/p',
 			dataType: "json",
-			data: {'message': $.toJSON({ 'status' : 'inProgress', 'id' : element.id, 'time' : element.time })},
+			data: {'message': $.toJSON({ 'status' : 'ACCEPTED', 'id' : element.id, 'time' : element.time })},
 			success: function(data) {
 				//element.timeStarded = data.timeStarted;
 			}
@@ -406,7 +412,7 @@ var DCWMain = {
 	sendOrderRejected: function(element, comment) {
 		$.ajax({
 			url: '/api/p',
-			data: {'message': $.toJSON({ 'status' : 'rejected', 'id' : element.id, 'comment': comment})},
+			data: {'message': $.toJSON({ 'status' : 'DECLINED', 'id' : element.id, 'comment': comment})},
 			success: function(data) {
 				element.timeStarded = data.timeStarted;
 			}
