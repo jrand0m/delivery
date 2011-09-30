@@ -10,6 +10,8 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Transient;
@@ -41,5 +43,6 @@ public class GenericDevice extends Model {
     public Date deviceActivatedDate;
     @Column(insertable = false, updatable = false)
     public String DEVICE_TYPE;
+    @Enumerated(value = EnumType.STRING)
     public DeviceStatus status = DeviceStatus.DEACTIVATED;
 }

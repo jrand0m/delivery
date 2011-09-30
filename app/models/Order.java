@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -150,11 +152,13 @@ public class Order extends GenericModel {
      * Estimated time of delivery to restaurant
      * */
     public Date orderPlanedDeliveryTime;
+    @Enumerated(value = EnumType.STRING)
     public OrderStatus orderStatus = OrderStatus.OPEN;
     /**
      * Courier picked up bundle
      * */
     public Date orderTaken;
+    @Enumerated(value = EnumType.STRING)
     public PaymentStatus paymentStatus = PaymentStatus.NOT_PAID;
     @ManyToOne
     public Restaurant restaurant;
@@ -183,7 +187,7 @@ public class Order extends GenericModel {
     public Integer getMenuTotal() {
 	Integer i = 0;
 	for (OrderItem item : items) {
-	    i += item.orderItemUserPrice * item.count;
+	    i += item.menuItem.price * item.count;
 	}
 	return i;
     }
@@ -197,7 +201,7 @@ public class Order extends GenericModel {
 		    "Taking shorthand on null id!");
 	}
 	if (shortHandId == null) {
-	    shortHandId = id.substring(0, 8);
+	    shortHandId = Integer.toHexString(id.hashCode());//substring(id.length()-8);
 	}
 	return shortHandId;
     }

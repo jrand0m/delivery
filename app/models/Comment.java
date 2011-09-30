@@ -6,6 +6,8 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -38,6 +40,7 @@ public class Comment extends Model {
     public String text;
     public Integer commonRating;
     public Date date;
+    @Enumerated(value = EnumType.STRING)
     public CommentStatus status = CommentStatus.NOT_REVIEWED;
     /**
      * Based on user prefs set default, and ask if to hide his name;

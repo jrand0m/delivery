@@ -3,6 +3,8 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
 import models.users.EndUser;
@@ -34,6 +36,7 @@ public class AccountingTransaction extends Model {
     public AccountingGroup group;
     public Date operationDate;
     public Integer regularDayInMonthNo = -1;
+    @Enumerated(value = EnumType.STRING)
     public TransactionState state;
 
     /**

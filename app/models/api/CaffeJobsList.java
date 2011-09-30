@@ -27,5 +27,9 @@ public class CaffeJobsList {
      * set only if status InProgress
      * */
     public Long timeToFinish;
+    
+    public String paymentStatus;
+    
+    public Integer price;
     public List<MenuItem> list = new ArrayList<MenuItem>();
 }
