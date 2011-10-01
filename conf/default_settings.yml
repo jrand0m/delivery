@@ -5,4 +5,14 @@ models.settings.SystemSetting(stng_ratingsRefresh):
 models.settings.SystemSetting(stng_pingTime):
     stg_key: "pingTime"
     stg_value: "400000"
+    isDefaultSetting: true
+models.settings.SystemSetting(stng_default_city_id):
+    stg_key: "defaultCityId"
+    stg_value: "1"
     isDefaultSetting: true    
+models.settings.SystemSetting(stng_guessCity):
+    stg_key: "guessCityByIpEnabled"
+    stg_value: "false"
+    isDefaultSetting: true    
+
+

@@ -1,3 +1,21 @@
+models.geo.City(lviv):
+    cityNameUA: Львів
+    cityNameRU: Львов
+    cityNameEN: Lvov
+    display: true
+
+models.geo.City(chornobyl):
+    cityNameUA: Чорнобиль
+    cityNameRU: Чернобиль
+    cityNameEN: Tchernobyl
+    display: false
+
+models.geo.City(kiev):
+    cityNameUA: Київ
+    cityNameRU: Киев
+    cityNameEN: Kiev
+    display: true
+
 models.users.EndUser(usr_uzor):
     name: Vasyl
     surname: Petrovich
@@ -78,7 +96,67 @@ Restaurant(restaurant1):
     discount: 10.1
     deleted: false
     device: device1
+    city: lviv
+    showOnIndex: true
 
+Restaurant(restaurant2):
+    user: res_admin
+    title: Kriivka
+    workHours: wrh_restaurant1
+    contactPerson: Judje Dred
+    contactPhone: "3044555555"
+    discount: 10.1
+    deleted: false
+    device: device1
+    city: lviv
+    showOnIndex: true
+
+Restaurant(restaurant3):
+    user: res_admin
+    title: Pizza Chlentano! kiev
+    workHours: wrh_restaurant1
+    contactPerson: Judje Dred
+    contactPhone: "3044555555"
+    discount: 10.1
+    deleted: false
+    device: device1
+    city: kiev
+    showOnIndex: true
+
+Restaurant(restaurant4):
+    user: res_admin
+    title: Pizza Chlentano! chernobyl
+    workHours: wrh_restaurant1
+    contactPerson: Judje Dred
+    contactPhone: "3044555555"
+    discount: 10.1
+    deleted: false
+    device: device1
+    city: chornobyl
+    showOnIndex: true
+
+Restaurant(restaurant5_hidden):
+    user: res_admin
+    title: Restaurant noIndex
+    workHours: wrh_restaurant1
+    contactPerson: Judje Dred
+    contactPhone: "3044555555"
+    discount: 10.1
+    deleted: false
+    device: device1
+    city: lviv
+    showOnIndex: false
+
+Restaurant(restaurant5_shown):
+    user: res_admin
+    title: RestaurantIndexStub
+    workHours: wrh_restaurant1
+    contactPerson: Judje Dred
+    contactPhone: "3044555555"
+    discount: 10.1
+    deleted: false
+    device: device1
+    city: lviv
 
 models.geo.Address(adr_restaurant):
     street: kreshchatyk

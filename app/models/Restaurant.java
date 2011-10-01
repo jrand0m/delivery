@@ -21,6 +21,7 @@ import javax.persistence.OneToOne;
 
 import models.device.RestaurantDevice;
 import models.geo.Address;
+import models.geo.City;
 import models.settings.SystemSetting;
 import models.users.EndUser;
 import models.users.RestaurantUser;
@@ -61,10 +62,20 @@ public class Restaurant extends Model {
 		public static final String RESTAURANT_DEVICE = "device";
 		public static final String DESCRIPTIONS = "descriptions";
 		public static final String DELETED = "deleted";
+		public static final String SHOW_ON_INDEX = "showOnIndex";
 
+	}
+	
+	public static class HQL {
+		public static final String BY_CITY_AND_SHOW_ON_INDEX = FIELDS.RESTAURANT_CITY + " = ? and " +FIELDS.SHOW_ON_INDEX + " = ?";
+		
 	}
 
 	public boolean deleted = false;
+	public boolean showOnIndex = false;
+	@OneToOne
+	public City city;
+	@OneToOne
 	public Address address;
 	/**
 	 * All comments given to this restaurant

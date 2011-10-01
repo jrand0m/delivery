@@ -26,7 +26,11 @@ import enumerations.UserRoles;
 @With(Secure.class)
 @Check(UserRoles.SYS_ADMIN)
 public class Bookkeeper extends Controller {
+	public static final class RENDER_KEYS{
 
+		public static final String USER = "user";
+		
+	}
 	@Before
 	static void _prepare() {
 		EndUser user = null;
@@ -35,7 +39,7 @@ public class Bookkeeper extends Controller {
 					Security.connected()).first();
 			if (users.size() != 0) {
 				user = users.get(0);
-				renderArgs.put(Application.USER_RENDER_KEY, user);
+				renderArgs.put(RENDER_KEYS.USER, user);
 			}
 		} else {
 			notFound();

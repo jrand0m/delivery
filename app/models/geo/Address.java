@@ -34,7 +34,7 @@ public class Address extends Model {
 	@MaxSize(100)
 	@MinSize(5)
 	public String street;
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -1,5 +1,9 @@
 package controllers;
 
+import helpers.CACHE_KEYS;
+import helpers.GeoDataHelper;
+import helpers.PropertyVault;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +20,9 @@ import models.Order;
 import models.OrderItem;
 import models.Restaurant;
 import models.RestaurantNetwork;
+import models.geo.City;
+import models.geo.IpGeoData;
+import models.settings.SystemSetting;
 import models.users.EndUser;
 import play.Logger;
 import play.Play;
@@ -31,10 +38,17 @@ import enumerations.UserStatus;
 
 public class Application extends Controller {
 
-	public static final String USER_RENDER_KEY = "user";
+	
 	// TODO Make more flexible(extract to SystemSetting)
 	public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
-
+	public static class RENDER_KEYS {
+		public static final String USER = "user";
+		public static final String INDEX_RESTAURANTS = "restaurants";
+		public static final String AVALIABLE_CITIES = "cities";
+	}
+	public static class SESSION_KEYS {
+		public static final String CITY_ID = "city";
+	}
 	public static void loadFix() {
 		Fixtures.deleteDatabase();
 		new DevBootStrap().doJob();
@@ -44,7 +58,7 @@ public class Application extends Controller {
 	@Before
 	public static void _prepare() {
 		EndUser user = getCurrentUser();
-		renderArgs.put(USER_RENDER_KEY, user);
+		renderArgs.put(RENDER_KEYS.USER, user);
 		Order order = null;
 		if (user != null) {
 			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
@@ -59,12 +73,15 @@ public class Application extends Controller {
 		} else {
 			renderArgs.put("basketCount", 0);
 		}
-
+		if (!session.contains(SESSION_KEYS.CITY_ID)){
+			guessCity(request.remoteAddress).getId();
+			session.put(SESSION_KEYS.CITY_ID, guessCity(request.remoteAddress).getId() );
+		}
 	}
 
 	public static void deliveryAndPaymentMethod() {
 		Order order = null;
-		EndUser user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user != null) {
 			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
 					OrderStatus.OPEN).first();
@@ -81,20 +98,22 @@ public class Application extends Controller {
 
 	public static void index() {
 		List<Restaurant> restaurants = (List<Restaurant>) Cache
-				.get("restaurants");
+				.get(CACHE_KEYS.INDEX_PAGE_RESTAURANTS+session.get(SESSION_KEYS.CITY_ID));
 		if (restaurants == null) {
-			List<RestaurantNetwork> metas = RestaurantNetwork.findAll();
-
-			List<Restaurant> combined = new ArrayList<Restaurant>();
-			for (RestaurantNetwork meta : metas) {
-				combined.addAll(meta.restoraunts); // removing restaurants that
-				// is in networks
-			}
-			restaurants = Restaurant.findAll();
-			restaurants.removeAll(combined);
-			Cache.set("restaurants", restaurants, "3min");
+			String cityId = session.get(SESSION_KEYS.CITY_ID);
+			//TODO decide whether to cache city
+			City city = City.findById(Long.valueOf(cityId));
+			restaurants = Restaurant.find(Restaurant.HQL.BY_CITY_AND_SHOW_ON_INDEX, city, true).fetch(4);
+			Cache.set(CACHE_KEYS.INDEX_PAGE_RESTAURANTS+cityId, restaurants, "8h");
 		}
-		render(restaurants);
+		List<City> cityList = (List<City>) Cache.get(CACHE_KEYS.AVALIABLE_CITIES);
+		if (cityList == null){
+			cityList = City.find(City.HQL.BY_DISPLAY, true).fetch();
+			Cache.set(CACHE_KEYS.AVALIABLE_CITIES, cityList, "8h");
+		}
+		renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
+		renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
+		render();
 	}
 
 	private static EndUser getCurrentUser() {
@@ -147,7 +166,7 @@ public class Application extends Controller {
 		Logger.debug(">>> Adding items with id %s in count %s", id, count);
 		if (Security.isConnected()) {
 			Logger.debug(">>> Connected user login: %s", Security.connected());
-			EndUser user = (EndUser) renderArgs.get(USER_RENDER_KEY);
+			EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 			Order order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
 					user, OrderStatus.OPEN).first();
 			if (order == null) {
@@ -174,7 +193,7 @@ public class Application extends Controller {
 		Logger.debug(">>> Delitinging items with id %s in count %s", id, count);
 		if (Security.isConnected()) {
 			Logger.debug(">>> Connected user login: %s", Security.connected());
-			EndUser user = (EndUser) renderArgs.get(USER_RENDER_KEY);
+			EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 			Order order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
 					user, OrderStatus.OPEN).first();
 			if (order == null) {
@@ -284,7 +303,7 @@ public class Application extends Controller {
 	public static void basket() {
 		Logger.debug(">>> Entering basket");
 		Order order = null;
-		EndUser user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user != null) {
 			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
 					OrderStatus.OPEN).first();
@@ -352,6 +371,41 @@ public class Application extends Controller {
 		o.create();
 		Logger.debug(">>> Created new order: %s", o.toString());
 		return o;
+	}
+	//FIXME fix guess sistem
+	private static City guessCity(String ip) {
+		Boolean guessByIp = (Boolean) Cache.get(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED);
+		if (guessByIp == null){
+			String guessIpEnabled = PropertyVault.getSystemValueFor(SystemSetting.KEYS.GUESS_CITY_ENABLED);
+			guessByIp = Boolean.valueOf(guessIpEnabled);
+			Cache.set(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED, guessByIp, "8h");
+		}
+		if (!guessByIp){
+			return getSystemDefaultCity();
+		}
+		IpGeoData igdata = IpGeoData.find(IpGeoData.HQL.BY_IP, ip).first();
+		if (igdata == null){
+			igdata= await (GeoDataHelper.requestFromExternalServer(ip));
+		}
+		if (igdata == null || igdata.city == null){
+			return getSystemDefaultCity();
+		}
+		return igdata.city;
+	}
+
+	private static City getSystemDefaultCity() {
+		City city = (City) Cache.get(CACHE_KEYS.DEFAULT_CITY);
+		if (city == null){
+			String defCityId = PropertyVault.getSystemValueFor(SystemSetting.KEYS.DEFAULT_CITY_ID);
+			if (defCityId == null){
+				city = City.findById(SystemSetting.DEFAULT_VALUES.DEFAULT_CITY_ID);
+			} else {
+				city = City.findById(Long.valueOf(defCityId));
+			}
+			Cache.set(CACHE_KEYS.DEFAULT_CITY, city);
+		}
+		
+		return city ;
 	}
 
 }

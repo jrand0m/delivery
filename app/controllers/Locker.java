@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import controllers.Bookkeeper.RENDER_KEYS;
+
 import models.Order;
 import models.geo.UserAddress;
 import models.users.EndUser;
@@ -18,6 +20,13 @@ import play.mvc.With;
  * */
 @With(Secure.class)
 public class Locker extends Controller {
+	
+	public static final class RENDER_KEYS{
+
+		public static final String USER = "user";
+		
+	}
+	
 	@Before
 	public static void __prepare() {
 		Logger.debug(">>> Accesing locker %s ? %s", Security.connected(),
@@ -35,7 +44,7 @@ public class Locker extends Controller {
 			Logger.debug(">>> locker -> user is null -> forbidden");
 			forbidden();
 		}
-		renderArgs.put(Application.USER_RENDER_KEY, user);
+		renderArgs.put(RENDER_KEYS.USER, user);
 	}
 
 	/**
@@ -43,7 +52,7 @@ public class Locker extends Controller {
 	 */
 	public static void index() {
 		Logger.debug(">>> Entering index");
-		EndUser user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 
 		List<UserAddress> addressList = user.addressBook;
 
@@ -56,7 +65,7 @@ public class Locker extends Controller {
 		if (address == null) {
 			redirect(Router.getFullUrl("Locker.index"));
 		}
-		address.user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
+		address.user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		address.create();
 		// TODO in future do it asynchronously!
 		todo();
@@ -68,7 +77,7 @@ public class Locker extends Controller {
 			error("Data inconsistency detected");
 		}
 
-		address.user = (EndUser) renderArgs.get(Application.USER_RENDER_KEY);
+		address.user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		UserAddress base = UserAddress.findById(address.id);
 		if (!address.equals(base)) {
 			// TODO Make logging

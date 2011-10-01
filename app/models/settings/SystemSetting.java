@@ -21,6 +21,14 @@ public class SystemSetting extends Model {
 		public static final String SYSTEMSETTING_STARTDATE = "startDate";
 		public static final String SYSTEMSETTING_ENDDATE = "endDate";
 	}
+	
+	public static final class KEYS {
+		public static final String DEFAULT_CITY_ID = "defaultCityId";
+		public static final String GUESS_CITY_ENABLED = "guessCityByIpEnabled";
+	}
+	public static final class DEFAULT_VALUES{
+		public static final long DEFAULT_CITY_ID = 1;
+	}
 
 	@Required
 	@Min(3)

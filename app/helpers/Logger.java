@@ -40,4 +40,34 @@ public class Logger {
 		syslog.info = String.format(message, objects);
 		syslog.create();
 	}
+	public static void logSystemWarn(LogActionType type, String message,
+			Object... objects) {
+		play.Logger.warn(message, objects);
+		SystemLog syslog = new SystemLog();
+		syslog.actionType = type;
+		syslog.date = new Date();
+		syslog.level = LogLevel.WARN;
+		syslog.info = String.format(message, objects);
+		syslog.create();
+	}
+	public static void logSystemDebug(LogActionType type, String message,
+			Object... objects) {
+		play.Logger.debug(message, objects);
+		SystemLog syslog = new SystemLog();
+		syslog.actionType = type;
+		syslog.date = new Date();
+		syslog.level = LogLevel.DEBUG;
+		syslog.info = String.format(message, objects);
+		syslog.create();
+	}
+	public static void logSystemError(LogActionType type, String message,
+			Object... objects) {
+		play.Logger.error(message, objects);
+		SystemLog syslog = new SystemLog();
+		syslog.actionType = type;
+		syslog.date = new Date();
+		syslog.level = LogLevel.ERROR;
+		syslog.info = String.format(message, objects);
+		syslog.create();
+	}
 }
