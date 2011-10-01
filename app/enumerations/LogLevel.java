@@ -8,5 +8,5 @@ package enumerations;
  * 
  */
 public enum LogLevel {
-    ERROR, WARN, INFO, DEBUG,
+	ERROR, WARN, INFO, DEBUG,
 }

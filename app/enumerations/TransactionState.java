@@ -9,6 +9,6 @@ package enumerations;
  */
 public enum TransactionState {
 
-    APPROVED, PAID, RECIEVED, WAITING;
+	APPROVED, PAID, RECIEVED, WAITING;
 
 }

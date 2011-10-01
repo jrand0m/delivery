@@ -16,41 +16,48 @@ import play.db.jpa.Model;
 @DiscriminatorColumn(name = "DAY_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("BASIC_DAY")
 public class Day extends Model {
-    public static final class FIELDS {
-	public static final String DAY_FROM = "from";
-	public static final String DAY_TO = "to";
-	public static final String ROOT = "root";
-    }
-    public static final Day NOTSPECIFIED = new Day();  
-    final static public String TIME_FORMAT = "HH:mm";
-    @Column(name = "from_time")
-    public String from;
-    @Column(name = "to_time")
-    public String to;
-    @ManyToOne
-    public WorkHours root; 
-    /* (non-Javadoc)
-     * @see play.db.jpa.JPABase#toString()
-     */
-    @Override
-    public String toString() {
-        return from + " - " + to;
-    }
-    /**
-     * 
-     */
-    public Day() {
+	public static final class FIELDS {
+		public static final String DAY_FROM = "from";
+		public static final String DAY_TO = "to";
+		public static final String ROOT = "root";
+	}
 
-    }
-    
-    
-    /*
-     * (non-Javadoc)
+	public static final Day NOTSPECIFIED = new Day();
+	final static public String TIME_FORMAT = "HH:mm";
+	@Column(name = "from_time")
+	public String from;
+	@Column(name = "to_time")
+	public String to;
+	@ManyToOne
+	public WorkHours root;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see play.db.jpa.JPABase#toString()
+	 */
+	@Override
+	public String toString() {
+		return from + " - " + to;
+	}
+
+	/**
      * 
-     * @see play.db.jpa.JPABase#equals(java.lang.Object)
      */
-    @Override
-    public boolean equals(Object other) {
-	return super.equals(other) && other instanceof Day? to.equalsIgnoreCase(((Day)other).to) && from.equalsIgnoreCase(((Day)other).from)&& root.equals(((Day)other).root):false ;
-    }
+	public Day() {
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see play.db.jpa.JPABase#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object other) {
+		return super.equals(other) && other instanceof Day ? to
+				.equalsIgnoreCase(((Day) other).to)
+				&& from.equalsIgnoreCase(((Day) other).from)
+				&& root.equals(((Day) other).root) : false;
+	}
 }

@@ -12,25 +12,25 @@ import models.OrderItem;
  * 
  */
 public class MenuItem {
-    /**
-     * @param oi
-     */
-    public MenuItem(OrderItem oi) {
-	count = oi.count;
-	name = oi.menuItem.name;
-	pricePerItem = oi.menuItem.price;
-	// check for components
-    }
+	/**
+	 * @param oi
+	 */
+	public MenuItem(OrderItem oi) {
+		count = oi.count;
+		name = oi.menuItem.name;
+		pricePerItem = oi.menuItem.price;
+		// check for components
+	}
 
-    /**
-     * default eblja
-     */
-    public MenuItem() {
-	// TODO Auto-generated constructor stub
-    }
+	/**
+	 * default eblja
+	 */
+	public MenuItem() {
+		// TODO Auto-generated constructor stub
+	}
 
-    public String name;
-    public Integer count;
-    public Integer pricePerItem;
-    public List<MenuItem> components;
+	public String name;
+	public Integer count;
+	public Integer pricePerItem;
+	public List<MenuItem> components;
 }

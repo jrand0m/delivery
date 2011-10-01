@@ -23,20 +23,20 @@ import play.db.jpa.Model;
 @Entity
 @Table(name = "RestaurantLogs")
 public class RestaurantLog extends Model {
-    public static final class FIELDS {
-	public static final String RESTAURANTLOG_RESTAURANT = "restaurant";
-	public static final String RESTAURANTLOG_ACTIONTYPE = "actionType";
-	public static final String RESTAURANTLOG_LEVEL = "level";
-	public static final String RESTAURANTLOG_DATE = "date";
-	public static final String RESTAURANTLOG_INFO = "info";
-    }
+	public static final class FIELDS {
+		public static final String RESTAURANTLOG_RESTAURANT = "restaurant";
+		public static final String RESTAURANTLOG_ACTIONTYPE = "actionType";
+		public static final String RESTAURANTLOG_LEVEL = "level";
+		public static final String RESTAURANTLOG_DATE = "date";
+		public static final String RESTAURANTLOG_INFO = "info";
+	}
 
-    public Restaurant restaurant;
-    @Enumerated(value = EnumType.STRING)
-    public LogActionType actionType;
-    @Enumerated(value = EnumType.STRING)
-    public LogLevel level;
+	public Restaurant restaurant;
+	@Enumerated(value = EnumType.STRING)
+	public LogActionType actionType;
+	@Enumerated(value = EnumType.STRING)
+	public LogLevel level;
 
-    public Date date;
-    public String info;
+	public Date date;
+	public String info;
 }

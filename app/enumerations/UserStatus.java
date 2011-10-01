@@ -8,5 +8,5 @@ package enumerations;
  * 
  */
 public enum UserStatus {
-    ACTIVE, BANNED, PENDING_APPROVEMENT;
+	ACTIVE, BANNED, PENDING_APPROVEMENT;
 }

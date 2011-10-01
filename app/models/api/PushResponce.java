@@ -1,8 +1,9 @@
 package models.api;
+
 /**
  * @deprecated
  * */
 public class PushResponce {
-	//time in seconds;
+	// time in seconds;
 	public Long sec;
 }

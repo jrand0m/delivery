@@ -6,5 +6,5 @@ package enumerations;
  * regular job Info for miscellaneous info PING special type for device pings
  * */
 public enum LogActionType {
-    CHANGE, DUMP, JOB, INFO, PING
+	CHANGE, DUMP, JOB, INFO, PING
 }

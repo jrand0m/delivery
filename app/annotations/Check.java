@@ -16,15 +16,15 @@ import enumerations.UserRoles;
 @Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface Check {
 
-    /**
-     * roles to check (array of strings eg.
-     * 
-     * <pre>
-     * @Check(value = { "ADMIN", "RESTAURANT", "OTHR" })
-     * </pre>
-     * 
-     * )
-     * */
-    UserRoles[] value();
+	/**
+	 * roles to check (array of strings eg.
+	 * 
+	 * <pre>
+	 * @Check(value = { "ADMIN", "RESTAURANT", "OTHR" })
+	 * </pre>
+	 * 
+	 * )
+	 * */
+	UserRoles[] value();
 
 }

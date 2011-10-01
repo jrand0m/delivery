@@ -19,25 +19,25 @@ import models.logging.SystemLog;
  * @author Mike TODO Write logger wrapper!
  */
 public class Logger {
-    public static void logDevicePing(GenericDevice device) {
-	DeviceLog log = new DeviceLog();
-	log.device = device;
-	log.actionType = LogActionType.PING;
-	log.level = LogLevel.INFO;
-	log.date = new Date();
-	log.info = "access time log";
-	log.create();
-	play.Logger.debug("Device %s ping logged", device.id);
-    }
+	public static void logDevicePing(GenericDevice device) {
+		DeviceLog log = new DeviceLog();
+		log.device = device;
+		log.actionType = LogActionType.PING;
+		log.level = LogLevel.INFO;
+		log.date = new Date();
+		log.info = "access time log";
+		log.create();
+		play.Logger.debug("Device %s ping logged", device.id);
+	}
 
-    public static void logSystemInfo(LogActionType type, String message,
-	    Object... objects) {
-	play.Logger.info(message, objects);
-	SystemLog syslog = new SystemLog();
-	syslog.actionType = type;
-	syslog.date = new Date();
-	syslog.level = LogLevel.INFO;
-	syslog.info = String.format(message, objects);
-	syslog.create();
-    }
+	public static void logSystemInfo(LogActionType type, String message,
+			Object... objects) {
+		play.Logger.info(message, objects);
+		SystemLog syslog = new SystemLog();
+		syslog.actionType = type;
+		syslog.date = new Date();
+		syslog.level = LogLevel.INFO;
+		syslog.info = String.format(message, objects);
+		syslog.create();
+	}
 }

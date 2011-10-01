@@ -8,5 +8,5 @@ package enumerations;
  * 
  */
 public enum DeviceStatus {
-    ACTIVE, DEACTIVATED,
+	ACTIVE, DEACTIVATED,
 }

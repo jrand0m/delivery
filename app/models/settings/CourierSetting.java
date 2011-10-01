@@ -15,34 +15,34 @@ import play.db.jpa.Model;
 @Entity
 @Table(name = "CourierSettings")
 public class CourierSetting extends Model {
-    public static final class FIELDS {
-	public static final String COURIERSETTING_stg_key = "stg_key";
-	public static final String COURIERSETTING_stg_value = "stg_value";
-	public static final String COURIERSETTING_ISDEFAULT = "isDefault";
-	public static final String COURIERSETTING_STARTDATE = "startDate";
-	public static final String COURIERSETTING_ENDDATE = "endDate";
-	public static final String COURIERSETTING_COURIER = "courier";
-    }
+	public static final class FIELDS {
+		public static final String COURIERSETTING_stg_key = "stg_key";
+		public static final String COURIERSETTING_stg_value = "stg_value";
+		public static final String COURIERSETTING_ISDEFAULT = "isDefault";
+		public static final String COURIERSETTING_STARTDATE = "startDate";
+		public static final String COURIERSETTING_ENDDATE = "endDate";
+		public static final String COURIERSETTING_COURIER = "courier";
+	}
 
-    @Required
-    @Min(3)
-    @Max(32)
-    @Column(name = "_stg_key")
-    public String stg_key;
-    @Required
-    @Min(1)
-    @Column(name = "_stg_value")
-    public String stg_value;
-    @Required
-    public boolean isDefault = false;
-    /**
-     * if null than no date
-     * */
-    public Date startDate;
-    /**
-     * if null than no date
-     * */
-    public Date endDate;
-    public Courier courier;
+	@Required
+	@Min(3)
+	@Max(32)
+	@Column(name = "_stg_key")
+	public String stg_key;
+	@Required
+	@Min(1)
+	@Column(name = "_stg_value")
+	public String stg_value;
+	@Required
+	public boolean isDefault = false;
+	/**
+	 * if null than no date
+	 * */
+	public Date startDate;
+	/**
+	 * if null than no date
+	 * */
+	public Date endDate;
+	public Courier courier;
 
 }

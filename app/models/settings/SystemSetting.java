@@ -14,31 +14,31 @@ import play.db.jpa.Model;
 @Entity
 @Table(name = "SystemSettings")
 public class SystemSetting extends Model {
-    public static final class FIELDS {
-	public static final String SYSTEMSETTING_stg_key = "stg_key";
-	public static final String SYSTEMSETTING_stg_value = "stg_value";
-	public static final String SYSTEMSETTING_ISDEFAULT_SETTING = "isDefaultSetting";
-	public static final String SYSTEMSETTING_STARTDATE = "startDate";
-	public static final String SYSTEMSETTING_ENDDATE = "endDate";
-    }
+	public static final class FIELDS {
+		public static final String SYSTEMSETTING_stg_key = "stg_key";
+		public static final String SYSTEMSETTING_stg_value = "stg_value";
+		public static final String SYSTEMSETTING_ISDEFAULT_SETTING = "isDefaultSetting";
+		public static final String SYSTEMSETTING_STARTDATE = "startDate";
+		public static final String SYSTEMSETTING_ENDDATE = "endDate";
+	}
 
-    @Required
-    @Min(3)
-    @Max(32)
-    @Column(name = "_stg_key")
-    public String stg_key;
-    @Required
-    @Min(1)
-    @Column(name = "_stg_value")
-    public String stg_value;
-    @Required
-    public boolean isDefaultSetting = false;
-    /**
-     * if null than no date
-     * */
-    public Date startDate;
-    /**
-     * if null than no date
-     * */
-    public Date endDate;
+	@Required
+	@Min(3)
+	@Max(32)
+	@Column(name = "_stg_key")
+	public String stg_key;
+	@Required
+	@Min(1)
+	@Column(name = "_stg_value")
+	public String stg_value;
+	@Required
+	public boolean isDefaultSetting = false;
+	/**
+	 * if null than no date
+	 * */
+	public Date startDate;
+	/**
+	 * if null than no date
+	 * */
+	public Date endDate;
 }
