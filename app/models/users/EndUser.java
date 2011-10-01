@@ -29,12 +29,13 @@ import enumerations.UserRoles;
  */
 @Entity
 public class EndUser extends User {
-    public static final class FIELDS {
-        public static final String USER_ADDRESS_BOOK = "addressBook";
-        public static final String USER_ORDER_BOOK = "orderBook";
-    }
-    @OneToMany(mappedBy = UserAddress.FIELDS.USER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<UserAddress> addressBook;
-    @OneToMany(mappedBy = Order.FIELDS.ORDER_OWNER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Order> orderBook;
+	public static final class FIELDS {
+		public static final String USER_ADDRESS_BOOK = "addressBook";
+		public static final String USER_ORDER_BOOK = "orderBook";
+	}
+
+	@OneToMany(mappedBy = UserAddress.FIELDS.USER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	public List<UserAddress> addressBook;
+	@OneToMany(mappedBy = Order.FIELDS.ORDER_OWNER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	public List<Order> orderBook;
 }

@@ -8,10 +8,10 @@ import javax.persistence.Entity;
 
 /**
  * @author Mike
- *
+ * 
  */
 @Entity
 @DiscriminatorValue("A")
 public class RestaurantAdministration extends RestaurantUser {
-    
+
 }

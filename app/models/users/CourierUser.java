@@ -10,13 +10,13 @@ import models.device.CourierDevice;
 
 /**
  * @author Mike
- *
+ * 
  */
 @Entity
 public class CourierUser extends User {
-    @OneToOne
-    public CourierDevice device;
-    public Integer sallary = 0;
-    public Integer gasPayment = 0;
-    
+	@OneToOne
+	public CourierDevice device;
+	public Integer sallary = 0;
+	public Integer gasPayment = 0;
+
 }

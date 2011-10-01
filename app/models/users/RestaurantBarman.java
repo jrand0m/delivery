@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 /**
  * @author Mike
- *
+ * 
  */
 @Entity
 @DiscriminatorValue("B")

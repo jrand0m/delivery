@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("USER_DEVICE")
 public class UserDevice extends GenericDevice {
-    public static final class FIELDS {
-	// public static final String = "";
-    }
+	public static final class FIELDS {
+		// public static final String = "";
+	}
 }
