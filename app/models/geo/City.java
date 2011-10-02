@@ -6,6 +6,7 @@ package models.geo;
 import javax.persistence.Entity;
 
 import play.db.jpa.Model;
+import play.i18n.Lang;
 
 /**
  * @author Mike
@@ -32,4 +33,13 @@ public class City extends Model {
 	public Integer zipStart;
 	public Integer zipEnd;
 	public boolean display = false;
+	public String getLocalizedName(){
+		if ("ua".equalsIgnoreCase(Lang.get())){
+			return cityNameUA;
+		}else if ("ru".equalsIgnoreCase(Lang.get())){
+			return cityNameRU;
+		}else if ("en".equalsIgnoreCase(Lang.get())){
+			return cityNameEN;
+		} else return cityNameUA; 
+	}
 }
