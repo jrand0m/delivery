@@ -1,7 +1,9 @@
 $(document).ready(function() {
+			$('p.selText').text($('.selected').text());
 			$("p.selText").click(function(){
 				$('ul.selDrop').slideToggle();
 			});
+			
 			$("ul.selDrop li").click(function(){
 				$('p.selText').text($(this).text());
 				$('ul.selDrop li').removeClass('selected');
