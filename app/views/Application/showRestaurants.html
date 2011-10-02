@@ -8,8 +8,9 @@
 <div class="selWrap">
 	<p id="selText1" class="selText"></p>
 	<ul id="selDrop1" class="selDrop">
-		<li>Львів</li>
-		<li class="selected">Київ</li>
+#{list items:cities, as:'city' }
+		<li id ="${city.getId()}" class=" ${city.getId().toString()==session.get(controllers.Application.SESSION_KEYS.CITY_ID)?'selected':''  }" >${city.getLocalizedName()},</li>
+#{/list}
 	</ul>
 </div>
 
