@@ -2,6 +2,7 @@ package controllers;
 
 import helpers.CACHE_KEYS;
 import helpers.GeoDataHelper;
+import helpers.OrderUtils;
 import helpers.PropertyVault;
 
 import java.io.FileInputStream;
@@ -22,7 +23,9 @@ import models.Restaurant;
 import models.RestaurantNetwork;
 import models.geo.City;
 import models.geo.IpGeoData;
+import models.geo.IpGeoData.HQL;
 import models.settings.SystemSetting;
+import models.settings.SystemSetting.KEYS;
 import models.users.EndUser;
 import play.Logger;
 import play.Play;
@@ -55,7 +58,7 @@ public class Application extends Controller {
 		renderText("Cleared db and forsed fixture load");
 	}
 
-	@Before
+	@Before(unless = {"serveLogo"}/*unless = {"getCurrentUser","guessCity","deleteOrRemOrderItem","createNewOpenOrder", "createOrAddOrderItem", }*/)
 	public static void _prepare() {
 		EndUser user = getCurrentUser();
 		renderArgs.put(RENDER_KEYS.USER, user);
@@ -73,12 +76,9 @@ public class Application extends Controller {
 		} else {
 			renderArgs.put("basketCount", 0);
 		}
-		
-		if (!request.cookies.containsKey(SESSION_KEYS.CITY_ID)){
+		if (!session.contains(SESSION_KEYS.CITY_ID)){
 			Logger.debug("No city defined in cookies");
-			response.setCookie(SESSION_KEYS.CITY_ID,  guessCity(request.remoteAddress).getId().toString(), "14d") ;
-		}else {
-			session.put(SESSION_KEYS.CITY_ID, request.cookies.get(SESSION_KEYS.CITY_ID));
+			session.put(SESSION_KEYS.CITY_ID, Application.guessCity(request.remoteAddress).getId() );
 		}
 	}
 
@@ -93,7 +93,7 @@ public class Application extends Controller {
 					OrderStatus.OPEN, session.getId()).first();
 		}
 		if (order == null) {
-			order = createNewOpenOrder(null);
+			order = Application.createNewOpenOrder(null);
 		}
 		renderArgs.put("order", order);
 		render("/Application/prepareOrder.html");
@@ -105,18 +105,7 @@ public class Application extends Controller {
 		if (restaurants == null) {
 			String cityId = session.get(SESSION_KEYS.CITY_ID);
 			//TODO decide whether to cache city
-			Long id   = 0L;
-			City city = null;
-			try {
-				 id = Long.valueOf(cityId);
-				 city = City.findById(id);
-			}catch(NumberFormatException ex) {
-				Logger.warn(ex,"Bad format for city id (%s)", cityId);
-			}
-			if (city == null){
-				city = getSystemDefaultCity();
-			}
-			
+			City city = City.findById(Long.valueOf(cityId));
 			restaurants = Restaurant.find(Restaurant.HQL.BY_CITY_AND_SHOW_ON_INDEX, city, true).fetch(4);
 			Cache.set(CACHE_KEYS.INDEX_PAGE_RESTAURANTS+cityId, restaurants, "8h");
 		}
@@ -189,7 +178,7 @@ public class Application extends Controller {
 					user, OrderStatus.OPEN).first();
 			if (order == null) {
 				Logger.debug(">>> No open order found, creating one..");
-				order = createNewOpenOrder(user);
+				order = Application.createNewOpenOrder(user);
 			}
 			createOrAddOrderItem(id, order, count);
 			Logger.debug(">>> Order item added, sending ok response");
@@ -200,7 +189,7 @@ public class Application extends Controller {
 			Order order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
 					OrderStatus.OPEN, bid).first();
 			if (order == null) {
-				order = createNewOpenOrder(null);
+				order = Application.createNewOpenOrder(null);
 			}
 			createOrAddOrderItem(id, order, count);
 		}
@@ -227,7 +216,7 @@ public class Application extends Controller {
 			Order order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
 					OrderStatus.OPEN, bid).first();
 			if (order == null) {
-				order = createNewOpenOrder(null);
+				order = Application.createNewOpenOrder(null);
 			}
 			deleteOrRemOrderItem(id, order, count);
 		}
@@ -244,7 +233,7 @@ public class Application extends Controller {
 				">>> deleting or decreasinf item %s for order #%s, count %s",
 				id, order.id, count);
 		Logger.debug(">>> session id: %s", session.getId());
-		count = normalizeCount(count);
+		count = OrderUtils.normalizeCount(count);
 		MenuItem menuItem = MenuItem.findById(id);
 		OrderItem orderitem = OrderItem.find(
 				OrderItem.HQL.BY_ORDER_AND_MENU_ITEM, order, menuItem).first();
@@ -274,7 +263,7 @@ public class Application extends Controller {
 	private static void createOrAddOrderItem(Long menuItemId, Order order,
 			Integer count) {
 
-		count = normalizeCount(count);
+		count = OrderUtils.normalizeCount(count);
 		MenuItem menuItem = MenuItem.findById(menuItemId);
 		if (menuItem == null) {
 			Logger.warn("MenuItem not found:  %s", menuItemId.toString());
@@ -330,7 +319,7 @@ public class Application extends Controller {
 					OrderStatus.OPEN, session.getId()).first();
 		}
 		if (order == null) {
-			order = createNewOpenOrder(null);
+			order = Application.createNewOpenOrder(null);
 		}
 		renderArgs.put("order", order);
 		render();
@@ -343,6 +332,17 @@ public class Application extends Controller {
 	public static void changeLang(String lang) {
 		Lang.change(lang);
 		index();
+	}
+	
+	public static void changeCity(Long id){
+		Logger.debug("changing city to id = %s", id);
+		City city  = City.findById(id);
+		if (city == null){
+			session.put(SESSION_KEYS.CITY_ID, GeoDataHelper.getSystemDefaultCity().getId().toString());
+		} else {
+			session.put(SESSION_KEYS.CITY_ID, id.toString() );
+		}
+		redirect("/");
 	}
 
 	public static void serveLogo(long id) throws IOException {
@@ -359,18 +359,27 @@ public class Application extends Controller {
 		renderBinary(is);
 	}
 
-	/**
-	 * @param count
-	 * @return value within range [1;64]
-	 */
-	private static Integer normalizeCount(Integer count) {
-		count = Math.abs(count);
-		if (count > MAX_ITEM_COUNT_PER_ORDER) {
-			return MAX_ITEM_COUNT_PER_ORDER;
-		} else if (count == 0) {
-			return 1;
+	//FIXME fix guess sistem
+	private static City guessCity(String ip) {
+		Boolean guessByIp = (Boolean) Cache.get(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED);
+		if (guessByIp == null){
+			String guessIpEnabled = PropertyVault.getSystemValueFor(SystemSetting.KEYS.GUESS_CITY_ENABLED);
+			guessByIp = Boolean.valueOf(guessIpEnabled);
+			Cache.set(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED, guessByIp, "8h");
 		}
-		return count;
+		if (!guessByIp){
+			play.Logger.debug("Guessing disabled, returning default");
+			return GeoDataHelper.getSystemDefaultCity();
+		}
+		play.Logger.debug("Guessing enabled, trying to guess city by ip");
+		IpGeoData igdata = IpGeoData.find(IpGeoData.HQL.BY_IP, ip).first();
+		if (igdata == null){
+			igdata= await (GeoDataHelper.requestFromExternalServer(ip));
+		}
+		if (igdata == null || igdata.city == null){
+			return GeoDataHelper.getSystemDefaultCity();
+		}
+		return igdata.city;
 	}
 
 	/**
@@ -389,43 +398,6 @@ public class Application extends Controller {
 		o.create();
 		Logger.debug(">>> Created new order: %s", o.toString());
 		return o;
-	}
-	//FIXME fix guess sistem
-	private static City guessCity(String ip) {
-		Boolean guessByIp = (Boolean) Cache.get(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED);
-		if (guessByIp == null){
-			String guessIpEnabled = PropertyVault.getSystemValueFor(SystemSetting.KEYS.GUESS_CITY_ENABLED);
-			guessByIp = Boolean.valueOf(guessIpEnabled);
-			Cache.set(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED, guessByIp, "8h");
-		}
-		if (!guessByIp){
-			play.Logger.debug("Guessing disabled, returning default");
-			return getSystemDefaultCity();
-		}
-		play.Logger.debug("Guessing enabled, trying to guess city by ip");
-		IpGeoData igdata = IpGeoData.find(IpGeoData.HQL.BY_IP, ip).first();
-		if (igdata == null){
-			igdata= await (GeoDataHelper.requestFromExternalServer(ip));
-		}
-		if (igdata == null || igdata.city == null){
-			return getSystemDefaultCity();
-		}
-		return igdata.city;
-	}
-
-	private static City getSystemDefaultCity() {
-		City city = (City) Cache.get(CACHE_KEYS.DEFAULT_CITY);
-		if (city == null){
-			String defCityId = PropertyVault.getSystemValueFor(SystemSetting.KEYS.DEFAULT_CITY_ID);
-			if (defCityId == null){
-				city = City.findById(SystemSetting.DEFAULT_VALUES.DEFAULT_CITY_ID);
-			} else {
-				city = City.findById(Long.valueOf(defCityId));
-			}
-			Cache.set(CACHE_KEYS.DEFAULT_CITY, city);
-		}
-		
-		return city ;
 	}
 
 }
