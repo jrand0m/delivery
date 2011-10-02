@@ -51,10 +51,6 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul{backgr
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li{cursor: pointer; color: #000; text-align: center; display: block; font-size: 17px; text-decoration: none}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li:hover, div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li.selected{background-color: #e6e6e6;}
 
-
-
-
-
 div#wrapper div#wrapper_inner div#content{padding-top: 15px;}
 div#wrapper div#wrapper_inner div#content div.main_cont{padding-bottom: 10px;}
 div.rest_item_prev{width: 230px; margin-left: 18px; padding-bottom: 20px; float: left; border-radius: 5px; border: 1px solid #b3b3b3; }
@@ -81,7 +77,7 @@ div.rest_network_view{background-color: #fc7c0d;}
 
 div#wrapper div#wrapper_inner div#content div.left_cont{width: 680px; float: left;}
 div#wrapper div#wrapper_inner div#content div.right_cont{width: 295px; float: right; padding-right: 2px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1 span{font-size: 13px; /*display: block;*/ margin-left: 7px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1 a{font-family: Tahoma; font-size: 13px; font-weight: bold; position: absolute; right: 10px; top: 3px;}
@@ -91,10 +87,12 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.r
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.img_wrap img{vertical-align: middle; max-width: 150px; max-height: 100px}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties{float: left; width: 190px; margin-left: 15px; font-size: 18px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description {float: right; width: 285px; padding-right: 5px; position: relative; min-height: 110px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description a.menu{position: absolute; bottom: 5px; right: 0; text-align: center; text-decoration: none; background: url(/public/images/menu_but_bg.gif) repeat-x scroll 0 0 transparent; height: 34px; line-height: 34px; width: 160px; border: 1px solid #C03409; border-radius: 3px 3px 3px 3px; color: #000000; display: inline-block; font-size: 19px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description a.menu{position: absolute; bottom: 5px; right: 0; text-align: center; text-decoration: none; background: url(/public/images/menu_but_bg2.gif) repeat-x scroll 0 0 transparent; height: 34px; line-height: 34px; width: 160px; border: 1px solid #C03409; border-radius: 3px 3px 3px 3px; color: #000000; display: inline-block; font-size: 19px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description p{max-height: 66px; overflow: hidden; font-size: 13.5px; line-height: 16px;}
 
-div#wrapper div#wrapper_inner div#content div.right_cont div.right_block{width: 295px; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block{width: 295px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.advert{border-radius: 0; border: 0;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.advert a img{border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.right_block h1{background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.right_block div.rb_cont{padding: 5px;}
 
