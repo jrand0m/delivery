@@ -12,6 +12,11 @@ import enumerations.LogActionType;
 import models.geo.City;
 import models.geo.Coordinates;
 import models.geo.IpGeoData;
+import models.geo.IpGeoData.HQL;
+import models.settings.SystemSetting;
+import models.settings.SystemSetting.DEFAULT_VALUES;
+import models.settings.SystemSetting.KEYS;
+import play.cache.Cache;
 import play.libs.F.Promise;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
@@ -107,5 +112,20 @@ public class GeoDataHelper {
 		});
 		geoDataFetchThread.start();
 		return geoDataPromise;
+	}
+
+	public static City getSystemDefaultCity() {
+		City city = (City) Cache.get(CACHE_KEYS.DEFAULT_CITY);
+		if (city == null){
+			String defCityId = PropertyVault.getSystemValueFor(SystemSetting.KEYS.DEFAULT_CITY_ID);
+			if (defCityId == null){
+				city = City.findById(SystemSetting.DEFAULT_VALUES.DEFAULT_CITY_ID);
+			} else {
+				city = City.findById(Long.valueOf(defCityId));
+			}
+			Cache.set(CACHE_KEYS.DEFAULT_CITY, city);
+		}
+		
+		return city ;
 	}
 }
