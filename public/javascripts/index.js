@@ -1,12 +1,12 @@
 $(document).ready(function() {
-			$("p").click(function(){
-				$('ul').slideToggle();
+			$("p.selText").click(function(){
+				$('ul.selDrop').slideToggle();
 			});
-			$("li").click(function(){
-				$('p').text($(this).text());
-				$('li').removeClass('selected');
+			$("ul.selDrop li").click(function(){
+				$('p.selText').text($(this).text());
+				$('ul.selDrop li').removeClass('selected');
 				$(this).addClass('selected');
-				$('ul').slideToggle();
-				
+				console.log($(this));
+				$('ul.selDrop').slideToggle();
 			});
 });

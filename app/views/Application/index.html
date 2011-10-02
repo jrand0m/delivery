@@ -6,12 +6,15 @@
 #{set 'breadCrumb'}
 
 					<form class="search jNice wrap" action="#">
-						<p>Знайди свій улюблений ресторан</p>
-						<ul>
+						<label for="inpec01">Знайди свій улюблений ресторан</label>
+						<div class="selWrap">
+						<p class="selText"></p>
+						<ul class="selDrop">
 #{list items:cities, as:'city' }
 		<li id ="${city.getId()}" class=" ${city.getId().toString()==session.get(controllers.Application.SESSION_KEYS.CITY_ID)?'selected':''  }" >${city.getLocalizedName()},</li>
 #{/list}
 						</ul>
+						</div>
 						<input type="text" value="" name="you_restraunt" id="inpec01" />
 						<input type="submit" class="submit" name="you_restraunt_submit" value="" />
 					</form>
