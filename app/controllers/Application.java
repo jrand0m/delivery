@@ -106,6 +106,9 @@ public class Application extends Controller {
 			String cityId = session.get(SESSION_KEYS.CITY_ID);
 			//TODO decide whether to cache city
 			City city = City.findById(Long.valueOf(cityId));
+			if (city == null){
+				city = getSystemDefaultCity();
+			}
 			restaurants = Restaurant.find(Restaurant.HQL.BY_CITY_AND_SHOW_ON_INDEX, city, true).fetch(4);
 			Cache.set(CACHE_KEYS.INDEX_PAGE_RESTAURANTS+cityId, restaurants, "8h");
 		}
