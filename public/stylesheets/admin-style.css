@@ -22,7 +22,7 @@ div#wrapper div#content {float:left;width: 930px; margin-left:13px; padding: 15p
 div#wrapper div#content p{margin-bottom: 5px; line-height: 18px; text-indent: 5px;}
 div#wrapper div#content div#left_cont {width:770px; float:left;}
 div#wrapper div#content div#left_cont .top_left_cont{width:758px; border-radius: 10px; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; margin-bottom: 5px; }
-div#wrapper div#content h1{background: url(../img/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border-radius: 5px 5px 0 0; font-size: 16px; font-weight: normal; height: 21px; line-height: 24px; margin-bottom: 5px; padding: 0 11px 5px;}
+div#wrapper div#content h1{background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border-radius: 5px 5px 0 0; font-size: 16px; font-weight: normal; height: 21px; line-height: 24px; margin-bottom: 5px; padding: 0 11px 5px;}
 div#wrapper div#content h1:first-letter{color: #ff1199; text-transform: uppercase;}
 div#wrapper div#content div#left_cont .left_left_cont {width: 395px; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: left; margin-bottom:5px;}
 div#wrapper div#content div#left_cont .right_left_cont {width: 345px; margin-right: 10px; float: right;  border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; margin-bottom: 5px;}
@@ -32,7 +32,7 @@ div#wrapper div#content div.inner_div {padding: 5px 10px;}
 div#wrapper div#footer{background-color: #fff; text-align: center; line-height: 50px; float: left; width: 970px; height: 50px; border: 2px solid #000; border-bottom: none; border-radius: 15px 15px 0 0;}
 div#wrapper div#footer a{font-size: 26px; text-shadow: 4px 3px 2px #A6A7A7; text-decoration: none; color: #df544a;}
 
-div#wrapper div#header div.header_top{margin-bottom: 15px;min-height: 75px; background: url(../img/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
+div#wrapper div#header div.header_top{margin-bottom: 15px;min-height: 75px; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 *+html div#wrapper div#header div.header_top{height: 75px;}
 div#wrapper div#header div.header_top a.logo{float: left; margin-left: 9px; margin-top: -10px;}
 div#wrapper div#header div.header_top h1{color: #000; font-weight: normal; display: inline; margin-top: 6px; text-shadow: 1px 1px 1px #E6E6E6; filter: Shadow(Color=#E6E6E6, Direction=45, Strength=2);}
