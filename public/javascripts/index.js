@@ -9,12 +9,10 @@ $(document).ready(function() {
 				$('ul.selDrop li').removeClass('selected');
 				$(this).addClass('selected');
 				
-				var olo = $.cookie('PLAY_SESSION',{ raw: true });
+			//	var olo = $.cookie('city',{ raw: true });
+				//$.cookie('city', $(this).context.id, { raw: true,expires: 7} );
 				
-				olo = olo.replace( new RegExp('(city%3A)[0-9]'), 'city%3A'+$(this).context.id );
-				$.cookie('PLAY_SESSION', olo, { raw: true,expires: 7} );
-				
-				window.location.href = document.location;
+				window.location.href = '/changeCity?id=' + $(this).context.id ;
 				$('ul.selDrop').slideToggle();
 			});
 });
