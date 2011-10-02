@@ -1,5 +1,36 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
+#{set 'moreScripts'}
+<script type="text/javascript" src="@{'/public/javascripts/index.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/cookies.js'}"></script>
+#{/set}
+#{set 'breadCrumb' }
+<div class="selWrap">
+	<p id="selText1" class="selText"></p>
+	<ul id="selDrop1" class="selDrop">
+		<li>Львів</li>
+		<li class="selected">Київ</li>
+	</ul>
+</div>
+
+<div class="selWrap">
+	<p id="selText2"  class="selText"></p>
+	<ul id="selDrop2" class="selDrop">
+		<li>Всі</li>
+		<li>Цукерні</li>
+		<li class="selected">Хуєрні</li>
+		<li>Уригаловки</li>
+	</ul>
+</div>
+
+<div class="selWrap">
+	<p id="selText3" class="selText"></p>
+	<ul id="selDrop3" class="selDrop">
+		<li>Всі</li>
+		<li class="selected">Лише відчинені</li>
+	</ul>
+</div>
+#{/set}
 <div class="left_cont">
 					<div class="rest_list_prev">
 						<h1>
