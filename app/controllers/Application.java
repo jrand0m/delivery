@@ -105,10 +105,18 @@ public class Application extends Controller {
 		if (restaurants == null) {
 			String cityId = session.get(SESSION_KEYS.CITY_ID);
 			//TODO decide whether to cache city
-			City city = City.findById(Long.valueOf(cityId));
+			Long id   = 0L;
+			City city = null;
+			try {
+				 id = Long.valueOf(cityId);
+				 city = City.findById(id);
+			}catch(NumberFormatException ex) {
+				Logger.warn(ex,"Bad format for city id (%s)", cityId);
+			}
 			if (city == null){
 				city = getSystemDefaultCity();
 			}
+			
 			restaurants = Restaurant.find(Restaurant.HQL.BY_CITY_AND_SHOW_ON_INDEX, city, true).fetch(4);
 			Cache.set(CACHE_KEYS.INDEX_PAGE_RESTAURANTS+cityId, restaurants, "8h");
 		}
