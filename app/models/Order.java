@@ -52,6 +52,9 @@ public class Order extends GenericModel {
 		public static final String ORDER_TAKEN = "orderTaken";
 		public static final String RESTAURANT = "restaurant";
 		public static final String SHORTHAND_ID = "shortHandId";
+		public static final String RESTAURANT_DISCOUNT = "restaurantDiscount";
+		public static final String TOTAL_MENU_PRICE = "totalMenuPrice";
+		
 	}
 
 	public static final class HQL {
@@ -65,6 +68,7 @@ public class Order extends GenericModel {
 				+ " = ?";
 		public static final String BY_SHORT_ID_OR_LIKE_FULL_ID = Order.FIELDS.SHORTHAND_ID
 				+ " = ? or " + Order.FIELDS.ID + " like ?";
+		public static final String BY_RESTAURANT_AND_STATUS = Order.FIELDS.RESTAURANT + " = ? and "+ Order.FIELDS.ORDER_STATUS + " = ? ";
 	}
 
 	public static Order findByShortId(String shortID) {
@@ -107,6 +111,16 @@ public class Order extends GenericModel {
 	 * user. value in coins
 	 * */
 	public Integer deliveryPrice;
+	/**
+	 * Restaurant discount saved when order is accepted by user from Restauraunt.discount
+	 * */
+	public Float restaurantDiscount;
+	
+	/**
+	 * Menu total price saved when order is accepted by user
+	 * */
+	public Integer totalMenuPrice;
+	
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")

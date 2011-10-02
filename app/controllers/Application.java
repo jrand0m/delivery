@@ -73,9 +73,12 @@ public class Application extends Controller {
 		} else {
 			renderArgs.put("basketCount", 0);
 		}
-		if (!session.contains(SESSION_KEYS.CITY_ID)){
-			guessCity(request.remoteAddress).getId();
-			session.put(SESSION_KEYS.CITY_ID, guessCity(request.remoteAddress).getId() );
+		
+		if (!request.cookies.containsKey(SESSION_KEYS.CITY_ID)){
+			Logger.debug("No city defined in cookies");
+			response.setCookie(SESSION_KEYS.CITY_ID,  guessCity(request.remoteAddress).getId().toString(), "14d") ;
+		}else {
+			session.put(SESSION_KEYS.CITY_ID, request.cookies.get(SESSION_KEYS.CITY_ID));
 		}
 	}
 

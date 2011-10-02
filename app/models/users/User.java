@@ -46,10 +46,10 @@ public abstract class User extends Model {
 		public static final String JOIN_DATE = "joinDate";
 		public static final String LOGIN = "login";
 		public static final String LAST_LOGIN_DATE = "lastLoginDate";
-		public static final String NAME = "name";
+		public static final String NAME = "usr_name";
 		public static final String PASSWORD = "password";
 		public static final String PHONENUMBER = "phoneNumber";
-		public static final String SURNAME = "surname";
+		public static final String SURNAME = "usr_surname";
 		public static final String USERS_TATUS = "userStatus";
 	}
 
