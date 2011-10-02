@@ -42,8 +42,7 @@ jQuery(function() {
 				<div class="top_left_cont">
 					<H1>Загальний підсумок</H1>
 					<div class="inner_div">
-						%s замовленнь було зроблено у вашому ресторані %s користувачами. Залишено %s коментарів. 
-						За сьогодні отримано %s чистого прибутку( %s за весь час співпраці). 
+						&{'restaurant.admin.summary.textline', ordersCount, todaysRevenue, totalRevenue }
 					</div>
 				</div>
 				<div class="top_left_cont">
@@ -53,7 +52,7 @@ jQuery(function() {
 					</div>
 				</div>
 				<div class="left_left_cont">
-					<h1>Останні замовлення</h1>
+					<h1>&{'restaurant.admin.summary.lastorders'}</h1>
 					<div class="inner_div">
 						#{if lastOrders}
 						<ul>

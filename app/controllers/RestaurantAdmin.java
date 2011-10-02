@@ -1,9 +1,14 @@
 package controllers;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import models.Comment;
 import models.Order;
@@ -33,10 +38,19 @@ public class RestaurantAdmin extends Controller {
 	
 	
 	public static void summary() {
-		
 		List<Order> lastOrders = null;
 		List<Comment> lastComments = null;
-		
+		Restaurant restaurant = ((RestaurantAdministration)renderArgs.get("user")).restaurant;
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		List<Order> orders = Order.find(Order.HQL.BY_RESTAURANT_AND_STATUS_AND_AFTER_DATE, restaurant, OrderStatus.COOKED, cal.getTime()).fetch();
+		renderArgs.put("ordersCount", orders.size());
+		BigDecimal todaysRevenue = new BigDecimal(0).setScale(2, RoundingMode.HALF_EVEN);
+		for (Order o : orders){
+			todaysRevenue = todaysRevenue.add(new  BigDecimal (String.valueOf(o.totalMenuPrice - o.totalMenuPrice * o.restaurantDiscount)));
+		}
+		renderArgs.put("todaysRevenue", todaysRevenue.toString());
 		renderArgs.put("lastComments", lastComments);
 		renderArgs.put("lastOrders", lastOrders);
 		render();
