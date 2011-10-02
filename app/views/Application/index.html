@@ -12,7 +12,7 @@
 						<p class="selText"></p>
 						<ul class="selDrop">
 #{list items:cities, as:'city' }
-		<li id ="${city.getId()}" class=" ${city.getId().toString()==request.cookies.get(controllers.Application.SESSION_KEYS.CITY_ID)?'selected':''  }" >${city.getLocalizedName()},</li>
+		<li id ="${city.getId()}" class=" ${city.getId().toString()==session.get(controllers.Application.SESSION_KEYS.CITY_ID)?'selected':''  }" >${city.getLocalizedName()},</li>
 #{/list}
 						</ul>
 						</div>
