@@ -1,10 +1,10 @@
 #{extends 'main-restaurant-admin.html' /}
 #{set 'title'}
-    ${login} administration page
+    ${user.usr_name} administration page
 #{/set}
 #{set 'moreScripts'}
 	<script type="text/javascript" src="http://www.highcharts.com/js/testing-stock-exporting.js"></script>
-	<script type="text/javascript" src="http://www.highcharts.com/samples/data/usdeur.js"></script>
+	<script type="text/javascript" src="@{RestaurantAdmin.getSummaryChartData()}"></script>
 	<script type="text/javascript" >
 jQuery(function() {
     // Create the chart    
@@ -32,7 +32,7 @@ jQuery(function() {
         
         series: [{
             name: 'USD to EUR',
-            data: usdeur
+            data: incomeChartData
         }]
     });
 });
@@ -53,11 +53,11 @@ jQuery(function() {
 					</div>
 				</div>
 				<div class="left_left_cont">
-					<h1>5 самих популярних товарів</h1>
+					<h1>Останні замовлення</h1>
 					<div class="inner_div">
-						#{if popularItems}
+						#{if lastOrders}
 						<ul>
-							#{list items:popularItems, as:'item'}
+							#{list items:lastOrders, as:'order'}
 							<li>fuu</li>
 							#{/list}
 						</ul>
@@ -68,11 +68,11 @@ jQuery(function() {
 					</div>
 				</div>
 				<div class="right_left_cont">
-					<h1>5 останніх не прочитаних коментарів</h1>
+					<h1>Останні залишені коментарі</h1>
 					<div class="inner_div">
-						#{if comments}
+						#{if lastComments}
 						<ul>
-							#{list items:comments, as:'comment'}
+							#{list items:lastComments, as:'comment'}
 							<li>fuu</li>
 							#{/list}
 						</ul>
