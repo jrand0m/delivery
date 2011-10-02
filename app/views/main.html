@@ -16,49 +16,69 @@
         <script type="text/javascript" src="@{'/public/javascripts/jquery.jNice.js'}"></script>
 		<script type="text/javascript" src="@{'/public/javascripts/jquery.ui.stars.js'}"></script>
 		<script type="text/javascript" src="@{'/public/javascripts/jquery-ui.custom.min.js'}?v=1.8"></script>
-		<script type="text/javascript" src="@{'/public/javascripts/jquery.ui.stars.js'}?v=3.0.0b38"></script>
 		<script type="text/javascript" src="@{'/public/javascripts/jquery.mousewheel-3.0.4.pack.js'}"></script>
 		<script type="text/javascript" src="@{'/public/javascripts/jquery.fancybox-1.3.4.js'}"></script>
         #{get 'moreScripts' /}
     </head>
     <body>
     	<div id="wrapper">
-		<div id="wrapper_inner">
-			<div id="header">
-				<div class="header_top">
-					<a href="@{Application.index()}" class="logo"><img alt="На головну!" title="На головну!" src="@{'/public/images/logo.png'}" /></a>
-					<h1>&{'common.slogan'}</h1>
-					<div class="right_links">
-						<ul class="lang">
-							<li class="${"uk".equals(lang)?"active":""}"><a href="@{Application.changeLang("uk")}">українською</a></li>
-							<li class="${"ru".equals(lang)?"active":""}"><a href="@{Application.changeLang("ru")}">по-русски</a></li>
-							<li class="${"en".equals(lang)?"active":""}"><a href="@{Application.changeLang("en")}">in english</a></li>
-						</ul>
-						#{if controllers.Security.isConnected()}
-							<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-							<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+			<div id="wrapper_inner">
+				<div id="header">
+					<div class="header_top">
+						<a href="@{Application.index()}" class="logo"><img alt="На головну!" title="На головну!" src="@{'/public/images/logo.png'}" /></a>
+						<h1>&{'common.slogan'}</h1>
+						<div class="right_links">
+							<ul class="lang">
+								<li class="${"uk".equals(lang)?"active":""}"><a href="@{Application.changeLang("uk")}">українською</a></li>
+								<li class="${"ru".equals(lang)?"active":""}"><a href="@{Application.changeLang("ru")}">русский</a></li>
+								<li class="${"en".equals(lang)?"active":""}"><a href="@{Application.changeLang("en")}">in english</a></li>
+							</ul>
 							
-						#{/if}
-						#{else}
-							<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-						#{/else}
+						</div>
+						<ul class="main_nav">
+							<li><a title="&{'header.nav.restorauntlist.tooltip'}" href="#">&{'header.nav.restorauntlist.text'}</a></li>
+							<!--li class="unactive"><a title="&{'header.nav.orderhistory.tooltip'}" href="#">&{'header.nav.orderhistory.text'}</a></li-->
+							<!--li><a title="&{'header.nav.deliveryandpayment.tooltip'}" href="#">&{'header.nav.deliveryandpayment.text'}</a></li-->
+						</ul>
 					</div>
-					<ul class="main_nav">
-						<li><a title="&{'header.nav.restorauntlist.tooltip'}" href="#">&{'header.nav.restorauntlist.text'}</a></li>
-						<li class="unactive"><a title="&{'header.nav.orderhistory.tooltip'}" href="#">&{'header.nav.orderhistory.text'}</a></li>
-						<li><a title="&{'header.nav.deliveryandpayment.tooltip'}" href="#">&{'header.nav.deliveryandpayment.text'}</a></li>
-					</ul>
+					<div class="header_bottom">
+						#{get 'breadCrumb' /}
+					</div>
 				</div>
-				<div class="header_bottom">
-					#{get 'breadCrumb' /}
+				<div id="content">
+					<div class="main_cont">
+						#{doLayout /}
+					</div>
 				</div>
-			</div>
-			<div id="content">
-				<div class="main_cont">
-       				#{doLayout /}
-        		</div>
+				<div class="empty_block">
+				</div>
 			</div>
 		</div>
-	</div>
+		<div id="footer_outer">
+			<div id="footer">
+				<table>
+					<tr>
+						<td>
+							<a href="/" class="flogo"><img src="/public/images/logo.png" /><br />&copy; вдома.сom.ua</a>
+						</td>
+						<td>
+							<ul>
+								<li><a href="#">головна</a></li>
+								<li><a href="#">умови доставки</a></li>
+								<li><a href="#">для ресторанів</a></li>
+								<li><a href="#">про нас</a></li>
+								<li><a href="#">контакти</a></li>
+							</ul>
+						</td>
+						<td class="social_icons">
+							<p>Ми у соціальних мережах:</p>
+							<a title="Вконтакте" href="http://vkontakte.ru/vdoma_com_ua/">в</a>
+							<a title="Фейсбук" href="http://www.facebook.com/groups/272545222759382/">f</a>
+							<a title="Твіттер" href="http://twitter.com/#!/vdoma_com_ua/">t</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
     </body>
 </html>
