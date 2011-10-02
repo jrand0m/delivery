@@ -126,7 +126,9 @@ public class Application extends Controller {
 		}
 		return user;
 	}
-
+	public static void showRestaurants(){
+		render();
+	}
 	public static void showMenu(Long id) {
 		Restaurant restaurant = Restaurant.findById(id);
 		List<MenuItemGroup> menuItems = restaurant.menuBook;
