@@ -111,6 +111,8 @@ public class Application extends Controller {
 			cityList = City.find(City.HQL.BY_DISPLAY, true).fetch();
 			Cache.set(CACHE_KEYS.AVALIABLE_CITIES, cityList, "8h");
 		}
+		Logger.debug("%s cities will be dispalyed", cityList.size());
+		Logger.debug("%s restaurants will be dispalyed", restaurants.size());
 		renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
 		renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
 		render();
@@ -381,8 +383,10 @@ public class Application extends Controller {
 			Cache.set(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED, guessByIp, "8h");
 		}
 		if (!guessByIp){
+			play.Logger.debug("Guessing disabled, returning default");
 			return getSystemDefaultCity();
 		}
+		play.Logger.debug("Guessing enabled, trying to guess city by ip");
 		IpGeoData igdata = IpGeoData.find(IpGeoData.HQL.BY_IP, ip).first();
 		if (igdata == null){
 			igdata= await (GeoDataHelper.requestFromExternalServer(ip));

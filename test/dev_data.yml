@@ -157,6 +157,7 @@ Restaurant(restaurant5_shown):
     deleted: false
     device: device1
     city: lviv
+    showOnIndex: true
 
 models.geo.Address(adr_restaurant):
     street: kreshchatyk
