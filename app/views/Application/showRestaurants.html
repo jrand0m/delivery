@@ -31,6 +31,14 @@
 		<li class="selected">Відчинені</li>
 	</ul>
 </div>
+	#{if controllers.Security.isConnected()}
+		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+		
+	#{/if}
+	#{else}
+		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+	#{/else}
 #{/set}
 <div class="left_cont">
 					<div class="rest_list_prev">
