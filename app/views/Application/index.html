@@ -32,7 +32,7 @@
 
 #{list items:restaurants, as:'restaurant' }
 	%{ ntw = restaurant instanceof models.RestaurantNetwork}%
-					<div class="rest_item_prev ${restaurant.isOnline()?"":"rest_offline"}  ${ntw?"rest_network_view":""}">
+					<div class="rest_item_prev${restaurant.isOnline()?"":" rest_offline"}${ntw?" rest_network_view":""}">
 						<h1>
 							<b>${restaurant.title}</b><br />
 							<span>${restaurant.addressToString()}</span>

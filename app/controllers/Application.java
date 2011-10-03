@@ -48,6 +48,7 @@ public class Application extends Controller {
 		public static final String USER = "user";
 		public static final String INDEX_RESTAURANTS = "restaurants";
 		public static final String AVALIABLE_CITIES = "cities";
+		public static final String SHOW_MENU_RESTAURANTS = "restaurants";
 	}
 	public static class SESSION_KEYS {
 		public static final String CITY_ID = "city";
@@ -105,15 +106,7 @@ public class Application extends Controller {
 		if (restaurants == null) {
 			String cityId = session.get(SESSION_KEYS.CITY_ID);
 			//TODO decide whether to cache city
-			City city = null;
-			try {
-				city = City.findById(Long.valueOf(cityId));
-			} catch (NumberFormatException numformat){
-				
-			}
-			if (city == null ){
-				city = GeoDataHelper.getSystemDefaultCity();
-			}
+			City city = City.getCityByIdSafely(cityId);
 			restaurants = Restaurant.find(Restaurant.HQL.BY_CITY_AND_SHOW_ON_INDEX, city, true).fetch(4);
 			Cache.set(CACHE_KEYS.INDEX_PAGE_RESTAURANTS+cityId, restaurants, "2h");
 		}
@@ -143,7 +136,10 @@ public class Application extends Controller {
 			cityList = City.find(City.HQL.BY_DISPLAY, true).fetch();
 			Cache.set(CACHE_KEYS.AVALIABLE_CITIES, cityList, "8h");
 		}
+		City city = City.getCityByIdSafely(session.get(SESSION_KEYS.CITY_ID));
+		List<Restaurant> restaurants = Restaurant.find(Restaurant.HQL.BY_CITY, city ).fetch();
 		renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
+		renderArgs.put(RENDER_KEYS.SHOW_MENU_RESTAURANTS, restaurants);
 		render();
 	}
 	public static void showMenu(Long id) {
@@ -373,7 +369,7 @@ public class Application extends Controller {
 		renderBinary(is);
 	}
 
-	//FIXME fix guess sistem
+	//FIXME fix guess system by moving to new MyJob.now()
 	private static City guessCity(String ip) {
 		Boolean guessByIp = (Boolean) Cache.get(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED);
 		if (guessByIp == null){
