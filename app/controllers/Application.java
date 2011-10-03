@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +21,7 @@ import models.MenuItemGroup;
 import models.Order;
 import models.OrderItem;
 import models.Restaurant;
+import models.RestaurantCategory;
 import models.RestaurantNetwork;
 import models.geo.City;
 import models.geo.IpGeoData;
@@ -49,6 +51,7 @@ public class Application extends Controller {
 		public static final String INDEX_RESTAURANTS = "restaurants";
 		public static final String AVALIABLE_CITIES = "cities";
 		public static final String SHOW_MENU_RESTAURANTS = "restaurants";
+		public static final String RESTAURANTS_CATEGORIES = "categories";
 	}
 	public static class SESSION_KEYS {
 		public static final String CITY_ID = "city";
@@ -138,6 +141,15 @@ public class Application extends Controller {
 		}
 		City city = City.getCityByIdSafely(session.get(SESSION_KEYS.CITY_ID));
 		List<Restaurant> restaurants = Restaurant.find(Restaurant.HQL.BY_CITY, city ).fetch();
+		//categories
+		Set<RestaurantCategory> categories = new HashSet<RestaurantCategory>();
+		for (Restaurant rest : restaurants){
+			RestaurantCategory category = rest.category;
+			if (category!=null){
+				categories.add(category);
+			}
+		}
+		renderArgs.put(RENDER_KEYS.RESTAURANTS_CATEGORIES, categories);
 		renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
 		renderArgs.put(RENDER_KEYS.SHOW_MENU_RESTAURANTS, restaurants);
 		render();

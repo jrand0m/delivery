@@ -17,18 +17,18 @@
 <div class="selWrap selWrapPp">
 	<p id="selText2"  class="selText"></p>
 	<ul id="selDrop2" class="selDrop">
-		<li>Всі</li>
-		<li>Цукерні</li>
-		<li class="selected">Хуєрні</li>
-		<li>Уригаловки</li>
+		<li class="selected">Всі</li>
+		#{list items:categories, as:'category' }
+		<li id="${category.categoryDisplayNameEN.slugify()}">${category.localizedName()}</li>
+		#{/list}
 	</ul>
 </div>
 <label class="forsel">Показати:</label>
 <div class="selWrap selWrapPp">
 	<p id="selText3" class="selText"></p>
 	<ul id="selDrop3" class="selDrop">
-		<li>Всі</li>
-		<li class="selected">Відчинені</li>
+		<li class="selected">Всі</li>
+		<li>Відчинені</li>
 	</ul>
 </div>
 	#{if controllers.Security.isConnected()}
