@@ -115,7 +115,7 @@ public class Application extends Controller {
 				city = GeoDataHelper.getSystemDefaultCity();
 			}
 			restaurants = Restaurant.find(Restaurant.HQL.BY_CITY_AND_SHOW_ON_INDEX, city, true).fetch(4);
-			Cache.set(CACHE_KEYS.INDEX_PAGE_RESTAURANTS+cityId, restaurants, "8h");
+			Cache.set(CACHE_KEYS.INDEX_PAGE_RESTAURANTS+cityId, restaurants, "2h");
 		}
 		List<City> cityList = (List<City>) Cache.get(CACHE_KEYS.AVALIABLE_CITIES);
 		if (cityList == null){
@@ -138,6 +138,12 @@ public class Application extends Controller {
 		return user;
 	}
 	public static void showRestaurants(){
+		List<City> cityList = (List<City>) Cache.get(CACHE_KEYS.AVALIABLE_CITIES);
+		if (cityList == null){
+			cityList = City.find(City.HQL.BY_DISPLAY, true).fetch();
+			Cache.set(CACHE_KEYS.AVALIABLE_CITIES, cityList, "8h");
+		}
+		renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
 		render();
 	}
 	public static void showMenu(Long id) {
