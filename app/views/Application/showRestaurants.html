@@ -4,6 +4,7 @@
 <script type="text/javascript" src="@{'/public/javascripts/restSearchListPage.js'}"></script>
 #{/set}
 #{set 'breadCrumb' }
+<label class="forsel">Місто:</label>
 <div class="selWrap selWrapPp">
 	<p id="selText1" class="selText"></p>
 	<ul id="selDrop1" class="selDrop">
@@ -11,7 +12,7 @@
 		<li class="selected">Київ</li>
 	</ul>
 </div>
-
+<label class="forsel">Тип ресторану:</label>
 <div class="selWrap selWrapPp">
 	<p id="selText2"  class="selText"></p>
 	<ul id="selDrop2" class="selDrop">
@@ -21,12 +22,12 @@
 		<li>Уригаловки</li>
 	</ul>
 </div>
-
+<label class="forsel">Показати:</label>
 <div class="selWrap selWrapPp">
 	<p id="selText3" class="selText"></p>
 	<ul id="selDrop3" class="selDrop">
 		<li>Всі</li>
-		<li class="selected">Лише відчинені</li>
+		<li class="selected">Відчинені</li>
 	</ul>
 </div>
 #{/set}
@@ -42,7 +43,7 @@
 								<i></i><img src="@{Application.serveLogo(1)}" />
 							</div>
 							<div class="properties">
-								<p class="rating">Рейтинг 0/5</p>
+								<p class="rating stars">Рейтинг<span class="rate1"></span></p>
 								<p class="work_time">Відчинено з 10:00 до 22:00</p>
 								<p class="dostavka">Доставка та самовивіз</p>
 							</div>
@@ -63,7 +64,7 @@
 								<i></i><img src="@{Application.serveLogo(2)}" />
 							</div>
 							<div class="properties">
-								<p class="rating">Рейтинг 2/5</p>
+								<p class="rating stars">Рейтинг<span class="rate1"></span></p>
 								<p class="work_time">Відчинено з 09:00 до 21:00</p>
 								<p class="dostavka">Доставка та самовивіз</p>
 							</div>
