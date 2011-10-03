@@ -1,10 +1,11 @@
 ﻿*{margin: 0; padding: 0;}
 a img {border:0;}
 a, input{outline: 0 none;}
-body{font-size: 12px; font-family: tahoma;}
+body, html{height: 100%; font-size: 12px; font-family: tahoma;}
+.empty_block {height: 85px; clear: both;}
 li{list-style: none;}
 textarea{resize: none;}
-div#wrapper{margin: 0 auto; width: 970px;}
+div#wrapper{margin: 0 auto; width: 970px; min-height: 100%;}
 div#wrapper div#header{background-color: #fff; width: 100%; border-top: none; float: left; border-bottom: none;}
 div#wrapper div#header a.logo{margin-left: 10px; margin-top: 10px; float: left; }
 div#wrapper div#header h1.fuck_yeh{text-align: center; font-size: 40px; margin-top: 33px; text-shadow: 4px 3px 2px #A6A7A7;}
@@ -29,8 +30,7 @@ div#wrapper div#content div#left_cont .right_left_cont {width: 345px; margin-rig
 div#wrapper div#content div#right_cont {width:154px; float:right;}
 div#wrapper div#content div#right_cont .right_block {width: 155px; float:left;  border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; margin-bottom: 10px;}
 div#wrapper div#content div.inner_div {padding: 5px 10px;}
-div#wrapper div#footer{background-color: #fff; text-align: center; line-height: 50px; float: left; width: 970px; height: 50px; border: 2px solid #000; border-bottom: none; border-radius: 15px 15px 0 0;}
-div#wrapper div#footer a{font-size: 26px; text-shadow: 4px 3px 2px #A6A7A7; text-decoration: none; color: #df544a;}
+
 
 div#wrapper div#header div.header_top{margin-bottom: 15px;min-height: 75px; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 *+html div#wrapper div#header div.header_top{height: 75px;}
@@ -49,4 +49,5 @@ div#wrapper div#header div.header_top a.tsupport{line-height: 20px; margin-top: 
 div#wrapper div#header div.header_top a.tsupport img{float: left; height: 20px; margin-right: 5px;}
 div#wrapper div#header div.header_bottom{min-height: 46px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 
-
+div#footer{height: 75px; position: relative; line-height: 75px; z-index: 100; width: 982px; margin: -80px auto 0; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
+div#footer a{font-size: 26px; text-shadow: 4px 3px 2px #A6A7A7; text-decoration: none; color: #df544a;}
