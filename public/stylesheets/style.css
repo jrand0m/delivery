@@ -228,3 +228,18 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp{border-
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p{background-position: 101px 3px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p.selText{text-align: left; text-indent: 15px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selDrop li{text-align: left; text-indent: 15px;}
+
+.ing_popup{}
+.ing_popup table{width: 460px; line-height: 28px; border-collapse: collapse; border-radius: 3px;}
+.ing_popup table th{text-align: left;}
+.ing_popup table td.price{width: 60px; white-space: nowrap;padding-right: 5px;}
+.ing_popup table tr td:first-child{width: 17px;padding-left: 5px;}
+.ing_popup table tr.total td{border-top: 1px solid #E83F0B; font-size: 20px; background-color: #CCCCCC;}
+.ing_popup table tr.total .price{color: #E83F0B;}
+.ing_popup table tr:hover{background-color: #CCCCCC;}
+.ing_popup table tr.button{text-align: right;}
+.ing_popup table tr.button input{border-radius: 5px; cursor: pointer; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border: medium none; color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; margin: 10px 0 10px 23px; width: 250px;}
+.ing_popup table tr.button:hover{background-color: transparent;}
+
+.ing_popup .jNiceCheckbox {float: left; display: block; background: transparent url(/public/images/radio.png) no-repeat center top; vertical-align: middle; width: 17px; height: 17px}
+.ing_popup .jNiceChecked {background-position: center bottom;}
