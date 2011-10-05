@@ -1,4 +1,10 @@
 $(document).ready(function() {
+	$(".ingredient_popup_but").fancybox({
+		'titlePosition'		: 'inside',
+		'transitionIn'		: 'none',
+		'transitionOut'		: 'none'
+	});
+	
 	var $inp=$("#login input");
 	$inp.each(function(){
 		if($(this).val()!='')
