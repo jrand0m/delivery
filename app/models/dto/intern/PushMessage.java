@@ -1,4 +1,4 @@
-package models.api;
+package models.dto.intern;
 
 public class PushMessage {
 	public String id;

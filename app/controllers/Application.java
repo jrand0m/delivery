@@ -245,7 +245,6 @@ public class Application extends Controller {
 		renderJSON("{}");
 
 	}
-
 	/**
 	 * @param id
 	 * @param order
