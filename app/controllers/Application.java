@@ -86,7 +86,7 @@ public class Application extends Controller {
 		}
 	}
 
-	public static void deliveryAndPaymentMethod() {
+	public static void checkout() {
 		Order order = null;
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user != null) {
