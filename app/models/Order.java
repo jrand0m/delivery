@@ -70,6 +70,7 @@ public class Order extends GenericModel {
 				+ " = ? or " + Order.FIELDS.ID + " like ?";
 		public static final String BY_RESTAURANT_AND_STATUS = Order.FIELDS.RESTAURANT + " = ? and "+ Order.FIELDS.ORDER_STATUS + " = ? ";
 		public static final String BY_RESTAURANT_AND_STATUS_AND_AFTER_DATE = BY_RESTAURANT_AND_STATUS + " and " + FIELDS.ORDER_COOKED +  " > ?";
+		public static final String BY_RESTAURANT_AND_STATUS_ORDERBY_ACCEPTED_DESC = Order.FIELDS.RESTAURANT + " = ? and "+ Order.FIELDS.ORDER_STATUS + " in (?) order by "+FIELDS.ORDER_ACCEPTED+" desc";
 	}
 
 	public static Order findByShortId(String shortID) {

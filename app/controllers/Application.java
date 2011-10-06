@@ -62,7 +62,7 @@ public class Application extends Controller {
 		renderText("Cleared db and forsed fixture load");
 	}
 
-	@Before(unless = {"serveLogo"}/*unless = {"getCurrentUser","guessCity","deleteOrRemOrderItem","createNewOpenOrder", "createOrAddOrderItem", }*/)
+	@Before(unless = {"serveLogo","loadFix"}/*unless = {"getCurrentUser","guessCity","deleteOrRemOrderItem","createNewOpenOrder", "createOrAddOrderItem", }*/)
 	public static void _prepare() {
 		EndUser user = getCurrentUser();
 		renderArgs.put(RENDER_KEYS.USER, user);

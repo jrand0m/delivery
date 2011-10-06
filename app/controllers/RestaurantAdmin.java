@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.persistence.Query;
+
 import models.Comment;
 import models.Order;
 import models.Restaurant;
@@ -50,6 +52,9 @@ public class RestaurantAdmin extends Controller {
 		for (Order o : orders){
 			todaysRevenue = todaysRevenue.add(new  BigDecimal (String.valueOf(o.totalMenuPrice - o.totalMenuPrice * o.restaurantDiscount)));
 		}
+		 Query q  =Order.find(Order.HQL.BY_RESTAURANT_AND_STATUS_ORDERBY_ACCEPTED_DESC).query;
+		lastOrders = q.setMaxResults(5).setParameter(0, restaurant).setParameter(1, new OrderStatus[]{OrderStatus.COOKED, OrderStatus.ACCEPTED, OrderStatus.DELIVERING,OrderStatus.DELIVERED}).getResultList();
+		lastComments = Comment.find(Comment.HQL.BY_RESTAURANT_ORDERBY_DATE_DESC, params).fetch(5);
 		renderArgs.put("todaysRevenue", todaysRevenue.toString());
 		renderArgs.put("lastComments", lastComments);
 		renderArgs.put("lastOrders", lastOrders);
@@ -67,7 +72,12 @@ public class RestaurantAdmin extends Controller {
 	public static void showProfile() {
 		render();
 	}
-
+	
+	/*---- PROFILE API ---- */
+	public static void editProfile(){
+		
+	}
+	/*------ PROFIE API END ------*/
 	public static void showEvents() {
 		render();
 	}
@@ -79,6 +89,10 @@ public class RestaurantAdmin extends Controller {
 	public static void showShop() {
 		render();
 	}
+	
+	
+	
+	
 	/*UTIL METHODS*/
 	public static void getSummaryChartData(){
 		

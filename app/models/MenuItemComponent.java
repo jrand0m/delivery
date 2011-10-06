@@ -20,10 +20,10 @@ public class MenuItemComponent extends Model {
 	public Integer itm_price;
 	public boolean itm_avaliable = false;
 	@ManyToMany
-	//@JoinTable(name = "REQUIRED_MAP")
+	@JoinTable(name = "REQUIRED_MAP")
 	public List<MenuItemComponent> required = new ArrayList<MenuItemComponent>();
 	@ManyToMany
-	//@JoinTable(name = "NOT_COMPATIBLE_MAP")
+	@JoinTable(name = "NOT_COMPATIBLE_MAP")
 	public List<MenuItemComponent> notCompatible = new ArrayList<MenuItemComponent>();
 
 	// TODO add internationalization
