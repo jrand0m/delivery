@@ -2,6 +2,9 @@
 #{set title:'Home' /}
 #{set 'moreScripts'}
 <script type="text/javascript" src="@{'/public/javascripts/restSearchListPage.js'}"></script>
+<script type="text/javascript">
+var cngcty = #{jsAction @Application.changeCity(':id') /}
+</script>
 #{/set}
 #{set 'breadCrumb' }
 <label class="forsel">Місто:</label>
@@ -17,7 +20,7 @@
 <div class="selWrap selWrapPp">
 	<p id="selText2"  class="selText"></p>
 	<ul id="selDrop2" class="selDrop">
-		<li class="selected">Всі</li>
+		<li class="selected" id='all'>Всі</li>
 		#{list items:categories, as:'category' }
 		<li id="${category.categoryDisplayNameEN.slugify()}">${category.localizedName()}</li>
 		#{/list}
@@ -27,8 +30,8 @@
 <div class="selWrap selWrapPp">
 	<p id="selText3" class="selText"></p>
 	<ul id="selDrop3" class="selDrop">
-		<li class="selected">Всі</li>
-		<li>Відчинені</li>
+		<li id="all" class="selected">Всі</li>
+		<li id="on">Відчинені</li>
 	</ul>
 </div>
 	#{if controllers.Security.isConnected()}
@@ -40,9 +43,9 @@
 		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
 	#{/else}
 #{/set}
-<div class="left_cont">
+<div class="left_cont" id="rest-sort-list">
 #{list items:restaurants, as:'restaurant'} *{TODO make special field or function for classes of category}*
-					<div class="rest_list_prev${restaurant.isOnline()?"":" rest_list_prev_off"} ${restaurant.category?.categoryDisplayNameEN?.slugify()}">
+					<div class="rest_list_prev all ${restaurant.isOnline()?"on":" rest_list_prev_off"} ${restaurant.category?.categoryDisplayNameEN?.slugify()}">
 						<h1>
 							${restaurant.title},
 							<span>${restaurant.addressToString()}</span>
