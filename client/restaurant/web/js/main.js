@@ -8,7 +8,7 @@ var DCWMain = {
 	newOrdersContent: '',
 	activeOrdersContent: '',
 	dialogFrame: '',
-	lang: '',
+	lang: 'ua',
 	isAuthorized: false,
 
 	init: function(){	
@@ -243,8 +243,8 @@ var DCWMain = {
 	getNewOrderDiv: function(orderElem) {
 		
 		var orderDiv = this.createDiv("DCWOrderDiv");
-		var id = this.createDiv();
-		id.text(orderElem.id);
+		var id = this.createDiv('DCWOrderIdDiv');
+		id.text(this.lang.orderID + orderElem.id);
 		orderDiv.append(id);
 		orderDiv.append(this.getDishesList(orderElem.list));
 		orderElem.domElem = orderDiv;
@@ -253,36 +253,41 @@ var DCWMain = {
 		var thisObj = this;
 		
 		var btn15 = this.createButton('15', 'DCWOrderButton');
+		btn15.prepend('<img src="img/tick.png" style="vertical-align: middle">');
 		$(btn15).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 15);
 		});
 		buttonsDiv.append(btn15);
 		
 		var btn30 = this.createButton('30', 'DCWOrderButton');
+		btn30.prepend('<img src="img/tick.png" style="vertical-align: middle">');
 		$(btn30).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 30);
 		});
 		buttonsDiv.append(btn30);
 		
 		var btn45 = this.createButton('45', 'DCWOrderButton');
+		btn45.prepend('<img src="img/tick.png" style="vertical-align: middle">');
 		$(btn45).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 45);
 		});
 		buttonsDiv.append(btn45);
 		
 		var btn60 = this.createButton('60', 'DCWOrderButton');
+		btn60.prepend('<img src="img/tick.png" style="vertical-align: middle">');
 		$(btn60).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 60);
 		});
 		buttonsDiv.append(btn60);
 		
-		var btn100 = this.createButton('100', 'DCWOrderButton');
+		/*var btn100 = this.createButton('100', 'DCWOrderButton');
 		$(btn100).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 100);
 		});
-		buttonsDiv.append(btn60);
+		buttonsDiv.append(btn100);*/
 				
 		var btnRject = this.createButton(this.lang.reject, 'DCWOrderButton');
+		btnRject.prepend('<img src="img/cross.png" style="vertical-align: middle">');
 		$(btnRject).click(function(el){
 			thisObj.showDialog(thisObj.getRejectDialog(orderElem));
 		});
@@ -300,11 +305,14 @@ var DCWMain = {
 		price.addClass('DCWOrderPriceDiv');
 		orderDiv.append(price);*/
 		var orderHeaderWrapper = this.createDiv('DCWOrderHeaderWrapper');
-		var id = this.createDiv().text(orderElem.id);
-		var timeToFinish = this.createDiv('DCWTimeToFinish').html(orderElem.time/60000);
-		var btnReject = this.createButton(this.lang.reject, 'DCWOrderButton');
-		var btnMade = this.createButton(this.lang.ready, 'DCWOrderButton');
-		var btnTaken = this.createButton(this.lang.taken, 'DCWOrderButton');
+		var id = this.createDiv('DCWOrderIdDiv').text(this.lang.orderID + orderElem.id);
+		var timeToFinish = this.createDiv('DCWTimeToFinish').html(this.lang.timeConfirmed + orderElem.time/60000 + this.lang.time);
+		var btnReject = this.createButton(this.lang.reject, 'DCWOrderButton reject');
+		btnReject.prepend('<img src="img/cross.png" style="vertical-align: middle">');
+		var btnMade = this.createButton(this.lang.ready, 'DCWOrderButton ready');
+		btnMade.prepend('<img src="img/tick.png" style="vertical-align: middle">');
+		var btnTaken = this.createButton(this.lang.taken, 'DCWOrderButton taken');
+		btnTaken.prepend('<img src="img/home.png" style="vertical-align: middle">');
 		
 		btnMade.click(function() {
 			thisObj.sendOrderStatusChanged(orderElem, 'COOKED');
@@ -322,19 +330,22 @@ var DCWMain = {
 			thisObj.showDialog(thisObj.getRejectDialog(orderElem));
 		});
 		
-		var btnDiv = this.createDiv('DCWActiveOrdersBtnsWrapper');
-		btnDiv.append(timeToFinish);
-		btnDiv.append(btnMade);
-		btnDiv.append(btnTaken);
-		btnDiv.append(btnReject);
-		orderHeaderWrapper.append(btnDiv);
-		
 		btnTaken.hide();
 		orderHeaderWrapper.append(id);
+		orderHeaderWrapper.append(timeToFinish);
+		
 		orderDiv.append(orderHeaderWrapper);
 		this.activeOrders[this.activeOrders.length] = orderElem;
 		thisObj.removeElement(orderElem);
 		orderDiv.append(this.getDishesList(orderElem.list));
+		
+		var btnDiv = this.createDiv('DCWActiveOrdersBtnsWrapper');
+		
+		btnDiv.append(btnMade);
+		btnDiv.append(btnTaken);
+		btnDiv.append(btnReject);
+		orderDiv.append(btnDiv);
+		
 		orderElem.domElem = orderDiv;
 		return orderDiv;
 	},
@@ -359,7 +370,7 @@ var DCWMain = {
 			$.ajax({
 				url: '/api/g?id=1',
 				success: function(data) {
-					alert(JSON.stringify(data));
+					//alert(JSON.stringify(data));
 					
 					$(data).each(function(elem){
 						var elemDom = thisObj.getNewOrderDiv(data[elem]);
@@ -381,7 +392,7 @@ var DCWMain = {
 			this.time = this.time-20000;
 			var isPositive = this.time > 0;
 			if(isPositive) {
-				$('.DCWTimeToFinish', this.domElem).html(Math.ceil(this.time / 60000));
+				$('.DCWTimeToFinish', this.domElem).html(Math.ceil( this.lang.timeConfirmed + this.time / 60000 + this.lang.time ));
 			} else  {
 				$('.DCWTimeToFinish', this.domElem).html(0);
 				this.domElem.addClass('DCWDelayedOrder');
