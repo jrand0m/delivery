@@ -4,6 +4,7 @@ import helpers.SystemCalc;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -71,6 +72,15 @@ public class Order extends GenericModel {
 		public static final String BY_RESTAURANT_AND_STATUS = Order.FIELDS.RESTAURANT + " = ? and "+ Order.FIELDS.ORDER_STATUS + " = ? ";
 		public static final String BY_RESTAURANT_AND_STATUS_AND_AFTER_DATE = BY_RESTAURANT_AND_STATUS + " and " + FIELDS.ORDER_COOKED +  " > ?";
 		public static final String BY_RESTAURANT_AND_STATUS_ORDERBY_ACCEPTED_DESC = Order.FIELDS.RESTAURANT + " = ? and "+ Order.FIELDS.ORDER_STATUS + " in (?) order by "+FIELDS.ORDER_ACCEPTED+" desc";
+		
+		public static final String LAST_ORDERS_BY_CITY = 
+				"select OBJECT(ord) from Order ord join Restaurant rest where rest." 
+		+ Restaurant.FIELDS.RESTAURANT_CITY + " = ? order by ord."+FIELDS.ORDER_ACCEPTED +  " desc ";
+		
+		public static final String LAST_ORDERS_BY_CITY_AND_AFTER_DATE = 
+				"select OBJECT(ord) from Order ord join Restaurant rest where rest." 
+		+ Restaurant.FIELDS.RESTAURANT_CITY + " = ? and ord."+Order.FIELDS.ORDER_ACCEPTED+
+		" > ?"+ " order by ord."+FIELDS.ORDER_ACCEPTED +  " desc ";
 	}
 
 	public static Order findByShortId(String shortID) {
@@ -235,6 +245,25 @@ public class Order extends GenericModel {
 
 	public void setShortHandId(String id) {
 		shortHandId = id;
+	}
+	/**
+	 * is called for index page
+	 * */
+	public String oneLineDescription() {
+		StringBuilder b = new StringBuilder();
+		for (Iterator<OrderItem> it = items.iterator(); it.hasNext();){
+			b.append(it.next().menuItem.name);
+			if (it.hasNext()){
+				b.append(", ");
+			} else {
+				break;
+			}
+			if (b.length() > 240){
+				b.append ("...");
+				break;
+			}
+		}
+		return b.toString();
 	}
 
 }

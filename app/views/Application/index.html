@@ -2,7 +2,17 @@
 #{set title:'Home' /}
 #{set 'moreScripts'}
 <script type="text/javascript" src="@{'/public/javascripts/cookies.js'}"></script>
+<script type="text/javascript" src="@{'/pulbic/javascripts/mtmpl.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/index.js'}"></script>
+<script type="text/javascript">
+var cngcty = #{jsAction @Application.changeCity(':id') /}
+var loupd  = #{jsAction @Application.getLastOrders(':top') /}
+</script>
+<script type="text/html" id="lotmpl">
+<div class="zaraz_item"><h2><%=itm.s%></h2><h3><%=itm.f%></h3>
+<p><%=itm.d%></p>
+</div>
+</script>
 #{/set}
 #{set 'breadCrumb'}
 
@@ -88,30 +98,8 @@
 						</div>
 						<div class="zaraz">
 							<h1>Зараз замовляють</h1>
-							<div class="zaraz_item">
-								<h2>Че.</h2>
-								<h3>Піцерія Челентано</h3>
-								<p>Піцца Ніч Венеції, Кока-Кола 2л., салат Олів'є, сік банановий, зелені овочі</p>
-							</div>
-							<div class="zaraz_item">
-								<h2>Чп.</h2>
-								<h3>Час Поїсти</h3>
-								<p>Голубці, сметана, соус тартар, пиво Опілля Фірмове Бочкове, кандибобрики мариновані в соці авокадо, рибні палички</p>
-							</div>
-							<div class="zaraz_item">
-								<h2>ДР.</h2>
-								<h3>Джонні Рокер</h3>
-								<p>Сніданок байкерський, стейк з кров'ю, віскарь, печиво Малятко</p>
-							</div>
-							<div class="zaraz_item">
-								<h2>Че.</h2>
-								<h3>Піцерія Челентано</h3>
-								<p>Піцца День в Генуї, Фанта, салат грецький, сік маракуї, червоні фрукти</p>
-							</div>
-							<div class="zaraz_item">
-								<h2>Га.</h2>
-								<h3>Гарбуз</h3>
-								<p>Соус гострий, горілка десант, весняний салат, каунний морс, гарбузова каша</p>
+							<div class="zaraz_container">
+							
 							</div>
 						</div>
 					</div>
