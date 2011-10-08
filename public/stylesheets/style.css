@@ -25,6 +25,7 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: left;
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li{float: left; margin-left: 70px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-child{margin-left: 0px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a{color: #fff; font-size: 22px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a:hover{text-decoration:none;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive a{text-decoration: none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 34px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form{float: left; margin-left: 6px;}
@@ -41,11 +42,13 @@ div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrap
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a {color: #000; text-align: center; display: block; font-size: 17px; text-decoration: none}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a:hover {background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a.selected {background-color: #e6e6e6;}
-div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {font-family: Tahoma;color: #FFFFFF; float: right; font-size: 13px; line-height: 33px; margin-right: 10px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {font-family: Tahoma;color: #FFFFFF; float: right; font-size: 13px; line-height: 33px; margin-right: 10px; text-decoration:none;}
+div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; }
 div#wrapper div#wrapper_inner div#header div.header_bottom a.back {padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
 .jNiceHidden {display: none;}
 
-div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap{margin-top: 3px; border-radius: 2px 0px 0px 2px; min-width: 118px; position: relative; height: 28px; float: left; background: #f5f5f5;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap{margin-top: 3px; border-radius: 2px 0px 0px 2px; min-width: 118px; position: relative; height: 28px; float: left; background: #fff;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap:hover{background:#f5f5f5}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap p{width: 100%; line-height: 28px; position: absolute; height: 28px; color: #000; cursor: pointer; font-size: 17px; text-align: center; background: url(/public/images/arrow_down.gif) no-repeat 105px 3px transparent;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul{background-color: #fff; line-height: 24px; overflow: hidden; display: none; z-index: 100; left: 0px; width: 108px; list-style-type: none; position: absolute; top: 25px; height: auto;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li{cursor: pointer; color: #000; text-align: center; display: block; font-size: 17px; text-decoration: none}
@@ -56,9 +59,9 @@ div#wrapper div#wrapper_inner div#content div.main_cont{padding-bottom: 10px;}
 div.rest_item_prev{width: 230px; margin-left: 18px; padding-bottom: 20px; float: left; border-radius: 5px; border: 1px solid #b3b3b3; }
 div.rest_item_prev:first-child{margin-left: 0px}
 div.rest_item_prev h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal;  height: 40px; line-height: 17px; padding: 3px 10px;}
-div.rest_item_prev h1 span{font-size: 13px;}
-div.rest_item_prev h1 b{display: inline-block; font-weight: normal; height: 23px; margin-bottom: -5px; overflow: hidden; white-space: nowrap; width: 132px;}
-div.rest_item_prev h1 a{font-family: Tahoma; font-size: 13px; font-weight: bold; position: absolute; right: 10px; top: 3px;}
+div.rest_item_prev h1 span{font-size: 13px; width:140px; white-space:nowrap; display: inline-block; overflow: hidden;}
+div.rest_item_prev h1 b{display: inline-block; font-weight: normal; height: 23px; overflow: hidden; white-space: nowrap; width: 210px;}
+div.rest_item_prev h1 a{font-family: Tahoma; font-size: 13px;position: absolute; right: 10px; top: 25px;}
 div.rest_item_prev div.logo{height: 110px; position: relative; width: 210px; padding: 0 10px; text-align: center; display: table-cell; vertical-align: middle;}
 div.rest_item_prev div.logo i{display: inline-block; height: 100%; vertical-align: middle;}
 div.rest_item_prev div.logo img.logo{vertical-align: middle; max-width: 210px; max-height: 110px}
@@ -96,9 +99,10 @@ div#wrapper div#wrapper_inner div#content div.right_cont div.advert a img{border
 div#wrapper div#wrapper_inner div#content div.right_cont div.right_block h1{background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.right_block div.rb_cont{padding: 5px;}
 
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off{}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off {}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off .offline{ font-weight:normal; color:white;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off h1{background-image: none; background-color: #979797;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off div.rlp_cont div.description a.menu{background-position: 0 -36px; border: 1px solid #979797;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off div.rlp_cont div.description a.menu{border: 1px solid #979797; background:url("/public/images/offline_button.png"); color:white;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.rating {background: url(/public/images/star--arrow.png) no-repeat left center transparent; padding-left: 27px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.work_time {background: url(/public/images/clock-select.png) no-repeat left center transparent; padding-left: 27px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.dostavka {background: url(/public/images/car-red.png) no-repeat left center transparent; padding-left: 27px; }
@@ -114,10 +118,10 @@ div#login p#remember-field{margin-bottom: -10px;}
 div#login input[type="submit"]{ background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: Open Sans Condensed; height: 31px; margin-top: -15px; width: 73px;}
 
 
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 span{font-size: 13px; /*display: block;*/ margin-left: 7px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 a{font-family: Tahoma; font-size: 13px; font-weight: bold; position: absolute; right: 10px; top: 3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 a{font-family: Tahoma; font-size: 13px; position: absolute; right: 10px; top: 3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table{padding: 5px 10px; width: 100%; line-height: 26px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td{width: 25%; vertical-align: top;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a{color: #000; padding: 3px;}
@@ -126,7 +130,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket{}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket h1{font-weight: bold;background: url(/public/images/ico_shopping_cart.png) no-repeat 260px center #E83F0B; color: #fff;}
 
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table{padding: 5px 10px; width: 100%; border-collapse: collapse;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th{width: 5%; vertical-align: top; padding-top: 5px;}
@@ -158,7 +162,8 @@ div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.tot
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total{line-height: 15px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td{padding-bottom: 5px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td p{padding-left: 5px; color: #E83F0B;}
-div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]{border-radius: 5px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent; border: medium none; color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; position: relative; left: 21px; margin: 10px 0; width: 250px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]{border-radius: 2px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent; border: 1px solid #f5f5f5; color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; position: relative; left: 21px; margin: 10px 0; width: 250px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]:hover{border:1px solid #c03409}
 
 
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
