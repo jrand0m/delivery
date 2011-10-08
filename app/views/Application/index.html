@@ -1,13 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 #{set 'moreScripts'}
-<script type="text/javascript" src="@{'/public/javascripts/cookies.js'}"></script>
-<script type="text/javascript" src="@{'/pulbic/javascripts/mtmpl.js'}"></script>
-<script type="text/javascript" src="@{'/public/javascripts/index.js'}"></script>
 <script type="text/javascript">
 var cngcty = #{jsAction @Application.changeCity(':id') /}
 var loupd  = #{jsAction @Application.getLastOrders(':top') /}
 </script>
+<script type="text/javascript" src="@{'/public/javascripts/cookies.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/mtmpl.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/index.js'}"></script>
 <script type="text/html" id="lotmpl">
 <div class="zaraz_item"><h2><%=itm.s%></h2><h3><%=itm.f%></h3>
 <p><%=itm.d%></p>
@@ -29,10 +29,9 @@ var loupd  = #{jsAction @Application.getLastOrders(':top') /}
 						<input type="text" value="" name="you_restraunt" id="inpec01" />
 						<input type="submit" class="submit" name="you_restraunt_submit" value="" />
 					</form>
-					#{if controllers.Security.isConnected()}
+						#{if controllers.Security.isConnected()}
 							<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 							<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
-							
 						#{/if}
 						#{else}
 							<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>

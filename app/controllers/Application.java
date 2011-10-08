@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -87,10 +88,7 @@ public class Application extends Controller {
 			session.put(SESSION_KEYS.CITY_ID, Application.guessCity(request.remoteAddress).getId() );
 		}
 	}
-	@After
-	public static void _post(){
-		await(1000);
-	}
+
 
 	public static void deliveryAndPaymentMethod() {
 		Order order = null;
@@ -243,11 +241,11 @@ public class Application extends Controller {
 			City city = City.getCityByIdSafely(session.get(SESSION_KEYS.CITY_ID));
 			List<Order> recent = null;
 			if (top){
-				recent  = Order.find(Order.HQL.LAST_ORDERS_BY_CITY, city).fetch(10);
+				recent  = Order.find(Order.HQL.LAST_ORDERS_BY_CITY_AND_STATUS, city, OrderStatus.ACCEPTED).fetch(10);
 			} else {
 				boolean isEmpty = true;
 				while (isEmpty){
-					recent  = Order.find(Order.HQL.LAST_ORDERS_BY_CITY_AND_AFTER_DATE, city, request.date).fetch();
+					recent  = Order.find(Order.HQL.LAST_ORDERS_BY_CITY_AND_STATUS_AND_AFTER_DATE, city, OrderStatus.ACCEPTED, request.date).fetch();
 					await(10000);
 					isEmpty = recent.isEmpty();
 				}

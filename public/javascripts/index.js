@@ -4,7 +4,7 @@ var lop = function(m){
 		target.hide('fast', function(){ target.remove(); });
 	}
 	
-	$('.zaraz h1').after(tmpl("lotmpl",m));
+	$('.zaraz h1').after(tmpl("lotmpl",{itm:m}));
 	$('.zaraz .zaraz_item:first').slideDown('fast');
 	
 }
