@@ -1,3 +1,13 @@
+RestaurantCategory(cat1):
+    categoryDisplayNameEN: Category1
+    categoryDisplayNameRU: Категория1
+    categoryDisplayNameUA: Категорія1
+
+RestaurantCategory(cat2):
+    categoryDisplayNameEN: Category2
+    categoryDisplayNameRU: Категория2
+    categoryDisplayNameUA: Категорія2
+
 models.geo.City(lviv):
     cityNameUA: Львів
     cityNameRU: Львов
@@ -98,6 +108,7 @@ Restaurant(restaurant1):
     device: device1
     city: lviv
     showOnIndex: true
+    category: cat1
 
 Restaurant(restaurant2):
     user: res_admin
@@ -110,6 +121,7 @@ Restaurant(restaurant2):
     device: device1
     city: lviv
     showOnIndex: true
+    category: cat2
 
 Restaurant(restaurant3):
     user: res_admin
@@ -122,6 +134,7 @@ Restaurant(restaurant3):
     device: device1
     city: kiev
     showOnIndex: true
+    category: cat1
 
 Restaurant(restaurant4):
     user: res_admin
@@ -134,6 +147,7 @@ Restaurant(restaurant4):
     device: device1
     city: chornobyl
     showOnIndex: true
+    category: cat2
 
 Restaurant(restaurant5_hidden):
     user: res_admin
@@ -146,6 +160,7 @@ Restaurant(restaurant5_hidden):
     device: device1
     city: lviv
     showOnIndex: false
+    category: cat1
 
 Restaurant(restaurant5_shown):
     user: res_admin
@@ -158,6 +173,7 @@ Restaurant(restaurant5_shown):
     device: device1
     city: lviv
     showOnIndex: true
+    category: cat2
 
 models.geo.Address(adr_restaurant):
     street: kreshchatyk

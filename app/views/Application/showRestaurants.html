@@ -17,64 +17,53 @@
 <div class="selWrap selWrapPp">
 	<p id="selText2"  class="selText"></p>
 	<ul id="selDrop2" class="selDrop">
-		<li>Всі</li>
-		<li>Цукерні</li>
-		<li class="selected">Хуєрні</li>
-		<li>Уригаловки</li>
+		<li class="selected">Всі</li>
+		#{list items:categories, as:'category' }
+		<li id="${category.categoryDisplayNameEN.slugify()}">${category.localizedName()}</li>
+		#{/list}
 	</ul>
 </div>
 <label class="forsel">Показати:</label>
 <div class="selWrap selWrapPp">
 	<p id="selText3" class="selText"></p>
 	<ul id="selDrop3" class="selDrop">
-		<li>Всі</li>
-		<li class="selected">Відчинені</li>
+		<li class="selected">Всі</li>
+		<li>Відчинені</li>
 	</ul>
 </div>
+	#{if controllers.Security.isConnected()}
+		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+		
+	#{/if}
+	#{else}
+		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+	#{/else}
 #{/set}
 <div class="left_cont">
-					<div class="rest_list_prev">
+#{list items:restaurants, as:'restaurant'} *{TODO make special field or function for classes of category}*
+					<div class="rest_list_prev${restaurant.isOnline()?"":" rest_list_prev_off"} ${restaurant.category?.categoryDisplayNameEN?.slugify()}">
 						<h1>
-							Паб "Пекельна Залупа",
-							<span>вул. Шептицьких, 11/5</span>
-							<a>онлайн</a>
+							${restaurant.title},
+							<span>${restaurant.addressToString()}</span>
+							<a>${restaurant.isOnlineAsString()}</a>
 						</h1>
 						<div class="rlp_cont">
 							<div class="img_wrap">
-								<i></i><img src="@{Application.serveLogo(1)}" />
+								<i></i><img src="@{Application.serveLogo(restaurant.id)}" />
 							</div>
 							<div class="properties">
-								<p class="rating stars">Рейтинг<span class="rate1"></span></p>
-								<p class="work_time">Відчинено з 10:00 до 22:00</p>
+								<p class="rating stars">&{'restaurants.rating.text'}<span class="rate${restaurant.raiting}"></span></p>
+								<p class="work_time">${restaurant.workHoursToday()}  </p>
 								<p class="dostavka">Доставка та самовивіз</p>
 							</div>
 							<div class="description">
-								<p>Vestibulum pulvinar sollicitudin orci non dapibus. Praesent posuere, urna sed tempus posuere, ligula ligula mattis mauris, ut facilisis nibh ligula sit amet erat. Sed posuere lacus et nulla cursus sit amet auctor erat congue. Vestibulum lobortis leo sit amet sapien pretium tempor.</p>
-								<a class="menu" href="#">Меню</a>
+								<p>${restaurant.description()}</p>
+								<a class="menu" href="@{Application.showMenu(restaurant.id)}">Меню</a>
 							</div>
 						</div>
 					</div>
-					<div class="rest_list_prev rest_list_prev_off">
-						<h1>
-							Челентано,
-							<span>вул. Братів Рогатитнців, 18</span>
-							<a>офлайн</a>
-						</h1>
-						<div class="rlp_cont">
-							<div class="img_wrap">
-								<i></i><img src="@{Application.serveLogo(2)}" />
-							</div>
-							<div class="properties">
-								<p class="rating stars">Рейтинг<span class="rate1"></span></p>
-								<p class="work_time">Відчинено з 09:00 до 21:00</p>
-								<p class="dostavka">Доставка та самовивіз</p>
-							</div>
-							<div class="description">
-								<p>Pellentesque sagittis tempus tincidunt. Nullam eget ipsum sit amet ipsum sodales sollicitudin convallis vel metus. Sed in dui erat, volutpat sollicitudin lacus. Vivamus fermentum massa in augue commodo aliquam. Suspendisse mauris nisl, ullamcorper aliquam pharetra nec, convallis vel enim. Curabitur fermentum lacus metus. Aenean id ante turpis, eu lobortis diam. </p>
-								<a class="menu" href="#">Меню</a>
-							</div>
-						</div>
-					</div>
+#{/list}
 				</div>
 				<div class="right_cont">
 					<div class="right_block advert">

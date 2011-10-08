@@ -63,14 +63,16 @@ public class Restaurant extends Model {
 		public static final String DESCRIPTIONS = "descriptions";
 		public static final String DELETED = "deleted";
 		public static final String SHOW_ON_INDEX = "showOnIndex";
-
+		public static final String CATEGORY = "category";
 	}
 	
 	public static class HQL {
 		public static final String BY_CITY_AND_SHOW_ON_INDEX = FIELDS.RESTAURANT_CITY + " = ? and " +FIELDS.SHOW_ON_INDEX + " = ?";
+		public static final String BY_CITY = FIELDS.RESTAURANT_CITY +" = ? ";
 		
 	}
-
+	@ManyToOne
+	public RestaurantCategory category;
 	public boolean deleted = false;
 	public boolean showOnIndex = false;
 	@OneToOne

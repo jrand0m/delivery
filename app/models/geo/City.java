@@ -3,6 +3,8 @@
  */
 package models.geo;
 
+import helpers.GeoDataHelper;
+
 import javax.persistence.Entity;
 
 import play.db.jpa.Model;
@@ -41,5 +43,17 @@ public class City extends Model {
 		}else if ("en".equalsIgnoreCase(Lang.get())){
 			return cityNameEN;
 		} else return cityNameUA; 
+	}
+	public static City getCityByIdSafely(String cityId) {
+		City city = null;
+		try {
+			city = City.findById(Long.valueOf(cityId));
+		} catch (NumberFormatException numformat){
+			
+		}
+		if (city == null ){
+			city = GeoDataHelper.getSystemDefaultCity();
+		}
+		return city;
 	}
 }
