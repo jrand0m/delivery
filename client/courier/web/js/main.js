@@ -12,7 +12,7 @@ var DCWMain = {
 	lastOrderTime: 0,
 	//isAuthorized: false,
 
-	init: function(){	
+	init: function() {
 		var thisObj = this;
 		this.initVars();
 		var fake = $(document.createElement("a")).addClass('DCWFake').text('.');
@@ -20,19 +20,15 @@ var DCWMain = {
 		fake.keydown(function(event){
 			thisObj.disableTab(event);
 		});
-		
 		fake.click(function(){
 			thisObj.showDialog(thisObj.getCV());
 		});
 		
 		fake.attr("href", "#");
 		$('body').prepend(fake);
-		var mainTable = $(document.createElement('table'));
-		mainTable.attr("id", "DCWMainOrderTable");
-		mainTable.attr("cellpadding", "0");
-		mainTable.attr("cellspacing", "0");
-		
-		$('body').append(mainTable);
+		$('body').append(
+			$(document.createElement('table'))
+			.attr("id", "DCWMainOrderTable"));
 			
 		this.initDialogFrame();
 		//this.showDialog(this.getAuthBox());
@@ -242,20 +238,8 @@ var DCWMain = {
 		
 		var thisObj = this;
 		
-		this.initColunHeight();
+		this.getAllOrders();
 		
-		$(window).resize(function() {
-			thisObj.initColunHeight();
-		});
-		
-		thisObj.getAllOrders();
-	},
-	
-	initColunHeight: function() {
-		$('.DCWOrdersColumnContent').each(function(el){
-			$(this).height($(window).height());
-			
-		});
 	},
 	
 	getNewOrderDiv: function(orderElem) {
@@ -382,12 +366,11 @@ var DCWMain = {
 	},
 	
 	getNewOrders: function() {
-		if(this.i<10) {
-		this.i = this.i + 1;
+		//if(this.isAuthorized) {
 		var thisObj = this;
 		
 		$.ajax({
-			url: '/api/g?id=1',//&from=' + thisObj.lastOrderTime,
+			url: '/api/g?id=1&from=' + thisObj.lastOrderTime,
 			success: function(data) {
 				$(data).each(function(elem){
 					var elemDom = thisObj.getNewOrderDiv(data[elem]);
@@ -401,10 +384,10 @@ var DCWMain = {
 		
 		window.setTimeout(function(){
 			thisObj.getNewOrders();
-		}, 200);
-		}
+		}, 20000);
+		//}
 	}, 
-	i : 0,
+	
 	getAllOrders: function() {
 		var thisObj = this;
 		
@@ -432,7 +415,7 @@ var DCWMain = {
 		
 		window.setTimeout(function(){
 			thisObj.getNewOrders();
-		}, 200);
+		}, 20000);
 	},
 	
 	updateTimes: function() {

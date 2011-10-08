@@ -13,7 +13,7 @@ BODY {margin: 0; padding: 0;}
 .DCWDialogFrame {opacity: 1; left: 50%; top: 50%; position: fixed; z-index: 101; background-color: #fff;}
 
 .DCWOrdersColumn {vertical-align: top; width: 50%; overflow: hidden;}
-.DCWOrdersColumnContent {overflow: auto;}
+.DCWOrdersColumnContent {}
 	.DCWOrderDiv {}
 	.DCWDelayedOrder {background-color: #f00;}
 	.DCWTimeToFinish {display: inline;}
