@@ -138,7 +138,8 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table 
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a{width: 12px; display: inline-block; margin-top: 4px;height: 12px; background: url(/public/images/add_but.png) no-repeat 0 0 transparent;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover th a{background-position: 0 -12px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p{line-height: 19px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child{text-decoration: underline; width: 75px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child{ width: 75px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child sup {text-decoration: underline;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p.descr{font-size: 13px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td{padding: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr.od{background-color: #f5f5f5;}

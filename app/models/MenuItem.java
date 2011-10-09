@@ -1,11 +1,15 @@
 package models;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
 
@@ -32,6 +36,8 @@ public class MenuItem extends Model {
 	public String description;
 	@ManyToOne(fetch = FetchType.LAZY)
 	public MenuItemGroup menuItemGroup;
+	@OneToMany(fetch = FetchType.EAGER)
+	public Set<MenuItemComponent> components = new HashSet<MenuItemComponent>();
 
 	public Date menuItemCreated;
 
@@ -62,7 +68,7 @@ public class MenuItem extends Model {
 	}
 
 	/**
-	 * Cloning constructor generates new id
+	 * Cloning constructor generates new id immutable >>>??
 	 * */
 	public MenuItem(MenuItem item) {
 		this(null, item.name, item.description, item.price, item.avaliable,
@@ -74,7 +80,17 @@ public class MenuItem extends Model {
 		int h = price / 100;
 		int c = price - h * 100;
 		assert c >= 0;
-		return String.valueOf(h) + "." + (0 < c && c < 10 ? "0" : "")
-				+ (c != 0 ? String.valueOf(c) : "--");
+		return String.valueOf(h) + "<sup>" + (0 < c && c < 10 ? "0" : "")
+				+ (c != 0 ? String.valueOf(c) : " --") + "</sup>";
+	}
+
+	public String name() {
+		// TODO add transliteration/translation
+		return name;
+	}
+
+	public String description() {
+		// TODO add transliteration/translation
+		return description;
 	}
 }

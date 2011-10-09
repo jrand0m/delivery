@@ -51,33 +51,33 @@ api URLs:
 
 
 Basket = {
-	baseURL				:	base,
-    renderContainer		:   basket,
+	baseURL				:	'base',
+    	renderContainer			:   	'basket',
 	rows				:	[],
 	init				: function (){
-		this.reset();
+		this.$reset();
 		if (!this.baseURL){
 			return false;
 		}
-	}
+	},
 	update 				: function (){
-		this.reset();
+		this.$reset();
 		
 	},
 	
-	/*add item to basket */
-	addItem				: function(item, count){
+	/*incr item to basket */
+	inc				: function(item, count){
 		this.update();
 	},
-	/*rem item rom basket */
-	remItem				: function(item, count){
+	/*decr or rem item from basket */
+	dec				: function(item, count){
 		this.update();
 	},
 	/*builds rows with data passed. data is array of ordItems*/
 	$update				: function(data){
 	
 	},
-    $makeCall			: function(url, data, callback){
+        $makeCall			: function(url, data, callback){
 	
 	},
 	/* insert row to gui */
@@ -108,4 +108,24 @@ Basket = {
 	}
 };
 Basket.init();
+var add = function (i,c){
+	alert('add id = ' + i + "; has components = " + c);
+	if (c){
+
+		$.fancybox(
+			c,
+			{
+				'titlePosition'		: 'inside',
+				'transitionIn'		: 'none',
+				'transitionOut'		: 'none'
+			}
+		);
+	}else{
+		
+	}
+}
+
+
+
+
 
