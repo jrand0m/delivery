@@ -90,6 +90,23 @@ public class Application extends Controller {
 	}
 
 
+	public static void order() {
+	Order order = null;
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		if (user != null) {
+			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
+					OrderStatus.OPEN).first();
+		} else {
+			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
+					OrderStatus.OPEN, session.getId()).first();
+		}
+		if (order == null) {
+			order = Application.createNewOpenOrder(null);
+		}
+		renderArgs.put("order", order);
+		render("/Application/order.html");
+	}
+	
 	public static void checkout() {
 		Order order = null;
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
