@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -17,12 +18,16 @@ import java.util.Set;
 
 import jobs.DevBootStrap;
 import models.MenuItem;
+import models.MenuItemComponent;
 import models.MenuItemGroup;
 import models.Order;
 import models.OrderItem;
 import models.Restaurant;
 import models.RestaurantCategory;
 import models.RestaurantNetwork;
+import models.dto.extern.BasketJSON;
+import models.dto.extern.LastOrdersJSON;
+import models.dto.extern.MenuComponentsJSON;
 import models.geo.City;
 import models.geo.IpGeoData;
 import models.geo.IpGeoData.HQL;
@@ -34,6 +39,7 @@ import play.Play;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.i18n.Lang;
+import play.mvc.After;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.test.Fixtures;
@@ -62,8 +68,8 @@ public class Application extends Controller {
 		renderText("Cleared db and forsed fixture load");
 	}
 
-	@Before(unless = {"serveLogo"}/*unless = {"getCurrentUser","guessCity","deleteOrRemOrderItem","createNewOpenOrder", "createOrAddOrderItem", }*/)
-	public static void _prepare() {
+	@Before(unless = {"serveLogo","loadFix","comps"}/*unless = {"getCurrentUser","guessCity","deleteOrRemOrderItem","createNewOpenOrder", "createOrAddOrderItem", }*/)
+	public static void _pre() {
 		EndUser user = getCurrentUser();
 		renderArgs.put(RENDER_KEYS.USER, user);
 		Order order = null;
@@ -86,7 +92,8 @@ public class Application extends Controller {
 		}
 	}
 
-	public static void deliveryAndPaymentMethod() {
+
+	public static void checkout() {
 		Order order = null;
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user != null) {
@@ -190,7 +197,81 @@ public class Application extends Controller {
 		Logger.debug("Sent... id = %s", id);
 		ok();
 	}
+	public static void basket() {
+		Logger.debug(">>> Entering basket");
+		Order order = null;
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		if (user != null) {
+			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
+					OrderStatus.OPEN).first();
+		} else {
+			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
+					OrderStatus.OPEN, session.getId()).first();
+		}
+		if (order == null) {
+			order = Application.createNewOpenOrder(null);
+		}
+		renderJSON(new BasketJSON(order));
 
+	}
+
+	/* ------------ UTIL Pages -------------- */
+	/**
+	 * Change Language
+	 * */
+	public static void changeLang(String lang) {
+		Lang.change(lang);
+		index();
+	}
+	
+	public static void changeCity(Long id){
+		Logger.debug("changing city to id = %s", id);
+		City city  = City.findById(id);
+		if (city == null){
+			session.put(SESSION_KEYS.CITY_ID, GeoDataHelper.getSystemDefaultCity().getId().toString());
+		} else {
+			session.put(SESSION_KEYS.CITY_ID, id.toString() );
+		}
+		redirect("/");
+	}
+	
+	/* ------------ AJAX ----------------*/
+	
+	public static void getLastOrders(boolean top){
+		ArrayList<LastOrdersJSON> o = new ArrayList<LastOrdersJSON>();
+		if(session.contains(SESSION_KEYS.CITY_ID)){
+			City city = City.getCityByIdSafely(session.get(SESSION_KEYS.CITY_ID));
+			List<Order> recent = null;
+			if (top){
+				await(5000);
+				recent  = Order.find(Order.HQL.LAST_ORDERS_BY_CITY_AND_STATUS, city, OrderStatus.ACCEPTED).fetch(10);
+			} else {
+				boolean isEmpty = true;
+				while (isEmpty){
+					recent  = Order.find(Order.HQL.LAST_ORDERS_BY_CITY_AND_STATUS_AND_AFTER_DATE, city, OrderStatus.ACCEPTED, request.date).fetch();
+					await(10000);
+					isEmpty = recent.isEmpty();
+				}
+			}
+			for (Order ord : recent){
+				o.add(new LastOrdersJSON(ord));
+			}
+		} else {
+			Logger.debug("No city in sesion, waiting to prevent ddos/dos");
+			await(20000);
+		}
+		renderJSON(o);
+	}
+	public static void comps(Long id){
+		notFoundIfNull(id);
+		await(1000);
+		List<MenuItemComponent> comps = MenuItemComponent.find(MenuItemComponent.FIELDS.ITM_ROOT + "_ID = ?", id).fetch();
+		List<MenuComponentsJSON> asJsons= new ArrayList<MenuComponentsJSON>();
+		for (MenuItemComponent i :comps){
+			asJsons.add(new MenuComponentsJSON(i));
+		}
+		renderJSON(asJsons);
+	}
 	public static void addOrderItem(@Required Long id, @Required Integer count) {
 		Logger.debug(">>> Adding items with id %s in count %s", id, count);
 		if (Security.isConnected()) {
@@ -245,6 +326,9 @@ public class Application extends Controller {
 		renderJSON("{}");
 
 	}
+	
+	/* -----------  private --------------*/
+	
 	/**
 	 * @param id
 	 * @param order
@@ -326,44 +410,6 @@ public class Application extends Controller {
 			Logger.debug(">>> New item count %i", orderItem.count);
 		}
 		Logger.debug(">>> Created order item %s ", orderItem.id.toString());
-	}
-
-	public static void basket() {
-		Logger.debug(">>> Entering basket");
-		Order order = null;
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-		if (user != null) {
-			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
-					OrderStatus.OPEN).first();
-		} else {
-			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
-					OrderStatus.OPEN, session.getId()).first();
-		}
-		if (order == null) {
-			order = Application.createNewOpenOrder(null);
-		}
-		renderArgs.put("order", order);
-		render();
-
-	}
-
-	/**
-	 * Change Language
-	 * */
-	public static void changeLang(String lang) {
-		Lang.change(lang);
-		index();
-	}
-	
-	public static void changeCity(Long id){
-		Logger.debug("changing city to id = %s", id);
-		City city  = City.findById(id);
-		if (city == null){
-			session.put(SESSION_KEYS.CITY_ID, GeoDataHelper.getSystemDefaultCity().getId().toString());
-		} else {
-			session.put(SESSION_KEYS.CITY_ID, id.toString() );
-		}
-		redirect("/");
 	}
 
 	public static void serveLogo(long id) throws IOException {

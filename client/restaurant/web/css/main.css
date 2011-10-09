@@ -1,7 +1,7 @@
-BODY {margin: 0; padding: 0;}
+body {background:url("../img/bodyBG.png") repeat scroll 0 0 transparent; font-family:Tahoma}
 
 .DCWFake {width: 1px; height: 1px; font-size: 1px; position: absolute; line-height: 1px; overflow: hidden;}
-#DCWMainOrderTable {width: 100%; background-color:#FFA; height: 100%;}
+#DCWMainOrderTable {width: 100%; height: 100%;}
 #DCWAuthForm {}
 
 
@@ -13,12 +13,16 @@ BODY {margin: 0; padding: 0;}
 .DCWDialogFrame {opacity: 1; left: 50%; top: 50%; position: fixed; z-index: 101; background-color: #fff;}
 
 .DCWOrdersColumn {vertical-align: top; width: 50%; overflow: hidden;}
-.DCWOrdersColumnContent {overflow: auto;}
-	.DCWOrderDiv {}
+.DCWOrdersColumnContent {} 
+#DCWNewOrdersColumn .DCWOrderDiv{ border:1px solid #e83f0b;}
+#DCWActiveOrdersColumn .DCWOrderDiv{ border:1px solid #0b0be8;}
 	.DCWDelayedOrder {background-color: #f00;}
 	.DCWTimeToFinish {display: inline;}
 .DCWOrderPriceDiv {float: right;}
-.DCWDishContent {color: #666; overflow: hidden;}
+.DCWDishContent {    border-bottom: 1px dashed #999999;
+    color: #333;
+    margin: 10px;
+    overflow: hidden;}
 	.DCWDishName {float: left;}
 	.DCWDishCount {float: left;}
 	.DCWDishPrice {float: right;}
@@ -27,5 +31,8 @@ BODY {margin: 0; padding: 0;}
 .DCWLeftFloat {float: left; width: 10px; height: 10px; overflow: hidden;}
 .DCW10px {width: 10px; height: 10px; overflow: hidden;}
 .DCWOrderHeaderWrapper {overflow: hidden;}
-	.DCWActiveOrdersBtnsWrapper {float: right;}
+	.DCWActiveOrdersBtnsWrapper {}
 .DCWAuthAltInput {color: #999;}
+
+.DCWOrderDiv {background: url("../img/orderBG.png") repeat scroll 0 0 transparent; box-shadow: 0 0 9px -2px; margin: 0 0 10px;padding: 10px;}
+.taken, .ready {float:left;}

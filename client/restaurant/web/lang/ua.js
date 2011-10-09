@@ -6,7 +6,10 @@ DCWLang.ua = {
 	ok: 'добре',
 	errorNoIngrediants: 'Відсутні необхідні складники, для приготування страв.',
 	notEnoughtTimeBeforeClose: 'Замовлення не буде закінчене до закриття закладу',
-	reject: 'відмовити',
+	reject: 'відхилити',
 	ready: 'готово',
-	taken: 'забрано'
+	taken: 'забрано',
+	orderID: 'Номер замовлення: ',
+	timeConfirmed: 'Підтверджений час: ',
+	time: ' хвилин',
 }

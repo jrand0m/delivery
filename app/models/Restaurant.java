@@ -64,6 +64,8 @@ public class Restaurant extends Model {
 		public static final String DELETED = "deleted";
 		public static final String SHOW_ON_INDEX = "showOnIndex";
 		public static final String CATEGORY = "category";
+		
+		public static final String TWO_LETTERS = "twoLetters";
 	}
 	
 	public static class HQL {
@@ -136,6 +138,7 @@ public class Restaurant extends Model {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	public WorkHours workHours;
+	public String twoLetters;
 
 	public boolean isOnline() {
 		Boolean online = (Boolean) Cache.get("isOnline_" + getId());
@@ -180,6 +183,17 @@ public class Restaurant extends Model {
 	public String isOnlineAsString() {
 		return isOnline() ? Messages.get("restaurant.online") : Messages
 				.get("restaurant.offline");
+	}
+
+	public String getTwoLetters() {
+		if (twoLetters == null || twoLetters.isEmpty())
+		{
+			return "VD";
+		} else 
+		return twoLetters;
+	}
+	public void setTwoLetters(String ltrs) {
+			twoLetters = ltrs;
 	}
 
 }

@@ -29,7 +29,7 @@ public class SystemSetting extends Model {
 	public static final class DEFAULT_VALUES{
 		public static final long DEFAULT_CITY_ID = 1;
 	}
-
+	static final long serialVersionUID = 10275539472837495L;
 	@Required
 	@Min(3)
 	@Max(32)

@@ -6,6 +6,7 @@ package controllers;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import enumerations.LogActionType;
 import enumerations.UserRoles;
 
 import models.Order;
@@ -153,6 +154,19 @@ public class Security extends Controller {
 	 * the time the user signed in)
 	 */
 	static void onAuthenticated() {
+		if (session.contains("username")){
+			User user = User.find(User.HQL.BY_LOGIN, session.get("username") ).first();
+			if (user == null){
+				badRequest();
+			}
+			String url = user.landingUrl();
+			if (url != null){
+				flash.put("url", url);
+			}
+			
+		} else {
+			helpers.Logger.logSystemWarn(LogActionType.INFO, "Strange behaviour on auth: signed in but no username. %s", request.remoteAddress);
+		}
 	}
 
 	/**

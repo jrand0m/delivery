@@ -11,5 +11,5 @@ import javax.persistence.Entity;
  */
 @Entity
 public class SystemAdministrator extends User {
-	public String stubfield;
+	public String lastloginip;
 }

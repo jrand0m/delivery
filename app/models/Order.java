@@ -2,8 +2,10 @@ package models;
 
 import helpers.SystemCalc;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -70,6 +72,16 @@ public class Order extends GenericModel {
 				+ " = ? or " + Order.FIELDS.ID + " like ?";
 		public static final String BY_RESTAURANT_AND_STATUS = Order.FIELDS.RESTAURANT + " = ? and "+ Order.FIELDS.ORDER_STATUS + " = ? ";
 		public static final String BY_RESTAURANT_AND_STATUS_AND_AFTER_DATE = BY_RESTAURANT_AND_STATUS + " and " + FIELDS.ORDER_COOKED +  " > ?";
+		public static final String BY_RESTAURANT_AND_STATUS_ORDERBY_ACCEPTED_DESC = Order.FIELDS.RESTAURANT + " = ? and "+ Order.FIELDS.ORDER_STATUS + " in (?) order by "+FIELDS.ORDER_ACCEPTED+" desc";
+		
+		public static final String LAST_ORDERS_BY_CITY_AND_STATUS = 
+				"select ord from Order ord join ord."+ FIELDS.RESTAURANT +" as rest where rest." 
+		+ Restaurant.FIELDS.RESTAURANT_CITY + " = ? and ord."+FIELDS.ORDER_STATUS+" = ? order by ord."+FIELDS.ORDER_ACCEPTED +  " desc ";
+		
+		public static final String LAST_ORDERS_BY_CITY_AND_STATUS_AND_AFTER_DATE = 
+				"select ord from Order ord join ord."+ FIELDS.RESTAURANT +" as rest where rest." 
+		+ Restaurant.FIELDS.RESTAURANT_CITY + " = ? and ord."+FIELDS.ORDER_STATUS+" = ? and ord."+Order.FIELDS.ORDER_ACCEPTED+
+		" > ?"+ " order by ord."+FIELDS.ORDER_ACCEPTED +  " desc ";
 	}
 
 	public static Order findByShortId(String shortID) {
@@ -191,12 +203,12 @@ public class Order extends GenericModel {
 	}
 
 	/**
-	 * Grand total including delivery price and excluding user discount
+	 * Grand total including delivery price and minus calculated user discount
 	 * */
 	public Integer getGrandTotal() {
 
 		Integer menuTotal = getMenuTotal();
-		return menuTotal + getDeliveryPrice() - getUserDiscount() * menuTotal;
+		return menuTotal + getDeliveryPrice() - getUserDiscount().multiply(new BigDecimal( menuTotal).setScale(0)).intValue();
 	}
 
 	/**
@@ -227,13 +239,31 @@ public class Order extends GenericModel {
 	/**
 	 * calculated discount for entire order
 	 * */
-	public Integer getUserDiscount() {
-
+	public BigDecimal getUserDiscount() {
 		return SystemCalc.getUserDiscount(this);
 	}
 
 	public void setShortHandId(String id) {
 		shortHandId = id;
+	}
+	/**
+	 * is called for index page
+	 * */
+	public String oneLineDescription() {
+		StringBuilder b = new StringBuilder();
+		for (Iterator<OrderItem> it = items.iterator(); it.hasNext();){
+			b.append(it.next().menuItem.name);
+			if (it.hasNext()){
+				b.append(", ");
+			} else {
+				break;
+			}
+			if (b.length() > 240){
+				b.append ("...");
+				break;
+			}
+		}
+		return b.toString();
 	}
 
 }

@@ -28,6 +28,11 @@ public class Comment extends Model {
 		public static final String COMMENT_STATUS = "status";
 		public static final String COMMENT_SHOW_AS_ANONYMOUS = "showAsAnonymous";
 	}
+	public static final class HQL {
+
+		public static final String BY_RESTAURANT_ORDERBY_DATE_DESC = FIELDS.COMMENT_RESTAURANT+ " =? order by "+FIELDS.COMMENT_DATE+" desc";
+		
+	}
 
 	/**
 	 * allow only registered users !

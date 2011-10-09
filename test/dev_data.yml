@@ -345,6 +345,30 @@ MenuItem(mit_pizza1):
     menuItemGroup: mgp_pizza
     restaurant: restaurant1
     deleted: false
+
+MenuItemComponent(comp1):
+    itm_root: mit_pizza1
+    itm_name: comp1
+    itm_desc: desc1
+    itm_price: 100
+    itm_avaliable: true
+
+MenuItemComponent(comp2):
+    itm_root: mit_pizza1
+    itm_name: comp2
+    itm_desc: desc2
+    itm_price: 101
+    itm_avaliable: true
+    required: 
+      - comp1
+MenuItemComponent(comp3):
+    itm_root: mit_pizza1
+    itm_name: comp3
+    itm_desc: desc3
+    itm_price: 102
+    itm_avaliable: true
+    notCompatible:
+      - comp2
 #Orderz
 Order(order1):
     orderCreated: 2011-09-08

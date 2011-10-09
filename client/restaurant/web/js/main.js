@@ -8,9 +8,8 @@ var DCWMain = {
 	newOrdersContent: '',
 	activeOrdersContent: '',
 	dialogFrame: '',
-	lang: '',
-	lastOrderTime: 0,
-	//isAuthorized: false,
+	lang: 'ua',
+	isAuthorized: false,
 
 	init: function(){	
 		var thisObj = this;
@@ -20,23 +19,18 @@ var DCWMain = {
 		fake.keydown(function(event){
 			thisObj.disableTab(event);
 		});
-		
 		fake.click(function(){
 			thisObj.showDialog(thisObj.getCV());
 		});
 		
 		fake.attr("href", "#");
 		$('body').prepend(fake);
-		var mainTable = $(document.createElement('table'));
-		mainTable.attr("id", "DCWMainOrderTable");
-		mainTable.attr("cellpadding", "0");
-		mainTable.attr("cellspacing", "0");
-		
-		$('body').append(mainTable);
+		$('body').append(
+			$(document.createElement('table'))
+			.attr("id", "DCWMainOrderTable"));
 			
 		this.initDialogFrame();
-		//this.showDialog(this.getAuthBox());
-		this.showContent();
+		this.showDialog(this.getAuthBox());
 	},
 	
 	getCV: function() {
@@ -56,11 +50,11 @@ var DCWMain = {
 		this.activeOrders = new Array();
 	},
 		
-	//authorize: function(login, password){
-	//	return true;
-	//},
+	authorize: function(login, password){
+		return true;
+	},
 	
-	/*getAuthBox: function(){
+	getAuthBox: function(){
 		var authForm = this.createDiv("DCWAuthForm",  "DCWAuthForm");
 			
 		var loginTextBox = $(document.createElement('input'));
@@ -139,7 +133,7 @@ var DCWMain = {
 			.append(btnOk));
 			
 		return authForm;
-	},*/
+	},
 	
 	initDialogFrame: function() {
 		var thisObj = this;
@@ -242,27 +236,15 @@ var DCWMain = {
 		
 		var thisObj = this;
 		
-		this.initColunHeight();
+		this.getNewOrders();
 		
-		$(window).resize(function() {
-			thisObj.initColunHeight();
-		});
-		
-		thisObj.getAllOrders();
-	},
-	
-	initColunHeight: function() {
-		$('.DCWOrdersColumnContent').each(function(el){
-			$(this).height($(window).height());
-			
-		});
 	},
 	
 	getNewOrderDiv: function(orderElem) {
 		
 		var orderDiv = this.createDiv("DCWOrderDiv");
-		var id = this.createDiv();
-		id.text(orderElem.id);
+		var id = this.createDiv('DCWOrderIdDiv');
+		id.text(this.lang.orderID + orderElem.id);
 		orderDiv.append(id);
 		orderDiv.append(this.getDishesList(orderElem.list));
 		orderElem.domElem = orderDiv;
@@ -271,36 +253,41 @@ var DCWMain = {
 		var thisObj = this;
 		
 		var btn15 = this.createButton('15', 'DCWOrderButton');
+		btn15.prepend('<img src="img/tick.png" style="vertical-align: middle">');
 		$(btn15).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 15);
 		});
 		buttonsDiv.append(btn15);
 		
 		var btn30 = this.createButton('30', 'DCWOrderButton');
+		btn30.prepend('<img src="img/tick.png" style="vertical-align: middle">');
 		$(btn30).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 30);
 		});
 		buttonsDiv.append(btn30);
 		
 		var btn45 = this.createButton('45', 'DCWOrderButton');
+		btn45.prepend('<img src="img/tick.png" style="vertical-align: middle">');
 		$(btn45).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 45);
 		});
 		buttonsDiv.append(btn45);
 		
 		var btn60 = this.createButton('60', 'DCWOrderButton');
+		btn60.prepend('<img src="img/tick.png" style="vertical-align: middle">');
 		$(btn60).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 60);
 		});
 		buttonsDiv.append(btn60);
 		
-		var btn100 = this.createButton('100', 'DCWOrderButton');
+		/*var btn100 = this.createButton('100', 'DCWOrderButton');
 		$(btn100).click(function(el){
 			thisObj.timeButtonPressed(orderElem, 100);
 		});
-		buttonsDiv.append(btn60);
+		buttonsDiv.append(btn100);*/
 				
 		var btnRject = this.createButton(this.lang.reject, 'DCWOrderButton');
+		btnRject.prepend('<img src="img/cross.png" style="vertical-align: middle">');
 		$(btnRject).click(function(el){
 			thisObj.showDialog(thisObj.getRejectDialog(orderElem));
 		});
@@ -310,7 +297,7 @@ var DCWMain = {
 		return orderDiv;
 	},
 	
-	getActiveOrderDiv: function(orderElem, isFromServer, isFinished) {
+	getActiveOrderDiv: function(orderElem) {
 		var thisObj = this;		
 		var orderDiv = this.createDiv('DCWOrderDiv');
 		/*var price = $(document.createElement('div'));
@@ -318,19 +305,20 @@ var DCWMain = {
 		price.addClass('DCWOrderPriceDiv');
 		orderDiv.append(price);*/
 		var orderHeaderWrapper = this.createDiv('DCWOrderHeaderWrapper');
-		var id = this.createDiv().text(orderElem.id);
-		var timeToFinish = this.createDiv('DCWTimeToFinish').html(Math.ceil(orderElem.time/60000));
-		var btnReject = this.createButton(this.lang.reject, 'DCWOrderButton');
-		var btnMade = this.createButton(this.lang.ready, 'DCWOrderButton');
-		var btnTaken = this.createButton(this.lang.taken, 'DCWOrderButton');
+		var id = this.createDiv('DCWOrderIdDiv').text(this.lang.orderID + orderElem.id);
+		var timeToFinish = this.createDiv('DCWTimeToFinish').html(this.lang.timeConfirmed + orderElem.time/60000 + this.lang.time);
+		var btnReject = this.createButton(this.lang.reject, 'DCWOrderButton reject');
+		btnReject.prepend('<img src="img/cross.png" style="vertical-align: middle">');
+		var btnMade = this.createButton(this.lang.ready, 'DCWOrderButton ready');
+		btnMade.prepend('<img src="img/tick.png" style="vertical-align: middle">');
+		var btnTaken = this.createButton(this.lang.taken, 'DCWOrderButton taken');
+		btnTaken.prepend('<img src="img/home.png" style="vertical-align: middle">');
 		
 		btnMade.click(function() {
 			thisObj.sendOrderStatusChanged(orderElem, 'COOKED');
-			orderElem.made = true;
 			btnMade.hide();
 			btnTaken.show();
 		});
-		
 		
 		btnTaken.click(function() {
 			thisObj.sendOrderStatusChanged(orderElem, 'DELIVERING');
@@ -342,28 +330,22 @@ var DCWMain = {
 			thisObj.showDialog(thisObj.getRejectDialog(orderElem));
 		});
 		
+		btnTaken.hide();
+		orderHeaderWrapper.append(id);
+		orderHeaderWrapper.append(timeToFinish);
+		
+		orderDiv.append(orderHeaderWrapper);
+		this.activeOrders[this.activeOrders.length] = orderElem;
+		thisObj.removeElement(orderElem);
+		orderDiv.append(this.getDishesList(orderElem.list));
+		
 		var btnDiv = this.createDiv('DCWActiveOrdersBtnsWrapper');
-		btnDiv.append(timeToFinish);
+		
 		btnDiv.append(btnMade);
 		btnDiv.append(btnTaken);
 		btnDiv.append(btnReject);
-		orderHeaderWrapper.append(btnDiv);
+		orderDiv.append(btnDiv);
 		
-		btnTaken.hide();
-		
-		if(isFinished) {
-			btnMade.hide();
-			btnTaken.show();
-		}
-		
-		orderHeaderWrapper.append(id);
-		orderDiv.append(orderHeaderWrapper);
-		this.activeOrders[this.activeOrders.length] = orderElem;
-		if(isFromServer) {
-		} else {
-			thisObj.removeElement(orderElem);
-		}
-		orderDiv.append(this.getDishesList(orderElem.list));
 		orderElem.domElem = orderDiv;
 		return orderDiv;
 	},
@@ -382,79 +364,43 @@ var DCWMain = {
 	},
 	
 	getNewOrders: function() {
-		if(this.i<10) {
-		this.i = this.i + 1;
+		if(this.isAuthorized) {
 		var thisObj = this;
 		
-		$.ajax({
-			url: '/api/g?id=1',//&from=' + thisObj.lastOrderTime,
-			success: function(data) {
-				$(data).each(function(elem){
-					var elemDom = thisObj.getNewOrderDiv(data[elem]);
-					if(elem.time > thisObj.lastOrderTime)thisObj.lastOrderTime = elem.time;
-					thisObj.newOrdersContent.append(elemDom);
-				});
-			}
-		});
-		
-		this.updateTimes();
-		
-		window.setTimeout(function(){
-			thisObj.getNewOrders();
-		}, 200);
+			$.ajax({
+				url: '/api/g?id=1',
+				success: function(data) {
+					//alert(JSON.stringify(data));
+					
+					$(data).each(function(elem){
+						var elemDom = thisObj.getNewOrderDiv(data[elem]);
+						thisObj.newOrdersContent.append(elemDom);
+					});
+				}
+			});
+			
+			this.updateTimes();
+			
+			window.setTimeout(function(){
+				thisObj.getNewOrders();
+			}, 20000);
 		}
 	}, 
-	i : 0,
-	getAllOrders: function() {
-		var thisObj = this;
-		
-		$.ajax({
-			url: '/api/g?id=1',
-			success: function(data) {
-				$(data).each(function(index){
-				
-					var elem = data[index];
-					if(elem.status == "CONFIRMED") {
-						var elemDom = thisObj.getNewOrderDiv(elem);
-						thisObj.newOrdersContent.append(elemDom);
-					} else if(elem.status == "ACCEPTED") {
-					//alert(JSON.stringify(elem));
-						elem.time = elem.timeToFinish;
-						thisObj.activeOrdersContent.append(thisObj.getActiveOrderDiv(elem, true));
-					} else if(elem.status == "COOKED") {
-						thisObj.activeOrdersContent.append(thisObj.getActiveOrderDiv(elem, true, true));
-					}
-					if(elem.time > thisObj.lastOrderTime)thisObj.lastOrderTime = elem.time;
-					thisObj.newOrdersContent.append(elemDom);
-				});
-			}
-		});
-		
-		window.setTimeout(function(){
-			thisObj.getNewOrders();
-		}, 200);
-	},
 	
 	updateTimes: function() {
 		$(this.activeOrders).each(function(){
 			this.time = this.time-20000;
 			var isPositive = this.time > 0;
 			if(isPositive) {
-				$('.DCWTimeToFinish', this.domElem).html(Math.ceil(this.time / 60000));
+				$('.DCWTimeToFinish', this.domElem).html(Math.ceil( this.lang.timeConfirmed + this.time / 60000 + this.lang.time ));
 			} else  {
-				if(this.made) {
-					this.domElem.removeClass('DCWDelayedOrder');
-					$('.DCWTimeToFinish', this.domElem).hide();
-				} else {
-					$('.DCWTimeToFinish', this.domElem).html(0);
-					this.domElem.addClass('DCWDelayedOrder');
-				}
+				$('.DCWTimeToFinish', this.domElem).html(0);
+				this.domElem.addClass('DCWDelayedOrder');
 			}
 		});
 	},
 	
 	sendOrderActivated: function(element) {
-		alert('/api/p'+'?'+'message:'+$.toJSON({ 'status' : 'ACCEPTED', 'id' : element.id, 'time' : element.time }));
 		$.ajax({
 			url: '/api/p',
 			dataType: "json",

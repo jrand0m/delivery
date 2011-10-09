@@ -3,6 +3,9 @@
  */
 package helpers;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import models.Order;
 
 /**
@@ -26,11 +29,11 @@ public class SystemCalc {
 	 * Calculates user discount for order
 	 * 
 	 * @param order
-	 * @return user discount
+	 * @return user discount in 1 - 100%; 0.01 - 1%
 	 */
-	public static Integer getUserDiscount(Order order) {
+	public static BigDecimal getUserDiscount(Order order) {
 		// FIXME NEED CALCULATION MODEL
-		return 0;
+		return new BigDecimal(0.0F).setScale(2, RoundingMode.HALF_EVEN);
 	}
 
 }
