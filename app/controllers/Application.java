@@ -18,13 +18,16 @@ import java.util.Set;
 
 import jobs.DevBootStrap;
 import models.MenuItem;
+import models.MenuItemComponent;
 import models.MenuItemGroup;
 import models.Order;
 import models.OrderItem;
 import models.Restaurant;
 import models.RestaurantCategory;
 import models.RestaurantNetwork;
+import models.dto.extern.BasketJSON;
 import models.dto.extern.LastOrdersJSON;
+import models.dto.extern.MenuComponentsJSON;
 import models.geo.City;
 import models.geo.IpGeoData;
 import models.geo.IpGeoData.HQL;
@@ -65,7 +68,7 @@ public class Application extends Controller {
 		renderText("Cleared db and forsed fixture load");
 	}
 
-	@Before(unless = {"serveLogo","loadFix"}/*unless = {"getCurrentUser","guessCity","deleteOrRemOrderItem","createNewOpenOrder", "createOrAddOrderItem", }*/)
+	@Before(unless = {"serveLogo","loadFix","comps"}/*unless = {"getCurrentUser","guessCity","deleteOrRemOrderItem","createNewOpenOrder", "createOrAddOrderItem", }*/)
 	public static void _pre() {
 		EndUser user = getCurrentUser();
 		renderArgs.put(RENDER_KEYS.USER, user);
@@ -208,8 +211,7 @@ public class Application extends Controller {
 		if (order == null) {
 			order = Application.createNewOpenOrder(null);
 		}
-		renderArgs.put("order", order);
-		render();
+		renderJSON(new BasketJSON(order));
 
 	}
 
@@ -241,6 +243,7 @@ public class Application extends Controller {
 			City city = City.getCityByIdSafely(session.get(SESSION_KEYS.CITY_ID));
 			List<Order> recent = null;
 			if (top){
+				await(5000);
 				recent  = Order.find(Order.HQL.LAST_ORDERS_BY_CITY_AND_STATUS, city, OrderStatus.ACCEPTED).fetch(10);
 			} else {
 				boolean isEmpty = true;
@@ -257,10 +260,18 @@ public class Application extends Controller {
 			Logger.debug("No city in sesion, waiting to prevent ddos/dos");
 			await(20000);
 		}
-		
 		renderJSON(o);
 	}
-	
+	public static void comps(Long id){
+		notFoundIfNull(id);
+		await(1000);
+		List<MenuItemComponent> comps = MenuItemComponent.find(MenuItemComponent.FIELDS.ITM_ROOT + "_ID = ?", id).fetch();
+		List<MenuComponentsJSON> asJsons= new ArrayList<MenuComponentsJSON>();
+		for (MenuItemComponent i :comps){
+			asJsons.add(new MenuComponentsJSON(i));
+		}
+		renderJSON(asJsons);
+	}
 	public static void addOrderItem(@Required Long id, @Required Integer count) {
 		Logger.debug(">>> Adding items with id %s in count %s", id, count);
 		if (Security.isConnected()) {

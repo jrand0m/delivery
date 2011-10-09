@@ -2,6 +2,7 @@ package models;
 
 import helpers.SystemCalc;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -202,12 +203,12 @@ public class Order extends GenericModel {
 	}
 
 	/**
-	 * Grand total including delivery price and excluding user discount
+	 * Grand total including delivery price and minus calculated user discount
 	 * */
 	public Integer getGrandTotal() {
 
 		Integer menuTotal = getMenuTotal();
-		return menuTotal + getDeliveryPrice() - getUserDiscount() * menuTotal;
+		return menuTotal + getDeliveryPrice() - getUserDiscount().multiply(new BigDecimal( menuTotal).setScale(0)).intValue();
 	}
 
 	/**
@@ -238,8 +239,7 @@ public class Order extends GenericModel {
 	/**
 	 * calculated discount for entire order
 	 * */
-	public Integer getUserDiscount() {
-
+	public BigDecimal getUserDiscount() {
 		return SystemCalc.getUserDiscount(this);
 	}
 
