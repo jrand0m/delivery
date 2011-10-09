@@ -1,0 +1,114 @@
+﻿#{extends 'main.html' /}
+#{set 'breadCrumb' }
+<a class="enter back" href="/">на головну</a>
+#{if controllers.Security.isConnected()}
+		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+		
+	#{/if}
+	#{else}
+		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+	#{/else}
+#{/set}
+<div class="left_cont">
+	<div class="checkout">
+		<h1>Дякуємо за покупку</h1>
+		<div style="margin:10px;padding: 0 0 10px 0; border-bottom:1px solid #E83F0B">
+	
+			
+			<span style="display:inline-block;width:100%; font: normal 13px Tahoma;">
+				Номер замовлення <b>№asd12eda3</b>, <span style="font:normal 14px 'Open Sans Condensed'">ресторан піцца Челентано</span>
+			</span>
+			
+			<span style="display:inline-block;width:100%; font: normal 13px Tahoma;">
+				Cтатус замовлення: <b style="color:#E83F0B">Підтверджуєтся рестораном</b>
+			</span>
+		</div>
+		
+			<table class="result_form">
+			<tr><td><h3>Адреса для доставки:</h3></td></tr>
+				<tr>
+					<td><span>Ім'я:</span>Василь</td>
+				</tr>
+				<tr>
+					<td><span>прізвище:</span>Ольховський</td>
+				</tr>
+				<tr>
+					<td><span>місто:</span>Львів</td>
+				</tr>
+		
+				<tr>
+					<td><span>вулиця:</span>Шептицьких</td>
+				</tr>
+			
+				<tr>
+					<td><span>будинок/квартира:</span>54/12</td>
+				</tr>
+				<tr>
+					<td><span>Тип оплати:</span>готівкa</td>
+				</tr>
+				
+			</table>
+			
+	
+		
+		<div class="order">
+				<table style="padding:13px 10px 0 0;">
+				<tr><td colspan="3"><h3>Замовлення: </h3></td></tr>
+					<tr>
+						<th>2</th>
+						<td>
+							<p>Піцца звичайна</p>
+							<p class="descr">Каперси, ананаси, печрець, сир моцарелла, палядвиця, бурячок</p>
+						</td>
+						<td>128 грн</td>
+					</tr>
+					<tr>
+						<th>1</th>
+						<td>
+							<p>Салат грецький</p>
+							<p class="descr">Бринза, оливки, помідори, зелень</p>
+						</td>
+						<td>35 грн</td>
+					</tr>
+					<tr>
+						<th>3</th>
+						<td>
+							<p>Канапка з ікрою</p>
+							<p class="descr">Хліб, ікра, масло</p>
+						</td>
+						<td>12 грн</td>
+					</tr>
+					<tr>
+						<th>1</th>
+						<td>
+							<p>Суп рибний</p>
+							<p class="descr">Виберіть компоненти</p>
+						</td>
+						<td>54 грн</td>
+					</tr>
+
+				</table>
+				
+						<table class="total">
+			
+			
+				<tr><th><span>Замовлення</span></th><td><span>${order.getMenuTotal()} грн</span></td></tr>
+				<tr class="pretotal"><th><span>Доставка</span></th><td><span>${order.getDeliveryPrice()} грн</span></td></tr>
+				<tr class="total"><th><span>разом</span></th><td><span>${order.getGrandTotal()} грн</span></td></tr>
+			</table>
+		</div>
+
+
+	</div>
+</div>
+
+
+<div class="right_cont">
+	<div id="timer">
+		<span><b>Статус:</b> ресторан обробляє замовлення</span>
+		<span><b>Залишилось:</b></span>
+		<span id="int">23</span>
+		<span id="time">хвилин</span>
+	</div>
+</div>
