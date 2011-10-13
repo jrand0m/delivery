@@ -215,6 +215,33 @@ public class Application extends Controller {
 		ok();
 	}
 	public static void basket() {
+		//FIXME best place to create new user
+		/*
+		 * when user reaches place with basket
+		 * create token 
+		 * basket checks if the user is logged in 
+		 * and if it is not searches for token and
+		 * if token found and correct then creates 
+		 * new anon user and logs him in.
+		 * name for the user will be Anonymous_<num>
+
+		 * if user chooses to register than we create 
+		 * new user for him and transferring all orders,
+		 * addresses from anon to new one and deleting 
+		 * anon.
+		 * 
+		 * also there is need to remove all anonymous that has 
+		 * last login date > 30 days and have no orders 
+		 * in state sent. 
+		 * 
+		 * please notice that some far away time 
+		 * in future there will be a moment when we will
+		 * need to run batch job for deleting all anons with
+		 * last login date > 1 year(or other period,
+		 * mb 3 month) which have associated orders in 
+		 * above sent state 
+		 * 
+		 * */
 		Logger.debug(">>> Entering basket");
 		Order order = null;
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
@@ -291,10 +318,11 @@ public class Application extends Controller {
 	}
 	public static void addOrderItem(@Required Long id, @Required Integer count) {
 		Logger.debug(">>> Adding items with id %s in count %s", id, count);
+		Order order = null;
 		if (Security.isConnected()) {
 			Logger.debug(">>> Connected user login: %s", Security.connected());
 			EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-			Order order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
+			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
 					user, OrderStatus.OPEN).first();
 			if (order == null) {
 				Logger.debug(">>> No open order found, creating one..");
@@ -306,22 +334,23 @@ public class Application extends Controller {
 		} else {
 			String bid = session.getId();
 			Logger.debug(">>> Annonymous sid: %s", bid);
-			Order order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
+			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
 					OrderStatus.OPEN, bid).first();
 			if (order == null) {
 				order = Application.createNewOpenOrder(null);
 			}
 			createOrAddOrderItem(id, order, count);
 		}
-		renderJSON("{}");
+		renderJSON(new BasketJSON(order));
 	}
 
 	public static void delOrderItem(@Required Long id, @Required Integer count) {
 		Logger.debug(">>> Delitinging items with id %s in count %s", id, count);
+		Order order = null;
 		if (Security.isConnected()) {
 			Logger.debug(">>> Connected user login: %s", Security.connected());
 			EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-			Order order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
+			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
 					user, OrderStatus.OPEN).first();
 			if (order == null) {
 				Logger.debug(">>> no order found, sending ok response");
@@ -333,14 +362,14 @@ public class Application extends Controller {
 		} else {
 			String bid = session.getId();
 			Logger.debug(">>> Annonymous basket id: %s", bid);
-			Order order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
+			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
 					OrderStatus.OPEN, bid).first();
 			if (order == null) {
 				order = Application.createNewOpenOrder(null);
 			}
 			deleteOrRemOrderItem(id, order, count);
 		}
-		renderJSON("{}");
+		renderJSON(new BasketJSON(order));
 
 	}
 	
