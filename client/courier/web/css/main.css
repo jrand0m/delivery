@@ -1,0 +1,17 @@
+BODY {margin: 0; padding: 0;}
+.DCWFake {width: 1px; height: 1px; font-size: 1px; position: absolute; line-height: 1px; overflow: hidden;}
+#DCWDialogBackgroundDiv {display: none;}
+#DCWDialogBackground {background: none repeat scroll 0 0 #333333; 
+	height: 100%; left: 0; opacity: 0.5; position: fixed;
+    top: 0; width: 100%; z-index: 100;}
+.DCWDialogFrame {opacity: 1; left: 50%; top: 50%; position: fixed; z-index: 101; background-color: #fff;}
+
+.DCWOrderDiv {border: 1px solid #000;}
+	.DCWDelayedOrder {background-color: #f00;}
+	.DCWTimeToFinish {display: inline;}
+.DCWOrderPriceDiv {float: right;}
+.DCWDishContent {color: #666; overflow: hidden;}
+	.DCWDishName {float: left;}
+	.DCWDishCount {float: left;}
+	.DCWDishPrice {float: right;}
+.DCWOrderHeader {overflow: hidden;}
