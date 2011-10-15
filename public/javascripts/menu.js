@@ -64,12 +64,14 @@ var rndr = function(comps){
 	return tmpl("cmfrtmp",{i:t});
 }
 var add = function (i,c){
+	$('#a'+i).addClass('current');
 	if (c){cmp=[];		
 		$.ajax({
 			type: "POST",
 			url: cu({}),
 			data: "id="+i,
    			success: function(msg){
+   					$('#a'+i).removeClass('current');
 					$.fancybox(
 						rndr(msg),
 					{
@@ -88,10 +90,12 @@ var toggle = function (self){
 	cmp[id].en = self.checked;
 	var t = 0;
 	$.each( cmp,  function(i, e){
-		if (e.en){
+		if (e&&e.en){
 			t= t+ e.pc;	
 		}
-	}
-	);
+	});
+	var el = $('div#fancybox-wrap tr.total td.price');
+	el.text(el.text().replace(/[\d]+/g, t));
+	
 }
 Basket.init();

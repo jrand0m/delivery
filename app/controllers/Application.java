@@ -198,6 +198,7 @@ public class Application extends Controller {
 	public static void showMenu(Long id) {
 		Restaurant restaurant = Restaurant.findById(id);
 		List<MenuItemGroup> menuItems = restaurant.menuBook;
+		Logger.warn("WTF? %s", menuItems);
 		renderArgs.put("restaurant", restaurant);
 		render(menuItems);
 	}
