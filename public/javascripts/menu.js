@@ -92,8 +92,6 @@ var toggle = function (self){
 			t= t+ e.pc;	
 		}
 	}
-	$('').text();
-	
 	);
 }
 Basket.init();
