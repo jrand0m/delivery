@@ -1,101 +1,39 @@
-/* basket json example
-{
-	discount		:1233.12332, 	// float 1 = 100%, 0.3 = 30%
-	total 			:12323,			// total of order excluding delivery 
-	deliveryPrice	:123312, 		//value in coins
-	events:			null 			//TBD
-	items:[
-		{	
-			mi: 1212,    // menu item id
-			ip: 1321,    // item price in coins
-			cnt: 1,      // count
-			comps:[      // array of components. if object has no components this field is null; if no components choosen it is empty array;
-					{
-						title:"", // name to display
-						desc: "", //description 
-						price: 123, price in coins
-					},
-					{..}], 
-			tit: "",     // title text
-			des: "",     //description text
-		}, 
-		{...}
-	]
-}
-*/
-/* components json example 
-[
-	{
-		ci: 1233, 		  // component id
-		cp: 123,  		  // component price in coins 
-		tit: "",  		  // title
-		des: "",  		  // description
-		avail: true, 	  // is avaliable 
-		req:[234,235,..], // array of component ids that are required for this component to be added 
-	    nc:[456,7657],    // array of component ids that cannon be used simultaneously with tis component
-	},
-	{...}
-]
-
-
-*/
-
-
-/*(url must be configured from main html(are subj to change), but parameters mostly will not change, so can be localy defined)
-api URLs:
-	- add menu item: "/application/addOrderItem?id=123&count=12&component=1&component=2&component=3&..."
-	- del menu item: "/application/delOrderItem?id=123&count=12"
-    - basketrefresh: "/application/basket"                      // not functional now
-    - get components for menu item: "/application/comps?id=123" // not functional now
-*/
-
-
 Basket = {
-	baseURL				:	'base',
-    	renderContainer			:   	'basket',
-	rows				:	[],
+    	renderContainer			:   	'#basket',
 	init				: function (){
-		this.$reset();
-		if (!this.baseURL){
-			return false;
-		}
+		this.$update();
 	},
-	update 				: function (){
-		this.$reset();
-		
+	update 				: function (resp){
+		if (resp)$update(resp);else 
+			$.ajax({
+				type: "POST",
+   				url: uu({}),
+   				success: function(msg){
+     					console.log( "Update data recieved: " + msg );
+					update(msg);
+   				}
+			});
 	},
+	add				: function(i){
+	//i is array
+		this.update(resp);	
+	},
+	cng				: function(i, c){
 	
-	/*incr item to basket */
-	inc				: function(item, count){
-		this.update();
+		this.update(resp);
 	},
-	/*decr or rem item from basket */
-	dec				: function(item, count){
-		this.update();
-	},
-	/*builds rows with data passed. data is array of ordItems*/
 	$update				: function(data){
-	
+		
+		this.$reset();
 	},
-        $makeCall			: function(url, data, callback){
-	
-	},
-	/* insert row to gui */
-	$insertRow			: function(/*?*/){
-	
-	},
-	/* remove row to gui */
-	$removeRow			: function(/*? id of menu item*/){
-	
-	},
-	/* delete rows from gui */
 	$reset				: function(){
-		$.each(this.rows, function(i,v) { 
+		$(this.renderContainer).children().each( function(i,v) { 
 			$(v).remove();
 		});
 		this.$setDeliveryPrice(0);
-		this.$setTotalPrice(0);
 		this.$setDiscount(0);
+		this.$setTotalPrice(0);
+		
 	},
 	$setDeliveryPrice	: function(c){
 
@@ -107,25 +45,55 @@ Basket = {
 	
 	}
 };
-Basket.init();
-var add = function (i,c){
-	//if (c){
-		
-	//	tmpl("comptmpl",{itm:m})
-		$.fancybox(
-			'#ing_popup',
-			{
-				//'titlePosition'		: 'inside',
-				'transitionIn'		: 'none',
-				'transitionOut'		: 'none'
-			}
-		);
-	//}else{
-		
-	//}
+var cmp = {kind:false, repr:100, di:"sin"};
+var rndr = function(comps){
+	var itmz = [];
+	for (var i = 0; i < comps.length; i++){
+		var ei = {id:comps[i].no,nm:comps[i]["name"],pr:comps[i].price};
+		cmp[ei.id] = {en:false,pc:ei.pr}; 
+		itmz.push(tmpl("dtmp",{d:ei}));		
+	};
+	var t = "";
+	for (var i = 0; i < itmz.length/2 +(itmz.length%2?1:0); i=i+2){
+		var le = itmz[i];
+		var re = itmz[i+1];
+		if (!re) re = tmpl("dtmp",{d:{}});
+		var ei = {l:le,r:re};
+		t=t+(tmpl("rotmp",{i:ei}));		
+	}
+	return tmpl("cmfrtmp",{i:t});
 }
-
-
-
-
-
+var add = function (i,c){
+	if (c){cmp=[];		
+		$.ajax({
+			type: "POST",
+			url: cu({}),
+			data: "id="+i,
+   			success: function(msg){
+					$.fancybox(
+						rndr(msg),
+					{
+						//'titlePosition'		: 'inside',
+						'transitionIn'		: 'none',
+						'transitionOut'		: 'none'
+						}
+					);
+   				}
+			});}else{
+		Basket.add(i);		
+	}
+}
+var toggle = function (self){
+	var id = self.id.replace(/[^\d]/g, "");
+	cmp[id].en = self.checked;
+	var t = 0;
+	$.each( cmp,  function(i, e){
+		if (e.en){
+			t= t+ e.pc;	
+		}
+	}
+	$('').text();
+	
+	);
+}
+Basket.init();

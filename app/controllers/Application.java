@@ -316,8 +316,8 @@ public class Application extends Controller {
 		}
 		renderJSON(asJsons);
 	}
-	public static void addOrderItem(@Required Long id, @Required Integer count) {
-		Logger.debug(">>> Adding items with id %s in count %s", id, count);
+	public static void addOrderItem(@Required Long id) {
+		Logger.debug(">>> Adding items with id %s in count %s", id);
 		Order order = null;
 		if (Security.isConnected()) {
 			Logger.debug(">>> Connected user login: %s", Security.connected());
@@ -328,7 +328,7 @@ public class Application extends Controller {
 				Logger.debug(">>> No open order found, creating one..");
 				order = Application.createNewOpenOrder(user);
 			}
-			createOrAddOrderItem(id, order, count);
+			createOrAddOrderItem(id, order, 1);
 			Logger.debug(">>> Order item added, sending ok response");
 
 		} else {
@@ -339,7 +339,7 @@ public class Application extends Controller {
 			if (order == null) {
 				order = Application.createNewOpenOrder(null);
 			}
-			createOrAddOrderItem(id, order, count);
+			createOrAddOrderItem(id, order, 1);
 		}
 		renderJSON(new BasketJSON(order));
 	}

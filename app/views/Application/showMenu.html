@@ -8,34 +8,32 @@
 <script type="text/javascript" src="@{'/public/javascripts/inputs_and_labels.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/jquery.jNice.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/jquery.mousewheel-3.0.4.pack.js'}"></script>
-<script type="text/javascript" src="@{'/public/javascripts/menu.js'}"></script>
-#{/set}
-
-<!--POPUP-->
-
-<div style="display: none;">
+<script type="text/javascript" src="@{'/public/javascripts/mtmpl.js'}"></script>
+<script type="text/javascript">
+var uu = #{jsAction @Application.basket() /}
+var cu = #{jsAction @Application.comps() /}
+</script>
+<script type="text/html" id="cmfrtmp">
 	<div class="ing_popup" id="ing_popup">
-		<form class="jNice" action="#">
-			<h1>Піцца велика</h1>
-			<p>Томат, перчик, капусточка, бурячок, креветочка</p>
+		<form class="jNice">
 			<table class="wrapper">
-				<tr><th colspan="6">Додаткові інгрідієнти</th></tr>
-				
-				<tr><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td></tr>
-				<tr><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td></tr>
-				<tr><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td></tr>
-				
+				<tr class="ing_headr"><th colspan="6">Додаткові інгрідієнти</th></tr>
+				<%=i%>			
 				<tr class="total"><td><span class="txt">Всього:</span></td><td colspan="4"></td><td class="price">+125 грн</td>	</tr>
 				<tr class="button"><td colspan="6"><input type="submit" value="Додати до кошика" /></td>	</tr>
 			</table>
 		</form>
 	</div>
-</div>
-
-<!--/-->
-
-
-
+</script>
+<script type="text/html" id="rotmp">
+<tr><td colspan="3"><table><%=i.l%></table></td><td colspan="3"><table><%=i.r%></table></td></tr>
+</script>
+<script type="text/html" id="dtmp">
+<tr><td><% if(d.id){ %><input type="checkbox" id="ck<%=d.id%>" onClick="toggle(this);" /><% }
+ %></td><td><%=d.nm?d.nm:''%></td><td class="price"><%=d.pr?'+'+d.pr+' грн':''%></td></td></tr>
+</script>
+<script type="text/javascript" src="@{'/public/javascripts/menu.js'}"></script>
+#{/set}
 				<div class="left_cont">
 					<div class="rest_menu">
 						<h1>
