@@ -126,7 +126,7 @@ public class Restaurant extends Model {
 	 * XXX should i store it here ? Restaurant setting ?
 	 * */
 	public Double discount;
-	@OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "restaurant")
 	public List<MenuItemGroup> menuBook = new ArrayList<MenuItemGroup>();
 	/**
 	 * Restaurant Title

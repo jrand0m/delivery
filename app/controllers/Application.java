@@ -27,6 +27,7 @@ import models.RestaurantCategory;
 import models.RestaurantNetwork;
 import models.dto.extern.BasketJSON;
 import models.dto.extern.LastOrdersJSON;
+import models.dto.extern.MenuCompWrapJson;
 import models.dto.extern.MenuComponentsJSON;
 import models.geo.City;
 import models.geo.IpGeoData;
@@ -196,10 +197,13 @@ public class Application extends Controller {
 		render();
 	}
 	public static void showMenu(Long id) {
+		notFoundIfNull(id);
 		Restaurant restaurant = Restaurant.findById(id);
+		notFoundIfNull(restaurant);
 		List<MenuItemGroup> menuItems = restaurant.menuBook;
-		Logger.warn("WTF? %s", menuItems);
+		Logger.warn("WTF? %s", menuItems.toString());
 		renderArgs.put("restaurant", restaurant);
+		//FIXME Cache for 5 hours or it will die.
 		render(menuItems);
 	}
 
@@ -324,20 +328,28 @@ public class Application extends Controller {
 		}
 		renderJSON(o);
 	}
-	public static void comps(Long id){
+	public static void comps(final Long id){
 		notFoundIfNull(id);
 		await(1000);
-		List<MenuItemComponent> comps = MenuItemComponent.find(MenuItemComponent.FIELDS.ITM_ROOT + "_ID = ?", id).fetch();
+		MenuItem mi = MenuItem.findById(id);
+		List<MenuItemComponent> comps = MenuItemComponent.find(MenuItemComponent.FIELDS.ITM_ROOT + "= ?", mi).fetch();
 		List<MenuComponentsJSON> asJsons= new ArrayList<MenuComponentsJSON>();
 		for (MenuItemComponent i :comps){
 			asJsons.add(new MenuComponentsJSON(i));
 		}
-		renderJSON(asJsons);
+		MenuCompWrapJson wrap = new MenuCompWrapJson();
+		wrap.no = id.toString();
+		wrap.dc = mi.description();
+		wrap.nm = mi.name();
+		wrap.pc = mi.price;
+		wrap.items = asJsons;
+		renderJSON(wrap);
 	}
-	public static void addOrderItem(@Required Long id) {
-		Logger.debug(">>> Adding items with id %s in count %s", id);
+	public static void addOrderItem(@Required Long id, Long... component) {
+		Logger.debug(">>> Adding item with id %s, [%s]", id, component );
 		Order order = null;
-		if (Security.isConnected()) {
+		if (false)
+		if ( Security.isConnected()) {
 			Logger.debug(">>> Connected user login: %s", Security.connected());
 			EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,

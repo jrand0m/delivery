@@ -12,15 +12,20 @@
 <script type="text/javascript">
 var uu = #{jsAction @Application.basket() /}
 var cu = #{jsAction @Application.comps() /}
+var au = #{jsAction @Application.addOrderItem() /}
+var du = #{jsAction @Application.delOrderItem() /}
 </script>
 <script type="text/html" id="cmfrtmp">
-	<div class="ing_popup" id="ing_popup">
+<div class="ing_popup" id="ing_popup">
+	<h1><%=i.nm%></h1>
+	<p><%=i.dc%></p>
 		<form class="jNice">
+			<input type="hidden" id="basePc" value="<%=i.pc%>" />
 			<table class="wrapper">
 				<tr class="ing_headr"><th colspan="6">Додаткові інгрідієнти</th></tr>
-				<%=i%>			
-				<tr class="total"><td><span class="txt">Всього:</span></td><td colspan="4"></td><td class="price">+0 грн</td>	</tr>
-				<tr class="button"><td colspan="6"><input type="submit" value="Додати до кошика" /></td>	</tr>
+				<%=i.tb%>			
+				<tr class="total"><td><span class="txt">Всього:</span></td><td colspan="4"></td><td class="price">+<%=i.pc%> грн</td>	</tr>
+				<tr class="button"><td colspan="6"><div onclick="Basket.add(<%=i.no%>)">Додати до кошика</div></td>	</tr>
 			</table>
 		</form>
 	</div>
@@ -73,7 +78,7 @@ var cu = #{jsAction @Application.comps() /}
 								boolean odd = i%2!=0;
 							}%
 							<tr class="${odd == true ? "od" : "even"}">
-								<th><a id="a${itm.id}" class="ingredient_popup_but" onclick="add(${itm.id},${!itm.components.isEmpty()})" title="Додайте цей продукт до кошика. Це дуже смачно!"></a></th>
+								<th><a id="a${itm.id}" class="ingredient_popup_but" onclick="add(${itm.id},${itm.showComponents})" title="Додайте цей продукт до кошика. Це дуже смачно!"></a></th>
 								<td>
 									<p>${itm.name}</p>
 									<p class="descr">${itm.description}</p>
