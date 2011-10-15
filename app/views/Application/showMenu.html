@@ -73,7 +73,7 @@ var cu = #{jsAction @Application.comps() /}
 								boolean odd = i%2!=0;
 							}%
 							<tr class="${odd == true ? "od" : "even"}">
-								<th><a class="ingredient_popup_but" href="javascript:add(${itm.id},${!itm.components.isEmpty()})" title="Додайте цей продукт до кошика. Це дуже смачно!"></a></th>
+								<th><a class="ingredient_popup_but current" href="javascript:add(${itm.id},${!itm.components.isEmpty()})" title="Додайте цей продукт до кошика. Це дуже смачно!"></a></th>
 								<td>
 									<p>${itm.name}</p>
 									<p class="descr">${itm.description}</p>

@@ -136,8 +136,10 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{width:
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table{padding: 5px 10px; width: 100%; border-collapse: collapse;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th{width: 5%; vertical-align: top; padding-top: 5px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a{width: 12px; display: inline-block; margin-top: 4px;height: 12px; background: url(/public/images/add_but.png) no-repeat 0 0 transparent;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover th a{background-position: 0 -12px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a{width: 24px; display: inline-block; margin-top: 4px; height: 24px; background: url(/public/images/add_but2.png) no-repeat 0 0 transparent;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a.current{background: url(/public/images/ajax-loader.gif) no-repeat 0 0 transparent;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a.current:hover{background-position: 0 0;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover th a{background-position: 0 -24px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p{line-height: 19px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child{ width: 75px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child sup {text-decoration: underline;}
@@ -259,7 +261,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selD
 .ing_popup table.wrapper tr.total td span.txt{margin-left: 5px;}
 .ing_popup table.wrapper table tr:hover{background-color: #CCCCCC;}
 .ing_popup table.wrapper tr.button{text-align: right;}
-.ing_popup table.wrapper tr.button input{border-radius: 5px; cursor: pointer; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border: medium none; color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; margin: 10px 0 10px 23px; width: 250px;}
+.ing_popup table.wrapper tr.button input{border-radius: 5px; cursor: pointer; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border: medium none; color: #FFFFFF; font-size: 32px; height: 45px; margin: 10px 0 10px 23px; width: 250px;}
 .ing_popup table.wrapper tr.button:hover{background-color: transparent;}
 
 .ing_popup .jNiceCheckbox {float: left;  margin-left: 5px; margin-right: 10px;display: block; background: transparent url(/public/images/checkbox.png) no-repeat center top; vertical-align: middle; width: 17px; height: 17px}
