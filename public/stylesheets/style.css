@@ -3,7 +3,7 @@ html,body {height: 100%;}
 * {margin: 0; padding: 0;}
 a img{border: 0 none;}
 a, input{outline: 0px none;}
-body{font-family: 'Open Sans Condensed', sans-serif; font-size: 16px; color: #000;}
+body{font-family:'Conv_OpenSans-CondLight',Sans-Serif; font-size: 16px; color: #000;}
 textarea{resize: none;}
 li{list-style: none;}
 div#wrapper{margin: 0 auto; width: 1011px;  padding-bottom: 50px; background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
@@ -95,6 +95,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.r
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description p{max-height: 66px; overflow: hidden; font-size: 13.5px; line-height: 16px;}
 
 div#wrapper div#wrapper_inner div#content div.right_cont div.right_block{width: 295px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check{width: 288px; margin-bottom: 15px; border-radius: 0px; border: none; background-color: #f4f4f4;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.advert{border-radius: 0; border: 0;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.advert a img{border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.right_block h1{background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
@@ -268,5 +269,41 @@ input[type="radio"]{ position:relative; top:1px; margin: 0 5px 0 0;}
 #timer{width:100%;background:url(/public/images/timer.jpg);height:250px; border-radius:3px;}
 #timer span{color:#fff; display:inline-block; width:100%; font:normal 13px Tahoma; padding: 3px 0 0 10px;}
 #timer span b{font:normal 18px Tahoma;}
-#timer span#int{font:bold 160px/135px 'Open Sans Condensed'; text-align:center; padding:10px 0 0 0;}
-#timer span#time{font:normal 20px 'Open Sans Condensed'; text-align:center; padding:0;}
+#timer span#int{font:bold 160px/135px 'Conv_OpenSans-CondLight'; text-align:center; padding:10px 0 0 0;}
+#timer span#time{font:normal 20px 'Conv_OpenSans-CondLight'; text-align:center; padding:0;}
+
+div#wrapper div#wrapper_inner div#content div.cabinetwrap{width: 100%; float: left; border: 1px solid #B3B3B3; border-radius: 5px;}
+div#wrapper div#wrapper_inner div#content div.tabgroup{margin-bottom: 10px; width: 100%; float: left; height: 28px; padding-top: 4px; line-height: 32px; border-bottom: 1px solid #B3B3B3; background: url(/public/images/header_top_bg.gif) repeat-x center center transparent; border-radius: 5px 5px 0 0;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a:first-child{margin-left: 8px; margin-right: 5px;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a{padding: 0 6px; border: 1px solid transparent; line-height: 26px; height: 26px; margin-top: 2px; color: #000; float: left; text-decoration: none;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a.active{border: 1px solid #b3b3b3; border-bottom: 0 none; border-radius: 5px 5px 0 0; background-color: #fff;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a:hover{border: 1px solid #b3b3b3; height: 25px; border-radius: 5px 5px 0 0; background-color: #f1f1f1;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a.active:hover{border: 1px solid #b3b3b3; height: 26px; border-bottom: 0 none; border-radius: 5px 5px 0 0; background-color: #fff;}
+
+
+div#wrapper div#wrapper_inner div#content div.cabinetwrap table.lastorders{margin-left: 10px;}
+div#wrapper div#wrapper_inner div#content div.cabinetwrap table.lastorders tr td:first-child{padding-right: 20px;}
+div#wrapper div#wrapper_inner div#content div.cabinetwrap table.lastorders a{color: #000;}
+
+
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check{padding-bottom: 10px; border-collapse: collapse; width: 100%}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check th span{float: left; width: 12px; height: 12px; margin-top: 4px; background: url(/public/images/plus_minus_delete_but2.gif) no-repeat transparent;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check th {width: 45px; vertical-align: top;padding-top: 4px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check td {vertical-align: top; padding-top: 5px; min-width: 60px; }
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check td p{line-height: 18px; font-weight: bold;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check td p.descr{font-size: 13px; font-weight: normal;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check tr td:last-child{text-decoration: underline; text-align: right; white-space: nowrap;}
+
+
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total{width: 100%; border-collapse: collapse; border-top: 1px solid #E83F0B; font-size: 18px; margin-top: 10px; margin-right: 10px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total span{background-color: #f4f4f4; padding: 0 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th{width: 75%; text-align: left; font-weight: normal;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total td{width: 25%; text-align: right; font-weight: bold;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total{border-top: 1px solid #ededed;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.pretotal th{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.pretotal td{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total th{text-transform: uppercase; padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total td{padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th, div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total td{background: url(/public/images/dot.gif) repeat-x -4px 16px transparent;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr:last-child td{background-image: none; text-align: center;}
+

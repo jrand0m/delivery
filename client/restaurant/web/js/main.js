@@ -8,8 +8,11 @@ var DCWMain = {
 	newOrdersContent: '',
 	activeOrdersContent: '',
 	dialogFrame: '',
-	lang: 'ua',
-	isAuthorized: false,
+	defLang: 'ua',
+	lang:{},
+	lastOrderTime: 0,
+	myScroll: [],
+	//isAuthorized: false,
 
 	init: function(){	
 		var thisObj = this;
@@ -41,11 +44,12 @@ var DCWMain = {
 	
 	initVars: function(){
 		var lang = $.getUrlVar('lang');
+		DCWLang[this.defLang].init();
 		if(lang) {
-			this.lang = DCWLang[lang];
-		} else {
-			this.lang = DCWLang.en;
+			DCWLang[lang].init();
 		}
+		this.lang = DCWLang;
+
 		this.newOrders = new Array();
 		this.activeOrders = new Array();
 	},
@@ -209,7 +213,10 @@ var DCWMain = {
 		
 		this.newOrdersContent = this.createDiv("DCWOrdersColumnContent", "DCWNewOrdersColumnContent");
 		
-		newOrders.append(this.newOrdersContent);
+		newOrders.append(
+			this.createDiv('DCWContentWrapper')
+				.append(this.newOrdersContent
+					.append(this.createDiv("DCW10px").text(' '))));
 		row.append(newOrders);
 		
 		this.activeOrdersContent = this.createDiv("DCWOrdersColumnContent", "DCWActiveOrdersColumnContent");
@@ -223,7 +230,10 @@ var DCWMain = {
 		tableSeparator.addClass("DCWTableSeparator").addClass("DCWTableBorder");
 		row.append(tableSeparator);
 		
-		activeOrders.append(this.activeOrdersContent);
+		activeOrders.append(
+			this.createDiv('DCWContentWrapper')
+				.append(this.activeOrdersContent
+					.append(this.createDiv("DCW10px").text(' '))));
 		row.append(activeOrders);
 		
 		var rightTableBorder = $(document.createElement('td'))
@@ -235,8 +245,25 @@ var DCWMain = {
 		$('#DCWMainOrderTable').append(row);
 		
 		var thisObj = this;
-		
 		this.getNewOrders();
+		
+		$('.DCWContentWrapper').each(function(el){
+			thisObj.myScroll[thisObj.myScroll.length] = 
+				new iScroll(this, { snap: false, bounce: false,  momentum:false, hScrollbar:false, vScrollbar:false });
+		});
+
+		$(window).resize(function() {
+			thisObj.initColunHeight();
+		});
+
+		thisObj.getAllOrders();
+	},
+	
+	initColunHeight: function() {
+		$('.DCWContentWrapper').each(function(el){
+			$(this).height($(window).height());
+			
+		});
 		
 	},
 	
@@ -306,7 +333,7 @@ var DCWMain = {
 		orderDiv.append(price);*/
 		var orderHeaderWrapper = this.createDiv('DCWOrderHeaderWrapper');
 		var id = this.createDiv('DCWOrderIdDiv').text(this.lang.orderID + orderElem.id);
-		var timeToFinish = this.createDiv('DCWTimeToFinish').html(this.lang.timeConfirmed + orderElem.time/60000 + this.lang.time);
+		var timeToFinish = this.createDiv('DCWTimeToFinish').html(this.lang.timeConfirmed + Math.ceil(orderElem.time / 60000) + this.lang.time);
 		var btnReject = this.createButton(this.lang.reject, 'DCWOrderButton reject');
 		btnReject.prepend('<img src="img/cross.png" style="vertical-align: middle">');
 		var btnMade = this.createButton(this.lang.ready, 'DCWOrderButton ready');
@@ -364,35 +391,71 @@ var DCWMain = {
 	},
 	
 	getNewOrders: function() {
-		if(this.isAuthorized) {
 		var thisObj = this;
 		
-			$.ajax({
-				url: '/api/g?id=1',
-				success: function(data) {
-					//alert(JSON.stringify(data));
-					
-					$(data).each(function(elem){
-						var elemDom = thisObj.getNewOrderDiv(data[elem]);
-						thisObj.newOrdersContent.append(elemDom);
-					});
-				}
-			});
-			
-			this.updateTimes();
-			
-			window.setTimeout(function(){
-				thisObj.getNewOrders();
-			}, 20000);
-		}
+		$.ajax({
+			url: '/api/g?id=1&from=' + thisObj.lastOrderTime,
+			success: function(data) {
+				thisObj.parseOrders(data);
+			}
+		});
+		
+		this.updateTimes();
+		
+		window.setTimeout(function(){
+			thisObj.getNewOrders();
+		}, 20000);
+		
 	}, 
 	
+	getAllOrders: function() {
+		var thisObj = this;
+		
+		$.ajax({
+			url: '/api/g?id=1',
+			success: function(data) {
+				thisObj.parseOrders(data);
+				
+				//}
+			}
+		});
+		
+		window.setTimeout(function(){
+			thisObj.getNewOrders();
+		}, 20000);
+	},
+	
+	parseOrders: function(data) {
+		var thisObj = this;
+		$(data).each(function(index){
+				
+			var elem = data[index];
+			if(elem.status == "CONFIRMED") {
+				var elemDom = thisObj.getNewOrderDiv(elem);
+				thisObj.newOrdersContent.append(elemDom);
+			} else if(elem.status == "ACCEPTED") {
+			//alert(JSON.stringify(elem));
+				elem.time = elem.timeToFinish;
+				thisObj.activeOrdersContent.append(thisObj.getActiveOrderDiv(elem, true));
+			} else if(elem.status == "COOKED") {
+				thisObj.activeOrdersContent.append(thisObj.getActiveOrderDiv(elem, true, true));
+			}
+			if(elem.time > thisObj.lastOrderTime)thisObj.lastOrderTime = elem.time;
+			thisObj.newOrdersContent.append(elemDom);
+			
+			$(thisObj.myScroll).each(function(el){
+				this.refresh();
+			});
+		});
+	},
+	
 	updateTimes: function() {
+		var thisObj = this;
 		$(this.activeOrders).each(function(){
 			this.time = this.time-20000;
 			var isPositive = this.time > 0;
 			if(isPositive) {
-				$('.DCWTimeToFinish', this.domElem).html(Math.ceil( this.lang.timeConfirmed + this.time / 60000 + this.lang.time ));
+				$('.DCWTimeToFinish', this.domElem).html(thisObj.lang.timeConfirmed + Math.ceil( this.time / 60000 ) + thisObj.lang.time);
 			} else  {
 				$('.DCWTimeToFinish', this.domElem).html(0);
 				this.domElem.addClass('DCWDelayedOrder');
