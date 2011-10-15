@@ -109,20 +109,20 @@ Basket = {
 };
 Basket.init();
 var add = function (i,c){
-	alert('add id = ' + i + "; has components = " + c);
-	if (c){
-
+	//if (c){
+		
+	//	tmpl("comptmpl",{itm:m})
 		$.fancybox(
-			c,
+			'#ing_popup',
 			{
-				'titlePosition'		: 'inside',
+				//'titlePosition'		: 'inside',
 				'transitionIn'		: 'none',
 				'transitionOut'		: 'none'
 			}
 		);
-	}else{
+	//}else{
 		
-	}
+	//}
 }
 
 

@@ -29,6 +29,9 @@ import models.OrderItem;
  * */
 public class BasketJSON {
 	public BasketJSON(Order o) {
+		if (o==null){
+			return;
+		}
 		discount = o.getUserDiscount().multiply(new BigDecimal(100).setScale(2, RoundingMode.HALF_EVEN)).intValue();
 		total = o.getGrandTotal();
 		delivery = o.getDeliveryPrice();
