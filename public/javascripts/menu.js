@@ -1,17 +1,17 @@
 cmp=[];
 Basket = {
-    	renderContainer			:   	'#basket',
+    	renderContainer			:   	'div.rb_cont tbody',
 	init				: function (){
-		this.$update();
+		this.update(null);
 	},
 	update 				: function (resp){
-		if (resp)$update(resp);else 
+		if (resp)Basket.$update(resp);else 
 			$.ajax({
 				type: "POST",
    				url: uu({}),
    				success: function(msg){
      					console.log( "Update data recieved: " + msg );
-					update(msg);
+					Basket.update(msg);
    				}
 			});
 	},
@@ -29,10 +29,11 @@ Basket = {
 			url: au({}),
 			data: data,
 			success: function(msg){
-				this.update(msg);	
+			
+				Basket.update(msg);	
 			}
 		});
-			
+		$.fancybox.close();	
 			
 	},
 	cng				: function(i, c){
@@ -40,26 +41,28 @@ Basket = {
 		this.update(resp);
 	},
 	$update				: function(data){
-		
 		this.$reset();
+		$.each(data.items, function(i,e){
+		$(Basket.renderContainer).append(tmpl("ittmp",{cnt:e["count"],nm:e["name"],de:e.desc,pc:e.price}));
+		});
+		Basket.$setDeliveryPrice(data.delivery);
+		Basket.$setDiscount(data.discount);
+		Basket.$setTotalPrice(data.total);
 	},
 	$reset				: function(){
-		$(this.renderContainer).children().each( function(i,v) { 
+		$(Basket.renderContainer).children().each( function(i,v) { 
 			$(v).remove();
 		});
-		this.$setDeliveryPrice(0);
-		this.$setDiscount(0);
-		this.$setTotalPrice(0);
-		
 	},
 	$setDeliveryPrice	: function(c){
-
+		$(Basket.renderContainer).append(tmpl("dptmp",{pc:c}));
 	},
 	$setTotalPrice		: function(c){
-	
+		$(Basket.renderContainer).append(tmpl("tptmp",{pc:c}));
 	},
 	$setDiscount		: function(c){
-	
+		if(c&&c>0) 
+		$(Basket.renderContainer).append(tmpl("dctmp",{pc:c}));
 	}
 };
 
