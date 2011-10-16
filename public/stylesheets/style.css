@@ -3,7 +3,7 @@ html,body {height: 100%;}
 * {margin: 0; padding: 0;}
 a img{border: 0 none;}
 a, input{outline: 0px none;}
-body{font-family:'Conv_OpenSans-CondLight',Sans-Serif; font-size: 16px; color: #000;}
+body{font-family:'Open Sans Condensed',Sans-Serif; font-size: 16px; color: #000;}
 textarea{resize: none;}
 li{list-style: none;}
 div#wrapper{margin: 0 auto; width: 1011px;  padding-bottom: 50px; background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
@@ -29,7 +29,7 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a:hover{t
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive a{text-decoration: none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 34px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form{float: left; margin-left: 6px;}
-div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{font-size: 17px; margin-top: 3px; border: none; height: 28px; line-height: 28px; width: 360px; border-radius: 0 5px 5px 0; padding: 0 35px 0 5px; font-family: 'Conv_OpenSans-CondLight', sans-serif;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{font-size: 17px; margin-top: 3px; border: none; height: 28px; line-height: 28px; width: 360px; border-radius: 0 5px 5px 0; padding: 0 35px 0 5px; font-family: 'Open Sans Condensed', sans-serif;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{position: relative; z-index: 10; float: right; margin-right: -32px; opacity: 0.5;background: url(/public/images/search_ico.png) no-repeat scroll center center transparent; border: medium none; cursor: pointer; height: 28px; /*margin-left: -33px;*/ margin-top: 3px; width: 33px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .submit:hover{opacity: 1;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form label{color: #FFFFFF;float: left;font-size: 19px;line-height: 32px;margin-right: 16px;}
@@ -169,7 +169,7 @@ div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.tot
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total{line-height: 15px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td{padding-bottom: 5px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td p{padding-left: 5px; color: #E83F0B;}
-div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]{border-radius: 2px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent; border: 1px solid #f5f5f5; color: #FFFFFF; font-family: Conv_OpenSans-CondLight; font-size: 32px; height: 45px; position: relative; left: 21px; margin: 10px 0; width: 250px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]{border-radius: 2px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent; border: 1px solid #f5f5f5; color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; position: relative; left: 21px; margin: 10px 0; width: 250px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]:hover{border:1px solid #c03409}
 
 div#wrapper div#wrapper_inner div#content div.order{width: 345px; float: right; padding-right: 2px;}
@@ -183,7 +183,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form th{font-weight: normal; text-align: right; font-size: 13px; padding-right: 5px; font-family:Tahoma;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td{vertical-align: middle; font-size: 18px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td label{float: left; margin-right: 10px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{height: 25px; width: 200px; padding: 0 10px; line-height: 25px; font-size: 16px; font-family: Conv_OpenSans-CondLight; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{height: 25px; width: 200px; padding: 0 10px; line-height: 25px; font-size: 16px; font-family: Open Sans Condensed; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input.wrong_data{border: 2px solid #E83F0B; box-shadow: 1px 1px 1px #E83F0B; position: relative;
     top: 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{color: #E83F0B; display: block; font-family: tahoma; font-size: 10px; margin-top: -5px;}
@@ -200,7 +200,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total th{text-transform: uppercase; padding-top: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total td{padding-top: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total th, div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total td{background: url(/public/images/dot.jpg) repeat-x -4px 16px transparent;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]{border:1px solid #f5f5f5;border-radius: 5px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent;color: #FFFFFF; font-family: Conv_OpenSans-CondLight; font-size: 32px; height: 45px; position: relative; left: 21px; margin: 10px 0 10px 23px; width: 250px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]{border:1px solid #f5f5f5;border-radius: 5px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent;color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; position: relative; left: 21px; margin: 10px 0 10px 23px; width: 250px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]:hover{border:1px solid #e83f0b;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr:last-child td{background-image: none; text-align: center;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .frst span{text-align:left;display:block;margin-left:67px;}
@@ -273,8 +273,8 @@ input[type="radio"]{ position:relative; top:1px; margin: 0 5px 0 0;}
 #timer{width:100%;background:url(/public/images/timer.jpg);height:250px; border-radius:3px;}
 #timer span{color:#fff; display:inline-block; width:100%; font:normal 13px Tahoma; padding: 3px 0 0 10px;}
 #timer span b{font:normal 18px Tahoma;}
-#timer span#int{font:bold 160px/135px 'Conv_OpenSans-CondLight'; text-align:center; padding:10px 0 0 0;}
-#timer span#time{font:normal 20px 'Conv_OpenSans-CondLight'; text-align:center; padding:0;}
+#timer span#int{font:bold 160px/135px 'Open Sans Condensed'; text-align:center; padding:10px 0 0 0;}
+#timer span#time{font:normal 20px 'Open Sans Condensed'; text-align:center; padding:0;}
 
 div#wrapper div#wrapper_inner div#content div.cabinetwrap{width: 100%; float: left; border: 1px solid #B3B3B3; border-radius: 5px;}
 div#wrapper div#wrapper_inner div#content div.tabgroup{margin-bottom: 10px; width: 100%; float: left; height: 28px; padding-top: 4px; line-height: 32px; border-bottom: 1px solid #B3B3B3; background: url(/public/images/header_top_bg.gif) repeat-x center center transparent; border-radius: 5px 5px 0 0;}
