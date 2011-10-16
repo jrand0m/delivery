@@ -10,10 +10,11 @@
 <script type="text/javascript" src="@{'/public/javascripts/jquery.mousewheel-3.0.4.pack.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/mtmpl.js'}"></script>
 <script type="text/javascript">
-var uu = #{jsAction @Application.basket() /}
+var uu = #{jsAction @Application.basket(":chart") /}
 var cu = #{jsAction @Application.comps() /}
 var au = #{jsAction @Application.addOrderItem() /}
-var du = #{jsAction @Application.delOrderItem() /}
+var du = #{jsAction @Application.cngOrderItem() /}
+var rid = ${restaurant.id};
 </script>
 <script type="text/html" id="cmfrtmp">
 <div class="ing_popup" id="ing_popup">

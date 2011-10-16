@@ -63,8 +63,7 @@ public class Order extends GenericModel {
 		public static final String BY_ANONSID = Order.FIELDS.ANONSID + " = ? ";
 		public static final String BY_ORDER_OWNER_AND_ORDER_STATUS = Order.FIELDS.ORDER_OWNER
 				+ " = ? and " + Order.FIELDS.ORDER_STATUS + " = ?";
-		public static final String BY_ORDER_STATUS_AND_ANON_SID = Order.FIELDS.ORDER_STATUS
-				+ " = ? and " + Order.FIELDS.ANONSID + " = ?";
+		public static final String BY_ORDER_OWNER_AND_ORDER_STATUS_AND_RESTAURANT = BY_ORDER_OWNER_AND_ORDER_STATUS + " and "+ FIELDS.RESTAURANT + " = ?";
 		public static final String BY_OWNER = Order.FIELDS.ORDER_OWNER + " = ?";
 		public static final String BY_SHORT_ID = Order.FIELDS.SHORTHAND_ID
 				+ " = ?";

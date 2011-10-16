@@ -8,7 +8,7 @@ Basket = {
 		if (resp)Basket.$update(resp);else 
 			$.ajax({
 				type: "POST",
-   				url: uu({}),
+   				url: uu({chart:rid}),
    				success: function(msg){
 					Basket.update(msg);
    				}
@@ -28,9 +28,10 @@ Basket = {
 			url: au({}),
 			data: data,
 			success: function(msg){
-			
+				console.log("add sucessful!");
 				Basket.update(msg);	
 			}
+			
 		});
 		$.fancybox.close();	
 			
@@ -41,8 +42,17 @@ Basket = {
 	},
 	$update				: function(data){
 		this.$reset();
+		console.log("on $update items ->" + data.items );
+		console.log("render to ->"+ $(Basket.renderContainer));
 		$.each(data.items, function(i,e){
-		$(Basket.renderContainer).append(tmpl("ittmp",{cnt:e["count"],nm:e["name"],de:e.desc,pc:e.price}));
+			var x ;
+			try{
+			console.log("on $update rendering item -> " + e );
+			x = tmpl("ittmp",{cnt:e["count"],nm:e["name"],de:e.desc,pc:e.price})
+			}catch(r){
+			console.log("on $update rendering item err " + r );
+			}
+			$(Basket.renderContainer).append(x);
 		});
 		Basket.$setDeliveryPrice(data.delivery);
 		Basket.$setDiscount(data.discount);
