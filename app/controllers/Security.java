@@ -51,33 +51,10 @@ public class Security extends Controller {
 	 */
 	static boolean authenticate(String username, String password) {
 		Logger.debug("Trying to login as %s", username);
+		//FIXME login by db
 		User user = User.find(User.HQL.BY_LOGIN_OR_EMAIL, username, username)
 				.first();
 		if (user != null && user.password.equals(password)) {
-			Logger.debug("Login succesful for %s[%s]", user.login, user
-					.getClass().toString());
-			String bid = session.getId();
-			List<Order> orders = Order.find(Order.HQL.BY_ANONSID, bid).fetch();
-			Logger.debug(
-					"Found %s anonymous basket(s) bound to unlogined user %s",
-					orders.size(), user.login);
-			for (Order order : orders) {
-				// TODO check case when user has logined on foregin pc (
-				// move this conversion to be on-demand only. Ask user
-				// first! )
-				if (order.orderOwner != null) {
-					Logger.warn(
-							"Order #%s already is assigned to user, but session uuid is same!",
-							order.getShortHandId());
-					continue;
-				}
-				order.anonSID = null;
-				order.orderOwner = EndUser.find(EndUser.HQL.BY_LOGIN, username)
-						.first();
-				order.save();
-
-			}
-			Logger.debug("Anonymous basket conversion complete!");
 
 			return true;
 		}

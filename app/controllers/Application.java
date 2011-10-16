@@ -34,12 +34,15 @@ import models.geo.IpGeoData;
 import models.geo.IpGeoData.HQL;
 import models.settings.SystemSetting;
 import models.settings.SystemSetting.KEYS;
+import models.users.AnonymousEndUser;
 import models.users.EndUser;
 import play.Logger;
 import play.Play;
 import play.cache.Cache;
 import play.data.validation.Required;
+import play.db.jpa.JPABase;
 import play.i18n.Lang;
+import play.libs.Crypto;
 import play.mvc.After;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -69,78 +72,36 @@ public class Application extends Controller {
 		renderText("Cleared db and forsed fixture load");
 	}
 
-	@Before(unless = {"serveLogo","loadFix","comps"}/*unless = {"getCurrentUser","guessCity","deleteOrRemOrderItem","createNewOpenOrder", "createOrAddOrderItem", }*/)
+	@Before(unless = {"serveLogo","loadFix","comps","changeCity","changeLang"}/*unless = {"getCurrentUser","guessCity","deleteOrRemOrderItem","createNewOpenOrder", "createOrAddOrderItem", }*/)
 	public static void _pre() {
 		EndUser user = getCurrentUser();
 		renderArgs.put(RENDER_KEYS.USER, user);
-		Order order = null;
-		if (user != null) {
-			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
-					OrderStatus.OPEN).first();
-		} else {
-			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
-					OrderStatus.OPEN, session.getId()).first();
-		}
-
-		if (order != null) {
-			renderArgs.put("basketCount", order.items.size());
-		} else {
-			renderArgs.put("basketCount", 0);
-		}
 		if (!session.contains(SESSION_KEYS.CITY_ID)){
 			Logger.debug("No city defined in cookies");
 			session.put(SESSION_KEYS.CITY_ID, Application.guessCity(request.remoteAddress).getId() );
 		}
+		flash.put("url", request.url);
 	}
 
 
 	public static void order() {
-	Order order = null;
+		Order order = null;
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-		if (user != null) {
-			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
-					OrderStatus.OPEN).first();
-		} else {
-			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
-					OrderStatus.OPEN, session.getId()).first();
-		}
-		if (order == null) {
-			order = Application.createNewOpenOrder(null);
-		}
+		notFoundIfNull(user);
 		renderArgs.put("order", order);
 		render("/Application/order.html");
 	}
 	
 	public static void cabinet() {
-	Order order = null;
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-		if (user != null) {
-			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
-					OrderStatus.OPEN).first();
-		} else {
-			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
-					OrderStatus.OPEN, session.getId()).first();
-		}
-		if (order == null) {
-			order = Application.createNewOpenOrder(null);
-		}
+		//FIXME move to locker
+		Order order = null;
 		renderArgs.put("order", order);
 		render("/Application/cabinetLastOrders.html");
 	}
 	
 	public static void checkout() {
 		Order order = null;
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-		if (user != null) {
-			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
-					OrderStatus.OPEN).first();
-		} else {
-			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
-					OrderStatus.OPEN, session.getId()).first();
-		}
-		if (order == null) {
-			order = Application.createNewOpenOrder(null);
-		}
+		//FIXME move to locker ?
 		renderArgs.put("order", order);
 		render("/Application/prepareOrder.html");
 	}
@@ -201,7 +162,6 @@ public class Application extends Controller {
 		Restaurant restaurant = Restaurant.findById(id);
 		notFoundIfNull(restaurant);
 		List<MenuItemGroup> menuItems = restaurant.menuBook;
-		Logger.warn("WTF? %s", menuItems.toString());
 		renderArgs.put("restaurant", restaurant);
 		//FIXME Cache for 5 hours or it will die.
 		render(menuItems);
@@ -236,50 +196,6 @@ public class Application extends Controller {
 		Logger.debug("Sent... id = %s", id);
 		ok();
 	}
-	public static void basket() {
-		//FIXME best place to create new user
-		/*
-		 * when user reaches place with basket
-		 * create token 
-		 * basket checks if the user is logged in 
-		 * and if it is not searches for token and
-		 * if token found and correct then creates 
-		 * new anon user and logs him in.
-		 * name for the user will be Anonymous_<num>
-
-		 * if user chooses to register than we create 
-		 * new user for him and transferring all orders,
-		 * addresses from anon to new one and deleting 
-		 * anon.
-		 * 
-		 * also there is need to remove all anonymous that has 
-		 * last login date > 30 days and have no orders 
-		 * in state sent. 
-		 * 
-		 * please notice that some far away time 
-		 * in future there will be a moment when we will
-		 * need to run batch job for deleting all anons with
-		 * last login date > 1 year(or other period,
-		 * mb 3 month) which have associated orders in 
-		 * above sent state 
-		 * 
-		 * */
-		Logger.debug(">>> Entering basket");
-		Order order = null;
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-		if (user != null) {
-			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS, user,
-					OrderStatus.OPEN).first();
-		} else {
-			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
-					OrderStatus.OPEN, session.getId()).first();
-		}
-		if (order == null) {
-			order = Application.createNewOpenOrder(null);
-		}
-		renderJSON(new BasketJSON(order));
-
-	}
 
 	/* ------------ UTIL Pages -------------- */
 	/**
@@ -287,7 +203,11 @@ public class Application extends Controller {
 	 * */
 	public static void changeLang(String lang) {
 		Lang.change(lang);
-		index();
+		String url = flash.get("url");
+		if (url == null || url.isEmpty()){
+			url = "/";
+		}
+		redirect(url);
 	}
 	
 	public static void changeCity(Long id){
@@ -298,7 +218,11 @@ public class Application extends Controller {
 		} else {
 			session.put(SESSION_KEYS.CITY_ID, id.toString() );
 		}
-		redirect("/");
+		String url = flash.get("url");
+		if (url == null || url.isEmpty()){
+			url = "/";
+		}
+		redirect(url);
 	}
 	
 	/* ------------ AJAX ----------------*/
@@ -345,149 +269,92 @@ public class Application extends Controller {
 		wrap.items = asJsons;
 		renderJSON(wrap);
 	}
-	public static void addOrderItem(@Required Long id, Long... component) {
-		Logger.debug(">>> Adding item with id %s, [%s]", id, component );
-		Order order = null;
-		if (false)
-		if ( Security.isConnected()) {
-			Logger.debug(">>> Connected user login: %s", Security.connected());
-			EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
-					user, OrderStatus.OPEN).first();
-			if (order == null) {
-				Logger.debug(">>> No open order found, creating one..");
-				order = Application.createNewOpenOrder(user);
-			}
-			createOrAddOrderItem(id, order, 1);
-			Logger.debug(">>> Order item added, sending ok response");
-
-		} else {
-			String bid = session.getId();
-			Logger.debug(">>> Annonymous sid: %s", bid);
-			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
-					OrderStatus.OPEN, bid).first();
-			if (order == null) {
-				order = Application.createNewOpenOrder(null);
-			}
-			createOrAddOrderItem(id, order, 1);
+	public static void addOrderItem(Long id, Long... component) {
+		if (!Security.isConnected() || id == null){
+			await(15000);
+			notFound("Order not found");
 		}
+		MenuItem itm = MenuItem.findById(id);
+		//FIXME problems if we dynamicly delete order and user will refresh page. add to js basket failure to refresh by updateurl 
+		notFoundIfNull(itm);
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		notFoundIfNull(user);
+		//TODO add safe caching
+		Order order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS_AND_RESTAURANT,user, OrderStatus.OPEN, itm.restaurant ).first() ;
+		notFoundIfNull(order);
+		OrderItem oi = new OrderItem(itm, order, component);
+		oi.save();
+		order.items.add(oi);
+		order.save();
 		renderJSON(new BasketJSON(order));
 	}
 
-	public static void delOrderItem(@Required Long id, @Required Integer count) {
-		Logger.debug(">>> Delitinging items with id %s in count %s", id, count);
+	public static void cngOrderItem(Long id,  Integer count) {
+		if (!Security.isConnected() || id ==null || count == null){
+			await(15000);
+			notFound("Order not found");
+		}
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		notFoundIfNull(user);
+		OrderItem itm = OrderItem.findById(id);
+		notFoundIfNull(itm);
+		if (!itm.order.orderOwner.equals(user)){
+			notFound();
+		}
+		if (itm.order.orderStatus == OrderStatus.OPEN  ){
+			if ( count<1){
+				itm.delete();
+			} else  {
+				itm.count = count;
+			}
+			renderJSON(new BasketJSON(itm.order));
+		}
+		notFound();
+	}
+	public static void basket(Long chart) {
+		/*
+		 * FIXME best place to create new user
+		 * when user reaches place with basket
+		 * create token 
+		 * basket checks if the user is logged in 
+		 * and if it is not searches for token and
+		 * if token found and correct then creates 
+		 * new anon user and logs him in.
+		 * name for the user will be Anonymous_<num>
+
+		 * if user chooses to register than we create 
+		 * new user for him and transferring all orders,
+		 * addresses from anon to new one and deleting 
+		 * anon.
+		 * 
+		 * also there is need to remove all anonymous that has 
+		 * last login date > 30 days and have no orders 
+		 * in state sent. 
+		 * 
+		 * please notice that some far away time 
+		 * in future there will be a moment when we will
+		 * need to run batch job for deleting all anons with
+		 * last login date > 1 year(or other period,
+		 * mb 3 month) which have associated orders in 
+		 * above sent state  
+		 */
+		notFoundIfNull(chart);
 		Order order = null;
-		if (Security.isConnected()) {
-			Logger.debug(">>> Connected user login: %s", Security.connected());
-			EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-			order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS,
-					user, OrderStatus.OPEN).first();
-			if (order == null) {
-				Logger.debug(">>> no order found, sending ok response");
-				ok();
-				return;
-			}
-			deleteOrRemOrderItem(id, order, count);
-			Logger.debug(">>> Order item deleted, sending ok response");
-		} else {
-			String bid = session.getId();
-			Logger.debug(">>> Annonymous basket id: %s", bid);
-			order = Order.find(Order.HQL.BY_ORDER_STATUS_AND_ANON_SID,
-					OrderStatus.OPEN, bid).first();
-			if (order == null) {
-				order = Application.createNewOpenOrder(null);
-			}
-			deleteOrRemOrderItem(id, order, count);
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		if (user == null){
+			user = createAnonymousUser();
+		}
+		Restaurant restaurant = (Restaurant)Restaurant.findById(chart);
+		notFoundIfNull(restaurant);
+		order = Order.find(Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS_AND_RESTAURANT, user, OrderStatus.OPEN, restaurant).first();
+		if (order == null) {
+			order = createNewOpenOrder(user, restaurant );
 		}
 		renderJSON(new BasketJSON(order));
-
 	}
+	
 	
 	/* -----------  private --------------*/
-	
-	/**
-	 * @param id
-	 * @param order
-	 */
-	private static void deleteOrRemOrderItem(Long id, Order order, Integer count) {
-		Logger.debug(
-				">>> deleting or decreasinf item %s for order #%s, count %s",
-				id, order.id, count);
-		Logger.debug(">>> session id: %s", session.getId());
-		count = OrderUtils.normalizeCount(count);
-		MenuItem menuItem = MenuItem.findById(id);
-		OrderItem orderitem = OrderItem.find(
-				OrderItem.HQL.BY_ORDER_AND_MENU_ITEM, order, menuItem).first();
-		if (orderitem == null) {
-			Logger.debug(">>> no such item found, sending ok response");
-			return;
-		}
-		int remain = orderitem.count - count;
-		if (remain < 1) {
-			Logger.debug(">>> Deleting id = %s, from order #%s", id,
-					order.getShortHandId());
-			orderitem.deleted = true;
-			order.items.remove(orderitem);
-			if (order.items.size() == 0) {
-				order.restaurant = null;
-				order.save();
-			}
-		} else {
-			Logger.debug(">>> Decreased count for id = %s, to = %s, order #%s",
-					id, remain, order.getShortHandId());
-			orderitem.count = remain;
-		}
-		orderitem.save();
-
-	}
-
-	private static void createOrAddOrderItem(Long menuItemId, Order order,
-			Integer count) {
-
-		count = OrderUtils.normalizeCount(count);
-		MenuItem menuItem = MenuItem.findById(menuItemId);
-		if (menuItem == null) {
-			Logger.warn("MenuItem not found:  %s", menuItemId.toString());
-			return;
-		}
-		if (order.restaurant != null
-				&& !menuItem.restaurant.equals(order.restaurant)) {
-			// TODO error message about "cannot add form other restaurant"
-			todo();
-			return;
-		}
-		if (order.restaurant == null) {
-			order.restaurant = menuItem.restaurant;
-			order.save();
-		}
-		OrderItem orderItem = null;
-		List<OrderItem> list = order.items;
-		for (OrderItem i : list) {
-			Logger.debug(">>> Checking %s vs %s (%s)", menuItem, i.menuItem,
-					menuItem == i.menuItem);
-			if (menuItem == i.menuItem) {
-				orderItem = i;
-				break;
-			}
-		}
-		if (orderItem == null) {
-			Logger.debug(">>> Item not found, creating new");
-			orderItem = new OrderItem(menuItem, order);
-			orderItem.count = count;
-			orderItem.create();
-		} else {
-			Logger.debug(">>> Item found, adding count");
-			if (orderItem.count + count > MAX_ITEM_COUNT_PER_ORDER) {
-				orderItem.count = MAX_ITEM_COUNT_PER_ORDER;
-			} else {
-				orderItem.count += count;
-			}
-			orderItem.save();
-			Logger.debug(">>> New item count %i", orderItem.count);
-		}
-		Logger.debug(">>> Created order item %s ", orderItem.id.toString());
-	}
-
 	public static void serveLogo(long id) throws IOException {
 		final Restaurant restaurant = Restaurant.findById(id);
 		notFoundIfNull(restaurant);
@@ -500,6 +367,16 @@ public class Application extends Controller {
 					+ "/public/images/no_image.jpg");
 		}
 		renderBinary(is);
+	}
+	private static EndUser createAnonymousUser() {
+		AnonymousEndUser user = new AnonymousEndUser();
+		user.create();
+		user.login = "Anonymous_" + user.getId();
+		user.lastLoginDate = new Date();
+		user.password = Crypto.passwordHash(user.login+"1");
+		session.put("username", user.login);
+		user.save();
+		return user;
 	}
 
 	//FIXME fix guess system by moving to new MyJob.now()
@@ -527,8 +404,9 @@ public class Application extends Controller {
 
 	/**
 	 * intended for local use so no 'public' modifier
+	 * @param jpaBase 
 	 * */
-	private static Order createNewOpenOrder(final EndUser user) {
+	private static Order createNewOpenOrder(final EndUser user, Restaurant jpaBase) {
 		Logger.debug(">>> Creating new order for user: %s", user);
 		Order o = new Order();
 		o.orderStatus = OrderStatus.OPEN;
@@ -538,6 +416,7 @@ public class Application extends Controller {
 		}
 		o.deleted = false;
 		o.orderCreated = new Date();
+		o.restaurant = jpaBase;
 		o.create();
 		Logger.debug(">>> Created new order: %s", o.toString());
 		return o;

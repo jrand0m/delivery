@@ -8,9 +8,8 @@ Basket = {
 		if (resp)Basket.$update(resp);else 
 			$.ajax({
 				type: "POST",
-   				url: uu({}),
+   				url: uu({chart:rid}),
    				success: function(msg){
-     					console.log( "Update data recieved: " + msg );
 					Basket.update(msg);
    				}
 			});
@@ -29,21 +28,29 @@ Basket = {
 			url: au({}),
 			data: data,
 			success: function(msg){
-			
 				Basket.update(msg);	
 			}
+			
 		});
 		$.fancybox.close();	
-			
+		$('#a'+i).removeClass('current');	
 	},
 	cng				: function(i, c){
-	
-		this.update(resp);
+		var data = "id="+i+"&count="+c;
+		$.ajax({
+			type: "POST",
+			url: du({}),
+			data: data,
+			success: function(msg){
+				Basket.update(msg);	
+			}
+			
+		});
 	},
 	$update				: function(data){
 		this.$reset();
 		$.each(data.items, function(i,e){
-		$(Basket.renderContainer).append(tmpl("ittmp",{cnt:e["count"],nm:e["name"],de:e.desc,pc:e.price}));
+			$(Basket.renderContainer).append(tmpl("ittmp",{id:e["id"],cnt:e["count"],nm:e["name"],de:e.desc,pc:e.price}));
 		});
 		Basket.$setDeliveryPrice(data.delivery);
 		Basket.$setDiscount(data.discount);

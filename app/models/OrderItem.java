@@ -1,9 +1,11 @@
 package models;
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
@@ -12,6 +14,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
 
+import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
@@ -41,7 +44,7 @@ public class OrderItem extends Model {
 	@ManyToOne
 	public Order order;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "SELECTED_ORDERITEMS_COMPONENTS")
 	public Set<MenuItemComponent> selectedComponents = new HashSet<MenuItemComponent>();
 	/**
@@ -77,10 +80,23 @@ public class OrderItem extends Model {
 		this.deleted = false;
 	}
 
-	public OrderItem(MenuItem menuItem, Order order) {
+	public OrderItem(MenuItem menuItem, Order order, Long[] component) {
 		// TODO [Mike] (add calculations of a price here )
 		this.menuItem = menuItem;
 		this.order = order;
+		this.count = 1;
+		this.orderItemPrice = menuItem.price;
+		Logger.warn("orderItemPrice -> %s", orderItemPrice);
+		if (component != null){
+			for (Long comp: component){
+				MenuItemComponent mic = MenuItemComponent.findById(comp);
+				if (mic.itm_root.equals(menuItem)){
+					selectedComponents.add(mic);
+					Logger.warn("orderItemPrice -> %s +  %s", orderItemPrice, mic.price());
+					this.orderItemPrice = this.orderItemPrice + mic.price();
+				}
+			}
+		}
 	}
 	public String name() {
 		// TODO transliteration?

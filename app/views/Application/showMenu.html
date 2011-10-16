@@ -10,10 +10,11 @@
 <script type="text/javascript" src="@{'/public/javascripts/jquery.mousewheel-3.0.4.pack.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/mtmpl.js'}"></script>
 <script type="text/javascript">
-var uu = #{jsAction @Application.basket() /}
+var uu = #{jsAction @Application.basket(":chart") /}
 var cu = #{jsAction @Application.comps() /}
 var au = #{jsAction @Application.addOrderItem() /}
-var du = #{jsAction @Application.delOrderItem() /}
+var du = #{jsAction @Application.cngOrderItem() /}
+var rid = ${restaurant.id};
 </script>
 <script type="text/html" id="cmfrtmp">
 <div class="ing_popup" id="ing_popup">
@@ -38,7 +39,8 @@ var du = #{jsAction @Application.delOrderItem() /}
  %></td><td><%=d.nm?d.nm:''%></td><td class="price"><%=d.pr?'+'+d.pr+' &{'common.uah'}':''%></td></td></tr>
 </script>
 <script type="text/html" id="ittmp">
-<tr><th><span class="minus"></span><input type="text" onblur="javascript:if(this.value=='')this.value='<%=cnt%>' " onclick="javascript:this.value=''" name="pcs" value="<%=cnt%>"><span class="plus"></span></th><td><p><%=nm%></p><p class="descr"><%=de%></p></td><td><%=pc%> &{'common.uah'}</td></tr></script>
+<tr><th><span class="delete" onclick="Basket.cng(<%=id%>,-1)"></span></th><td><p><%=nm%></p><p class="descr"><%=de%></p></td><td><%=pc%> &{'common.uah'}</td></tr>
+</script>
 <script type="text/html" id="dptmp">
 <tr class="total total2"><th></th><td><p>&{'common.basket.delivery'}</p></td><td><%=pc%> &{'common.uah'}</td></tr>
 </script>
