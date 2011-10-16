@@ -114,13 +114,13 @@ div#login {width: 220px; display: table; margin: 0 auto; border-radius: 5px; box
 div#login h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#login form{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
 div#login div.linner{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
-div#login input[type="text"], div#login input[type="password"]{font-family: Conv_OpenSans-CondLight; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#login input[type="text"], div#login input[type="password"]{font-family: 'Open Sans Condensed',Sans-Serif; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
 div#login input[type="text"]{margin-bottom: 2px;}
 div#login p.tl label{float: left; cursor: text; margin-bottom: -22px; margin-left: 10px; position: relative; top: 13px; z-index: 2;}
 div#login p.error{text-align: center; color: red; font-size: 14px; text-decoration: blink;}
 div#login p#remember-field{margin-bottom: -10px;}
-div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: Conv_OpenSans-CondLight; height: 31px; margin-top: -15px; width: 73px;}
-div#login div input[type="submit"]{margin: 10px 0;background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: Conv_OpenSans-CondLight; font-size: 28px; height: 45px; width: 190px;}
+div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; height: 31px; margin-top: -15px; width: 73px;}
+div#login div input[type="submit"]{margin: 10px 0;background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
 
 
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
@@ -253,9 +253,12 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p{backg
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p.selText{text-align: left; text-indent: 15px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selDrop li{text-align: left; text-indent: 15px;}
 
-.ing_popup{}
-.ing_popup table.wrapper{width: 460px; line-height: 28px; border-collapse: collapse; border-radius: 3px;}
-.ing_popup table.wrapper table{width: 230px; border-collapse: collapse;}
+.ing_popup{background-color: #FFFFFF; border-radius: 5px 5px 5px 5px;}
+.ing_popup h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; line-height: 27px; margin-bottom: 10px; padding: 3px 10px;}
+.ing_popup p{margin-left: 10px;}
+.ing_popup table.wrapper{width: 440px; margin: 0 10px; line-height: 28px; border-collapse: collapse; border-radius: 3px;}
+.ing_popup table.wrapper table{width: 220px; border-collapse: collapse; cursor: default}
+.ing_popup table.wrapper table label{display: inline-block; width: 100%;}
 .ing_popup table.wrapper th{text-align: left;}
 .ing_popup table.wrapper td.price{width: 60px; white-space: nowrap;padding-right: 5px;}
 .ing_popup table.wrapper tr td:first-child{width: 17px;}
@@ -264,8 +267,9 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selD
 .ing_popup table.wrapper tr.total td span.txt{margin-left: 5px;}
 .ing_popup table.wrapper table tr:hover{background-color: #CCCCCC;}
 .ing_popup table.wrapper tr.button{text-align: right;}
-.ing_popup table.wrapper tr.button div{background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: medium none; border-radius: 5px 5px 5px 5px; color: #FFFFFF; cursor: pointer; float: right; font-size: 32px; height: 45px;  line-height: 45px;  margin: 10px 0 10px 23px;  text-align: center;  width: 250px;}
+.ing_popup table.wrapper tr.button div{background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: medium none; border-radius: 5px 5px 5px 5px; color: #FFFFFF; cursor: pointer; float: right; font-size: 32px; height: 45px; line-height: 45px; margin: 10px 0 10px 23px;  text-align: center; width: 250px;}
 .ing_popup table.wrapper tr.button:hover{background-color: transparent;}
+.ing_popup table.wrapper input[type="checkbox"]{margin-left: 5px; margin-right: 5px;}
 
 .ing_popup .jNiceCheckbox {float: left;  margin-left: 5px; margin-right: 10px;display: block; background: transparent url(/public/images/checkbox.png) no-repeat center top; vertical-align: middle; width: 17px; height: 17px}
 .ing_popup .jNiceChecked {background-position: center bottom;}
