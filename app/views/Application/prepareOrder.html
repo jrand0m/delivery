@@ -12,7 +12,7 @@
 <br>
 <div>Grand total: ${order.getGrandTotal()}</div>
 
-<div><a href="@@{Application.checkAndSend(order.id)}">Send now!</a></div>-->
+<div><a href="@">Send now!</a></div>-->
 
 
 #{set 'moreScripts'}
@@ -20,14 +20,9 @@
 #{/set}
 #{set 'breadCrumb' }
 <a class="enter back" href="#" onClick="history.go(-1);return true;">&{'common.back'}</a>
-#{if controllers.Security.isConnected()}
+		*{check for anon, if anon make register}*
 		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
-		
-	#{/if}
-	#{else}
-		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-	#{/else}
 #{/set}
 <div class="left_cont">
 	<div class="checkout">
@@ -38,19 +33,25 @@
 				<tr><th><label for="cinp03">&{'common.reg.surname'}</label></th><td><input name="surname" type="text" value="" id="cinp03" /></td><th><label for="cinp04">&{'common.reg.street'}</label></th><td><input name="street" type="text" value="" id="cinp04" /></td></tr>
 				<tr><th><label for="cinp05">&{'common.reg.email'}</label></th><td><input class="wrong_data" name="phone" type="text" value="" id="cinp05" /><span class="wrong_data">&{'common.reg.danger'}</span></td><th><label for="cinp06">&{'common.reg.homenumber'}</label></th><td><input name="apartment" type="text" value="" id="cinp06" /></td></tr>
 				<tr><th><label for="cinp07">&{'common.reg.phone'}</label></th><td><input name="phone" type="text" value="" id="cinp07" /></td><th><label>&{'common.reg.paymentType'}</label></th><td><span><input type="radio" name="oplata" checked />&{'common.reg.paymentType.cash'}</span></td></tr>
-				<tr><th></th><td></td><th class="frst" colspan='2'><span><input type="radio" name="oplata" />&{'common.reg.paymentType.card'}<img class="card_pic" src="/public/images/visamastercard.png" /></span></th></tr>
+				<tr><th></th><td></td>
+				<th class="frst" colspan='2'><span><input type="radio" name="oplata" disabled="true" />&{'common.reg.paymentType.card'}<img class="card_pic" src="/public/images/visamastercard.png" /></span></th></tr>
 			</table>
 			<table class="total">
-				<tr><th><span>&{'common.basket.order'}</span></th><td><span>${order.getMenuTotal()} &{'common.uah'}</span></td></tr>
-				<tr class="pretotal"><th><span>&{'common.basket.delivery'}</span></th><td><span>${order.getDeliveryPrice()} &{'common.uah'}</span></td></tr>
-				<tr class="total"><th><span>&{'common.basket.total'}</span></th><td><span>${order.getGrandTotal()} &{'common.uah'}</span></td></tr>
+				<tr><th><span>&{'common.basket.order'}</span></th><td><span>${order.getMenuTotalString()} &{'common.uah'}</span></td></tr>
+				<tr class="pretotal"><th><span>&{'common.basket.delivery'}</span></th><td><span>${order.getDeliveryPriceString()} &{'common.uah'}</span></td></tr>
+				<tr class="total"><th><span>&{'common.basket.total'}</span></th><td><span>${order.getGrandTotalString()} &{'common.uah'}</span></td></tr>
 				<tr><td colspan="2"><input type="submit" value="&{'common.basket.toorder'}" /></td></tr>
 			</table>
 			<div class="additional_addreses">
 				<h2>Додаткові адреси</h2>
-				<p>вул. Джерельна 21/9 <a href="#">&{'common.basket.addaddress'}</a></p>
-				<p>вул. Університетська 1/1 <a href="#">&{'common.basket.addaddress'}</a></p>
-				<p>вул. Куліша 89/234 <a href="#">&{'common.basket.addaddress'}</a></p>
+				#{if user instanceof models.users.AnonymousEndUser}
+					<p><a href="@{Application.newUser()}">Зареєструйтеся</a> щоби отримати можливість використовувати попередні або збережені адреси</p>
+				#{/if}
+				#{else}
+					#{list items:user.addressBook, as:'address'}
+						<p> ${address.street} ${address.building}, ${address.appartamentsNumber} <a href="#">&{'common.basket.addaddress'}</a></p>
+					#{/list}
+				#{/else}
 			</div>
 		</form>
 	</div>
@@ -62,39 +63,16 @@
 		<div class="rb_cont">
 			<form action="#">
 				<table>
+				#{list items:order.items, as:'oi'}
 					<tr>
-						<th>2</th>
+						<th></th>
 						<td>
-							<p>Піцца звичайна</p>
-							<p class="descr">Каперси, ананаси, печрець, сир моцарелла, палядвиця, бурячок</p>
+							<p>${oi.name()}</p>
+							<p class="descr">${oi.desc()}</p>
 						</td>
-						<td>128 &{'common.uah'}</td>
+						<td>${oi.orderItemPrice} &{'common.uah'}</td>
 					</tr>
-					<tr>
-						<th>1</th>
-						<td>
-							<p>Салат грецький</p>
-							<p class="descr">Бринза, оливки, помідори, зелень</p>
-						</td>
-						<td>35 &{'common.uah'}</td>
-					</tr>
-					<tr>
-						<th>3</th>
-						<td>
-							<p>Канапка з ікрою</p>
-							<p class="descr">Хліб, ікра, масло</p>
-						</td>
-						<td>12 &{'common.uah'}</td>
-					</tr>
-					<tr>
-						<th>1</th>
-						<td>
-							<p>Суп рибний</p>
-							<p class="descr">&{'common.basket.getIng'}</p>
-						</td>
-						<td>54 &{'common.uah'}</td>
-					</tr>
-
+				#{/list}
 				</table>
 				
 			</form>
