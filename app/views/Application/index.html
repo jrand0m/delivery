@@ -17,7 +17,7 @@ var loupd  = #{jsAction @Application.getLastOrders(':top') /}
 #{set 'breadCrumb'}
 
 					<form class="search jNice wrap" action="#">
-						<label for="inpec01">Знайди свій улюблений ресторан</label>
+						<label for="inpec01">&{'header.findyourrest'}</label>
 						<div class="selWrap">
 						<p class="selText"></p>
 						<ul class="selDrop">
@@ -52,13 +52,13 @@ var loupd  = #{jsAction @Application.getLastOrders(':top') /}
 						</div>
 						<p class="info">${restaurant.description()}</p>
 						<p class="work_time">${restaurant.workHoursToday()}</p>
-						<p class="dostavka">Доставка та самовивіз(todo)</p>
+						<p class="dostavka">&{'common.basket.delivery'}</p>
 						<p class="stars">Рейтинг<span class="rate1"></span></p>
 					%{ if (!ntw) { }%
-						<a class="menu_but" href="@{Application.showMenu(restaurant.id)}" title="Перегляньте меню цього ресторану">Меню</a>
+						<a class="menu_but" href="@{Application.showMenu(restaurant.id)}" title="&{'common.viewRestMunu'}">&{'common.menu'}</a>
 					</div>
 					%{ } else { }%
-						<a class="menu_but" id="various1" href="#n${restaurant.id}" title="Перегляньте меню цього ресторану">&{'restaurant.network.selectbtn'}</a>
+						<a class="menu_but" id="various1" href="#n${restaurant.id}" title="&{'common.viewRestMunu'}">&{'restaurant.network.selectbtn'}</a>
 					</div>
 					<div style="display: none;">
 						<div id="n${restaurant.id}" class="fancy_window">
@@ -74,29 +74,29 @@ var loupd  = #{jsAction @Application.getLastOrders(':top') /}
 								</div>
 								<p class="info">${subrest.description()}</p>
 								<p class="work_time">${subrest.workHoursToday()}</p>
-								<p class="dostavka">Доставка та самовивіз(todo)</p>
-								<a class="menu_but" href="@{Application.showMenu(subrest.id)}" title="Перегляньте меню цього ресторану">Меню</a>
+								<p class="dostavka">&{'common.basket.delivery'}</p>
+								<a class="menu_but" href="@{Application.showMenu(subrest.id)}" title="&{'common.viewRestMunu'}">&{'common.menu'}</a>
 							</div>
 						#{/list}
 					%{}}%
 #{/list}
-					<a class="see_all" href="@{Application.showRestaurants()}">Подивитися усі ресторани</a>
+					<a class="see_all" href="@{Application.showRestaurants()}">&{'common.showAll'}</a>
 					<div class="index_bottom">
-						<h2>Три кроки, які принесуть вам їжу</h2>
+						<h2>&{'common.3steps'}</h2>
 						<div class="staps first">
-							<h3><span>1. </span>Виберіть їжу</h3>
-							<p>Вибір ресторану не проста річ, у нас підключено дуже багато ресторанів. Є піццерії, є суші бари, паби і кафешки. Ось на головній сторінці є маленький список з восьми найпопулярніших ресторанів. Ви можете переглянути всі натиснувши на копку під списком ресторанів бо на верху сторінки. Виберіть ресторан!</p>
+							<h3><span>1. </span>&{'common.3steps.1title'}</h3>
+							<p>&{'common.3steps.1body'}</p>
 						</div>
 						<div class="staps">
-							<h3><span>2. </span>Оберіть меню</h3>
-							<p>Тут все дуже просто: знаходьте ваші страви у меню ресторану і додавайте їх у кошик. Якщо ви зареєстровані - у меню зверху ви зможете переглянути ваші останні замовлення, особистті данні для доставки, вашу статистику.</p>
+							<h3><span>2. </span>&{'common.3steps.2title'}</h3>
+							<p>&{'common.3steps.2body'}</p>
 						</div>
 						<div class="staps">
-							<h3><span>3. </span>Замовляйте.</h3>
-							<p>Після того як ви вибрали меню і натиснули клавішу замовити ми кажемо: <br />- Дякуємо, що скористались нашим сайтом.<br />Після замовлення ви можете подивитис на статус вашого замовлення та оцінити ресторан, його меню чи якість доставки. Це допоможе ресторану стати ще краще, або не робити помилок наприклад:)</p>
+							<h3><span>3. </span>&{'common.3steps.3title'}</h3>
+							<p>&{'common.3steps.3body'}</p>
 						</div>
 						<div class="zaraz">
-							<h1>Зараз замовляють</h1>
+							<h1>&{'common.noworder'}</h1>
 							<div class="zaraz_container">
 							
 							</div>
