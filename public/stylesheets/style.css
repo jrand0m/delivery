@@ -109,15 +109,17 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.r
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.work_time {background: url(/public/images/clock-select.png) no-repeat left center transparent; padding-left: 27px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.dostavka {background: url(/public/images/car-red.png) no-repeat left center transparent; padding-left: 27px; }
 
-div#login {width: 220px; margin: 0 auto; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#login {width: 220px; display: table; margin: 0 auto; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
 div#login h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#login form{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
+div#login div.linner{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
 div#login input[type="text"], div#login input[type="password"]{font-family: Conv_OpenSans-CondLight; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
 div#login input[type="text"]{margin-bottom: 2px;}
-div#login p.tl label{float: left; margin-bottom: -22px; margin-left: 10px; position: relative; top: 13px; z-index: 2;}
+div#login p.tl label{float: left; cursor: text; margin-bottom: -22px; margin-left: 10px; position: relative; top: 13px; z-index: 2;}
 div#login p.error{text-align: center; color: red; font-size: 14px; text-decoration: blink;}
 div#login p#remember-field{margin-bottom: -10px;}
-div#login input[type="submit"]{ background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: Conv_OpenSans-CondLight; height: 31px; margin-top: -15px; width: 73px;}
+div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: Conv_OpenSans-CondLight; height: 31px; margin-top: -15px; width: 73px;}
+div#login div input[type="submit"]{margin: 10px 0;background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: Conv_OpenSans-CondLight; font-size: 28px; height: 45px; width: 190px;}
 
 
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}

@@ -1,4 +1,4 @@
-# Saved by @messages on Sun Oct 16 17:09:56 EEST 2011
+# Saved by @messages on Sun Oct 16 18:39:43 EEST 2011
 admin.restaurant.events.tabtitle=Акції
 admin.restaurant.footertext=2011&copy; Усі права захищено. <a href\="http\://vdoma.com.ua">vdoma.com.ua</a> 
 admin.restaurant.invoices.tabtitle=Розрахунки
@@ -65,6 +65,14 @@ header.nav.orderhistory.tooltip=Переглянути список раніше
 header.nav.restorauntlist.text=Список ресторанів
 header.nav.restorauntlist.tooltip=Переглянути список ресторанів
 menu.title=Меню ресторану %s
+reg.email=e-mail
+reg.login=Логін
+reg.name=Ім'я
+reg.password=Пароль
+reg.phone=Номер телефону
+reg.reg=Зареєструватись
+reg.surname=Прізвище
+reg.title=Реєстрація
 reserved=Зарезервовано
 restaurant.admin.summary.lastorders=Останні замовлення
 restaurant.admin.summary.textline=За сьогодні було зроблено %s замовленнь, отримано %s прибутку. 
