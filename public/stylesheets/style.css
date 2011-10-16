@@ -261,7 +261,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selD
 .ing_popup table.wrapper tr.total td span.txt{margin-left: 5px;}
 .ing_popup table.wrapper table tr:hover{background-color: #CCCCCC;}
 .ing_popup table.wrapper tr.button{text-align: right;}
-.ing_popup table.wrapper tr.button div{border-radius: 5px; cursor: pointer; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border: medium none; color: #FFFFFF; font-size: 32px; height: 45px; margin: 10px 0 10px 23px; width: 250px;}
+.ing_popup table.wrapper tr.button div{background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: medium none; border-radius: 5px 5px 5px 5px; color: #FFFFFF; cursor: pointer; float: right; font-size: 32px; height: 45px;  line-height: 45px;  margin: 10px 0 10px 23px;  text-align: center;  width: 250px;}
 .ing_popup table.wrapper tr.button:hover{background-color: transparent;}
 
 .ing_popup .jNiceCheckbox {float: left;  margin-left: 5px; margin-right: 10px;display: block; background: transparent url(/public/images/checkbox.png) no-repeat center top; vertical-align: middle; width: 17px; height: 17px}
@@ -308,4 +308,6 @@ div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total t
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total td{padding-top: 5px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th, div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total td{background: url(/public/images/dot.gif) repeat-x -4px 16px transparent;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr:last-child td{background-image: none; text-align: center;}
+
+
 

@@ -22,10 +22,10 @@ var du = #{jsAction @Application.delOrderItem() /}
 		<form class="jNice">
 			<input type="hidden" id="basePc" value="<%=i.pc%>" />
 			<table class="wrapper">
-				<tr class="ing_headr"><th colspan="6">Додаткові інгрідієнти</th></tr>
+				<tr class="ing_headr"><th colspan="6">&{'common.additionalComponents'}</th></tr>
 				<%=i.tb%>			
-				<tr class="total"><td><span class="txt">Всього:</span></td><td colspan="4"></td><td class="price">+<%=i.pc%> грн</td>	</tr>
-				<tr class="button"><td colspan="6"><div onclick="Basket.add(<%=i.no%>)">Додати до кошика</div></td>	</tr>
+				<tr class="total"><td><span class="txt">&{'common.basket.all'}</span></td><td colspan="4"></td><td class="price">+<%=i.pc%> &{'common.uah'}</td>	</tr>
+				<tr class="button"><td colspan="6"><div onclick="Basket.add(<%=i.no%>)">&{'common.basket.add'}</div></td>	</tr>
 			</table>
 		</form>
 	</div>
@@ -35,15 +35,15 @@ var du = #{jsAction @Application.delOrderItem() /}
 </script>
 <script type="text/html" id="dtmp">
 <tr><td><% if(d.id){ %><input type="checkbox" id="ck<%=d.id%>" onClick="toggle(this);" /><% }
- %></td><td><%=d.nm?d.nm:''%></td><td class="price"><%=d.pr?'+'+d.pr+' грн':''%></td></td></tr>
+ %></td><td><%=d.nm?d.nm:''%></td><td class="price"><%=d.pr?'+'+d.pr+' &{'common.uah'}':''%></td></td></tr>
 </script>
 <script type="text/html" id="ittmp">
-<tr><th><span class="minus"></span><input type="text" onblur="javascript:if(this.value=='')this.value='<%=cnt%>' " onclick="javascript:this.value=''" name="pcs" value="<%=cnt%>"><span class="plus"></span></th><td><p><%=nm%></p><p class="descr"><%=de%></p></td><td><%=pc%> грн</td></tr></script>
+<tr><th><span class="minus"></span><input type="text" onblur="javascript:if(this.value=='')this.value='<%=cnt%>' " onclick="javascript:this.value=''" name="pcs" value="<%=cnt%>"><span class="plus"></span></th><td><p><%=nm%></p><p class="descr"><%=de%></p></td><td><%=pc%> &{'common.uah'}</td></tr></script>
 <script type="text/html" id="dptmp">
-<tr class="total total2"><th></th><td><p>Доставка</p></td><td><%=pc%> грн</td></tr>
+<tr class="total total2"><th></th><td><p>&{'common.basket.delivery'}</p></td><td><%=pc%> &{'common.uah'}</td></tr>
 </script>
 <script type="text/html" id="tptmp">
-<tr class="total"><th></th><td><p>Загальна сумма</p></td><td><%=pc%> грн</td></tr>
+<tr class="total"><th></th><td><p>Загальна сумма</p></td><td><%=pc%> &{'common.uah'}</td></tr>
 </script>
 <script type="text/javascript" src="@{'/public/javascripts/menu.js'}"></script>
 #{/set}
@@ -86,12 +86,12 @@ var du = #{jsAction @Application.delOrderItem() /}
 								boolean odd = i%2!=0;
 							}%
 							<tr class="${odd == true ? "od" : "even"}">
-								<th><a id="a${itm.id}" class="ingredient_popup_but" onclick="add(${itm.id},${itm.showComponents})" title="Додайте цей продукт до кошика. Це дуже смачно!"></a></th>
+								<th><a id="a${itm.id}" class="ingredient_popup_but" onclick="add(${itm.id},${itm.showComponents})" title="&{'common.basket.buttonTitle'}"></a></th>
 								<td>
 									<p>${itm.name}</p>
 									<p class="descr">${itm.description}</p>
 								</td>
-								<td>${itm.price().raw()} грн</td>
+								<td>${itm.price().raw()} &{'common.uah'}</td>
 							</tr>
 							%{}}%
 						</table>
@@ -100,7 +100,7 @@ var du = #{jsAction @Application.delOrderItem() /}
 				</div>
 				<div class="right_cont">
 					<div class="right_block" id="basket">
-						<h1>Кошик</h1>
+						<h1>&{'common.basket'}</h1>
 						<div class="rb_cont">
 							<form action="#">
 								<table>
@@ -111,22 +111,22 @@ var du = #{jsAction @Application.delOrderItem() /}
 											<p>Канапка з ікрою</p>
 											<p class="descr">Хліб, ікра, масло</p>
 										</td>
-										<td>12.<sup>--</sup> грн</td>
+										<td>12.<sup>--</sup> &{'common.uah'}</td>
 									</tr>
 									<!-- -->
 									<tr class="total total2">
 										<th></th>
 										<td>
-											<p>Доставка</p>
+											<p>&{'common.basket.delivery'}</p>
 										</td>
-										<td>10 грн</td>
+										<td>10 &{'common.uah'}</td>
 									</tr>
 									<tr class="total">
 										<th></th>
 										<td>
 											<p>Загальна сумма</p>
 										</td>
-										<td>220 грн</td>
+										<td>220 &{'common.uah'}</td>
 									</tr>
 								</table>
 								<input type="submit" name="basket_submit" value="До касси" />

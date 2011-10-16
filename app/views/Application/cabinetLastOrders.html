@@ -8,7 +8,7 @@
 <script type="text/javascript" src="@{'/public/javascripts/menu.js'}"></script>
 #{/set}
 #{set 'breadCrumb' }
-<a class="enter back" href="/">на головну</a>
+<a class="enter back" href="/">&{'common.gohome'}</a>
 #{if controllers.Security.isConnected()}
 		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
@@ -20,16 +20,16 @@
 #{/set}
 <div class="cabinetwrap">
 	<div class="tabgroup">
-		<a class="active" href="#">Останні замовлення</a>
-		<a href="#">Профіль</a>
+		<a class="active" href="#">&{'common.basket.lastorder'}</a>
+		<a href="#">&{'common.profile'}</a>
 	</div>
 	<div class="left_cont">
 		<table class="lastorders">
-			<tr><td>11.10.11</td><td><a href="#"><b>Замовлення №7324</b>, піццерія Челентано</a></td></tr>
-			<tr><td>03.10.11</td><td><a href="#"><b>Замовлення №7324</b>, піццерія Челентано</a></td></tr>
-			<tr><td>28.09.11</td><td><a href="#"><b>Замовлення №7324</b>, піццерія Челентано</a></td></tr>
-			<tr><td>28.09.11</td><td><a href="#"><b>Замовлення №7324</b>, піццерія Челентано</a></td></tr>
-			<tr><td>23.09.11</td><td><a href="#"><b>Замовлення №7324</b>, піццерія Челентано</a></td></tr>
+			<tr><td>11.10.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
+			<tr><td>03.10.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
+			<tr><td>28.09.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
+			<tr><td>28.09.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
+			<tr><td>23.09.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
 		</table>
 	</div>
 	<div class="right_cont">
@@ -43,7 +43,7 @@
 							<p>Канапка з ікрою</p>
 							<p class="descr">Хліб, ікра, масло</p>
 						</td>
-						<td>12.<sup>65</sup> грн</td>
+						<td>12.<sup>65</sup> &{'common.uah'}</td>
 					</tr>
 					<tr>
 						<td>54</td>
@@ -51,7 +51,7 @@
 							<p>Гамняшка</p>
 							<p class="descr">Хліб, ікра, масло</p>
 						</td>
-						<td>12.<sup>99</sup> грн</td>
+						<td>12.<sup>99</sup> &{'common.uah'}</td>
 					</tr>
 					<tr>
 						<td>4</td>
@@ -59,7 +59,7 @@
 							<p>Буріто хуіто</p>
 							<p class="descr">Хліб, ікра, масло</p>
 						</td>
-						<td>12.<sup>55</sup> грн</td>
+						<td>12.<sup>55</sup> &{'common.uah'}</td>
 					</tr>
 					<tr>
 						<td>1</td>
@@ -67,13 +67,13 @@
 							<p>Печений кабанчик</p>
 							<p class="descr">Хліб, ікра, масло</p>
 						</td>
-						<td>12.<sup>00</sup> грн</td>
+						<td>12.<sup>00</sup> &{'common.uah'}</td>
 					</tr>
 				</table>
 				<table class="total">
-					<tr><th><span>Замовлення</span></th><td><span>186 грн</span></td></tr>
-					<tr class="pretotal"><th><span>Доставка</span></th><td><span>10 грн</span></td></tr>
-					<tr class="total"><th><span>разом</span></th><td><span>196 грн</span></td></tr>
+					<tr><th><span>&{'common.basket.order'}</span></th><td><span>186 &{'common.uah'}</span></td></tr>
+					<tr class="pretotal"><th><span>&{'common.basket.delivery'}</span></th><td><span>10 &{'common.uah'}</span></td></tr>
+					<tr class="total"><th><span>&{'common.basket.total'}</span></th><td><span>196 &{'common.uah'}</span></td></tr>
 				</table>
 			</div>
 		</div>
