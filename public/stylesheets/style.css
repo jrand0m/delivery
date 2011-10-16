@@ -149,7 +149,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table 
 /*div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:nth-child(even){background-color: #f5f5f5;}*/
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover{background-color: #cccccc; cursor: pointer;}
 
-div#wrapper div#wrapper_inner div#content div.right_cont div#basket table{padding-bottom: 10px; border-collapse: collapse;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table{padding-bottom: 10px; border-collapse: collapse; width: 270px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span{float: left; width: 12px; height: 12px; margin-top: 4px; background: url(/public/images/plus_minus_delete_but2.gif) no-repeat transparent;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.minus{background-position: 0 -12px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.minus:hover{background-position: 0 -48px;}
