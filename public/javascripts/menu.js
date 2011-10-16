@@ -10,7 +10,6 @@ Basket = {
 				type: "POST",
    				url: uu({}),
    				success: function(msg){
-     					console.log( "Update data recieved: " + msg );
 					Basket.update(msg);
    				}
 			});
