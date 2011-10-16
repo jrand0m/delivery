@@ -12,6 +12,9 @@ DCWLang.ua = {
 		DCWLang.taken = 'забрано';
 		DCWLang.orderID = 'Номер замовлення : ';
 		DCWLang.timeConfirmed = 'Час до планованого завершення : ';
-		DCWLang.time = ' хвилин'
+		DCWLang.time = ' хвилин';
+		DCWLang.newOrders = 'Нові';
+		DCWLang.pendingOrders = 'В очікуванні';
+		DCWLang.activeOrders = 'Активні';
 	}
 }

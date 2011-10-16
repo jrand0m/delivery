@@ -13,5 +13,8 @@ DCWLang.en = {
 		DCWLang.orderID = 'Order Nr. : ';
 		DCWLang.timeConfirmed = 'Time to finish : ';
 		DCWLang.time = ' minutes'
+		DCWLang.newOrders = 'New';
+		DCWLang.pendingOrders = 'Pending';
+		DCWLang.activeOrders = 'Active';
 	}
 }

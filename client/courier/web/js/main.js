@@ -3,14 +3,16 @@ $(document).ready(function() {
 });
 
 var DCWMain = {
-	newOrders: Object,
-	pendingOrders: Object,
-	activeOrders: Object,
+	orders: Object,
 	newOrdersContent: '',
 	pendingOrdersContent: '',
 	activeOrdersContent: '',
 	dialogFrame: '',
 	lastOrderTime: 0,
+	updatedNewOrders: 0,
+	updatedPendingOrders: 0,
+	updatedActiveOrders: 0,
+	tabOpened: 0,
 
 	init: function() {
 		var thisObj = this;
@@ -23,7 +25,7 @@ var DCWMain = {
 		});
 		
 		fake.click(function(){
-			_.showDialog(thisObj.getCV());
+			_.newDialog(thisObj.getCV());
 		});
 		
 		fake.attr("href", "#");
@@ -43,32 +45,55 @@ var DCWMain = {
 	initVars: function(){
 		var lang = _.getUrlVar('lang');
 		_.initLang(lang);
-		this.newOrders = new Array();
-		this.pendingOrders = new Array();
-		this.activeOrders = new Array();
+		this.orders = new Array();
 	},
 		
 	showContent: function(){
 		var thisObj = this;
+		var newOrdersButtonsDiv = _.createDiv()
+			.append(_.createDiv().text(_.lang.newOrders))
+			.append(_.createDiv('DCWOrdersCount', 'DCWNewOrdersCount'))
+			.append(_.createDiv('DCWUpdatedOrdersCount', 'DCWUpdatedNewOrdersCount'))
+			.click(function() {
+				thisObj.pendingOrdersContent.hide();
+				thisObj.activeOrdersContent.hide();
+				thisObj.newOrdersContent.show();
+				thisObj.tabOpened = 0;
+				thisObj.updatedNewOrders = 0;
+				_.updateUpdatedOrdersCount(thisObj);
+			});
+		
+		var pendingOrdersButtonsDiv = _.createDiv()
+			.append(_.createDiv().text(_.lang.pendingOrders))
+			.append(_.createDiv('DCWOrdersCount', 'DCWPendingOrdersCount'))
+			.append(_.createDiv('DCWUpdatedOrdersCount', 'DCWUpdatedPendingOrdersCount'))
+			.click(function() {
+				thisObj.newOrdersContent.hide();
+				thisObj.activeOrdersContent.hide();
+				thisObj.pendingOrdersContent.show();
+				thisObj.tabOpened = 1;
+				thisObj.updatedPendingOrders = 0;
+				_.updateUpdatedOrdersCount(thisObj);
+			});
+			
+		var activeOrdersButtonsDiv = _.createDiv()
+			.append(_.createDiv().text(_.lang.activeOrders))
+			.append(_.createDiv('DCWOrdersCount', 'DCWActiveOrdersCount'))
+			.append(_.createDiv('DCWUpdatedOrdersCount', 'DCWUpdatedActiveOrdersCount'))
+			.click(function() {
+				thisObj.newOrdersContent.hide();
+				thisObj.pendingOrdersContent.hide();
+				thisObj.activeOrdersContent.show();
+				thisObj.tabOpened = 2;
+				thisObj.updatedActiveOrders = 0;
+				_.updateUpdatedOrdersCount(thisObj);
+			});
+			
 		var tabButtonContainer = _.createDiv('DCWTabButtons')
-			.append(_.createButton('New', 'DCWTabBtn')
-				.click(function() {
-					thisObj.pendingOrdersContent.hide();
-					thisObj.activeOrdersContent.hide();
-					thisObj.newOrdersContent.show();
-				}))
-			.append(_.createButton('Pending', 'DCWTabBtn')
-				.click(function() {
-					thisObj.newOrdersContent.hide();
-					thisObj.activeOrdersContent.hide();
-					thisObj.pendingOrdersContent.show();
-				}))
-			.append(_.createButton('Active', 'DCWTabBtn')
-				.click(function() {
-					thisObj.newOrdersContent.hide();
-					thisObj.pendingOrdersContent.hide();
-					thisObj.activeOrdersContent.show();
-				}));
+			.append(newOrdersButtonsDiv)
+			.append(pendingOrdersButtonsDiv)
+			.append(activeOrdersButtonsDiv);
+			
 		var ordersContent = _.createDiv('DCWOrders');
 		
 		this.newOrdersContent = _.createDiv("DCWOrdersContent", "DCWNewOrdersContent");
