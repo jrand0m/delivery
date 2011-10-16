@@ -3,7 +3,7 @@ html,body {height: 100%;}
 * {margin: 0; padding: 0;}
 a img{border: 0 none;}
 a, input{outline: 0px none;}
-body{font-family:'Conv_OpenSans-CondLight',Sans-Serif; font-size: 16px; color: #000;}
+body{font-family:'Open Sans Condensed',Sans-Serif; font-size: 16px; color: #000;}
 textarea{resize: none;}
 li{list-style: none;}
 div#wrapper{margin: 0 auto; width: 1011px;  padding-bottom: 50px; background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
