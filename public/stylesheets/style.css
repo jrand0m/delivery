@@ -3,7 +3,7 @@ html,body {height: 100%;}
 * {margin: 0; padding: 0;}
 a img{border: 0 none;}
 a, input{outline: 0px none;}
-body{font-family:'Open Sans Condensed',Sans-Serif; font-size: 16px; color: #000;}
+html{font-family:'Open Sans Condensed',Sans-Serif; font-size: 16px; color: #000;}
 textarea{resize: none;}
 li{list-style: none;}
 div#wrapper{margin: 0 auto; width: 1011px;  padding-bottom: 50px; background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
@@ -29,8 +29,9 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a:hover{t
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive a{text-decoration: none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 34px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form{float: left; margin-left: 6px;}
-div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{font-size: 17px; margin-top: 3px; border: none; height: 28px; line-height: 28px; width: 360px; border-radius: 0 5px 5px 0; padding: 0 35px 0 5px; font-family: 'Open Sans Condensed', sans-serif;}
-div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{position: relative; z-index: 10; float: right; margin-right: -32px; opacity: 0.5;background: url(/public/images/search_ico.png) no-repeat scroll center center transparent; border: medium none; cursor: pointer; height: 28px; /*margin-left: -33px;*/ margin-top: 3px; width: 33px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{font-size: 17px; margin-top: 3px; border: none; height: 28px; line-height: 28px; width: 360px; border-radius: 0 5px 5px 0; padding: 0 35px 0 5px; font-family: Open Sans Condensed, sans-serif;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{
+background: url(/public/images/search_ico.png) no-repeat scroll center center transparent;border: medium none;cursor: pointer;height: 22px;opacity:0.5;width: 33px;line-height: 22px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .submit:hover{opacity: 1;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form label{color: #FFFFFF;float: left;font-size: 19px;line-height: 32px;margin-right: 16px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceInputWrapper{float: left; margin-top: 3px;}
@@ -271,8 +272,8 @@ input[type="radio"]{ position:relative; top:1px; margin: 0 5px 0 0;}
 #timer{width:100%;background:url(/public/images/timer.jpg);height:250px; border-radius:3px;}
 #timer span{color:#fff; display:inline-block; width:100%; font:normal 13px Tahoma; padding: 3px 0 0 10px;}
 #timer span b{font:normal 18px Tahoma;}
-#timer span#int{font:bold 160px/135px 'Open Sans Condensed'; text-align:center; padding:10px 0 0 0;}
-#timer span#time{font:normal 20px 'Open Sans Condensed'; text-align:center; padding:0;}
+#timer span#int{font:bold 160px/135px "Open Sans Condensed"; text-align:center; padding:10px 0 0 0;}
+#timer span#time{font:normal 20px "Open Sans Condensed"; text-align:center; padding:0;}
 
 div#wrapper div#wrapper_inner div#content div.cabinetwrap{width: 100%; float: left; border: 1px solid #B3B3B3; border-radius: 5px;}
 div#wrapper div#wrapper_inner div#content div.tabgroup{margin-bottom: 10px; width: 100%; float: left; height: 28px; padding-top: 4px; line-height: 32px; border-bottom: 1px solid #B3B3B3; background: url(/public/images/header_top_bg.gif) repeat-x center center transparent; border-radius: 5px 5px 0 0;}
