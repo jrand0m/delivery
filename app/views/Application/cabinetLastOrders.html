@@ -1,0 +1,81 @@
+#{extends 'main.html' /}
+#{set 'moreScripts'}
+<script type="text/javascript" src="@{'/public/javascripts/jquery.fancybox-1.3.4.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.floatobject-1.0.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/inputs_and_labels.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.jNice.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.mousewheel-3.0.4.pack.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/menu.js'}"></script>
+#{/set}
+#{set 'breadCrumb' }
+<a class="enter back" href="/">&{'common.gohome'}</a>
+#{if controllers.Security.isConnected()}
+		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+		
+	#{/if}
+	#{else}
+		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+	#{/else}
+#{/set}
+<div class="cabinetwrap">
+	<div class="tabgroup">
+		<a class="active" href="#">&{'common.basket.lastorder'}</a>
+		<a href="#">&{'common.profile'}</a>
+	</div>
+	<div class="left_cont">
+		<table class="lastorders">
+			<tr><td>11.10.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
+			<tr><td>03.10.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
+			<tr><td>28.09.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
+			<tr><td>28.09.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
+			<tr><td>23.09.11</td><td><a href="#"><b>&{'common.basket.order'} №7324</b>, піццерія Челентано</a></td></tr>
+		</table>
+	</div>
+	<div class="right_cont">
+		<div class="right_block check">
+			<div class="rb_cont">
+				<table class="check">
+					<!-- -->
+					<tr>
+						<td>2</td>
+						<td>
+							<p>Канапка з ікрою</p>
+							<p class="descr">Хліб, ікра, масло</p>
+						</td>
+						<td>12.<sup>65</sup> &{'common.uah'}</td>
+					</tr>
+					<tr>
+						<td>54</td>
+						<td>
+							<p>Гамняшка</p>
+							<p class="descr">Хліб, ікра, масло</p>
+						</td>
+						<td>12.<sup>99</sup> &{'common.uah'}</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>
+							<p>Буріто хуіто</p>
+							<p class="descr">Хліб, ікра, масло</p>
+						</td>
+						<td>12.<sup>55</sup> &{'common.uah'}</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>
+							<p>Печений кабанчик</p>
+							<p class="descr">Хліб, ікра, масло</p>
+						</td>
+						<td>12.<sup>00</sup> &{'common.uah'}</td>
+					</tr>
+				</table>
+				<table class="total">
+					<tr><th><span>&{'common.basket.order'}</span></th><td><span>186 &{'common.uah'}</span></td></tr>
+					<tr class="pretotal"><th><span>&{'common.basket.delivery'}</span></th><td><span>10 &{'common.uah'}</span></td></tr>
+					<tr class="total"><th><span>&{'common.basket.total'}</span></th><td><span>196 &{'common.uah'}</span></td></tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

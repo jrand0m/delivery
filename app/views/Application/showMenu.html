@@ -8,34 +8,47 @@
 <script type="text/javascript" src="@{'/public/javascripts/inputs_and_labels.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/jquery.jNice.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/jquery.mousewheel-3.0.4.pack.js'}"></script>
-<script type="text/javascript" src="@{'/public/javascripts/menu.js'}"></script>
-#{/set}
-
-<!--POPUP-->
-
-<div style="display: none;">
-	<div class="ing_popup" id="ing_popup">
-		<form class="jNice" action="#">
-			<h1>Піцца велика</h1>
-			<p>Томат, перчик, капусточка, бурячок, креветочка</p>
+<script type="text/javascript" src="@{'/public/javascripts/mtmpl.js'}"></script>
+<script type="text/javascript">
+var uu = #{jsAction @Application.basket(":chart") /}
+var cu = #{jsAction @Application.comps() /}
+var au = #{jsAction @Application.addOrderItem() /}
+var du = #{jsAction @Application.cngOrderItem() /}
+var rid = ${restaurant.id};
+</script>
+<script type="text/html" id="cmfrtmp">
+<div class="ing_popup" id="ing_popup">
+	<h1><%=i.nm%></h1>
+	<p><%=i.dc%></p>
+		<form class="jNice">
+			<input type="hidden" id="basePc" value="<%=i.pc%>" />
 			<table class="wrapper">
-				<tr><th colspan="6">Додаткові інгрідієнти</th></tr>
-				
-				<tr><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td></tr>
-				<tr><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td></tr>
-				<tr><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td><td colspan="3"><table><tr><td><input type="checkbox" /></td><td>Хуєц</td><td class="price">+100 грн</td></td></tr></table></td></tr>
-				
-				<tr class="total"><td><span class="txt">Всього:</span></td><td colspan="4"></td><td class="price">+125 грн</td>	</tr>
-				<tr class="button"><td colspan="6"><input type="submit" value="Додати до кошика" /></td>	</tr>
+				<tr class="ing_headr"><th colspan="6">&{'common.additionalComponents'}</th></tr>
+				<%=i.tb%>			
+				<tr class="total"><td><span class="txt">&{'common.basket.all'}</span></td><td colspan="4"></td><td class="price">+<%=i.pc%> &{'common.uah'}</td>	</tr>
+				<tr class="button"><td colspan="6"><div onclick="Basket.add(<%=i.no%>)">&{'common.basket.add'}</div></td>	</tr>
 			</table>
 		</form>
 	</div>
-</div>
-
-<!--/-->
-
-
-
+</script>
+<script type="text/html" id="rotmp">
+<tr><td colspan="3"><table><%=i.l%></table></td><td colspan="3"><table><%=i.r%></table></td></tr>
+</script>
+<script type="text/html" id="dtmp">
+<tr><td><% if(d.id){ %><input type="checkbox" id="ck<%=d.id%>" onClick="toggle(this);" /><% }
+ %></td><td><%=d.nm?d.nm:''%></td><td class="price"><%=d.pr?'+'+d.pr+' &{'common.uah'}':''%></td></td></tr>
+</script>
+<script type="text/html" id="ittmp">
+<tr><th><span class="delete" onclick="Basket.cng(<%=id%>,-1)"></span></th><td><p><%=nm%></p><p class="descr"><%=de%></p></td><td><%=pc%> &{'common.uah'}</td></tr>
+</script>
+<script type="text/html" id="dptmp">
+<tr class="total total2"><th></th><td><p>&{'common.basket.delivery'}</p></td><td><%=pc%> &{'common.uah'}</td></tr>
+</script>
+<script type="text/html" id="tptmp">
+<tr class="total"><th></th><td><p>Загальна сумма</p></td><td><%=pc%> &{'common.uah'}</td></tr>
+</script>
+<script type="text/javascript" src="@{'/public/javascripts/menu.js'}"></script>
+#{/set}
 				<div class="left_cont">
 					<div class="rest_menu">
 						<h1>
@@ -75,12 +88,12 @@
 								boolean odd = i%2!=0;
 							}%
 							<tr class="${odd == true ? "od" : "even"}">
-								<th><a class="ingredient_popup_but" href="javascript:add(${itm.id},${!itm.components.isEmpty()})" title="Додайте цей продукт до кошика. Це дуже смачно!"></a></th>
+								<th><a id="a${itm.id}" class="ingredient_popup_but" onclick="add(${itm.id},${itm.showComponents})" title="&{'common.basket.buttonTitle'}"></a></th>
 								<td>
 									<p>${itm.name}</p>
 									<p class="descr">${itm.description}</p>
 								</td>
-								<td>${itm.price().raw()} грн</td>
+								<td>${itm.price().raw()} &{'common.uah'}</td>
 							</tr>
 							%{}}%
 						</table>
@@ -89,7 +102,7 @@
 				</div>
 				<div class="right_cont">
 					<div class="right_block" id="basket">
-						<h1>Кошик</h1>
+						<h1>&{'common.basket'}</h1>
 						<div class="rb_cont">
 							<form action="#">
 								<table>
@@ -100,22 +113,22 @@
 											<p>Канапка з ікрою</p>
 											<p class="descr">Хліб, ікра, масло</p>
 										</td>
-										<td>12.<sup>--</sup> грн</td>
+										<td>12.<sup>--</sup> &{'common.uah'}</td>
 									</tr>
 									<!-- -->
 									<tr class="total total2">
 										<th></th>
 										<td>
-											<p>Доставка</p>
+											<p>&{'common.basket.delivery'}</p>
 										</td>
-										<td>10 грн</td>
+										<td>10 &{'common.uah'}</td>
 									</tr>
 									<tr class="total">
 										<th></th>
 										<td>
 											<p>Загальна сумма</p>
 										</td>
-										<td>220 грн</td>
+										<td>220 &{'common.uah'}</td>
 									</tr>
 								</table>
 								<input type="submit" name="basket_submit" value="До касси" />

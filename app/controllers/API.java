@@ -89,7 +89,6 @@ public class API extends Controller {
 	}
 
 	public static void p(String message) {
-
 		Logger.debug("p in message = %s", message);
 		Gson g = new Gson();
 		PushMessage p = g.fromJson(message, PushMessage.class);
@@ -100,6 +99,7 @@ public class API extends Controller {
 		Order order = Order.find(Order.HQL.BY_SHORT_ID_OR_LIKE_FULL_ID, p.id,
 				p.id + "%").first();
 		notFoundIfNull(order);
+		Logger.debug("p found order id = %s", order.id);
 		switch (OrderStatus.convert(p.status)) {
 		case COOKED:
 			order.orderStatus = OrderStatus.COOKED;
@@ -124,6 +124,7 @@ public class API extends Controller {
 			order.orderTaken = new Date();
 			break;
 		default:
+			Logger.debug("p not found corresponding status ");			
 			notFound();
 		}
 		order.save();

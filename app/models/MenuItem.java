@@ -34,13 +34,13 @@ public class MenuItem extends Model {
 	public Restaurant restaurant;
 	public boolean deleted = false;
 	public String description;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	public MenuItemGroup menuItemGroup;
 	@OneToMany(fetch = FetchType.EAGER)
 	public Set<MenuItemComponent> components = new HashSet<MenuItemComponent>();
 
 	public Date menuItemCreated;
-
+	public boolean showComponents = false;
 	public String name;
 	/**
 	 * value in coins
@@ -92,5 +92,18 @@ public class MenuItem extends Model {
 	public String description() {
 		// TODO add transliteration/translation
 		return description;
+	}
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		b.append('[');
+		if (components != null){
+			for (MenuItemComponent mi: components){
+				b.append(mi.toString());
+				b.append(',');
+			}
+		}
+		b.append(']');
+		return name + ":" + price + ":" + (restaurant != null? restaurant.title:"<detached>");
 	}
 }

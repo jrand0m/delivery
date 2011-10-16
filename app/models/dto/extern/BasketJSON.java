@@ -7,28 +7,12 @@ import java.util.List;
 
 import models.Order;
 import models.OrderItem;
-/**
- * items:[
-	{	
-		mi: 1212,    // menu item id
-		ip: 1321,    // item price in coins
-		cnt: 1,      // count
-		comps:[      // array of components. if object has no components this field is null; if no components choosen it is empty array;
-				{
-					title:"", // name to display
-					desc: "", //description 
-					price: 123, price in coins
-				},
-				{..}], 
-		tit: "",     // title text
-		des: "",     //description text
-	}, 
-	{...}
-]
- * 
- * */
+
 public class BasketJSON {
 	public BasketJSON(Order o) {
+		if (o==null){
+			return;
+		}
 		discount = o.getUserDiscount().multiply(new BigDecimal(100).setScale(2, RoundingMode.HALF_EVEN)).intValue();
 		total = o.getGrandTotal();
 		delivery = o.getDeliveryPrice();

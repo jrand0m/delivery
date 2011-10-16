@@ -58,11 +58,11 @@ var cngcty = #{jsAction @Application.changeCity(':id') /}
 							<div class="properties">
 								<p class="rating stars">&{'restaurants.rating.text'}<span class="rate${restaurant.raiting}"></span></p>
 								<p class="work_time">${restaurant.workHoursToday()}  </p>
-								<p class="dostavka">Доставка та самовивіз</p>
+								<p class="dostavka">&{'common.basket.delivery'} та самовивіз</p>
 							</div>
 							<div class="description">
 								<p>${restaurant.description()}</p>
-								<a class="menu" href="@{Application.showMenu(restaurant.id)}">Меню</a>
+								<a class="menu" href="@{Application.showMenu(restaurant.id)}">&{'common.menu'}</a>
 							</div>
 						</div>
 					</div>

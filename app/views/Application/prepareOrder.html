@@ -19,7 +19,7 @@
 <!--<script type="text/javascript" src="@{'/public/javascripts/jquery.jNice.js'}"></script>-->
 #{/set}
 #{set 'breadCrumb' }
-<a class="enter back" href="#" onClick="history.go(-1);return true;">назад до меню</a>
+<a class="enter back" href="#" onClick="history.go(-1);return true;">&{'common.back'}</a>
 #{if controllers.Security.isConnected()}
 		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
@@ -34,31 +34,31 @@
 		<h1>Виберіть адресу доставки/Введіть адресу доставки</h1>
 		<form class="jNice" action="@{Application.checkAndSend(order.id)}">
 			<table class="data_form">
-				<tr><th><label for="cinp01">Ім'я:</label></th><td><input type="text" value="" name="name" id="cinp01" /></td><th><label for="cinp02">місто:</label></th><td><input type="text" name="city" value="Львів"  id="cinp02" readonly /></td></tr>
-				<tr><th><label for="cinp03">прізвище:</label></th><td><input name="surname" type="text" value="" id="cinp03" /></td><th><label for="cinp04">вулиця:</label></th><td><input name="street" type="text" value="" id="cinp04" /></td></tr>
-				<tr><th><label for="cinp05">e-mail:</label></th><td><input class="wrong_data" name="phone" type="text" value="" id="cinp05" /><span class="wrong_data">* введені неадекватні данні</span></td><th><label for="cinp06">будинок/квартира:</label></th><td><input name="apartment" type="text" value="" id="cinp06" /></td></tr>
-				<tr><th><label for="cinp07">телефон:</label></th><td><input name="phone" type="text" value="" id="cinp07" /></td><th><label>Тип оплати:</label></th><td></td></tr>
-				<tr><th></th><td></td><th class="frst" colspan='2'><span><input type="radio" name="oplata" checked />готівкою</span><span><input type="radio" name="oplata" />Банківська картка <img class="card_pic" src="/public/images/visamastercard.png" /></span></th></tr>
+				<tr><th><label for="cinp01">&{'common.reg.name'}</label></th><td><input type="text" value="" name="name" id="cinp01" /></td><th><label for="cinp02">&{'common.reg.city'}</label></th><td><input type="text" name="city" value="Львів"  id="cinp02" readonly /></td></tr>
+				<tr><th><label for="cinp03">&{'common.reg.surname'}</label></th><td><input name="surname" type="text" value="" id="cinp03" /></td><th><label for="cinp04">&{'common.reg.street'}</label></th><td><input name="street" type="text" value="" id="cinp04" /></td></tr>
+				<tr><th><label for="cinp05">&{'common.reg.email'}</label></th><td><input class="wrong_data" name="phone" type="text" value="" id="cinp05" /><span class="wrong_data">&{'common.reg.danger'}</span></td><th><label for="cinp06">&{'common.reg.homenumber'}</label></th><td><input name="apartment" type="text" value="" id="cinp06" /></td></tr>
+				<tr><th><label for="cinp07">&{'common.reg.phone'}</label></th><td><input name="phone" type="text" value="" id="cinp07" /></td><th><label>&{'common.reg.paymentType'}</label></th><td></td></tr>
+				<tr><th></th><td></td><th class="frst" colspan='2'><span><input type="radio" name="oplata" checked />&{'common.reg.paymentType.cash'}</span><span><input type="radio" name="oplata" />&{'common.reg.paymentType.card'}<img class="card_pic" src="/public/images/visamastercard.png" /></span></th></tr>
 			</table>
 			<table class="total">
-				<tr><th><span>Замовлення</span></th><td><span>${order.getMenuTotal()} грн</span></td></tr>
-				<tr class="pretotal"><th><span>Доставка</span></th><td><span>${order.getDeliveryPrice()} грн</span></td></tr>
-				<tr class="total"><th><span>разом</span></th><td><span>${order.getGrandTotal()} грн</span></td></tr>
-				<tr><td colspan="2"><input type="submit" value="Замовити" /></td></tr>
+				<tr><th><span>&{'common.basket.order'}</span></th><td><span>${order.getMenuTotal()} &{'common.uah'}</span></td></tr>
+				<tr class="pretotal"><th><span>&{'common.basket.delivery'}</span></th><td><span>${order.getDeliveryPrice()} &{'common.uah'}</span></td></tr>
+				<tr class="total"><th><span>&{'common.basket.total'}</span></th><td><span>${order.getGrandTotal()} &{'common.uah'}</span></td></tr>
+				<tr><td colspan="2"><input type="submit" value="&{'common.basket.toorder'}" /></td></tr>
 			</table>
 			<div class="additional_addreses">
 				<h2>Додаткові адреси</h2>
-				<p>вул. Джерельна 21/9 <a href="#">Вставити</a></p>
-				<p>вул. Університетська 1/1 <a href="#">Вставити</a></p>
-				<p>вул. Куліша 89/234 <a href="#">Вставити</a></p>
+				<p>вул. Джерельна 21/9 <a href="#">&{'common.basket.addaddress'}</a></p>
+				<p>вул. Університетська 1/1 <a href="#">&{'common.basket.addaddress'}</a></p>
+				<p>вул. Куліша 89/234 <a href="#">&{'common.basket.addaddress'}</a></p>
 			</div>
 		</form>
 	</div>
-	<h3 class="wait_time">~<span>5</span> хвилин потрібно ресторану, щоб обробити ваше замовлення</h3>
+	<h3 class="wait_time">~<span>5</span> &{'common.order.minutes'} потрібно ресторану, щоб обробити ваше замовлення</h3>
 </div>
 <div class="right_cont">
 	<div class="right_block" id="basket">
-		<h1>Кошик</h1>
+		<h1>&{'common.basket'}</h1>
 		<div class="rb_cont">
 			<form action="#">
 				<table>
@@ -68,7 +68,7 @@
 							<p>Піцца звичайна</p>
 							<p class="descr">Каперси, ананаси, печрець, сир моцарелла, палядвиця, бурячок</p>
 						</td>
-						<td>128 грн</td>
+						<td>128 &{'common.uah'}</td>
 					</tr>
 					<tr>
 						<th>1</th>
@@ -76,7 +76,7 @@
 							<p>Салат грецький</p>
 							<p class="descr">Бринза, оливки, помідори, зелень</p>
 						</td>
-						<td>35 грн</td>
+						<td>35 &{'common.uah'}</td>
 					</tr>
 					<tr>
 						<th>3</th>
@@ -84,15 +84,15 @@
 							<p>Канапка з ікрою</p>
 							<p class="descr">Хліб, ікра, масло</p>
 						</td>
-						<td>12 грн</td>
+						<td>12 &{'common.uah'}</td>
 					</tr>
 					<tr>
 						<th>1</th>
 						<td>
 							<p>Суп рибний</p>
-							<p class="descr">Виберіть компоненти</p>
+							<p class="descr">&{'common.basket.getIng'}</p>
 						</td>
-						<td>54 грн</td>
+						<td>54 &{'common.uah'}</td>
 					</tr>
 
 				</table>

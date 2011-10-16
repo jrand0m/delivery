@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -36,6 +37,18 @@ public class MenuItemGroup extends Model {
 	public String name;
 
 	public String anchorName() {
-		return "i" + hashCode();
+		return "g" + hashCode();
+	}
+	@Override
+	public String toString(){
+		StringBuilder b = new StringBuilder();
+		b.append('[');
+		if (items != null)
+		for (MenuItem itm : items){
+			b.append(itm.toString());
+			b.append(',');
+		}
+		b.append(']');
+		return name + " " + description + " " + b.toString() ;
 	}
 }

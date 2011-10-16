@@ -33,9 +33,7 @@ public class Locker extends Controller {
 				session.getId());
 		if (!Security.isConnected()) {
 			Logger.debug(">>> Anonymous locker -> redirecting to basket()");
-			if (!Security.isConnected()) {
-				Application.basket();
-			}
+			notFound();
 
 		}
 		String userName = Security.connected();

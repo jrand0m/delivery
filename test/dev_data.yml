@@ -345,6 +345,7 @@ MenuItem(mit_pizza1):
     menuItemGroup: mgp_pizza
     restaurant: restaurant1
     deleted: false
+    showComponents: true
 
 MenuItemComponent(comp1):
     itm_root: mit_pizza1

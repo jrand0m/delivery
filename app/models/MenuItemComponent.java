@@ -47,5 +47,9 @@ public class MenuItemComponent extends Model {
 	public Integer price(){
 		return itm_price;
 	}
-
+	@Override
+	public String toString() {
+		
+		return itm_name + " " + itm_price;
+	}
 }
