@@ -84,10 +84,15 @@ public class Application extends Controller {
 	}
 
 
-	public static void order() {
-		Order order = null;
+	public static void order(String id) {
+		notFoundIfNull(id);
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		notFoundIfNull(user);
+		Order order = Order.find(Order.HQL.BY_SHORT_ID, id).first();
+		notFoundIfNull(order);
+		if (!order.orderOwner.equals(user)){
+			notFound();
+		}
 		renderArgs.put("order", order);
 		render("/Application/order.html");
 	}
@@ -99,9 +104,20 @@ public class Application extends Controller {
 		render("/Application/cabinetLastOrders.html");
 	}
 	
-	public static void checkout() {
-		Order order = null;
+	public static void checkout(String id) {
+		
 		//FIXME move to locker ?
+		notFoundIfNull(id);
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		notFoundIfNull(user);
+		Order order = Order.find(Order.HQL.BY_SHORT_ID, id).first();
+		notFoundIfNull(order);
+		if (!order.orderOwner.equals(user)){
+			notFound();
+		}
+		if (order.orderStatus!=OrderStatus.OPEN){
+			redirect("Application.order", id);
+		}
 		renderArgs.put("order", order);
 		render("/Application/prepareOrder.html");
 	}

@@ -56,6 +56,8 @@ Basket = {
 		$.each(data.items, function(i,e){
 			$(Basket.renderContainer).append(tmpl("ittmp",{id:e["id"],cnt:e["count"],nm:e["name"],de:e.desc,pc:format(e.price)}));
 		});
+		
+		$(Basket.renderContainer).append("<input type=\"hidden\" name=\"id\" value=\""+data["no"]+"\"/>");
 		Basket.$setDeliveryPrice(data.delivery);
 		Basket.$setDiscount(data.discount);
 		Basket.$setTotalPrice(data.total);

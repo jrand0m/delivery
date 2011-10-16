@@ -31,10 +31,7 @@ public class OrderItem extends Model {
 		public static final String DELETED = "deleted";
 		public static final String MENUITEM = "menuItem";
 		public static final String ORDER = "order";
-		public static final String ORDER_ITEM_PRICE = "orderItemPrice";
-		// public static final String ORDER_ITEM_USER_PRICE =
-		// "orderItemUserPrice";
-	}
+		public static final String ORDER_ITEM_PRICE = "orderItemPrice";	}
 
 	public Integer count;
 
@@ -53,12 +50,6 @@ public class OrderItem extends Model {
 	 * */
 	public Integer orderItemPrice;
 
-	/* *
-	 * Archived price that should be paid by user (That was calculated in
-	 * moment, when order was approved).
-	 * */
-	/* public Integer orderItemUserPrice; */
-
 	public Integer totalPriceInclComponents(){
 		Integer componentPrice = 0;
 		for (MenuItemComponent mc:selectedComponents){
@@ -74,7 +65,6 @@ public class OrderItem extends Model {
 			Integer orderItemPrice, Order orderId, MenuItem menuitem) {
 		this.menuItem = menuitem;
 		this.count = count;
-		// this.orderItemUserPrice = orderItemUserPrice;
 		this.orderItemPrice = orderItemPrice;
 		this.order = orderId;
 		this.deleted = false;
@@ -86,24 +76,20 @@ public class OrderItem extends Model {
 		this.order = order;
 		this.count = 1;
 		this.orderItemPrice = menuItem.price;
-		Logger.warn("orderItemPrice -> %s", orderItemPrice);
 		if (component != null){
 			for (Long comp: component){
 				MenuItemComponent mic = MenuItemComponent.findById(comp);
 				if (mic.itm_root.equals(menuItem)){
 					selectedComponents.add(mic);
-					Logger.warn("orderItemPrice -> %s +  %s", orderItemPrice, mic.price());
 					this.orderItemPrice = this.orderItemPrice + mic.price();
 				}
 			}
 		}
 	}
 	public String name() {
-		// TODO transliteration?
 		return menuItem.name();
 	}
 	public String desc() {
-		// TODO transliteration?
 		return menuItem.description();
 	}
 	public ArrayList<String> selectedComponentsNames() {

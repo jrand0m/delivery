@@ -3,6 +3,7 @@ package models;
 import helpers.SystemCalc;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -200,7 +201,10 @@ public class Order extends GenericModel {
 	public Integer getDeliveryPrice() {
 		return SystemCalc.getDeliveryPrice(this);
 	}
-
+	public String getDeliveryPriceString() {
+		int i = getDeliveryPrice();
+		return new BigDecimal(i).setScale(2,RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN)).toString();
+	}
 	/**
 	 * Grand total including delivery price and minus calculated user discount
 	 * */
@@ -209,6 +213,11 @@ public class Order extends GenericModel {
 		Integer menuTotal = getMenuTotal();
 		return menuTotal + getDeliveryPrice() - getUserDiscount().multiply(new BigDecimal( menuTotal).setScale(0)).intValue();
 	}
+	
+	public String getGrandTotalString() {
+		int i = getGrandTotal();
+		return new BigDecimal(i).setScale(2,RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN)).toString();
+	}
 
 	/**
 	 * Just sum of all items without discount
@@ -216,11 +225,15 @@ public class Order extends GenericModel {
 	public Integer getMenuTotal() {
 		Integer i = 0;
 		for (OrderItem item : items) {
-			i += item.orderItemPrice * item.count;
+			i += item.totalPriceInclComponents();
 		}
 		return i;
 	}
-
+	
+	public String getMenuTotalString() {
+		int i = getMenuTotal();
+		return new BigDecimal(i).setScale(2,RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN)).toString();
+	}
 	/**
 	 * Function for getting short id
 	 * */
@@ -230,7 +243,8 @@ public class Order extends GenericModel {
 					"Taking shorthand on null id!");
 		}
 		if (shortHandId == null) {
-			shortHandId = Integer.toHexString(id.hashCode());// substring(id.length()-8);
+			shortHandId = Integer.toHexString(id.hashCode());
+			save();
 		}
 		return shortHandId;
 	}
