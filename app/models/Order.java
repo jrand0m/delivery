@@ -216,7 +216,7 @@ public class Order extends GenericModel {
 	public Integer getMenuTotal() {
 		Integer i = 0;
 		for (OrderItem item : items) {
-			i += item.menuItem.price * item.count;
+			i += item.orderItemPrice * item.count;
 		}
 		return i;
 	}

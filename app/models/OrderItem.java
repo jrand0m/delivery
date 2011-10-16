@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
 
+import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
@@ -85,11 +86,14 @@ public class OrderItem extends Model {
 		this.order = order;
 		this.count = 1;
 		this.orderItemPrice = menuItem.price;
+		Logger.warn("orderItemPrice -> %s", orderItemPrice);
 		if (component != null){
 			for (Long comp: component){
 				MenuItemComponent mic = MenuItemComponent.findById(comp);
 				if (mic.itm_root.equals(menuItem)){
 					selectedComponents.add(mic);
+					Logger.warn("orderItemPrice -> %s +  %s", orderItemPrice, mic.price());
+					this.orderItemPrice = this.orderItemPrice + mic.price();
 				}
 			}
 		}
