@@ -309,5 +309,5 @@ div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total t
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th, div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total td{background: url(/public/images/dot.gif) repeat-x -4px 16px transparent;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr:last-child td{background-image: none; text-align: center;}
 
-
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.delete{cursor: pointer; background-position: 0 -23px;}
 
