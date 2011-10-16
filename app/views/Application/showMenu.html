@@ -25,7 +25,7 @@ var rid = ${restaurant.id};
 			<table class="wrapper">
 				<tr class="ing_headr"><th colspan="6">&{'common.additionalComponents'}</th></tr>
 				<%=i.tb%>			
-				<tr class="total"><td><span class="txt">&{'common.basket.all'}</span></td><td colspan="4"></td><td class="price">+<%=i.pc%> &{'common.uah'}</td>	</tr>
+				<tr class="total"><td><span class="txt">&{'common.basket.all'}</span></td><td colspan="4"></td><td class="price">+<%=i.pcd%> &{'common.uah'}</td>	</tr>
 				<tr class="button"><td colspan="6"><div onclick="Basket.add(<%=i.no%>)">&{'common.basket.add'}</div></td>	</tr>
 			</table>
 		</form>
@@ -106,30 +106,6 @@ var rid = ${restaurant.id};
 						<div class="rb_cont">
 							<form action="#">
 								<table>
-									<!-- -->
-									<tr>
-										<th><span class="minus"></span><input type="text" value="2" name="pcs" onclick="javascript:this.value=''" onblur="javascript:if(this.value=='')this.value='2' " /><span class="plus"></span></th>
-										<td>
-											<p>Канапка з ікрою</p>
-											<p class="descr">Хліб, ікра, масло</p>
-										</td>
-										<td>12.<sup>--</sup> &{'common.uah'}</td>
-									</tr>
-									<!-- -->
-									<tr class="total total2">
-										<th></th>
-										<td>
-											<p>&{'common.basket.delivery'}</p>
-										</td>
-										<td>10 &{'common.uah'}</td>
-									</tr>
-									<tr class="total">
-										<th></th>
-										<td>
-											<p>Загальна сумма</p>
-										</td>
-										<td>220 &{'common.uah'}</td>
-									</tr>
 								</table>
 								<input type="submit" name="basket_submit" value="До касси" />
 							</form>
