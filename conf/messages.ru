@@ -1,4 +1,4 @@
-# Saved by @messages on Sun Oct 16 16:48:46 EEST 2011
+# Saved by @messages on Sun Oct 16 17:10:08 EEST 2011
 admin.restaurant.events.tabtitle=Акции
 admin.restaurant.footertext=2011&copy; Все права защищены. <a href\="http\://vdoma.com.ua">vdoma.com.ua</a> 
 admin.restaurant.invoices.tabtitle=Расщеты
@@ -22,6 +22,7 @@ common.basket.all=Всего\:
 common.basket.buttonTitle=Добавьте этот продукт в корзину. Это очень вкусно\!
 common.basket.delivery=Доставка
 common.basket.getIng=Выберите ингредиенты\:
+common.basket.go=На кассу
 common.basket.lastorder=Последние заказы
 common.basket.order=Заказ
 common.basket.status=Статус заказа\:
