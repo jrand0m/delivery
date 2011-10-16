@@ -104,7 +104,7 @@ var rid = ${restaurant.id};
 					<div class="right_block" id="basket">
 						<h1>&{'common.basket'}</h1>
 						<div class="rb_cont">
-							<form action="#">
+							<form action="@{Application.checkout}">
 								<table>
 								<tr class="total total2">
 										<th></th>
@@ -121,7 +121,7 @@ var rid = ${restaurant.id};
 										<td> -- &{'common.uah'}</td>
 									</tr>
 								</table>
-								<input type="submit" name="basket_submit" value="&{'common.basket.go'}" />
+								<input type="submit" value="&{'common.basket.go'}" />
 							</form>
 						</div>
 					</div>

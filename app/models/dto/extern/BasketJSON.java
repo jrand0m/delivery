@@ -19,9 +19,10 @@ public class BasketJSON {
 		for (OrderItem oi :o.items){
 			items.add(new OrderItemJSON(oi));
 		}
+		no = o.getShortHandId();
 	}
 	
-	
+	public String no;
 	/** 
 	 *  100 = 100%, 30 = 30%
 	 * */
