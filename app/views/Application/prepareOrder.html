@@ -29,12 +29,26 @@
 		<h1>&{'common.order.blockTitle'}</h1>
 		<form class="jNice" action="@{Application.checkAndSend(order.id)}">
 			<table class="data_form">
-				<tr><th><label for="cinp01">&{'common.reg.name'}</label></th><td><input type="text" value="" name="name" id="cinp01" /></td><th><label for="cinp02">&{'common.reg.city'}</label></th><td><input type="text" name="city" value="Львів"  id="cinp02" readonly /></td></tr>
-				<tr><th><label for="cinp03">&{'common.reg.surname'}</label></th><td><input name="surname" type="text" value="" id="cinp03" /></td><th><label for="cinp04">&{'common.reg.street'}</label></th><td><input name="street" type="text" value="" id="cinp04" /></td></tr>
-				<tr><th><label for="cinp05">&{'common.reg.email'}</label></th><td><input class="wrong_data" name="phone" type="text" value="" id="cinp05" /><span class="wrong_data">&{'common.reg.danger'}</span></td><th><label for="cinp06">&{'common.reg.homenumber'}</label></th><td><input name="apartment" type="text" value="" id="cinp06" /></td></tr>
-				<tr><th><label for="cinp07">&{'common.reg.phone'}</label></th><td><input name="phone" type="text" value="" id="cinp07" /></td><th><label>&{'common.reg.paymentType'}</label></th><td><span><input type="radio" name="oplata" checked />&{'common.reg.paymentType.cash'}</span></td></tr>
+				<tr><th><label for="cinp01">&{'common.reg.name'}</label></th><td>
+				<input type="text" value="" name="name" id="cinp01" />
+				</td><th><label for="cinp02">&{'common.reg.city'}</label></th><td>
+				<input type="text" name="city" value="${order.restaurant.city.getLocalizedName()}"  id="cinp02" readonly /></td></tr>
+				<tr><th><label for="cinp03">&{'common.reg.surname'}</label></th><td>
+				<input name="surname" type="text" value="" id="cinp03" />
+				
+				</td><th><label for="cinp04">&{'common.reg.street'}</label></th><td>
+				<input name="street" type="text" value="" id="cinp04" /></td></tr>
+				<tr><th><label for="cinp05">&{'common.reg.email'}</label></th><td>
+				<input class="wrong_data" name="phone" type="text" value="" id="cinp05" />
+				
+				<span class="wrong_data">&{'common.reg.danger'}</span>
+				</td><th><label for="cinp06">&{'common.reg.homenumber'}</label></th><td>
+				<input name="apartment" type="text" value="" id="cinp06" /></td></tr>
+				<tr><th><label for="cinp07">&{'common.reg.phone'}</label></th><td><input name="phone" type="text" value="" id="cinp07" /></td><th><label>&{'common.reg.paymentType'}</label></th><td><span>
+				<input type="radio" name="oplata" checked />&{'common.reg.paymentType.cash'}</span></td></tr>
 				<tr><th></th><td></td>
-				<th class="frst" colspan='2'><span><input type="radio" name="oplata" disabled="true" />&{'common.reg.paymentType.card'}<img class="card_pic" src="/public/images/visamastercard.png" /></span></th></tr>
+				<th class="frst" colspan='2'><span>
+				<input type="radio" name="oplata" disabled="true" />&{'common.reg.paymentType.card'}<img class="card_pic" src="/public/images/visamastercard.png" /></span></th></tr>
 			</table>
 			<table class="total">
 				<tr><th><span>&{'common.basket.order'}</span></th><td><span>${order.getMenuTotalString()} &{'common.uah'}</span></td></tr>
@@ -70,7 +84,7 @@
 							<p>${oi.name()}</p>
 							<p class="descr">${oi.desc()}</p>
 						</td>
-						<td>${oi.orderItemPrice} &{'common.uah'}</td>
+						<td>${oi.priceString()} &{'common.uah'}</td>
 					</tr>
 				#{/list}
 				</table>
