@@ -216,7 +216,7 @@ public class Order extends GenericModel {
 	public Integer getMenuTotal() {
 		Integer i = 0;
 		for (OrderItem item : items) {
-			i += item.orderItemPrice * item.count;
+			i += item.totalPriceInclComponents();
 		}
 		return i;
 	}
@@ -230,7 +230,8 @@ public class Order extends GenericModel {
 					"Taking shorthand on null id!");
 		}
 		if (shortHandId == null) {
-			shortHandId = Integer.toHexString(id.hashCode());// substring(id.length()-8);
+			shortHandId = Integer.toHexString(id.hashCode());
+			save();
 		}
 		return shortHandId;
 	}

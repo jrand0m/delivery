@@ -1,4 +1,8 @@
 cmp=[];
+var format = function(num){
+	num = isNaN(num) || num === '' || num === null ? 0.00 : num;
+    return (parseFloat(num)/100).toFixed(2);
+}
 Basket = {
     	renderContainer			:   	'div.rb_cont tbody',
 	init				: function (){
@@ -50,8 +54,10 @@ Basket = {
 	$update				: function(data){
 		this.$reset();
 		$.each(data.items, function(i,e){
-			$(Basket.renderContainer).append(tmpl("ittmp",{id:e["id"],cnt:e["count"],nm:e["name"],de:e.desc,pc:e.price}));
+			$(Basket.renderContainer).append(tmpl("ittmp",{id:e["id"],cnt:e["count"],nm:e["name"],de:e.desc,pc:format(e.price)}));
 		});
+		
+		$(Basket.renderContainer).append("<input type=\"hidden\" name=\"id\" value=\""+data["no"]+"\"/>");
 		Basket.$setDeliveryPrice(data.delivery);
 		Basket.$setDiscount(data.discount);
 		Basket.$setTotalPrice(data.total);
@@ -62,14 +68,14 @@ Basket = {
 		});
 	},
 	$setDeliveryPrice	: function(c){
-		$(Basket.renderContainer).append(tmpl("dptmp",{pc:c}));
+		$(Basket.renderContainer).append(tmpl("dptmp",{pc:format(c)}));
 	},
 	$setTotalPrice		: function(c){
-		$(Basket.renderContainer).append(tmpl("tptmp",{pc:c}));
+		$(Basket.renderContainer).append(tmpl("tptmp",{pc:format(c)}));
 	},
 	$setDiscount		: function(c){
 		if(c&&c>0) 
-		$(Basket.renderContainer).append(tmpl("dctmp",{pc:c}));
+		$(Basket.renderContainer).append(tmpl("dctmp",{pc:format(c)}));
 	}
 };
 
@@ -81,6 +87,7 @@ var rndr = function(c){
 	for (var i = 0; i < comps.length; i++){
 		var ei = {id:comps[i].no,nm:comps[i]["name"],pr:comps[i].price};
 		cmp[ei.id] = {en:false,pc:ei.pr}; 
+		ei.pr = format(ei.pr);
 		itmz.push(tmpl("dtmp",{d:ei}));		
 	};
 	obj["tb"] = "";
@@ -91,6 +98,7 @@ var rndr = function(c){
 		var ei = {l:le,r:re};
 		obj["tb"]=obj["tb"]+(tmpl("rotmp",{i:ei}));		
 	}
+	obj.pcd = format(obj.pc);
 	return tmpl("cmfrtmp",{i:obj});
 }
 var add = function (i,c){
@@ -115,6 +123,7 @@ var add = function (i,c){
 		Basket.add(i);		
 	}
 }
+
 var toggle = function (self){
 	var id = self.id.replace(/[^\d]/g, "");
 	cmp[id].en = self.checked;
@@ -125,6 +134,7 @@ var toggle = function (self){
 		}
 	});
 	var el = $('div#fancybox-wrap tr.total td.price');
-	el.text(el.text().replace(/[\d]+/g, t));
+	el.text(el.text().replace(/[\d.]+/g, format(t)));
 }
+
 Basket.init();

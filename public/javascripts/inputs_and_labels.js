@@ -41,5 +41,5 @@ $(document).ready(function() {
 			$(this).prev("input").prev('span').css('background-position', '0 -12px');
 		};
 	});
-	$("#basket").makeFloat({x:"current",y:"current"});
+	
 });

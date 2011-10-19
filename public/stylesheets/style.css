@@ -201,7 +201,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]{border:1px solid #f5f5f5;border-radius: 5px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent;color: #FFFFFF; font-family: Conv_OpenSans-CondLight; font-size: 32px; height: 45px; position: relative; left: 21px; margin: 10px 0 10px 23px; width: 250px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]:hover{border:1px solid #e83f0b;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr:last-child td{background-image: none; text-align: center;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .frst span{text-align:left;display:block;margin-left:130px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .frst span{text-align:left;display:block;margin-left:67px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout img.card_pic{left: 13px; position: relative; top: 6px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses{padding-left: 10px; padding-bottom: 15px; line-height: 30px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses a{color: #e83f0b;}
@@ -309,5 +309,5 @@ div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total t
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th, div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total td{background: url(/public/images/dot.gif) repeat-x -4px 16px transparent;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr:last-child td{background-image: none; text-align: center;}
 
-
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.delete{cursor: pointer; background-position: 0 -23px;}
 
