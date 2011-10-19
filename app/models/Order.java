@@ -3,6 +3,7 @@ package models;
 import helpers.SystemCalc;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -200,7 +201,10 @@ public class Order extends GenericModel {
 	public Integer getDeliveryPrice() {
 		return SystemCalc.getDeliveryPrice(this);
 	}
-
+	public String getDeliveryPriceString() {
+		int i = getDeliveryPrice();
+		return new BigDecimal(i).setScale(2,RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN)).toString();
+	}
 	/**
 	 * Grand total including delivery price and minus calculated user discount
 	 * */
@@ -208,6 +212,11 @@ public class Order extends GenericModel {
 
 		Integer menuTotal = getMenuTotal();
 		return menuTotal + getDeliveryPrice() - getUserDiscount().multiply(new BigDecimal( menuTotal).setScale(0)).intValue();
+	}
+	
+	public String getGrandTotalString() {
+		int i = getGrandTotal();
+		return new BigDecimal(i).setScale(2,RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN)).toString();
 	}
 
 	/**
@@ -220,7 +229,11 @@ public class Order extends GenericModel {
 		}
 		return i;
 	}
-
+	
+	public String getMenuTotalString() {
+		int i = getMenuTotal();
+		return new BigDecimal(i).setScale(2,RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN)).toString();
+	}
 	/**
 	 * Function for getting short id
 	 * */

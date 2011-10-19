@@ -42,4 +42,23 @@ $(document).ready(function() {
 		};
 	});
 	
+	//$("a.tync").toogle(function () {
+	//	$(this).next("div").animate({"width": "+=120px"}, "slow");
+	//	$(this).toggleClass("active"); 
+//	});
+	$("a.tync").toggle(  
+        function() {
+			$("a.tync").parent().parent("tr").removeClass("act");
+			$(this).parent().parent("tr").addClass("act");
+			$("a.tync").next("div").animate({"width": "-=326px"}, "slow");
+			$(this).next("div").animate({"width": "+=326px"}, "slow");
+			//$(this).parent().parent("tr").toggleClass("act");
+        },  
+        function() {
+			$(this).parent().parent("tr").removeClass("act");
+            $(this).next("div").animate({"width": "-=326px"}, "slow");
+			//$(this).parent().parent("tr").toggleClass("act");
+        }  
+    );
+
 });

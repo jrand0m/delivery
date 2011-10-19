@@ -104,6 +104,13 @@ public class Application extends Controller {
 		render("/Application/cabinetLastOrders.html");
 	}
 	
+	public static void cabinetProfile() {
+		//FIXME move to locker
+		Order order = null;
+		renderArgs.put("order", order);
+		render("/Application/cabinetProfile.html");
+	}
+	
 	public static void checkout(String id) {
 		
 		//FIXME move to locker ?
