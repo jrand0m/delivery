@@ -173,13 +173,8 @@ $.extend(_, {
 	
 	timeButtonPressed: function(parent, element, time) {
 		element.domElem.remove();
-		alert(new Date().getTime());
-		alert(time);
-		alert(time * 60000);
-		alert();
 		element.timeFinished = new Date().getTime()
 			+ time * 60000;
-		alert(element.timeFinished);
 		parent.activeOrdersContent.append(_.getActiveOrderDiv(element, parent));
 		_.sendOrderConfirmed(element, time);
 	},
