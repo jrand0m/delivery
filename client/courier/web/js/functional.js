@@ -38,7 +38,6 @@ $.extend(_, {
 	},
 	
 	parseNewOrders: function(data, parent) {
-		console.log(JSON.stringify(parent.orders));
 		$(data).each(function(index){
 			if(this.status == "NEW") {
 				parent.orders.push(this);
