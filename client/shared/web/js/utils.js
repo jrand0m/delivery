@@ -104,8 +104,6 @@ $.extend(_, {
 				return false;
 			}
 		});
-		//var a = array[element];
-		//a = "";
 		return array[element];
 	},
 	

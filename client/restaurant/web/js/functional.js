@@ -1,20 +1,34 @@
 $.extend(_, {
 	
-	parseOrders: function(data, parent) {
+	parseAllOrders: function(data, parent) {
 		$(data).each(function(index){
-				
-			var elem = data[index];
+			var elem = this;
 			if(elem.status == "CONFIRMED") {
 				var elemDom = _.getNewOrderDiv(elem, parent);
 				parent.newOrdersContent.append(elemDom);
 			} else if(elem.status == "ACCEPTED") {
-				elem.time = elem.timeToFinish;
+				elem.timeFinished = new Date().getTime()
+					+ elem.timeToFinish;
 				parent.activeOrdersContent.append(_.getActiveOrderDiv(elem, parent));
 			} else if(elem.status == "COOKED") {
 				parent.activeOrdersContent.append(_.getActiveOrderDiv(elem, parent, true));
 			}
 			if(elem.time > parent.lastOrderTime)parent.lastOrderTime = elem.time;
-			parent.newOrdersContent.append(elemDom);
+			
+			$(parent.myScroll).each(function(el){
+				this.refresh();
+			});
+		});
+	},
+	
+	parseNewOrders: function(data, parent) {
+		$(data).each(function(index){
+			var elem = this;
+			if(elem.status == "CONFIRMED") {
+				var elemDom = _.getNewOrderDiv(elem, parent);
+				parent.newOrdersContent.append(elemDom);
+				if(elem.time > parent.lastOrderTime)parent.lastOrderTime = elem.time;
+			}
 			
 			$(parent.myScroll).each(function(el){
 				this.refresh();
@@ -76,7 +90,8 @@ $.extend(_, {
 		var orderDiv = _.createDiv('DCWOrderDiv');
 		var orderHeaderWrapper = _.createDiv('DCWOrderHeaderWrapper');
 		var id = _.createDiv('DCWOrderIdDiv').text(_.lang.orderID + orderElem.id);
-		var timeToFinish = _.createDiv('DCWTimeToFinish').html(_.lang.timeConfirmed + Math.ceil(orderElem.time / 60000) + _.lang.time);
+		var timeToFinish = _.createDiv('DCWTimeToFinish').html(_.lang.timeConfirmed 
+			+ Math.ceil((orderElem.timeFinished - new Date().getTime())  / 60000) + _.lang.time);
 		
 		orderDiv.append(orderHeaderWrapper);
 		parent.activeOrders.push(orderElem);
@@ -158,17 +173,25 @@ $.extend(_, {
 	
 	timeButtonPressed: function(parent, element, time) {
 		element.domElem.remove();
-		element.time = time * 60000;
+		alert(new Date().getTime());
+		alert(time);
+		alert(time * 60000);
+		alert();
+		element.timeFinished = new Date().getTime()
+			+ time * 60000;
+		alert(element.timeFinished);
 		parent.activeOrdersContent.append(_.getActiveOrderDiv(element, parent));
-		_.sendOrderActivated(element, time);
+		_.sendOrderConfirmed(element, time);
 	},
 	
-	updateTimes: function(activeOrders) {
-		$(activeOrders).each(function(){
-			this.time = this.time-20000;
-			var isPositive = this.time > 0;
+	updateTimes: function(parent) {
+		$(parent.activeOrders).each(function(){
+			var timeToFinish = this.timeFinished 
+				- new Date().getTime();
+			var isPositive = timeToFinish > 0;
 			if(isPositive) {
-				$('.DCWTimeToFinish', this.domElem).html(_.lang.timeConfirmed + Math.ceil( this.time / 60000 ) + _.lang.time);
+				$('.DCWTimeToFinish', this.domElem).html(_.lang.timeConfirmed 
+					+ Math.ceil( timeToFinish / 60000 ) + _.lang.time);
 			} else  {
 				$('.DCWTimeToFinish', this.domElem).html(0);
 				this.domElem.addClass('DCWDelayedOrder');
