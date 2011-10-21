@@ -6,7 +6,7 @@ a, input{outline: 0px none;}
 html{font-family:'Open Sans Condensed',Sans-Serif; font-size: 16px; color: #000;}
 textarea{resize: none;}
 li{list-style: none;}
-div#wrapper{margin: 0 auto; width: 1011px;  padding-bottom: 50px; background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
+div#wrapper{margin: 0 auto; width: 1011px;  /*padding-bottom: 50px;*/ background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
 div#wrapper div#wrapper_inner{display: inline-block; width: 984px; padding-left: 18px; padding-right: 9px; padding-top: 9px; min-height: 100%;}
 div#wrapper div#wrapper_inner div#header{}
 div#wrapper div#wrapper_inner div#header div.header_top{margin-bottom: 15px; min-height: 75px; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
@@ -17,7 +17,7 @@ div#wrapper div#wrapper_inner div#header div.header_top div.right_links{float: r
 *+html div#wrapper div#wrapper_inner div#header div.header_top div.right_links{margin-top: -40px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang{font-family: Tahoma; font-size: 12px; margin-top: 6px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang li{float: left; margin-right: 9px;}
-div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a:hover{color: #000; text-decoration: none;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a:hover{color: #000;  text-decoration: none;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a{color: #666;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{font-family: Tahoma; font-size: 12px; float: right; font-weight: bold; margin-top: 35px; margin-right: 9px;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{color: #fff;}
@@ -25,7 +25,7 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: left;
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li{float: left; margin-left: 70px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-child{margin-left: 0px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a{color: #fff; font-size: 22px;}
-div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a:hover{text-decoration:none;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a:hover{text-decoration:none; text-shadow:0px 0px 2px #fff;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive a{text-decoration: none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 34px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form{float: left; margin-left: 6px;}
@@ -44,7 +44,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrap
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a:hover {background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a.selected {background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {font-family: Tahoma;color: #FFFFFF; float: right; font-size: 13px; line-height: 33px; margin-right: 10px; text-decoration:none;}
-div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; }
+div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; text-shadow:0px 0px 2px #fff;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.back {padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
 .jNiceHidden {display: none;}
 
@@ -210,16 +210,18 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additio
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses h2{margin-bottom: 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont h3.wait_time span{font-size: 45px;}
 div#footer_outer{width: 1020px; margin: 0 auto;}
-div#footer{height: 75px; position: relative; z-index: 100; width: 982px; margin: -80px auto 0; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
+div#footer{height: 35px;  font: 13px Tahoma; position: relative; z-index: 100; width: 982px; margin: -80px auto 0; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 div#footer table{width: 100%; height: 75px; border-collapse: collapse;}
 div#footer table td{width: 33%;padding-left: 3%; vertical-align: top;}
 div#footer table td.social_icons a{opacity: 0.9; position: relative; z-index: 10px; top: 10px; background-color: #E83F0B; border-radius: 17px 17px 17px 17px; color: #FFFFFF; float: left; font-size: 30px; font-weight: bold; height: 31px; line-height: 31px; margin-right: 10px;  text-decoration: none; text-indent: 4px;  text-transform: lowercase;  width: 31px;}
 div#footer table td.social_icons a:hover{opacity: 1;}
 div#footer table td a.flogo{margin-top: -50px; display: block; color: #000; text-decoration: none;}
-div#footer table td ul{margin-top: 27px; width: 560px;}
+div#footer table td ul{margin-top: 11px; width: 560px;}
 div#footer table td ul li{float: left; padding: 0 8px; position: relative; z-index: 10; border-left: 1px solid #333; height: 17px; line-height: 12px;}
 div#footer table td ul li:first-child{border-left: none;}
-div#footer table td ul li a{color: #000;}
+div#footer table td ul li a{color: #000;text-decoration:unedrline;}
+div#footer table td ul li a:hover{color: #000;text-decoration:none;text-shadow:0px 0px 1px #666}
+div#footer table td.social_icons{}
 p.stars{margin-bottom: 20px;}
 div.rlp_cont p.stars{margin-bottom: 0px;}
 p.stars span{display: inline-block; width: 80px; height: 16px; background: url(/public/images/rate_stars.png) no-repeat 0 0 transparent; margin-left: 10px; position: relative; top: 3px;}
@@ -229,7 +231,7 @@ p.stars span.rate3{background-position: 0 -32px}
 p.stars span.rate4{background-position: 0 -48px}
 p.stars span.rate5{background-position: 0 -64px}
 div#wrapper div#wrapper_inner div#content a.see_all{float: right; width: 230px; margin-right: 2px; margin-top: 20px; clear: both; border-radius: 1px; border: 1px solid #f5f5f5; font-size: 23px; height: 41px; line-height: 41px; text-decoration: none; color: #000; text-align: center; background: url(/public/images/see_all_bg.gif) repeat-x 0 0 transparent;}
-div#wrapper div#wrapper_inner div#content a.see_all:hover{border: 1px solid #C03409;}
+div#wrapper div#wrapper_inner div#content a.see_all:hover{border: 1px solid #C03409; text-shadow:0px 0px 2px #666;}
 div#wrapper div#wrapper_inner div#content div.index_bottom{ background: url(/public/images/homepage_pizza.jpg) no-repeat scroll 0 220px transparent; float: left; min-height: 917px; padding: 5px 0 0; width: 100%;}
 div#wrapper div#wrapper_inner div#content div.index_bottom h2{font-weight: normal; font-size: 25px;}
 div#wrapper div#wrapper_inner div#content div.index_bottom div.staps{margin-top: 20px; width: 297px; float: left; margin-left: 35px;}
