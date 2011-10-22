@@ -1,7 +1,18 @@
 $.extend(_, {
 	defLang: 'ua',
+	ajaxOk: true,
+	dialogChain: [],
 	
-	getUrlVars: function(){
+	nextDialog: function() {
+		_.dialogChain.splice(0, 1);
+		if(_.dialogChain.length) {
+			_.showDialog(_.dialogChain[0]);
+		} else {
+			_.dialogFrame.hide();
+		}
+	},
+	
+	getUrlVars: function() {
 		var vars = [], hash;
 		var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 		for(var i = 0; i < hashes.length; i++) {
@@ -51,9 +62,12 @@ $.extend(_, {
 	},
 	
 	removeElement: function(array, element) {
-		array = jQuery.grep(array, function(value) {
-			return value != element;
-		});
+		for(var i=0; i<array.length; i++) {
+			if(array[i] == element) {
+				array.splice(i, 1);
+				break;
+			}
+		}
 		return element;
 	},
 	
@@ -70,8 +84,27 @@ $.extend(_, {
 		$('body').append(_.dialogFrame);
 			
 		_.dialogFrame.ajaxError(function() {
-			_.showDialog(_.createDiv().html(_.lang.connectionError));
+			_.ajaxOk = false;
+			_.newDialog(_.createDiv().html(_.lang.connectionError));
 		});
+	},
+	
+	newDialog: function(dialog) {
+		_.dialogChain.push(dialog);
+		if(!_.dialogFrame.is(':visible')) {
+			_.showDialog(_.dialogChain[0]);
+		}
+	},
+	
+	getElementById: function(array, id) {
+		var element;
+		$(array).each(function(index) {
+			if(this.id == id) {
+				element = index;
+				return false;
+			}
+		});
+		return array[element];
 	},
 	
 	showDialog: function(dialogContent){

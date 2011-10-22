@@ -6,7 +6,7 @@ a, input{outline: 0px none;}
 html{font-family:'Open Sans Condensed',Sans-Serif; font-size: 16px; color: #000;}
 textarea{resize: none;}
 li{list-style: none;}
-div#wrapper{margin: 0 auto; width: 1011px;  padding-bottom: 50px; background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
+div#wrapper{margin: 0 auto; width: 1011px;  /*padding-bottom: 50px;*/ background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
 div#wrapper div#wrapper_inner{display: inline-block; width: 984px; padding-left: 18px; padding-right: 9px; padding-top: 9px; min-height: 100%;}
 div#wrapper div#wrapper_inner div#header{}
 div#wrapper div#wrapper_inner div#header div.header_top{margin-bottom: 15px; min-height: 75px; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
@@ -17,7 +17,7 @@ div#wrapper div#wrapper_inner div#header div.header_top div.right_links{float: r
 *+html div#wrapper div#wrapper_inner div#header div.header_top div.right_links{margin-top: -40px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang{font-family: Tahoma; font-size: 12px; margin-top: 6px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang li{float: left; margin-right: 9px;}
-div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a:hover{color: #000; text-decoration: none;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a:hover{color: #000;  text-decoration: none;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a{color: #666;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{font-family: Tahoma; font-size: 12px; float: right; font-weight: bold; margin-top: 35px; margin-right: 9px;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{color: #fff;}
@@ -25,7 +25,7 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: left;
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li{float: left; margin-left: 70px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-child{margin-left: 0px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a{color: #fff; font-size: 22px;}
-div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a:hover{text-decoration:none;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a:hover{text-decoration:none; text-shadow:0px 0px 2px #fff;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive a{text-decoration: none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 34px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form{float: left; margin-left: 6px;}
@@ -44,7 +44,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrap
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a:hover {background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a.selected {background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {font-family: Tahoma;color: #FFFFFF; float: right; font-size: 13px; line-height: 33px; margin-right: 10px; text-decoration:none;}
-div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; }
+div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; text-shadow:0px 0px 2px #fff;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.back {padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
 .jNiceHidden {display: none;}
 
@@ -80,7 +80,7 @@ div.rest_offline h1 a{color:white;}
 div.rest_offline a.menu_but{background-position: 0 -36px; border: 1px solid #979797;}
 div.rest_network_view{background-color: #fc7c0d;}
 
-div#wrapper div#wrapper_inner div#content div.left_cont{width: 680px; float: left;}
+div#wrapper div#wrapper_inner div#content div.left_cont{width: 680px; float: left; position: relative;}
 div#wrapper div#wrapper_inner div#content div.right_cont{width: 295px; float: right; padding-right: 2px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
@@ -110,15 +110,17 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.r
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.work_time {background: url(/public/images/clock-select.png) no-repeat left center transparent; padding-left: 27px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.dostavka {background: url(/public/images/car-red.png) no-repeat left center transparent; padding-left: 27px; }
 
-div#login {width: 220px; margin: 0 auto; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#login {width: 220px; display: table; margin: 0 auto; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
 div#login h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#login form{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
-div#login input[type="text"], div#login input[type="password"]{font-family: Open Sans Condensed; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#login div.linner{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
+div#login input[type="text"], div#login input[type="password"]{font-family: 'Open Sans Condensed',Sans-Serif; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
 div#login input[type="text"]{margin-bottom: 2px;}
-div#login p.tl label{float: left; margin-bottom: -22px; margin-left: 10px; position: relative; top: 13px; z-index: 2;}
+div#login p.tl label{float: left; cursor: text; margin-bottom: -22px; margin-left: 10px; position: relative; top: 13px; z-index: 2;}
 div#login p.error{text-align: center; color: red; font-size: 14px; text-decoration: blink;}
 div#login p#remember-field{margin-bottom: -10px;}
-div#login input[type="submit"]{ background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: Open Sans Condensed; height: 31px; margin-top: -15px; width: 73px;}
+div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; height: 31px; margin-top: -15px; width: 73px;}
+div#login div input[type="submit"]{margin: 10px 0;background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
 
 
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
@@ -183,14 +185,13 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td{vertical-align: middle; font-size: 18px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td label{float: left; margin-right: 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{height: 25px; width: 200px; padding: 0 10px; line-height: 25px; font-size: 16px; font-family: Open Sans Condensed; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input.wrong_data{border: 2px solid #E83F0B; box-shadow: 1px 1px 1px #E83F0B; position: relative;
-    top: 10px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{color: #E83F0B; display: block; font-family: tahoma; font-size: 10px; margin-top: -5px;}
+/*div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input.wrong_data{border: 2px solid #E83F0B; box-shadow: 1px 1px 1px #E83F0B; position: relative; top: 10px;}*/
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{margin-left: 10px; color: #E83F0B; display: block; font-family: tahoma; font-size: 12px;}
 .jRadioWrapper {z-index: 2; position: relative; float: left; margin-right: 22px; margin-top: 10px;}
 .jNiceRadio {background: transparent url(/public/images/radio.jpg) no-repeat center top; height: 17px; width: 17px; position:absolute; left:0px; top:0px; cursor:pointer; vertical-align:middle;}
 .jNiceChecked {background-position: center bottom;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total{border-collapse: collapse; width: 325px; border-top: 1px solid #E83F0B; float: right; font-size: 18px; margin-top: 10px; margin-right: 10px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total span{background-color: #fff; padding: 0 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total span{background-color: #fff; padding: 0 5px; white-space: nowrap;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total th{width: 75%; text-align: left; font-weight: normal;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total td{width: 25%; text-align: right; font-weight: bold;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total{border-top: 1px solid #ededed;}
@@ -209,16 +210,18 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additio
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses h2{margin-bottom: 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont h3.wait_time span{font-size: 45px;}
 div#footer_outer{width: 1020px; margin: 0 auto;}
-div#footer{height: 75px; position: relative; z-index: 100; width: 982px; margin: -80px auto 0; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
+div#footer{height: 35px;  font: 13px Tahoma; position: relative; z-index: 100; width: 982px; margin: -80px auto 0; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 div#footer table{width: 100%; height: 75px; border-collapse: collapse;}
 div#footer table td{width: 33%;padding-left: 3%; vertical-align: top;}
 div#footer table td.social_icons a{opacity: 0.9; position: relative; z-index: 10px; top: 10px; background-color: #E83F0B; border-radius: 17px 17px 17px 17px; color: #FFFFFF; float: left; font-size: 30px; font-weight: bold; height: 31px; line-height: 31px; margin-right: 10px;  text-decoration: none; text-indent: 4px;  text-transform: lowercase;  width: 31px;}
 div#footer table td.social_icons a:hover{opacity: 1;}
 div#footer table td a.flogo{margin-top: -50px; display: block; color: #000; text-decoration: none;}
-div#footer table td ul{margin-top: 27px; width: 560px;}
+div#footer table td ul{margin-top: 11px; width: 560px;}
 div#footer table td ul li{float: left; padding: 0 8px; position: relative; z-index: 10; border-left: 1px solid #333; height: 17px; line-height: 12px;}
 div#footer table td ul li:first-child{border-left: none;}
-div#footer table td ul li a{color: #000;}
+div#footer table td ul li a{color: #000;text-decoration:unedrline;}
+div#footer table td ul li a:hover{color: #000;text-decoration:none;text-shadow:0px 0px 1px #666}
+div#footer table td.social_icons{}
 p.stars{margin-bottom: 20px;}
 div.rlp_cont p.stars{margin-bottom: 0px;}
 p.stars span{display: inline-block; width: 80px; height: 16px; background: url(/public/images/rate_stars.png) no-repeat 0 0 transparent; margin-left: 10px; position: relative; top: 3px;}
@@ -228,7 +231,7 @@ p.stars span.rate3{background-position: 0 -32px}
 p.stars span.rate4{background-position: 0 -48px}
 p.stars span.rate5{background-position: 0 -64px}
 div#wrapper div#wrapper_inner div#content a.see_all{float: right; width: 230px; margin-right: 2px; margin-top: 20px; clear: both; border-radius: 1px; border: 1px solid #f5f5f5; font-size: 23px; height: 41px; line-height: 41px; text-decoration: none; color: #000; text-align: center; background: url(/public/images/see_all_bg.gif) repeat-x 0 0 transparent;}
-div#wrapper div#wrapper_inner div#content a.see_all:hover{border: 1px solid #C03409;}
+div#wrapper div#wrapper_inner div#content a.see_all:hover{border: 1px solid #C03409; text-shadow:0px 0px 2px #666;}
 div#wrapper div#wrapper_inner div#content div.index_bottom{ background: url(/public/images/homepage_pizza.jpg) no-repeat scroll 0 220px transparent; float: left; min-height: 917px; padding: 5px 0 0; width: 100%;}
 div#wrapper div#wrapper_inner div#content div.index_bottom h2{font-weight: normal; font-size: 25px;}
 div#wrapper div#wrapper_inner div#content div.index_bottom div.staps{margin-top: 20px; width: 297px; float: left; margin-left: 35px;}
@@ -251,9 +254,12 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p{backg
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p.selText{text-align: left; text-indent: 15px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selDrop li{text-align: left; text-indent: 15px;}
 
-.ing_popup{}
-.ing_popup table.wrapper{width: 460px; line-height: 28px; border-collapse: collapse; border-radius: 3px;}
-.ing_popup table.wrapper table{width: 230px; border-collapse: collapse;}
+.ing_popup{background-color: #FFFFFF; border-radius: 5px 5px 5px 5px;}
+.ing_popup h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; line-height: 27px; margin-bottom: 10px; padding: 3px 10px;}
+.ing_popup p{margin-left: 10px;}
+.ing_popup table.wrapper{width: 440px; margin: 0 10px; line-height: 28px; border-collapse: collapse; border-radius: 3px;}
+.ing_popup table.wrapper table{width: 220px; border-collapse: collapse; cursor: default}
+.ing_popup table.wrapper table label{display: inline-block; width: 100%;}
 .ing_popup table.wrapper th{text-align: left;}
 .ing_popup table.wrapper td.price{width: 60px; white-space: nowrap;padding-right: 5px;}
 .ing_popup table.wrapper tr td:first-child{width: 17px;}
@@ -262,8 +268,9 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selD
 .ing_popup table.wrapper tr.total td span.txt{margin-left: 5px;}
 .ing_popup table.wrapper table tr:hover{background-color: #CCCCCC;}
 .ing_popup table.wrapper tr.button{text-align: right;}
-.ing_popup table.wrapper tr.button div{background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: medium none; border-radius: 5px 5px 5px 5px; color: #FFFFFF; cursor: pointer; float: right; font-size: 32px; height: 45px;  line-height: 45px;  margin: 10px 0 10px 23px;  text-align: center;  width: 250px;}
+.ing_popup table.wrapper tr.button div{background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: medium none; border-radius: 5px 5px 5px 5px; color: #FFFFFF; cursor: pointer; float: right; font-size: 32px; height: 45px; line-height: 45px; margin: 10px 0 10px 23px;  text-align: center; width: 250px;}
 .ing_popup table.wrapper tr.button:hover{background-color: transparent;}
+.ing_popup table.wrapper input[type="checkbox"]{margin-left: 5px; margin-right: 5px;}
 
 .ing_popup .jNiceCheckbox {float: left;  margin-left: 5px; margin-right: 10px;display: block; background: transparent url(/public/images/checkbox.png) no-repeat center top; vertical-align: middle; width: 17px; height: 17px}
 .ing_popup .jNiceChecked {background-position: center bottom;}
@@ -308,7 +315,25 @@ div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total t
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total th{text-transform: uppercase; padding-top: 5px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total td{padding-top: 5px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th, div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total td{background: url(/public/images/dot.gif) repeat-x -4px 16px transparent;}
-div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr:last-child td{background-image: none; text-align: center;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr:last-child td{background-image: none; text-align: right;}
 
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.delete{cursor: pointer; background-position: 0 -23px;}
+
+
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit{width: 330px; margin-bottom: 20px; border-right: 1px dotted #e83f0b; line-height: 30px; float: left;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit th{font-family: Tahoma; text-align: right; font-weight: normal; font-size: 13px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit th label{margin-right: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td input[type="text"], div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td input[type="password"]{border: 1px solid #b3b3b3; border-radius: 3px; width: 170px; padding: 0 10px; line-height: 25px; height: 25px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td input[type="submit"]{float: right; margin-top: 10px; width: 190px; height: 34px; color: #fff; font-family: 'Open Sans Condensed',Sans-Serif; border: none; font-size: 25px; cursor: pointer; background: url(/public/images/save_bg.png) no-repeat 0 0 transparent;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td {width: 192px; padding-right: 20px;}
+
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr{border-collapse: collapse; margin-bottom: 20px; width: 300px; font-family: Tahoma; font-size: 13px; float: left; margin-left: 20px; line-height: 30px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr tr:hover, div#wrapper div#wrapper_inner div#content div.left_cont table.adr tr.act{background-color: #f5f5f5;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr th{color: #e83f0b; padding: 0 5px; vertical-align: top;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr td{position: relative;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr td a{margin-left: 5px; margin-right: 5px; color: #e83f0b;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr th a{color: #e83f0b; float: left; text-decoration: none; font-weight: normal;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr th a span{border-bottom: 1px solid #e83f0b;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr td div{padding-top: 30px; position: absolute; width: 0px; right: -295px; top: 0; overflow: hidden; height: 185px; z-index: 10; background-color: #f5f5f5;}
+
 

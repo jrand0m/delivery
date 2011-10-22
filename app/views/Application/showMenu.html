@@ -36,7 +36,7 @@ var rid = ${restaurant.id};
 </script>
 <script type="text/html" id="dtmp">
 <tr><td><% if(d.id){ %><input type="checkbox" id="ck<%=d.id%>" onClick="toggle(this);" /><% }
- %></td><td><%=d.nm?d.nm:''%></td><td class="price"><%=d.pr?'+'+d.pr+' &{'common.uah'}':''%></td></td></tr>
+ %></td><td><label for="ck<%=d.id%>"><%=d.nm?d.nm:''%></label></td><td class="price"><%=d.pr?'+'+d.pr+' &{'common.uah'}':''%></td></td></tr>
 </script>
 <script type="text/html" id="ittmp">
 <tr><th><span class="delete" onclick="Basket.cng(<%=id%>,-1)"></span></th><td><p><%=nm%></p><p class="descr"><%=de%></p></td><td><%=pc%> &{'common.uah'}</td></tr>
