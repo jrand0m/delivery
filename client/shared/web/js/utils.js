@@ -61,6 +61,18 @@ $.extend(_, {
 		return button;
 	},
 	
+	createSpan: function(className, id) {
+		var button = $(document.createElement('span'));
+		if(className) {
+			button.addClass(className);
+			
+			if(id) {
+				button.attr("id", id);
+			}
+		}
+		return button;
+	},
+	
 	removeElement: function(array, element) {
 		for(var i=0; i<array.length; i++) {
 			if(array[i] == element) {
@@ -109,16 +121,22 @@ $.extend(_, {
 	
 	showDialog: function(dialogContent){
 		var dialogContent = $(dialogContent)
-			.addClass('DCWDialogFrame')
-			.waitForImages(function() {
-				dialogContent.css('margin-left',-dialogContent.width()/2);
-				dialogContent.css('margin-top',-dialogContent.height()/2);
-			});
+			.addClass('DCWDialogFrame');
 			
 		var dialogFrame = _.dialogFrame
 			.html('')
 			.append(_.createDiv("DCWDialogBackground", "DCWDialogBackground"))
 			.append(dialogContent)
 			.show();
+			
+		dialogContent.waitForImages(function() {
+				dialogContent.css('margin-left',-dialogContent.width()/2);
+				dialogContent.css('margin-top',-dialogContent.height()/2);
+			});
+	},
+	
+	formatCurrencyString: function(string) {
+		var index = string.length - 2;
+		return string.slice(0,index) + ":" + string.slice(index);
 	}
 });

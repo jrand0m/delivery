@@ -1,7 +1,8 @@
 DCWLang.ua = {
 	init: function() {
 		DCWLang.testVal = 'тесттест';
-		DCWLang.connectionError = "Помилка з'єднання! Натисніть 'F5', будь-ласка.";
+		DCWLang.connectionError = "Помилка з'єднання! "
+			+ "Спробуйте оновити сторінку. Вибачаємось за причинені незручності.";
 		DCWLang.login = 'логін';
 		DCWLang.password = 'пароль';
 		DCWLang.ok = 'добре';
@@ -10,8 +11,9 @@ DCWLang.ua = {
 		DCWLang.reject = 'відхилити';
 		DCWLang.ready = 'готово';
 		DCWLang.taken = 'забрано';
-		DCWLang.orderID = 'Номер замовлення : ';
-		DCWLang.timeConfirmed = 'Час до планованого завершення : ';
-		DCWLang.time = ' хвилин'
+		DCWLang.orderID = '';
+		DCWLang.timeConfirmed = '';
+		DCWLang.time = ' хв.';
+		DCWLang.price = 'ціна: ';
 	}
 }
