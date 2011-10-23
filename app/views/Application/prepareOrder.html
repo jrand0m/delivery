@@ -4,7 +4,7 @@
     Order #${order.getShortHandId()}
 #{/set}
 #{set 'moreScripts'}
-<!--script type="text/javascript" src="@{'/public/javascripts/jquery.jNice.js'}"></script-->
+
 #{/set}
 #{set 'breadCrumb' }
 <a class="enter back" href="@{Application.showMenu(order.restaurant.id)}" >&{'common.back'}</a>
@@ -20,33 +20,35 @@
 <div class="left_cont">
 	<div class="checkout">
 		<h1>&{'common.order.blockTitle'}</h1>
-		<form class="jNice" method="POST" action="@{Application.checkAndSend()}" >
+		#{form @Application.checkAndSend()}
 			<table class="data_form">
 				#{ifErrors }
-				   <h2>Oops…</h2>
-   					#{errors}
-       					<tr><td colspan="4"><span class="wrong_data">${error}</span></td></tr>
-   					#{/errors}
+				      <h2>Виправте помилки і відправте ще раз!</h2>
 				#{/ifErrors}
 				<tr><th>
 				#{authenticityToken /}
 				<input type="hidden" name="id" value="${order.id}" />
 				<label for="cinp01">&{'common.reg.name'}</label></th><td>
-				<input type="text" value="${flash.name}" name="name" id="cinp01" /></td><th>
+				<input type="text" value="${flash.name}" name="name" id="cinp01" />
+					<span class="wrong_data">#{error 'address.name' /}</span></td><th>
 				<label for="cinp02">&{'common.reg.city'}</label></th><td>
 				<input type="text" value="${order.restaurant.city.getLocalizedName()}"  id="cinp02" readonly />
 				<input type="hidden" name="city" value="${order.restaurant.city.id}" readonly />
 				</td></tr><tr><th>
 				<label for="cinp03">&{'common.reg.sname'}</label></th><td>
-				<input name="sname" type="text" value="${flash.sname}" id="cinp03" /></td><th>
+				<input name="sname" type="text" value="${flash.sname}" id="cinp03" /><span class="wrong_data">#{error 'sname' /}</span></td><th>
 				<label for="cinp04">&{'common.reg.street'}</label></th><td>
-				<input name="street" type="text" value="${flash.street}" id="cinp04" /></td></tr><tr><th>
+				<input name="street" type="text" value="${flash.street}" id="cinp04" />
+					<span class="wrong_data">#{error 'address.street' /}</span></td></tr><tr><th>
 				<label for="cinp05">&{'common.reg.email'}</label></th><td>
-				<input name="email" type="text" value="${flash.email}" id="cinp05" /></td><th>
+				<input name="email" type="text" value="${flash.email}" id="cinp05" />
+					<span class="wrong_data">#{error 'address.email' /}</span></td><th>
 				<label for="cinp06">&{'common.reg.homenumber'}</label></th><td>
-				<input name="app" type="text" value="${flash.app}" id="cinp06" /></td></tr><tr><th>
+				<input name="app" type="text" value="${flash.app}" id="cinp06" />
+					<span class="wrong_data">#{error 'address.appartamentsNumber' /}</span></td></tr><tr><th>
 				<label for="cinp07">&{'common.reg.phone'}</label></th><td>
-				<input name="phone" type="text" value="${flash.phone}" id="cinp07" /></td><th><label>&{'common.reg.paymentType'}</label></th><td><span><input type="radio" name="oplata" checked />&{'common.reg.paymentType.cash'}</span></td></tr>
+				<input name="phone" type="text" value="${flash.phone}" id="cinp07" />
+					<span class="wrong_data">#{error 'address.phone' /}</span></td><th><label>&{'common.reg.paymentType'}</label></th><td><span><input type="radio" name="oplata" checked />&{'common.reg.paymentType.cash'}</span></td></tr>
 				<tr><th></th><td></td>
 				<!--th class="frst" colspan='2'><span><input type="radio" name="oplata" disabled="true" />&{'common.reg.paymentType.card'}<img class="card_pic" src="/public/images/visamastercard.png" /></span></th></tr-->
 			</table>
@@ -67,7 +69,7 @@
 					#{/list}
 				#{/else}
 			</div>
-		</form>
+		#{/form}
 	</div>
 	<h3 class="wait_time">~<span>5</span> &{'common.order.minutes'} </h3>
 </div>
