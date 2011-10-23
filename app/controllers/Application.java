@@ -31,6 +31,7 @@ import models.dto.extern.MenuCompWrapJson;
 import models.dto.extern.MenuComponentsJSON;
 import models.geo.City;
 import models.geo.IpGeoData;
+import models.geo.UserAddress;
 import models.geo.IpGeoData.HQL;
 import models.settings.SystemSetting;
 import models.settings.SystemSetting.KEYS;
@@ -210,14 +211,74 @@ public class Application extends Controller {
 
 		index();
 	}
-
-	public static void checkAndSend(String id) {
-		Logger.debug("Sending... id = %s", id);
+/**
+ * id:ff808181333095ab0133309ed4e90005
+name:sda
+city:1
+surname:asd
+street:asd
+email:asd@cacc.ccom
+apartment:ds
+phone:asd
+oplata:on
+ * 
+ * */
+	public static void checkAndSend(
+			 String id,
+			 String name, 
+			Integer city,	
+			String sname,
+			 String street,
+			String email,
+			 String app, 
+			 String phone, 
+						String oplata ) {
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		if (user==null)
+			badRequest();
+		checkAuthenticity();
+		if (id==null || id.isEmpty()){
+			badRequest();
+		}
 		Order o = Order.findById(id);
+		if (o == null){badRequest();}
+		if (!o.orderOwner.equals(user)){badRequest();}
+		//TODO 'FROZEN' STATUS
+		if (!o.orderStatus.equals(OrderStatus.OPEN)) {badRequest();}
+		Restaurant r = o.restaurant;
+		for (OrderItem itm:o.items){
+			if (!itm.menuItem.restaurant.equals(r)){
+				o.orderStatus = OrderStatus.DECLINED;
+				o.save();
+				Logger.error("Different restaturants in order items. order will be declined. IP: %s, user id: %s ", request.remoteAddress, user.id);
+				error("Consistency error, root node mismatch. Order declined");
+			}
+		}
+		if (user instanceof AnonymousEndUser){
+			if ((user.usr_name == null || user.usr_name.isEmpty())){
+				user.usr_name = name;
+			}
+			if ((user.usr_surname == null || user.usr_surname.isEmpty())){
+				user.usr_surname = sname;
+			}
+			UserAddress address = new UserAddress();
+			address.street = street;
+			address.appartamentsNumber = app;
+			address.user = user;
+			address.validateAndCreate();
+			
+			if (validation.hasErrors()){
+				params.flash();
+		        validation.keep();
+				checkout(o.getShortHandId());
+			}
+			
+		}
+		
 		o.orderStatus = OrderStatus.SENT;
 		o.save();
 		Logger.debug("Sent... id = %s", id);
-		ok();
+		order(o.getShortHandId());
 	}
 
 	/* ------------ UTIL Pages -------------- */

@@ -11,7 +11,8 @@ nbproject/
 .settings/
 /gae-1.4
 /precompiled
-
+*.kate-swp
+*~
 /.sonar/batch/antlr-2.7.6.jar
 /.sonar/batch/commons-beanutils-1.8.3.jar
 /.sonar/batch/commons-codec-1.4.jar

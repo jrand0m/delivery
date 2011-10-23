@@ -29,14 +29,14 @@ var loupd  = #{jsAction @Application.getLastOrders(':top') /}
 						<input type="text" value="" name="you_restraunt" id="inpec01" />
 						<input type="submit" class="submit" name="you_restraunt_submit" value="" />
 					</form>
-						#{if controllers.Security.isConnected() || !(user && user instanceof models.users.AnonymousEndUser)}
-							<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-							<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
-						#{/if}
-						#{else}
-							<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-							
-						#{/else}
+#{if controllers.Security.isConnected() && !(user instanceof models.users.AnonymousEndUser)}
+<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+#{/if}
+#{else}
+<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>
+#{/else}
 #{/set}
 
 

@@ -32,7 +32,7 @@ public class Address extends Model {
 	@MaxSize(5)
 	public String buldingNuber;
 	@MaxSize(100)
-	@MinSize(5)
+	@MinSize(4)
 	public String street;
 	
 	/*

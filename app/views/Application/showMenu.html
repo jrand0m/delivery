@@ -4,14 +4,14 @@
 #{/set}
 #{set 'breadCrumb' }
 <a class="enter back" href="@{Application.showRestaurants()}" >&{'common.back'}</a>
-		#{if user instanceof models.users.AnonymousEndUser}
-			<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>/
-			<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-		#{/if}
-		#{else}
-		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
-		#{/else}
+#{if controllers.Security.isConnected() && !(user instanceof models.users.AnonymousEndUser)}
+<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+#{/if}
+#{else}
+<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>
+#{/else}
 #{/set}
 
 #{set 'moreScripts'}

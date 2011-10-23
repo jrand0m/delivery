@@ -29,6 +29,7 @@ public class UserAddress extends Address {
 	public String additionalInfo;
 	public String doorCode;
 	@MaxSize(5)
+	@MinSize(5)
 	public String appartamentsNumber;
 
 	/**
