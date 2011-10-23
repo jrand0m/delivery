@@ -56,7 +56,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li{cur
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li:hover, div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li.selected{background-color: #e6e6e6;}
 
 div#wrapper div#wrapper_inner div#content{padding-top: 15px;}
-div#wrapper div#wrapper_inner div#content div.main_cont{padding-bottom: 10px;}
+div#wrapper div#wrapper_inner div#content div.main_cont{padding-bottom: 10px; float: left; width: 100%;}
 div.rest_item_prev{width: 230px; margin-left: 18px; padding-bottom: 20px; float: left; border-radius: 5px; border: 1px solid #b3b3b3; }
 div.rest_item_prev:first-child{margin-left: 0px}
 div.rest_item_prev h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal;  height: 40px; line-height: 17px; padding: 3px 10px;}
