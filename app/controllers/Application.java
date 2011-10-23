@@ -265,8 +265,9 @@ oplata:on
 			address.street = street;
 			address.appartamentsNumber = app;
 			address.user = user;
+//			validation.valid("app", address.appartamentsNumber);
+//			validation.valid("street", address.street).;
 			address.validateAndCreate();
-			
 			if (validation.hasErrors()){
 				params.flash();
 		        validation.keep();
