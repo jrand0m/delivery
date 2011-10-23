@@ -1,23 +1,21 @@
 ﻿#{extends 'main.html' /}
 #{set 'breadCrumb' }
-<a class="enter back" href="/">на головну</a>
-#{if controllers.Security.isConnected()}
-		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
-		
-	#{/if}
-	#{else}
-		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-	#{/else}
+<a class="enter back" href="@{Application.showRestaurants()}" >&{'common.back'}</a>
+#{if controllers.Security.isConnected() && !(user instanceof models.users.AnonymousEndUser)}
+<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+#{/if}
+#{else}
+<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>
+#{/else}
 #{/set}
 <div class="left_cont">
 	<div class="checkout">
 		<h1>&{'common.oder.thanks'}</h1>
 		<div style="margin:10px;padding: 0 0 10px 0; border-bottom:1px solid #E83F0B">
-	
-			
 			<span style="display:inline-block;width:100%; font: normal 13px Tahoma;">
-				&{'common.oder.number'}<b>№asd12eda3</b>, <span style="font:normal 14px 'Open Sans Condensed'">ресторан піцца Челентано</span>
+				&{'common.oder.number'}<b>№${order.getShortHandId()}</b>, <span style="font:normal 14px 'Open Sans Condensed'">${order.restaurant.title}</span>
 			</span>
 			
 			<span style="display:inline-block;width:100%; font: normal 13px Tahoma;">
@@ -28,21 +26,21 @@
 			<table class="result_form">
 			<tr><td><h3>Адреса для доставки:</h3></td></tr>
 				<tr>
-					<td><span>&{'common.reg.name'}</span>Василь</td>
+					<td><span>&{'common.reg.name'}</span>${order.orderOwner.usr_name}</td>
 				</tr>
 				<tr>
-					<td><span>&{'common.reg.surname'}</span>Ольховський</td>
+					<td><span>&{'common.reg.surname'}</span>${order.orderOwner.usr_surname}</td>
 				</tr>
 				<tr>
-					<td><span>&{'common.reg.city'}</span>Львів</td>
+					<td><span>&{'common.reg.city'}</span>${order.restaurant.city}</td>
 				</tr>
 		
 				<tr>
-					<td><span>&{'common.reg.street'}</span>Шептицьких</td>
+					<td><span>&{'common.reg.street'}</span>${order.deliveryAddress.street}</td>
 				</tr>
 			
 				<tr>
-					<td><span>&{'common.reg.homenumber'}</span>54/12</td>
+					<td><span>&{'common.reg.homenumber'}</span>${order.deliveryAddress.appartamentsNumber}</td>
 				</tr>
 				<tr>
 					<td><span>&{'common.reg.paymentType'}</span>готівкa</td>
@@ -55,39 +53,16 @@
 		<div class="order">
 				<table style="padding:13px 10px 0 0;">
 				<tr><td colspan="3"><h3>&{'common.basket.order'}: </h3></td></tr>
+				      #{list items:order.items, as:'oi'}
 					<tr>
-						<th>2</th>
+						<th>+</th>
 						<td>
-							<p>Піцца звичайна</p>
-							<p class="descr">Каперси, ананаси, печрець, сир моцарелла, палядвиця, бурячок</p>
+							<p>${oi.name()}</p>
+							<p class="descr">${oi.desc()}</p>
 						</td>
-						<td>128 &{'common.uah'}</td>
+						<td>${oi.priceString()} &{'common.uah'}</td>
 					</tr>
-					<tr>
-						<th>1</th>
-						<td>
-							<p>Салат грецький</p>
-							<p class="descr">Бринза, оливки, помідори, зелень</p>
-						</td>
-						<td>35 &{'common.uah'}</td>
-					</tr>
-					<tr>
-						<th>3</th>
-						<td>
-							<p>Канапка з ікрою</p>
-							<p class="descr">Хліб, ікра, масло</p>
-						</td>
-						<td>12 &{'common.uah'}</td>
-					</tr>
-					<tr>
-						<th>1</th>
-						<td>
-							<p>Суп рибний</p>
-							<p class="descr">&{'common.basket.getIng'}</p>
-						</td>
-						<td>54 &{'common.uah'}</td>
-					</tr>
-
+				      #{/list}
 				</table>
 				
 						<table class="total">

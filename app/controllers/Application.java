@@ -225,6 +225,7 @@ oplata:on
  * */
 	public static void checkAndSend(
 			 String id,
+			 Long aid,
 			 String name, 
 			Integer city,	
 			String sname,
@@ -254,6 +255,7 @@ oplata:on
 				error("Consistency error, root node mismatch. Order declined");
 			}
 		}
+		UserAddress address = null;
 		if (user instanceof AnonymousEndUser){
 			if ((user.usr_name == null || user.usr_name.isEmpty())){
 				user.usr_name = name;
@@ -261,12 +263,12 @@ oplata:on
 			if ((user.usr_surname == null || user.usr_surname.isEmpty())){
 				user.usr_surname = sname;
 			}
-			UserAddress address = new UserAddress();
+			user.save();
+			address = new UserAddress();
 			address.street = street;
 			address.appartamentsNumber = app;
 			address.user = user;
-//			validation.valid("app", address.appartamentsNumber);
-//			validation.valid("street", address.street).;
+			//TODO do proper validation
 			address.validateAndCreate();
 			if (validation.hasErrors()){
 				params.flash();
@@ -274,11 +276,30 @@ oplata:on
 				checkout(o.getShortHandId());
 			}
 			
+		} else {
+			if (aid != null){
+				address = UserAddress.findById(aid);
+				if (address == null || !address.user.equals(user)){
+					address = null;
+				}
+			} 
+			if (address == null){
+				address = new UserAddress();
+				address.street = street;
+				address.appartamentsNumber = app;
+				address.user = user;
+				//TODO do proper validation
+				address.validateAndCreate();
+				if (validation.hasErrors()){
+					params.flash();
+			        validation.keep();
+					checkout(o.getShortHandId());
+				}
+			}
 		}
-		
+		o.deliveryAddress = address;
 		o.orderStatus = OrderStatus.SENT;
 		o.save();
-		Logger.debug("Sent... id = %s", id);
 		order(o.getShortHandId());
 	}
 
