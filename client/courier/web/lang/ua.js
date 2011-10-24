@@ -16,5 +16,13 @@ DCWLang.ua = {
 		DCWLang.newOrders = 'Нові';
 		DCWLang.pendingOrders = 'В очікуванні';
 		DCWLang.activeOrders = 'Активні';
+		DCWLang.adressFrom = 'Забрати: ';
+		DCWLang.adressTo = 'Привезти: ';
+		DCWLang.timeTake = 'через: ';
+		DCWLang.timeDeliver = 'через: ';
+		DCWLang.price = 'ціна: ';
+		DCWLang.timeItem = 'хв.';
+		DCWLang.orderCount = 'кількість:';
+		DCWLang.updatedCount = 'обновлених:';
 	}
 }

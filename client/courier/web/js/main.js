@@ -48,12 +48,16 @@ var DCWMain = {
 		this.orders = new Array();
 	},
 		
-	showContent: function(){
+	showContent: function() {
 		var thisObj = this;
-		var newOrdersButtonsDiv = _.createDiv()
+		var newOrdersButtonsDiv = _.createDiv('DCWOrdersButton')
 			.append(_.createDiv().text(_.lang.newOrders))
-			.append(_.createDiv('DCWOrdersCount', 'DCWNewOrdersCount'))
-			.append(_.createDiv('DCWUpdatedOrdersCount', 'DCWUpdatedNewOrdersCount'))
+			.append(_.createDiv()
+				.append(_.createSpan().text(_.lang.orderCount))
+				.append(_.createSpan('DCWOrdersCount', 'DCWNewOrdersCount')))
+			.append(_.createDiv()
+				.append(_.createSpan().text(_.lang.updatedCount))
+				.append(_.createSpan('DCWUpdatedOrdersCount', 'DCWUpdatedNewOrdersCount')))
 			.click(function() {
 				thisObj.pendingOrdersContent.hide();
 				thisObj.activeOrdersContent.hide();
@@ -63,10 +67,14 @@ var DCWMain = {
 				_.updateUpdatedOrdersCount(thisObj);
 			});
 		
-		var pendingOrdersButtonsDiv = _.createDiv()
+		var pendingOrdersButtonsDiv = _.createDiv('DCWOrdersButton')
 			.append(_.createDiv().text(_.lang.pendingOrders))
-			.append(_.createDiv('DCWOrdersCount', 'DCWPendingOrdersCount'))
-			.append(_.createDiv('DCWUpdatedOrdersCount', 'DCWUpdatedPendingOrdersCount'))
+			.append(_.createDiv()
+				.append(_.createSpan().text(_.lang.orderCount))
+				.append(_.createSpan('DCWOrdersCount', 'DCWPendingOrdersCount')))
+			.append(_.createDiv()
+				.append(_.createSpan().text(_.lang.updatedCount))
+				.append(_.createSpan('DCWUpdatedOrdersCount', 'DCWUpdatedPendingOrdersCount')))
 			.click(function() {
 				thisObj.newOrdersContent.hide();
 				thisObj.activeOrdersContent.hide();
@@ -76,10 +84,14 @@ var DCWMain = {
 				_.updateUpdatedOrdersCount(thisObj);
 			});
 			
-		var activeOrdersButtonsDiv = _.createDiv()
+		var activeOrdersButtonsDiv = _.createDiv('DCWOrdersButton')
 			.append(_.createDiv().text(_.lang.activeOrders))
-			.append(_.createDiv('DCWOrdersCount', 'DCWActiveOrdersCount'))
-			.append(_.createDiv('DCWUpdatedOrdersCount', 'DCWUpdatedActiveOrdersCount'))
+			.append(_.createDiv()
+				.append(_.createSpan().text(_.lang.orderCount))
+				.append(_.createSpan('DCWOrdersCount', 'DCWActiveOrdersCount')))
+			.append(_.createDiv()
+				.append(_.createSpan().text(_.lang.updatedCount))
+				.append(_.createSpan('DCWUpdatedOrdersCount', 'DCWUpdatedActiveOrdersCount')))
 			.click(function() {
 				thisObj.newOrdersContent.hide();
 				thisObj.pendingOrdersContent.hide();

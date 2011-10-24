@@ -16,5 +16,13 @@ DCWLang.en = {
 		DCWLang.newOrders = 'New';
 		DCWLang.pendingOrders = 'Pending';
 		DCWLang.activeOrders = 'Active';
+		DCWLang.adressFrom = 'Take from: ';
+		DCWLang.adressTo = 'Bring to: ';
+		DCWLang.timeTake = 'until: ';
+		DCWLang.timeDeliver = 'until: ';
+		DCWLang.price = 'price: ';
+		DCWLang.timeItem = 'min';
+		DCWLang.orderCount = 'count:';
+		DCWLang.updatedCount = 'updated:';
 	}
 }

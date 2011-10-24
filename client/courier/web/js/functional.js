@@ -77,15 +77,26 @@ $.extend(_, {
 	},
 	
 	createOrderHeader: function(element) {
-		var header = _.createDiv('DCWOrderHeaderWrapper')
-			.append(_.createDiv('DCWOrderFrom').text(element.from))
-			.append(_.createDiv('DCWOrderTo').text(element.to));
+		var header = _.createDiv('DCWOrderHeaderWrapper');
 		
+		var aderessWrapper = _.createDiv('DCWOrderAdressWrapper');
+		header.append(_.createDiv('DCWOrderPriceWrapper').text(_.lang.price + _.formatCurrencyString(element.price+'')));
+		aderessWrapper.append(_.createDiv('DCWOrderFrom').text(_.lang.adressFrom + element.from))
+			.append(_.createDiv('DCWOrderTo').text(_.lang.adressTo + element.to));
+		header.append(aderessWrapper);
 		if(element.status == 'ACCEPTED') {
-			header.append( _.createDiv('DCWTimeToPrepare')
-					.html(Math.ceil((element.timePrepared - new Date().getTime())/60000)))
-				.append( _.createDiv('DCWTimeToDeliver')
-					.html(Math.ceil((element.timeDelivered - new Date().getTime())/60000)));
+			var timesWrapper = _.createDiv('DCWOrderTimeWrapper');
+			timesWrapper.append(_.createDiv()
+				.append(_.lang.timeTake)
+				.append(_.createSpan('DCWTimeToPrepare')
+					.text(Math.ceil((element.timePrepared - new Date().getTime())/60000)))
+				.append(_.lang.timeItem));
+			timesWrapper.append(_.createDiv()
+				.append(_.lang.timeDeliver)
+				.append( _.createSpan('DCWTimeToDeliver')
+						.text(Math.ceil((element.timeDelivered - new Date().getTime())/60000)))
+				.append(_.lang.timeItem));
+			header.append(timesWrapper);
 		}
 		return header;
 	},
@@ -176,7 +187,7 @@ $.extend(_, {
 			var dishDom = _.createDiv('DCWDishContent');
 			dishDom.append(_.createDiv('DCWDishName').text(dishes[elem].name));
 			dishDom.append(_.createDiv('DCWDishCount').text(dishes[elem].count));
-			dishDom.append(_.createDiv('DCWDishPrice').text(dishes[elem].pricePerItem));
+			dishDom.append(_.createDiv('DCWDishPrice').text(_.formatCurrencyString(dishes[elem].pricePerItem+'')));
 			parentDishesDiv.append(dishDom);
 		});
 		return parentDishesDiv;
