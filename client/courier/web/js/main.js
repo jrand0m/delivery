@@ -102,7 +102,7 @@ var DCWMain = {
 			});
 			
 		var tabButtonContainer = _.createDiv('DCWTabButtons').append(
-			_.createDiv('SCWButtonsWrapper')
+			_.createDiv('DCWButtonsWrapper')
 				.append(newOrdersButtonsDiv)
 				.append(pendingOrdersButtonsDiv)
 				.append(activeOrdersButtonsDiv));
