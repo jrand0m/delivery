@@ -1,7 +1,7 @@
 $.extend(_, {
 	parseAllOrders: function(data, parent) {
 		$(data).each(function(index){
-			if(this.status == "NEW") {
+			if(this.status == "SENT") {
 				parent.orders.push(this);
 				parent.newOrdersContent.append(_.getNewOrderDiv(this, parent));
 				if(parent.tabOpened != 0) {
@@ -38,7 +38,7 @@ $.extend(_, {
 	
 	parseNewOrders: function(data, parent) {
 		$(data).each(function(index){
-			if(this.status == "NEW") {
+			if(this.status == "SENT") {
 				parent.orders.push(this);
 				parent.newOrdersContent.append(_.getNewOrderDiv(this, parent));
 				if(parent.tabOpened != 0) {
@@ -58,8 +58,8 @@ $.extend(_, {
 			} else if(this.status == "REJECTED") {
 				var elem = _.getElementById(parent.orders, this.id);
 				if(elem) {
-					if(elem.status != 'NEW') {
-						_.newDialog(_.getInfoDialog());
+					if(elem.status != 'SENT') {
+						_.newDialog(_.getInfoDialog(_.lang.wasRejected));
 					}
 					
 					elem.domElem.remove();
@@ -105,13 +105,12 @@ $.extend(_, {
 		var newOrders = parent.orders;
 		
 		var buttonsDiv = _.createDiv("DCWOrderButtonsDiv")
+			.append(_.getRejectBtn(orderElem, newOrders))
 			.append(_.createTimeButton(orderElem, 10, parent))
 			.append(_.createTimeButton(orderElem, 20, parent))
 			.append(_.createTimeButton(orderElem, 30, parent))
 			.append(_.createTimeButton(orderElem, 40, parent))
-			.append(_.createTimeButton(orderElem, 50, parent))
-			
-			.append(_.getRejectBtn(orderElem, newOrders));
+			.append(_.createTimeButton(orderElem, 50, parent));
 		
 		var orderDiv = _.createDiv("DCWOrderDiv")
 			.append(_.createOrderHeader(orderElem))
@@ -151,7 +150,7 @@ $.extend(_, {
 		var btnDiv = _.createDiv('DCWActiveOrdersBtnsWrapper');
 	
 		btnDiv.append(_.getRejectBtn(orderElem, activeOrders));
-		btnDiv.append(_.createButton(_.lang.taken, 'DCWOrderButton')
+		btnDiv.append(_.createButton(_.lang.delivered, 'DCWOrderButton')
 			.click(function() {
 					orderElem.domElem.remove();
 					_.removeElement(activeOrders, orderElem);
@@ -167,7 +166,7 @@ $.extend(_, {
 		var activeOrdersCount = 0;
 		
 		for(var i=0; i<array.length; i++) {
-			if(array[i].status == 'NEW') {
+			if(array[i].status == 'SENT') {
 				newOrdersCount++;
 			} else if(array[i].status == 'CONFIRMED') {
 				pendingOrdersCount++;
@@ -194,7 +193,7 @@ $.extend(_, {
 	},
 		
 	getRejectBtn: function(orderElem, orders) {
-		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton');
+		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton DCWRejectButton');
 		
 		$(btnRject).click(function(el){
 			_.newDialog(_.getRejectDialog(orderElem, orders));
@@ -204,7 +203,7 @@ $.extend(_, {
 	},
 	
 	createTimeButton: function(orderElem, time, parent) {
-		var btn = _.createButton(time + "", 'DCWOrderButton');
+		var btn = _.createButton(time + "", 'DCWOrderButton DCWOrderTimeButton');
 		
 		$(btn).click(function(el){
 			orderElem.status = 'CONFIRMED';
@@ -298,7 +297,7 @@ $.extend(_, {
 						{
 							"id":"2332klks",
 							"time":1315440000032,
-							"status":"NEW",
+							"status":"SENT",
 							"paymentStatus":"NOT_PAID",
 							"from":"1",
 							"to":"1",
@@ -360,7 +359,7 @@ $.extend(_, {
 						{
 							"id":"3432khh2",
 							"time":1315440000000,
-							"status":"NEW",
+							"status":"SENT",
 							"paymentStatus":"NOT_PAID",
 							"from":"4",
 							"to":"4",

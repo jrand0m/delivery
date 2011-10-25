@@ -9,7 +9,7 @@ DCWLang.en = {
 		DCWLang.notEnoughtTimeBeforeClose = 'Will not be finished while restaurant is open.';
 		DCWLang.reject = 'reject';
 		DCWLang.ready = 'ready';
-		DCWLang.taken = 'taken';
+		DCWLang.delivered = 'delivered';
 		DCWLang.orderID = 'Order Nr. : ';
 		DCWLang.timeConfirmed = 'Time to finish : ';
 		DCWLang.time = ' minutes'
@@ -24,5 +24,6 @@ DCWLang.en = {
 		DCWLang.timeItem = 'min';
 		DCWLang.orderCount = 'count:';
 		DCWLang.updatedCount = 'updated:';
+		DCWLang.wasRejected = 'One of orders, that you have accepted, was rejected!';
 	}
 }

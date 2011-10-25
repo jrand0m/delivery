@@ -9,7 +9,7 @@ DCWLang.ua = {
 		DCWLang.notEnoughtTimeBeforeClose = 'Замовлення не буде закінчене до закриття закладу';
 		DCWLang.reject = 'відхилити';
 		DCWLang.ready = 'готово';
-		DCWLang.taken = 'забрано';
+		DCWLang.delivered = 'доставлено';
 		DCWLang.orderID = 'Номер замовлення : ';
 		DCWLang.timeConfirmed = 'Час до планованого завершення : ';
 		DCWLang.time = ' хвилин';
@@ -24,5 +24,6 @@ DCWLang.ua = {
 		DCWLang.timeItem = 'хв.';
 		DCWLang.orderCount = 'кількість:';
 		DCWLang.updatedCount = 'обновлених:';
+		DCWLang.wasRejected = 'Одне з заброньованих вами замовлень, було відхилено!';
 	}
 }

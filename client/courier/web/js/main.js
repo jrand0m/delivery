@@ -101,10 +101,11 @@ var DCWMain = {
 				_.updateUpdatedOrdersCount(thisObj);
 			});
 			
-		var tabButtonContainer = _.createDiv('DCWTabButtons')
-			.append(newOrdersButtonsDiv)
-			.append(pendingOrdersButtonsDiv)
-			.append(activeOrdersButtonsDiv);
+		var tabButtonContainer = _.createDiv('DCWTabButtons').append(
+			_.createDiv('SCWButtonsWrapper')
+				.append(newOrdersButtonsDiv)
+				.append(pendingOrdersButtonsDiv)
+				.append(activeOrdersButtonsDiv));
 			
 		var ordersContent = _.createDiv('DCWOrders');
 		
