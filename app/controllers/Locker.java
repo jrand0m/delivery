@@ -2,11 +2,14 @@ package controllers;
 
 import java.util.List;
 
+import annotations.Check;
+
 import controllers.Bookkeeper.RENDER_KEYS;
 
 import models.Order;
 import models.geo.UserAddress;
 import models.users.EndUser;
+import models.users.User;
 import play.Logger;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -19,6 +22,7 @@ import play.mvc.With;
  * @author mike
  * */
 @With(Secure.class)
+@Check(User.class)
 public class Locker extends Controller {
 	
 	public static final class RENDER_KEYS{

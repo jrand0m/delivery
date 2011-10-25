@@ -2,15 +2,12 @@ package controllers;
 
 import helpers.CACHE_KEYS;
 import helpers.GeoDataHelper;
-import helpers.OrderUtils;
 import helpers.PropertyVault;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +21,6 @@ import models.Order;
 import models.OrderItem;
 import models.Restaurant;
 import models.RestaurantCategory;
-import models.RestaurantNetwork;
 import models.dto.extern.BasketJSON;
 import models.dto.extern.LastOrdersJSON;
 import models.dto.extern.MenuCompWrapJson;
@@ -32,24 +28,18 @@ import models.dto.extern.MenuComponentsJSON;
 import models.geo.City;
 import models.geo.IpGeoData;
 import models.geo.UserAddress;
-import models.geo.IpGeoData.HQL;
 import models.settings.SystemSetting;
-import models.settings.SystemSetting.KEYS;
 import models.users.AnonymousEndUser;
 import models.users.EndUser;
 import play.Logger;
 import play.Play;
 import play.cache.Cache;
-import play.data.validation.Required;
-import play.db.jpa.JPABase;
 import play.i18n.Lang;
 import play.libs.Crypto;
-import play.mvc.After;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.test.Fixtures;
 import enumerations.OrderStatus;
-import enumerations.UserRoles;
 import enumerations.UserStatus;
 
 public class Application extends Controller {
@@ -84,7 +74,6 @@ public class Application extends Controller {
 		flash.put("url", request.url);
 	}
 
-
 	public static void order(String id) {
 		notFoundIfNull(id);
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
@@ -113,7 +102,6 @@ public class Application extends Controller {
 	}
 	
 	public static void checkout(String id) {
-		
 		//FIXME move to locker ?
 		notFoundIfNull(id);
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);

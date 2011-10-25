@@ -10,7 +10,6 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import annotations.AllowAnonymous;
 import annotations.Check;
-import enumerations.UserRoles;
 
 public class Secure extends Controller {
 
@@ -35,12 +34,12 @@ public class Secure extends Controller {
 	}
 
 	private static void check(Check check) throws Throwable {
-		for (UserRoles profile : check.value()) {
+		/*for (UserRoles profile : check.value()) {
 			boolean hasProfile = (Boolean) Security.invoke("check", profile);
 			if (!hasProfile) {
 				Security.invoke("onCheckFailed", profile);
 			}
-		}
+		}*/
 	}
 
 	// ~~~ Login

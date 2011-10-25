@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import javax.persistence.Query;
 
@@ -16,17 +14,14 @@ import models.Comment;
 import models.Order;
 import models.Restaurant;
 import models.users.RestaurantAdministration;
-import models.users.RestaurantUser;
 import models.users.User;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
-import annotations.Check;
 import enumerations.OrderStatus;
-import enumerations.UserRoles;
 
 @With(Secure.class)
-@Check(UserRoles.RESTAURANT_ADMIN)
+//@Check(UserRoles.RESTAURANT_ADMIN)
 public class RestaurantAdmin extends Controller {
 
 	@Before

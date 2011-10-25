@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import enumerations.UserRoles;
+import models.users.User;
 
 /**
  * Annotation for security Check roles in value for current logged in user
@@ -18,13 +18,7 @@ public @interface Check {
 
 	/**
 	 * roles to check (array of strings eg.
-	 * 
-	 * <pre>
-	 * @Check(value = { "ADMIN", "RESTAURANT", "OTHR" })
-	 * </pre>
-	 * 
-	 * )
 	 * */
-	UserRoles[] value();
+	Class<?extends User>[] value();
 
 }
