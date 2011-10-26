@@ -40,9 +40,11 @@ $.extend(_, {
 		var parentDishesDiv = this.createDiv();
 		$(dishes).each(function(elem){
 			var dishDom = _.createDiv('DCWDishContent');
-			dishDom.append(_.createDiv('DCWDishName').text(dishes[elem].name));
-			dishDom.append(_.createDiv('DCWDishCount').text(dishes[elem].count));
-			dishDom.append(_.createDiv('DCWDishPrice').text(dishes[elem].pricePerItem));
+			dishDom.append(_.createDiv('DCWDishPrice').text(
+				_.formatCurrencyString(dishes[elem].pricePerItem+"")));
+			dishDom.append(_.createSpan('DCWDishNumber').text(elem + '. '));
+			dishDom.append(_.createSpan('DCWDishCount').text(dishes[elem].count));
+			dishDom.append(_.createSpan('DCWDishName').text(dishes[elem].name));
 			parentDishesDiv.append(dishDom);
 		});
 		return parentDishesDiv;
@@ -51,19 +53,18 @@ $.extend(_, {
 	getNewOrderDiv: function(orderElem, parent) {
 		
 		var orderDiv = _.createDiv("DCWOrderDiv");
-		var id = _.createDiv('DCWOrderIdDiv');
-		id.text(_.lang.orderID + orderElem.id);
-		orderDiv.append(id);
+		
+		orderDiv.append(_.getOrderheader(orderElem));
 		orderDiv.append(_.getDishesList(orderElem.list));
 		orderElem.domElem = orderDiv;
 		parent.newOrders.push(orderElem);
 		var buttonsDiv = _.createDiv("DCWOrderButtonsDiv");
 		
+		buttonsDiv.append(_.getRejectBtn(parent.newOrders, orderElem));
 		buttonsDiv.append(_.getTimeBtn(parent, 15, orderElem));
 		buttonsDiv.append(_.getTimeBtn(parent, 30, orderElem));
 		buttonsDiv.append(_.getTimeBtn(parent, 45, orderElem));
 		buttonsDiv.append(_.getTimeBtn(parent, 60, orderElem));
-		buttonsDiv.append(_.getRejectBtn(parent.newOrders, orderElem));
 		
 		orderDiv.append(buttonsDiv);
 		return orderDiv;
@@ -79,39 +80,30 @@ $.extend(_, {
 	},
 	
 	getRejectBtn: function(parrentArray, orderElem) {
-		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton');
+		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton DCWRejectOrderButton');
 		btnRject.prepend('<img src="img/cross.png" style="vertical-align: middle">');
 		$(btnRject).click(function(el){
 			_.newDialog(_.getRejectDialog(parrentArray, orderElem));
 		});
+		return btnRject;
 	},
 	
 	getActiveOrderDiv: function(orderElem, parent, isCoocked) {
 		var orderDiv = _.createDiv('DCWOrderDiv');
-		var orderHeaderWrapper = _.createDiv('DCWOrderHeaderWrapper');
-		var id = _.createDiv('DCWOrderIdDiv').text(_.lang.orderID + orderElem.id);
-		var timeToFinish = _.createDiv('DCWTimeToFinish').html(_.lang.timeConfirmed 
-			+ Math.ceil((orderElem.timeFinished - new Date().getTime())  / 60000) + _.lang.time);
-		
-		orderDiv.append(orderHeaderWrapper);
 		parent.activeOrders.push(orderElem);
 		_.removeElement(parent.newOrders, orderElem);
+		orderDiv.append(_.getOrderheader(orderElem));
 		orderDiv.append(_.getDishesList(orderElem.list));
-		
-		
-		orderHeaderWrapper.append(id);
-		orderHeaderWrapper.append(timeToFinish);
 		
 		orderDiv.append(_.getActiveOrderDivBtns(parent.activeOrders, orderElem, isCoocked));
 		
 		orderElem.domElem = orderDiv;
+		_.updateTimes(parent);
 		return orderDiv;
 	},
 	
 	getActiveOrderDivBtns: function(parrentArray, orderElem, isCoocked) {
 		var btnDiv = this.createDiv('DCWActiveOrdersBtnsWrapper');
-		var btnReject = _.createButton(_.lang.reject, 'DCWOrderButton reject');
-		btnReject.prepend('<img src="img/cross.png" style="vertical-align: middle">');
 		var btnMade = _.createButton(_.lang.ready, 'DCWOrderButton ready');
 		btnMade.prepend('<img src="img/tick.png" style="vertical-align: middle">');
 		var btnTaken = _.createButton(_.lang.taken, 'DCWOrderButton taken');
@@ -129,20 +121,34 @@ $.extend(_, {
 			_.removeElement(parrentArray, orderElem);
 		});
 		
-		btnReject.click(function() {
-			_.newDialog(_.getRejectDialog(parrentArray, orderElem));
-		});
+		var timeToFinish = _.createDiv('DCWTimeToFinishContainer');
+		timeToFinish
+			.append(_.createDiv('DCWOrderTimeSufix DCWOrderTimeDiv').append(_.lang.time))
+			.append(_.createDiv('DCWTimeToFinish DCWOrderTimeDiv'))
+			.append(_.createDiv('DCWOrderTimePrefix DCWOrderTimeDiv').append(_.lang.timeConfirmed));
+		
 		if(!isCoocked) {
 			btnTaken.hide();
 		} else {
 			btnMade.hide();
 		}
 		
+		btnDiv.append(_.getRejectBtn(parrentArray, orderElem));
+		btnDiv.append(timeToFinish);
 		btnDiv.append(btnMade);
 		btnDiv.append(btnTaken);
-		btnDiv.append(btnReject);
 		
 		return btnDiv;
+	},
+	
+	getOrderheader: function(orderElem) {
+		var orderHeaderWrapper = _.createDiv('DCWOrderHeaderWrapper');
+		var id = _.createDiv('DCWOrderIdDiv').text(_.lang.orderID + orderElem.id);
+		var priceContent = _.createDiv('DCWOrderPriceContainer').append(_.createSpan('DCWOrderPricePrefix').text(_.lang.price));
+		priceContent.append(_.createSpan('DCWOrderPriceDiv').text(_.formatCurrencyString(orderElem.price+'')));
+		orderHeaderWrapper.append(id);
+		orderHeaderWrapper.append(priceContent);
+		return orderHeaderWrapper;
 	},
 	
 	getRejectDialog: function(parentArray, element) {
@@ -185,8 +191,7 @@ $.extend(_, {
 				- new Date().getTime();
 			var isPositive = timeToFinish > 0;
 			if(isPositive) {
-				$('.DCWTimeToFinish', this.domElem).html(_.lang.timeConfirmed 
-					+ Math.ceil( timeToFinish / 60000 ) + _.lang.time);
+				$('.DCWTimeToFinish', this.domElem).html(Math.ceil( timeToFinish / 60000 ));
 			} else  {
 				$('.DCWTimeToFinish', this.domElem).html(0);
 				this.domElem.addClass('DCWDelayedOrder');
