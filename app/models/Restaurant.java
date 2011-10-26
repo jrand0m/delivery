@@ -77,7 +77,7 @@ public class Restaurant extends Model {
 	public RestaurantCategory category;
 	public boolean deleted = false;
 	public boolean showOnIndex = false;
-	@OneToOne
+	@ManyToOne
 	public City city;
 	@OneToOne
 	public Address address;

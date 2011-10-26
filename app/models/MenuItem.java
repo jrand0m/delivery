@@ -80,8 +80,8 @@ public class MenuItem extends Model {
 		int h = price / 100;
 		int c = price - h * 100;
 		assert c >= 0;
-		return String.valueOf(h) + "<sup>" + (0 < c && c < 10 ? "0" : "")
-				+ (c != 0 ? String.valueOf(c) : " --") + "</sup>";
+		return String.valueOf(h) + (0 < c && c < 10 ? ".0" : ".")
+				+ (c != 0 ? String.valueOf(c) : "00");
 	}
 
 	public String name() {

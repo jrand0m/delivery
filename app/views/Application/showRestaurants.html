@@ -34,14 +34,14 @@ var cngcty = #{jsAction @Application.changeCity(':id') /}
 		<li id="on">Відчинені</li>
 	</ul>
 </div>
-	#{if controllers.Security.isConnected()}
-		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
-		
-	#{/if}
-	#{else}
-		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-	#{/else}
+#{if controllers.Security.isConnected() && !(user instanceof models.users.AnonymousEndUser)}
+<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+#{/if}
+#{else}
+<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>
+#{/else}
 #{/set}
 <div class="left_cont" id="rest-sort-list">
 #{list items:restaurants, as:'restaurant'} *{TODO make special field or function for classes of category}*

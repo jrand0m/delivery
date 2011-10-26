@@ -2,15 +2,12 @@ package controllers;
 
 import helpers.CACHE_KEYS;
 import helpers.GeoDataHelper;
-import helpers.OrderUtils;
 import helpers.PropertyVault;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -24,31 +21,25 @@ import models.Order;
 import models.OrderItem;
 import models.Restaurant;
 import models.RestaurantCategory;
-import models.RestaurantNetwork;
 import models.dto.extern.BasketJSON;
 import models.dto.extern.LastOrdersJSON;
 import models.dto.extern.MenuCompWrapJson;
 import models.dto.extern.MenuComponentsJSON;
 import models.geo.City;
 import models.geo.IpGeoData;
-import models.geo.IpGeoData.HQL;
+import models.geo.UserAddress;
 import models.settings.SystemSetting;
-import models.settings.SystemSetting.KEYS;
 import models.users.AnonymousEndUser;
 import models.users.EndUser;
 import play.Logger;
 import play.Play;
 import play.cache.Cache;
-import play.data.validation.Required;
-import play.db.jpa.JPABase;
 import play.i18n.Lang;
 import play.libs.Crypto;
-import play.mvc.After;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.test.Fixtures;
 import enumerations.OrderStatus;
-import enumerations.UserRoles;
 import enumerations.UserStatus;
 
 public class Application extends Controller {
@@ -83,7 +74,6 @@ public class Application extends Controller {
 		flash.put("url", request.url);
 	}
 
-
 	public static void order(String id) {
 		notFoundIfNull(id);
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
@@ -112,7 +102,6 @@ public class Application extends Controller {
 	}
 	
 	public static void checkout(String id) {
-		
 		//FIXME move to locker ?
 		notFoundIfNull(id);
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
@@ -210,14 +199,75 @@ public class Application extends Controller {
 
 		index();
 	}
-
-	public static void checkAndSend(String id) {
-		Logger.debug("Sending... id = %s", id);
+/**
+ * id:ff808181333095ab0133309ed4e90005
+name:sda
+city:1
+surname:asd
+street:asd
+email:asd@cacc.ccom
+apartment:ds
+phone:asd
+oplata:on
+ * 
+ * */
+	public static void checkAndSend(
+			 String id,
+			 String name, 
+			Integer city,	
+			String sname,
+			 String street,
+			String email,
+			 String app, 
+			 String phone, 
+						String oplata ) {
+		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		if (user==null)
+			badRequest();
+		checkAuthenticity();
+		if (id==null || id.isEmpty()){
+			badRequest();
+		}
 		Order o = Order.findById(id);
+		if (o == null){badRequest();}
+		if (!o.orderOwner.equals(user)){badRequest();}
+		//TODO 'FROZEN' STATUS
+		if (!o.orderStatus.equals(OrderStatus.OPEN)) {badRequest();}
+		Restaurant r = o.restaurant;
+		for (OrderItem itm:o.items){
+			if (!itm.menuItem.restaurant.equals(r)){
+				o.orderStatus = OrderStatus.DECLINED;
+				o.save();
+				Logger.error("Different restaturants in order items. order will be declined. IP: %s, user id: %s ", request.remoteAddress, user.id);
+				error("Consistency error, root node mismatch. Order declined");
+			}
+		}
+		if (user instanceof AnonymousEndUser){
+			if ((user.usr_name == null || user.usr_name.isEmpty())){
+				user.usr_name = name;
+			}
+			if ((user.usr_surname == null || user.usr_surname.isEmpty())){
+				user.usr_surname = sname;
+			}
+			UserAddress address = new UserAddress();
+			address.street = street;
+			address.appartamentsNumber = app;
+			address.user = user;
+//			validation.valid("app", address.appartamentsNumber);
+//			validation.valid("street", address.street).;
+			address.validateAndCreate();
+			if (validation.hasErrors()){
+				params.flash();
+		        validation.keep();
+				checkout(o.getShortHandId());
+			}
+			
+		}
+		
 		o.orderStatus = OrderStatus.SENT;
 		o.save();
 		Logger.debug("Sent... id = %s", id);
-		ok();
+		order(o.getShortHandId());
 	}
 
 	/* ------------ UTIL Pages -------------- */

@@ -2,6 +2,18 @@
 #{set 'title'}
     ${restaurant.title} menu list
 #{/set}
+#{set 'breadCrumb' }
+<a class="enter back" href="@{Application.showRestaurants()}" >&{'common.back'}</a>
+#{if controllers.Security.isConnected() && !(user instanceof models.users.AnonymousEndUser)}
+<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+#{/if}
+#{else}
+<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>
+#{/else}
+#{/set}
+
 #{set 'moreScripts'}
 <script type="text/javascript" src="@{'/public/javascripts/jquery.fancybox-1.3.4.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/jquery.floatobject-1.0.js'}"></script>

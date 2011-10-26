@@ -1,6 +1,8 @@
 package models;
 
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -91,6 +93,10 @@ public class OrderItem extends Model {
 	}
 	public String desc() {
 		return menuItem.description();
+	}
+	public String priceString(){
+		String string = new BigDecimal(orderItemPrice).setScale(2,RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN)).toString();
+		return string;
 	}
 	public ArrayList<String> selectedComponentsNames() {
 		ArrayList<String> names = new ArrayList<String>();

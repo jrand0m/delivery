@@ -6,21 +6,13 @@ package controllers;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import enumerations.LogActionType;
-import enumerations.UserRoles;
-
-import models.Order;
-import models.users.AnonymousEndUser;
-import models.users.CourierUser;
 import models.users.EndUser;
-import models.users.RestaurantAdministration;
-import models.users.RestaurantBarman;
-import models.users.SystemAdministrator;
 import models.users.User;
 import play.Logger;
 import play.Play;
 import play.mvc.Controller;
 import play.utils.Java;
+import enumerations.LogActionType;
 
 /**
  * @author Mike
@@ -51,7 +43,7 @@ public class Security extends Controller {
 	 */
 	static boolean authenticate(String username, String password) {
 		Logger.debug("Trying to login as %s", username);
-		//FIXME login by db
+		// FIXME login by db
 		User user = User.find(User.HQL.BY_LOGIN_OR_EMAIL, username, username)
 				.first();
 		if (user != null && user.password.equals(password)) {
@@ -70,41 +62,14 @@ public class Security extends Controller {
 	 * @param profile
 	 * @return true if you are allowed to execute this controller method.
 	 */
-	public static boolean check(UserRoles role) {
+	public static boolean check(Class<? extends User> userClass) {
 		if (isConnected()) {
 			User user = User.find(EndUser.HQL.BY_LOGIN, connected()).first();
-			switch (role) {
-			case RESTAURANT_ADMIN:
-				if (user instanceof RestaurantAdministration)
-					return true;
-				break;
-			case RESTORAUNT_BARMAN:
-				if (user instanceof RestaurantBarman)
-					return true;
-				break;
-			case SYS_ADMIN:
-				if (user instanceof SystemAdministrator)
-					return true;
-				break;
-			case COURIER:
-				if (user instanceof CourierUser)
-					return true;
-				break;
-			case END_USER:
-				if (user instanceof EndUser)
-					return true;
-				break;
-			case ANONYMOUS_USER:
-				if (user instanceof AnonymousEndUser)
-					return true;
-				break;
-			default:
-				return false;
-
-			}
+			if (userClass.isInstance((user)))
+				return true;
+			return false;
 		}
 		return false;
-
 	}
 
 	/**
@@ -131,18 +96,21 @@ public class Security extends Controller {
 	 * the time the user signed in)
 	 */
 	static void onAuthenticated() {
-		if (session.contains("username")){
-			User user = User.find(User.HQL.BY_LOGIN, session.get("username") ).first();
-			if (user == null){
+		if (session.contains("username")) {
+			User user = User.find(User.HQL.BY_LOGIN, session.get("username"))
+					.first();
+			if (user == null) {
 				badRequest();
 			}
 			String url = user.landingUrl();
-			if (url != null){
+			if (url != null) {
 				flash.put("url", url);
 			}
-			
+
 		} else {
-			helpers.Logger.logSystemWarn(LogActionType.INFO, "Strange behaviour on auth: signed in but no username. %s", request.remoteAddress);
+			helpers.Logger.logSystemWarn(LogActionType.INFO,
+					"Strange behaviour on auth: signed in but no username. %s",
+					request.remoteAddress);
 		}
 	}
 

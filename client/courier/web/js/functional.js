@@ -1,68 +1,105 @@
 $.extend(_, {
+	
 	parseAllOrders: function(data, parent) {
 		$(data).each(function(index){
-			if(this.status == "CONFIRMED") {
+			if(this.status == "NEW") {
+				parent.orders.push(this);
 				parent.newOrdersContent.append(_.getNewOrderDiv(this, parent));
-			} else if(this.status == "ACCEPTED") {
+				if(parent.tabOpened != 0) {
+					parent.updatedNewOrders++;
+				}
+			} else if(this.status == "CONFIRMED") {
+				parent.orders.push(this);
 				parent.pendingOrdersContent.append(_.getPendingOrderDiv(this, parent));
-			} else if(this.status == "COOKED") {
+				if(parent.tabOpened != 1) {
+					parent.updatedPendingOrders++;
+				}
+			} else if(this.status == "ACCEPTED") {
+				parent.orders.push(this);
 				parent.activeOrdersContent.append(_.getActiveOrderDiv(this, parent));
+				if(parent.tabOpened != 2) {
+					parent.updatedActiveOrders++;
+				}
 			}
 			
-			//TODO: last time... should take be different for each order type
-			//if(this.time > parent.lastOrderTime)parent.lastOrderTime = this.time;
-			
+			if(this.time > parent.lastOrderTime)parent.lastOrderTime = this.time;
+			_.updateCounters(parent.orders);
+			_.updateUpdatedOrdersCount(parent);
 			//$(parent.myScroll).each(function(el){
 			//	this.refresh();
 			//});
 		});
+	},
+	
+	updateUpdatedOrdersCount: function(parent) {
+		$('#DCWUpdatedNewOrdersCount').text(parent.updatedNewOrders);
+		$('#DCWUpdatedPendingOrdersCount').text(parent.updatedPendingOrders);
+		$('#DCWUpdatedActiveOrdersCount').text(parent.updatedActiveOrders);
 	},
 	
 	parseNewOrders: function(data, parent) {
 		$(data).each(function(index){
-			if(this.status == "CONFIRMED") {
+			if(this.status == "NEW") {
+				parent.orders.push(this);
 				parent.newOrdersContent.append(_.getNewOrderDiv(this, parent));
-			} else if(this.status == "COOKED") {
-				_.removeElement(parent.pendingOrders, _.getElementById(parent.pendingOrders, this.id));
-				parent.activeOrdersContent.append(_.getActiveOrderDiv(this, parent));
+				if(parent.tabOpened != 0) {
+					parent.updatedNewOrders++;
+				}
+			} else if(this.status == "ACCEPTED") {
+				var elem = _.getElementById(parent.orders, this.id);
+				if(elem && elem.status == 'CONFIRMED') {
+					elem.domElem.remove();
+					_.removeElement(parent.orders, elem);
+					parent.orders.push(this);
+					parent.activeOrdersContent.append(_.getActiveOrderDiv(this, parent));
+					if(parent.tabOpened != 2) {
+						parent.updatedActiveOrders++;
+					}
+				}
+			} else if(this.status == "REJECTED") {
+				var elem = _.getElementById(parent.orders, this.id);
+				if(elem) {
+					if(elem.status != 'NEW') {
+						_.newDialog(_.getInfoDialog());
+					}
+					
+					elem.domElem.remove();
+					_.removeElement(parent.orders, elem);
+				}
 			}
 			
-			//TODO: last time... should take be different for each order type
-			//if(this.time > parent.lastOrderTime)parent.lastOrderTime = this.time;
-			
+			if(this.time > parent.lastOrderTime)parent.lastOrderTime = this.time;
+			_.updateCounters(parent.orders);
+			_.updateUpdatedOrdersCount(parent);
 			//$(parent.myScroll).each(function(el){
 			//	this.refresh();
 			//});
 		});
 	},
 	
-	getElementById: function(array, id) {
-		var element;
-		$(array).each(function() {
-			if(this.id == id) {
-				element = this;
-				break;
-			}
-		});
-		return element;
-	},
-	
 	createOrderHeader: function(element) {
-		return _.createDiv('DCWOrderHeaderWrapper')
+		var header = _.createDiv('DCWOrderHeaderWrapper')
 			.append(_.createDiv('DCWOrderFrom').text(element.from))
 			.append(_.createDiv('DCWOrderTo').text(element.to));
+		
+		if(element.status == 'ACCEPTED') {
+			header.append( _.createDiv('DCWTimeToPrepare')
+					.html(Math.ceil((element.timePrepared - new Date().getTime())/60000)))
+				.append( _.createDiv('DCWTimeToDeliver')
+					.html(Math.ceil((element.timeDelivered - new Date().getTime())/60000)));
+		}
+		return header;
 	},
 	
 	getNewOrderDiv: function(orderElem, parent) {
-		var newOrders = parent.newOrders;
-		newOrders.push(orderElem);
+		var newOrders = parent.orders;
 		
 		var buttonsDiv = _.createDiv("DCWOrderButtonsDiv")
-			.append(_.createTimeButton(orderElem, 15, parent))
+			.append(_.createTimeButton(orderElem, 10, parent))
+			.append(_.createTimeButton(orderElem, 20, parent))
 			.append(_.createTimeButton(orderElem, 30, parent))
-			.append(_.createTimeButton(orderElem, 45, parent))
-			.append(_.createTimeButton(orderElem, 60, parent))
-			.append(_.createTimeButton(orderElem, 100, parent))
+			.append(_.createTimeButton(orderElem, 40, parent))
+			.append(_.createTimeButton(orderElem, 50, parent))
 			
 			.append(_.getRejectBtn(orderElem, newOrders));
 		
@@ -77,7 +114,6 @@ $.extend(_, {
 	
 	getPendingOrderDiv: function(orderElem, parent) {
 		var pendingOrders = parent.pendingOrders;
-		pendingOrders.push(orderElem);
 		var orderDiv = _.createDiv('DCWOrderDiv')
 			.append(_.createOrderHeader(orderElem))
 			.append(_.getDishesList(orderElem.list));
@@ -87,13 +123,15 @@ $.extend(_, {
 	},
 	
 	getActiveOrderDiv: function(orderElem, parent) {
+		orderElem.timePrepared = new Date().getTime() + orderElem.timeToPrepared;
+		orderElem.timeDelivered = new Date().getTime() + orderElem.timeToDelivered;
+					
 		var activeOrders = parent.activeOrders;
-		activeOrders.push(orderElem);
 		var orderDiv = _.createDiv('DCWOrderDiv')
 			.append(_.createOrderHeader(orderElem))
 			.append(_.getDishesList(orderElem.list))
 			.append(_.getActiveOrderBtns(orderElem, 
-					parent.activeOrders));
+					parent.orders));
 		
 		orderElem.domElem = orderDiv;
 		return orderDiv;
@@ -101,19 +139,36 @@ $.extend(_, {
 	
 	getActiveOrderBtns: function(orderElem, activeOrders) {
 		var btnDiv = _.createDiv('DCWActiveOrdersBtnsWrapper');
-		var timeToFinish = _.createDiv('DCWTimeToFinish')
-			.html(Math.ceil(orderElem.time/60000));
-			
-		btnDiv.append(timeToFinish);
+	
 		btnDiv.append(_.getRejectBtn(orderElem, activeOrders));
 		btnDiv.append(_.createButton(_.lang.taken, 'DCWOrderButton')
 			.click(function() {
-					_.sendOrderStatusChanged(orderElem, 'DELIVERING');
 					orderElem.domElem.remove();
 					_.removeElement(activeOrders, orderElem);
+					_.sendOrderStatusChanged(orderElem, 'DELIVERED');
 				}));
 		
 		return btnDiv;
+	},
+	
+	updateCounters: function(array) {
+		var newOrdersCount = 0;
+		var pendingOrdersCount = 0;
+		var activeOrdersCount = 0;
+		
+		for(var i=0; i<array.length; i++) {
+			if(array[i].status == 'NEW') {
+				newOrdersCount++;
+			} else if(array[i].status == 'CONFIRMED') {
+				pendingOrdersCount++;
+			} else if(array[i].status == 'ACCEPTED') {
+				activeOrdersCount++;
+			}
+		};
+		
+		$('#DCWNewOrdersCount').text(newOrdersCount);
+		$('#DCWPendingOrdersCount').text(pendingOrdersCount);
+		$('#DCWActiveOrdersCount').text(activeOrdersCount);
 	},
 	
 	getDishesList: function(dishes) {
@@ -132,7 +187,7 @@ $.extend(_, {
 		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton');
 		
 		$(btnRject).click(function(el){
-			_.showDialog(_.getRejectDialog(orderElem, orders));
+			_.newDialog(_.getRejectDialog(orderElem, orders));
 		});
 		
 		return btnRject;
@@ -142,11 +197,13 @@ $.extend(_, {
 		var btn = _.createButton(time + "", 'DCWOrderButton');
 		
 		$(btn).click(function(el){
+			orderElem.status = 'CONFIRMED';
 			orderElem.domElem.remove();
-			orderElem.time = time * 60000;
-			parent.activeOrdersContent.append(
-				_.getActiveOrderDiv(orderElem, parent));
-			_.sendOrderActivated(orderElem);
+			//orderElem.timeToFinish = time * 60000;
+			parent.pendingOrdersContent.append(
+				_.getPendingOrderDiv(orderElem, parent));
+			_.sendOrderConfirmed(orderElem, time);
+			_.updateCounters(parent.orders);
 		});
 		return btn;
 	},
@@ -179,26 +236,185 @@ $.extend(_, {
 					.val();
 					
 				if(text) {
-					_.sendOrderRejected(element, text);
 					element.domElem.remove();
 					_.removeElement(parentArray, element);
-					_.dialogFrame.hide();
+					_.nextDialog();
+					_.sendOrderRejected(element, text);
 				}
+				_.updateCounters(parentArray);
 			}
 		));
 		
 		return rejectDialog;
 	},
 	
-	updateTimes: function(activeOrders) {
-		$(activeOrders).each(function(){
-			this.time = this.time-20000;
-			var isPositive = this.time > 0;
-			$('.DCWTimeToFinish', this.domElem)
-				.html(Math.ceil(this.time / 60000));
-			
-			if(!isPositive) {
-				this.domElem.addClass('DCWDelayedOrder');
+	getInfoDialog: function(text) {
+		var dialog = _.createDiv();
+		var btn = _.createButton(_.lang.ok);
+		btn.click(function() {
+			_.nextDialog()
+		});
+		
+		if(text){
+			dialog.append(_.createDiv().text(text));
+		}
+		dialog.append(btn);
+		return dialog;
+	},
+	
+	updateTimes: function(parent) {
+		$(parent.orders).each(function(){
+			if(this.status == 'ACCEPTED') {
+				var timeToDeliver = (this.timeDelivered - new Date().getTime()) / 60000;
+				var timeToPrepare = (this.timePrepared - new Date().getTime()) / 60000;
+				$('.DCWTimeToDeliver', this.domElem)
+					.html(Math.ceil(timeToDeliver));
+				$('.DCWTimeToPrepare', this.domElem)
+					.html(Math.ceil(timeToPrepare));
+				
+				if(timeToDeliver < 0 || timeToPrepare < 0) {
+					this.domElem.addClass('DCWDelayedOrder');
+				}
+			}
+		});
+	},
+	
+	isTest: function() {
+		$.extend({
+			ajax: function(object) {
+				var data;
+				if(object.url.indexOf("from") != -1) {
+					data = [
+						{
+							"id":"2332klks",
+							"time":1315440000032,
+							"status":"NEW",
+							"paymentStatus":"NOT_PAID",
+							"from":"1",
+							"to":"1",
+							"price":22012,"list":[
+								{
+									"name":"Chelntano 1",
+									"count":2,
+									"pricePerItem":3006
+								},
+								{	"name":"Sup",
+									"count":14,
+									"pricePerItem":1000
+								}
+							]
+						},
+						{
+							"id":"i3244i24",
+							"time":1315440000076,
+							"status":"ACCEPTED",
+							"timeToPrepared":23352323,
+							"timeToDelivered": 5345353,
+							"paymentStatus":"NOT_PAID",
+							"from":"2",
+							"to":"2",
+							"price":22012,"list":[
+								{
+									"name":"Chelntano 1",
+									"count":2,
+									"pricePerItem":3006
+								},
+								{	"name":"Sup",
+									"count":14,
+									"pricePerItem":1000
+								}
+							]
+						},
+						{
+							"id":"32kjl253",
+							"time":1315440000023,
+							"status":"REJECTED",
+							"paymentStatus":"NOT_PAID",
+							"from":"3",
+							"to":"3",
+							"price":22012,"list":[
+								{
+									"name":"Chelntano 1",
+									"count":2,
+									"pricePerItem":3006
+								},
+								{	"name":"Sup",
+									"count":14,
+									"pricePerItem":1000
+								}
+							]
+						}
+					];
+				} else {
+					data = [
+						{
+							"id":"3432khh2",
+							"time":1315440000000,
+							"status":"NEW",
+							"paymentStatus":"NOT_PAID",
+							"from":"4",
+							"to":"4",
+							"price":22012,"list":[
+								{
+									"name":"Chelntano 1",
+									"count":2,
+									"pricePerItem":3006
+								},
+								{	"name":"Sup",
+									"count":14,
+									"pricePerItem":1000
+								}
+							]
+						},
+						{
+							"id":"i3244i24",
+							"time":1315440000000,
+							"status":"CONFIRMED",
+							"timeToFinish":2518208798,
+							"paymentStatus":"NOT_PAID",
+							"from":"5",
+							"timeToDeliver": "131544000000",
+							"to":"5",
+							"price":16018,
+							"list":[
+								{
+									"name":"Chelntano 1",
+									"count":3,
+									"pricePerItem":3006
+								},
+								{
+									"name":"Sup",
+									"count":5,
+									"pricePerItem":1000
+								}
+							]
+						},
+						{
+							"id":"32kjl253",
+							"time":1315440000000,
+							"status":"ACCEPTED",
+							"timeToPrepared":435533,
+							"timeToDelivered":2518208798,
+							"paymentStatus":"NOT_PAID",
+							"from":"6",
+							"to":"6",
+							"price":16018,
+							"list":[
+								{
+									"name":"Chelntano 1",
+									"count":3,
+									"pricePerItem":3006
+								},
+								{
+									"name":"Sup",
+									"count":5,
+									"pricePerItem":1000
+								}
+							]
+						}
+					];
+				}
+				object.success(data);
 			}
 		});
 	}
