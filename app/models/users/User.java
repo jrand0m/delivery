@@ -5,9 +5,6 @@ package models.users;
 
 import java.util.Date;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,7 +13,6 @@ import javax.persistence.InheritanceType;
 
 import org.hibernate.annotations.Where;
 
-import enumerations.UserStatus;
 import play.data.validation.Email;
 import play.data.validation.Password;
 import play.data.validation.Phone;
@@ -66,8 +62,6 @@ public abstract class User extends Model {
 	public String password;
 	@Phone
 	public String phoneNumber;
-	@Enumerated(value = EnumType.STRING)
-	public UserStatus userStatus;
 
 	/**
      * 
