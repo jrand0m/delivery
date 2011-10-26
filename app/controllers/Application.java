@@ -40,7 +40,6 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.test.Fixtures;
 import enumerations.OrderStatus;
-import enumerations.UserStatus;
 
 public class Application extends Controller {
 
@@ -187,7 +186,6 @@ public class Application extends Controller {
 		Logger.debug(">>> Registering new user %s", user.toString());
 		user.joinDate = new Date();
 		user.lastLoginDate = new Date();
-		user.userStatus = UserStatus.PENDING_APPROVEMENT;
 		user.create();
 		Logger.debug(">>> TODO: Try converting order history.");
 		try {
