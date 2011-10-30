@@ -49,18 +49,20 @@ public class Locker extends Controller {
 		renderArgs.put(RENDER_KEYS.USER, user);
 	}
 
-	/**
-	 * Shows user's personal page
-	 */
-	public static void index() {
-		Logger.debug(">>> Entering index");
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-
-		List<UserAddress> addressList = user.addressBook;
-
-		List<Order> orderList = Order.find(Order.HQL.BY_OWNER, user).fetch();
-		render(user, addressList, orderList);
+	public static void cabinet() {
+		// FIXME move to locker
+		Order order = null;
+		renderArgs.put("order", order);
+		render("/Locker/cabinetLastOrders.html");
 	}
+
+	public static void cabinetProfile() {
+		// FIXME move to locker
+		Order order = null;
+		renderArgs.put("order", order);
+		render("/Locker/cabinetProfile.html");
+	}
+	
 
 	public static void addAddress(UserAddress address) {
 
@@ -88,8 +90,6 @@ public class Locker extends Controller {
 			address.save();
 		}
 
-		// TODO in future do it asynchronously!
-		index();
 	}
 
 	public static void deleteAddress(Long id) {
@@ -99,7 +99,6 @@ public class Locker extends Controller {
 			address.deleted = true;
 			address.save();
 		}
-		index();
 	}
 
 }

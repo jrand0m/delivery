@@ -9,14 +9,8 @@
 #{/set}
 #{set 'breadCrumb' }
 <a class="enter back" href="/">&{'common.gohome'}</a>
-#{if controllers.Security.isConnected()}
 		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
-		
-	#{/if}
-	#{else}
-		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-	#{/else}
 #{/set}
 <div class="cabinetwrap">
 	<div class="tabgroup">

@@ -113,7 +113,6 @@ var add = function (i,c){
 					$.fancybox(
 						rndr(msg),
 					{
-						//'titlePosition'		: 'inside',
 						'transitionIn'		: 'none',
 						'transitionOut'		: 'none'
 						}
