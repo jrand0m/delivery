@@ -70,7 +70,7 @@ models.users.SystemAdministrator(usr_admin):
 
 # Addresses
 models.geo.UserAddress(adr_uzor):
-    street: kreshchatyk
+    street: str2
     appartamentsNumber: "123"
     buldingNuber: "123"
     additionalInfo: knock three times
@@ -193,7 +193,7 @@ Restaurant(restaurant5_shown):
     category: cat2
 
 models.geo.Address(adr_restaurant):
-    street: kreshchatyk
+    street: str2
     appartamentsNumber: "123"
     buldingNuber: "123"
     additionalInfo: knock three times

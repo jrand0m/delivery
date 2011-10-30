@@ -90,8 +90,6 @@ public class Locker extends Controller {
 			address.save();
 		}
 
-		// TODO in future do it asynchronously!
-		index();
 	}
 
 	public static void deleteAddress(Long id) {
@@ -101,7 +99,6 @@ public class Locker extends Controller {
 			address.deleted = true;
 			address.save();
 		}
-		index();
 	}
 
 }

@@ -120,13 +120,14 @@ $('input#cinp04').blur(
 function (e){
   var val = $('input#cinp04').val();
   if (val){
-    $.each(streets, function(index, value) { 
-
-      if (val == value.text){
-	$('input#cinp08').val(value.id);
-	return true;
+    
+      for (var i = 0; i < streets.length; i++) {
+	    var value = streets[i];
+	    if (val === value.text){
+		$('input#cinp08').val(value.id);
+		return false;
+	    }
       }
-    }); 
   }
   $('input#cinp04').tipsy("show");
   return false;
