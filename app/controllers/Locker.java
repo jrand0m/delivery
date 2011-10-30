@@ -49,7 +49,7 @@ public class Locker extends Controller {
 		renderArgs.put(RENDER_KEYS.USER, user);
 	}
 
-	public static void cabinet() {
+	public static void index() {
 		// FIXME move to locker
 		Order order = null;
 		renderArgs.put("order", order);
