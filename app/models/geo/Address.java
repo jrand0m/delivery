@@ -6,12 +6,14 @@ package models.geo;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
 
 import play.data.validation.Match;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 /**
@@ -30,13 +32,15 @@ public class Address extends Model {
 	}
 
 	public boolean deleted = false;
-	@MaxSize(5)
-	@Match("[А-яA-z0-9.,/]+")
+
 	public String buldingNuber;
-	@MaxSize(100)
+	/*@MaxSize(100)
 	@MinSize(4)
-	@Match("[А-яA-z0-9.,/]+")
-	public String street;
+	@Match("[А-яA-z0-9\\.,\\\\ /]+")
+	public String street;*/
+	@Required
+	@ManyToOne
+	public Street street;
 	
 	/*
 	 * (non-Javadoc)

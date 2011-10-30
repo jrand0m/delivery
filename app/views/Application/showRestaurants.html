@@ -34,7 +34,7 @@ var cngcty = #{jsAction @Application.changeCity(':id') /}
 		<li id="on">Відчинені</li>
 	</ul>
 </div>
-#{if controllers.Security.isConnected() && !(user instanceof models.users.AnonymousEndUser)}
+#{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
 <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 <a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
 #{/if}

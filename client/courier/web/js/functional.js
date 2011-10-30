@@ -1,8 +1,7 @@
 $.extend(_, {
-	
 	parseAllOrders: function(data, parent) {
 		$(data).each(function(index){
-			if(this.status == "NEW") {
+			if(this.status == "SENT") {
 				parent.orders.push(this);
 				parent.newOrdersContent.append(_.getNewOrderDiv(this, parent));
 				if(parent.tabOpened != 0) {
@@ -39,7 +38,7 @@ $.extend(_, {
 	
 	parseNewOrders: function(data, parent) {
 		$(data).each(function(index){
-			if(this.status == "NEW") {
+			if(this.status == "SENT") {
 				parent.orders.push(this);
 				parent.newOrdersContent.append(_.getNewOrderDiv(this, parent));
 				if(parent.tabOpened != 0) {
@@ -59,8 +58,8 @@ $.extend(_, {
 			} else if(this.status == "REJECTED") {
 				var elem = _.getElementById(parent.orders, this.id);
 				if(elem) {
-					if(elem.status != 'NEW') {
-						_.newDialog(_.getInfoDialog());
+					if(elem.status != 'SENT') {
+						_.newDialog(_.getInfoDialog(_.lang.wasRejected));
 					}
 					
 					elem.domElem.remove();
@@ -78,15 +77,26 @@ $.extend(_, {
 	},
 	
 	createOrderHeader: function(element) {
-		var header = _.createDiv('DCWOrderHeaderWrapper')
-			.append(_.createDiv('DCWOrderFrom').text(element.from))
-			.append(_.createDiv('DCWOrderTo').text(element.to));
+		var header = _.createDiv('DCWOrderHeaderWrapper');
 		
+		var aderessWrapper = _.createDiv('DCWOrderAdressWrapper');
+		header.append(_.createDiv('DCWOrderPriceWrapper').text(_.lang.price + _.formatCurrencyString(element.price+'')));
+		aderessWrapper.append(_.createDiv('DCWOrderFrom').text(_.lang.adressFrom + element.from))
+			.append(_.createDiv('DCWOrderTo').text(_.lang.adressTo + element.to));
+		header.append(aderessWrapper);
 		if(element.status == 'ACCEPTED') {
-			header.append( _.createDiv('DCWTimeToPrepare')
-					.html(Math.ceil((element.timePrepared - new Date().getTime())/60000)))
-				.append( _.createDiv('DCWTimeToDeliver')
-					.html(Math.ceil((element.timeDelivered - new Date().getTime())/60000)));
+			var timesWrapper = _.createDiv('DCWOrderTimeWrapper');
+			timesWrapper.append(_.createDiv()
+				.append(_.lang.timeTake)
+				.append(_.createSpan('DCWTimeToPrepare')
+					.text(Math.ceil((element.timePrepared - new Date().getTime())/60000)))
+				.append(_.lang.timeItem));
+			timesWrapper.append(_.createDiv()
+				.append(_.lang.timeDeliver)
+				.append( _.createSpan('DCWTimeToDeliver')
+						.text(Math.ceil((element.timeDelivered - new Date().getTime())/60000)))
+				.append(_.lang.timeItem));
+			header.append(timesWrapper);
 		}
 		return header;
 	},
@@ -95,13 +105,12 @@ $.extend(_, {
 		var newOrders = parent.orders;
 		
 		var buttonsDiv = _.createDiv("DCWOrderButtonsDiv")
+			.append(_.getRejectBtn(orderElem, newOrders))
 			.append(_.createTimeButton(orderElem, 10, parent))
 			.append(_.createTimeButton(orderElem, 20, parent))
 			.append(_.createTimeButton(orderElem, 30, parent))
 			.append(_.createTimeButton(orderElem, 40, parent))
-			.append(_.createTimeButton(orderElem, 50, parent))
-			
-			.append(_.getRejectBtn(orderElem, newOrders));
+			.append(_.createTimeButton(orderElem, 50, parent));
 		
 		var orderDiv = _.createDiv("DCWOrderDiv")
 			.append(_.createOrderHeader(orderElem))
@@ -141,7 +150,7 @@ $.extend(_, {
 		var btnDiv = _.createDiv('DCWActiveOrdersBtnsWrapper');
 	
 		btnDiv.append(_.getRejectBtn(orderElem, activeOrders));
-		btnDiv.append(_.createButton(_.lang.taken, 'DCWOrderButton')
+		btnDiv.append(_.createButton(_.lang.delivered, 'DCWOrderButton')
 			.click(function() {
 					orderElem.domElem.remove();
 					_.removeElement(activeOrders, orderElem);
@@ -157,7 +166,7 @@ $.extend(_, {
 		var activeOrdersCount = 0;
 		
 		for(var i=0; i<array.length; i++) {
-			if(array[i].status == 'NEW') {
+			if(array[i].status == 'SENT') {
 				newOrdersCount++;
 			} else if(array[i].status == 'CONFIRMED') {
 				pendingOrdersCount++;
@@ -177,14 +186,14 @@ $.extend(_, {
 			var dishDom = _.createDiv('DCWDishContent');
 			dishDom.append(_.createDiv('DCWDishName').text(dishes[elem].name));
 			dishDom.append(_.createDiv('DCWDishCount').text(dishes[elem].count));
-			dishDom.append(_.createDiv('DCWDishPrice').text(dishes[elem].pricePerItem));
+			dishDom.append(_.createDiv('DCWDishPrice').text(_.formatCurrencyString(dishes[elem].pricePerItem+'')));
 			parentDishesDiv.append(dishDom);
 		});
 		return parentDishesDiv;
 	},
 		
 	getRejectBtn: function(orderElem, orders) {
-		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton');
+		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton DCWRejectButton');
 		
 		$(btnRject).click(function(el){
 			_.newDialog(_.getRejectDialog(orderElem, orders));
@@ -194,7 +203,7 @@ $.extend(_, {
 	},
 	
 	createTimeButton: function(orderElem, time, parent) {
-		var btn = _.createButton(time + "", 'DCWOrderButton');
+		var btn = _.createButton(time + "", 'DCWOrderButton DCWOrderTimeButton');
 		
 		$(btn).click(function(el){
 			orderElem.status = 'CONFIRMED';
@@ -288,7 +297,7 @@ $.extend(_, {
 						{
 							"id":"2332klks",
 							"time":1315440000032,
-							"status":"NEW",
+							"status":"SENT",
 							"paymentStatus":"NOT_PAID",
 							"from":"1",
 							"to":"1",
@@ -350,7 +359,7 @@ $.extend(_, {
 						{
 							"id":"3432khh2",
 							"time":1315440000000,
-							"status":"NEW",
+							"status":"SENT",
 							"paymentStatus":"NOT_PAID",
 							"from":"4",
 							"to":"4",

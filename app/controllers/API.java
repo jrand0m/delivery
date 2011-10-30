@@ -21,6 +21,7 @@ import models.dto.intern.PushMessage;
 import play.Logger;
 import play.data.validation.Required;
 import play.mvc.Controller;
+import play.mvc.With;
 
 import com.google.gson.Gson;
 
@@ -30,6 +31,7 @@ import enumerations.OrderStatus;
  * @author Mike
  * 
  */
+@With(Secure.class)
 public class API extends Controller {
 	// TODO extract to Order HQL
 	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
@@ -37,6 +39,8 @@ public class API extends Controller {
 	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN
 			+ " and " + Order.FIELDS.ORDER_CONFIRMED + " > ?";
 
+	
+	
 	public static void g(@Required Integer id, Long from) {
 		Logger.debug("g in id = %s", id);
 		if (id == null) {

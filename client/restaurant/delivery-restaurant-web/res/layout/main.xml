@@ -18,9 +18,12 @@
         	android:id="@+id/web_view_progress_bar"
 	        style="?android:attr/progressBarStyleHorizontal"
 	        android:layout_width="fill_parent"
+	        android:layout_centerHorizontal="true"
 	        android:layout_height="wrap_content"
 	        android:layout_centerVertical="true"
-	        android:padding="2dip">
+	        android:padding="2dip"
+	        android:paddingLeft="10dip"
+	        android:paddingRight="10dip">
 	    </ProgressBar>
 	</RelativeLayout>
 	<RelativeLayout

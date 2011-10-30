@@ -1,7 +1,7 @@
 DCWLang.en = {
 	init: function() {
 		DCWLang.testVal = 'testtest',
-		DCWLang.connectionError = 'Connection error! Press F5, please';
+		DCWLang.connectionError = 'Connection error! Try reloading page. We are sorry for inconvinience.';
 		DCWLang.login = 'login';
 		DCWLang.password = 'password';
 		DCWLang.ok = 'ok';
@@ -10,8 +10,9 @@ DCWLang.en = {
 		DCWLang.reject = 'reject';
 		DCWLang.ready = 'ready';
 		DCWLang.taken = 'taken';
-		DCWLang.orderID = 'Order Nr. : ';
-		DCWLang.timeConfirmed = 'Time to finish : ';
-		DCWLang.time = ' minutes'
+		DCWLang.orderID = '';
+		DCWLang.timeConfirmed = '';
+		DCWLang.time = ' min';
+		DCWLang.price = 'price: ';
 	}
 }

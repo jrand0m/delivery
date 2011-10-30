@@ -14,8 +14,6 @@ GET     /favicon.ico                            staticFile:/public/images/favico
 
 # Catch all
 
-*		/admin/									module:crud
-
 ##############################
 ######## Security ############
 ##############################

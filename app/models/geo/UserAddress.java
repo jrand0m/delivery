@@ -11,8 +11,10 @@ import models.users.User;
 import org.apache.commons.lang.NotImplementedException;
 import org.hibernate.annotations.Where;
 
+import play.data.validation.Match;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
@@ -28,8 +30,10 @@ public class UserAddress extends Address {
 	@MaxSize(200)
 	public String additionalInfo;
 	public String doorCode;
-	@MaxSize(5)
-	@MinSize(5)
+	@MaxSize(10)
+	@MinSize(1)
+	@Match("[А-яA-z0-9.,/]+")
+	@Required
 	public String appartamentsNumber;
 
 	/**

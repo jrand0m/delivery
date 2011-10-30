@@ -11,25 +11,23 @@ import javax.persistence.TypedQuery;
 import models.AccountingGroup;
 import models.AccountingTransaction;
 import models.users.EndUser;
+import models.users.SystemAdministrator;
 import play.data.binding.As;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 import annotations.Check;
-import enumerations.UserRoles;
 
 /**
- * @author Mike Stetsyshyn
+ * class to make accounting and reporting on our income and outcome
  * 
- *         class to make accounting and reporting on our income and outcome
+ * @author Mike Stetsyshyn
  */
 @With(Secure.class)
-@Check(UserRoles.SYS_ADMIN)
+@Check(SystemAdministrator.class)
 public class Bookkeeper extends Controller {
 	public static final class RENDER_KEYS{
-
 		public static final String USER = "user";
-		
 	}
 	@Before
 	static void _prepare() {
@@ -121,7 +119,6 @@ public class Bookkeeper extends Controller {
 	}
 
 	public static void modTransaction(Long id) {
-
 		todo();
 	}
 
