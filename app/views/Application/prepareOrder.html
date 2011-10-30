@@ -23,7 +23,7 @@
 		#{form @Application.checkAndSend()}
 			<table class="data_form">
 				#{ifErrors }
-				      <h2>Виправте помилки і відправте ще раз!</h2>
+				      <h2 class="err">Виправте помилки і відправте ще раз!</h2>
 				#{/ifErrors}
 				<tr><th>
 				#{authenticityToken /}

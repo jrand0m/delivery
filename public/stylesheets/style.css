@@ -185,8 +185,9 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td{vertical-align: middle; font-size: 18px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td label{float: left; margin-right: 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{height: 25px; width: 200px; padding: 0 10px; line-height: 25px; font-size: 16px; font-family: Open Sans Condensed; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .err{ color: #E83F0B; margin-left: 10px; text-decoration: blink;}
 /*div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input.wrong_data{border: 2px solid #E83F0B; box-shadow: 1px 1px 1px #E83F0B; position: relative; top: 10px;}*/
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{margin-left: 10px; color: #E83F0B; display: block; font-family: tahoma; font-size: 12px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{color: #E83F0B; display: block; font-family: tahoma; font-size: 12px;  margin-left: 13px;  margin-top: -11px;  position: absolute;}
 .jRadioWrapper {z-index: 2; position: relative; float: left; margin-right: 22px; margin-top: 10px;}
 .jNiceRadio {background: transparent url(/public/images/radio.jpg) no-repeat center top; height: 17px; width: 17px; position:absolute; left:0px; top:0px; cursor:pointer; vertical-align:middle;}
 .jNiceChecked {background-position: center bottom;}
