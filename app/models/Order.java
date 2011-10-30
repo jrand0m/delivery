@@ -278,5 +278,4 @@ public class Order extends GenericModel {
 		}
 		return b.toString();
 	}
-
 }

@@ -27,6 +27,7 @@ import models.dto.extern.MenuCompWrapJson;
 import models.dto.extern.MenuComponentsJSON;
 import models.geo.City;
 import models.geo.IpGeoData;
+import models.geo.Street;
 import models.geo.UserAddress;
 import models.settings.SystemSetting;
 import models.users.AnonymousEndUser;
@@ -34,6 +35,9 @@ import models.users.EndUser;
 import play.Logger;
 import play.Play;
 import play.cache.Cache;
+import play.data.validation.Email;
+import play.data.validation.Phone;
+import play.data.validation.Required;
 import play.i18n.Lang;
 import play.libs.Crypto;
 import play.mvc.Before;
@@ -113,6 +117,16 @@ public class Application extends Controller {
 		if (order.orderStatus!=OrderStatus.OPEN){
 			redirect("Application.order", id);
 		}
+		if (order.items.isEmpty()){
+			redirect("Application.showMenu", order.restaurant.getId());
+		}
+		City city = order.restaurant.city;
+		List<Street> streets = (List<Street>) Cache.get("streets"+city.id) ;
+		if (streets == null){
+			streets = Street.find("city = ? and use = ?", city, true).fetch();
+			Cache.add("streets"+city.id, streets, "1d");
+		}
+		renderArgs.put("streets", streets);
 		renderArgs.put("order", order);
 		render("/Application/prepareOrder.html");
 	}
@@ -132,8 +146,6 @@ public class Application extends Controller {
 			cityList = City.find(City.HQL.BY_DISPLAY, true).fetch();
 			Cache.set(CACHE_KEYS.AVALIABLE_CITIES, cityList, "8h");
 		}
-		Logger.debug("%s cities will be dispalyed", cityList.size());
-		Logger.debug("%s restaurants will be dispalyed", restaurants.size());
 		renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
 		renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
 		render();
@@ -215,11 +227,11 @@ oplata:on
 			 String name, 
 			Integer city,	
 			String sname,
-			 String street,
-			String email,
+			 Long streetid,
+		@Email	String email,
 			 String app, 
-			 String phone, 
-						String oplata ) {
+		@Phone String phone, 
+			String oplata ) {
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user==null)
 			badRequest();
@@ -227,6 +239,7 @@ oplata:on
 		if (id==null || id.isEmpty()){
 			badRequest();
 		}
+		
 		Order o = Order.findById(id);
 		if (o == null){badRequest();}
 		if (!o.orderOwner.equals(user)){badRequest();}
@@ -245,13 +258,31 @@ oplata:on
 		if (user instanceof AnonymousEndUser){
 			if ((user.usr_name == null || user.usr_name.isEmpty())){
 				user.usr_name = name;
-			}
+				if (!validation.valid(user.usr_name).ok){
+					validation.addError("name", "name.required");
+				}
+			}			
 			if ((user.usr_surname == null || user.usr_surname.isEmpty())){
 				user.usr_surname = sname;
 			}
-			user.save();
+			
+			if (user.phoneNumber == null || !user.phoneNumber.isEmpty())
+			{
+				user.phoneNumber = phone;
+				validation.required(phone);
+			}
+			
+			
 			address = new UserAddress();
-			address.street = street;
+			Street str = null;
+			if (streetid!=null){
+				str = Street.findById(streetid);
+			}
+			if (str != null && str.city.equals(o.restaurant.city)){
+				address.street = str;
+			} else {
+				validation.addError("address.street", "street.notacceptable");
+			}
 			address.appartamentsNumber = app;
 			address.user = user;
 			//TODO do proper validation
@@ -261,6 +292,7 @@ oplata:on
 		        validation.keep();
 				checkout(o.getShortHandId());
 			}
+			user.save();
 			
 		} else {
 			if (aid != null){
@@ -271,7 +303,15 @@ oplata:on
 			} 
 			if (address == null){
 				address = new UserAddress();
-				address.street = street;
+				Street str = null;
+				if (streetid!=null){
+					str = Street.findById(streetid);
+				}
+				if (str != null && str.city.equals(o.restaurant.city)){
+					address.street = str;
+				} else {
+					validation.addError("address.street", "street.notacceptable");
+				}
 				address.appartamentsNumber = app;
 				address.user = user;
 				//TODO do proper validation
@@ -444,8 +484,6 @@ oplata:on
 		}
 		renderJSON(new BasketJSON(order));
 	}
-	
-	
 	/* -----------  private --------------*/
 	public static void serveLogo(long id) throws IOException {
 		final Restaurant restaurant = Restaurant.findById(id);

@@ -13,6 +13,23 @@ models.geo.City(lviv):
     cityNameRU: Львов
     cityNameEN: Lvov
     display: true
+models.geo.Street(str1):
+    title_en: "Shevchekta pr"
+    title_ua: "Шевченка просп."
+    city: lviv
+    use: True
+
+models.geo.Street(str2):
+    title_en: "Shevchekta str"
+    title_ua: "Шевченка вул."
+    city: lviv
+    use: True
+
+models.geo.Street(str3):
+    title_en: "Shevchekta kolgosp"
+    title_ua: "Шевченкаколгосп"
+    city: lviv
+    use: False
 
 models.geo.City(chornobyl):
     cityNameUA: Чорнобиль

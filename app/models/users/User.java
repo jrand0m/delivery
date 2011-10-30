@@ -56,11 +56,13 @@ public abstract class User extends Model {
 	public Date lastLoginDate;
 	@Required
 	public String login;
+	@Required
 	public String usr_name;
 	public String usr_surname;
 	@Password
 	public String password;
 	@Phone
+	@Required
 	public String phoneNumber;
 
 	/**

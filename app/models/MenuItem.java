@@ -30,11 +30,11 @@ public class MenuItem extends Model {
 	}
 
 	public boolean avaliable = false;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	public Restaurant restaurant;
 	public boolean deleted = false;
 	public String description;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	public MenuItemGroup menuItemGroup;
 	@OneToMany(fetch = FetchType.EAGER)
 	public Set<MenuItemComponent> components = new HashSet<MenuItemComponent>();
