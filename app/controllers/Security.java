@@ -138,7 +138,7 @@ public class Security extends Controller {
 	 * 
 	 * @param profile
 	 */
-	static void onCheckFailed(String profile) {
+	static void onCheckFailed(Class<?extends User> profile) {
 		forbidden();
 	}
 
