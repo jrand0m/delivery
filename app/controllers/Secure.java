@@ -58,6 +58,11 @@ public class Secure extends Controller {
 			}
 		}
 		flash.keep("url");
+		if (request.isAjax()){
+			renderArgs.put("result", "false");
+			render("Secure/login.json");
+		}
+		
 		render();
 	}
 
@@ -65,13 +70,9 @@ public class Secure extends Controller {
 			boolean remember) throws Throwable {
 		// Check tokens
 		Boolean allowed = false;
-		// try {
-		// // This is the deprecated method name
-		// allowed = (Boolean)Security.invoke("authentify", username, password);
-		// } catch (UnsupportedOperationException e ) {
-		// This is the official method name
+
 		allowed = (Boolean) Security.invoke("authenticate", username, password);
-		// }
+
 		if (validation.hasErrors() || !allowed) {
 			flash.keep("url");
 			flash.error("secure.error");
@@ -85,7 +86,10 @@ public class Secure extends Controller {
 			response.setCookie("rememberme", Crypto.sign(username) + "-"
 					+ username, "30d");
 		}
-		// Redirect to the original URL (or /)
+		if (request.isAjax()){
+			renderArgs.put("result", "true");
+			render("Secure/login.json");
+		}
 		redirectToOriginalURL();
 	}
 
