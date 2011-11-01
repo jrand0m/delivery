@@ -553,9 +553,6 @@ public class Application extends Controller {
 		Order o = new Order();
 		o.orderStatus = OrderStatus.OPEN;
 		o.orderOwner = user;
-		if (user == null) {
-			o.anonSID = session.getId();
-		}
 		o.deleted = false;
 		o.orderCreated = new Date();
 		o.restaurant = jpaBase;

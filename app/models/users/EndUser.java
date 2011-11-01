@@ -29,4 +29,8 @@ public class EndUser extends User {
 	public List<UserAddress> addressBook;
 	@OneToMany(mappedBy = Order.FIELDS.ORDER_OWNER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<Order> orderBook;
+	@Override
+	public String landingUrl() {
+		return null;
+	}
 }
