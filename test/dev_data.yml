@@ -193,7 +193,7 @@ Restaurant(restaurant5_shown):
     category: cat2
 
 models.geo.Address(adr_restaurant):
-    street: kreshchatyk
+    #street: kreshchatyk
     appartamentsNumber: "123"
     buldingNuber: "123"
     additionalInfo: knock three times
