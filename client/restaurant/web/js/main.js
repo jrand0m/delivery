@@ -105,6 +105,6 @@ var DCWMain = {
 			_.initColunHeight();
 		});
 
-		_.getAllOrders(this);
+		_.newDialog(_.getAuthBox(this));
 	}
 };
