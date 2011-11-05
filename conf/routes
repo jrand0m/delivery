@@ -28,7 +28,10 @@ GET         /courier/       staticDir:courier
 ########/Security ############
 ##############################
 POST		/api/a									Secure.authenticate
-*			/api/{action}							API.{action}
+*			/api/caffe/g							API.processCaffeGet
+*			/api/caffe/p							API.processCaffePush
+*			/api/courier/g							API.processCourierGet
+*			/api/courier/p							API.processCourierPush
 * 			/power/edit/{action}					Admin.{action}
 *			/caffe/admn/{action}					RestaurantAdmin.{action}
 *			/{action}								Application.{action}

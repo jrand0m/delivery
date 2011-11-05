@@ -39,7 +39,6 @@ import enumerations.OrderStatus;
  * 
  */
 @With(Secure.class)
-@Check({RestaurantBarman.class,CourierUser.class})
 public class API extends Controller {
 	// TODO extract to Order HQL
 	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
@@ -49,18 +48,9 @@ public class API extends Controller {
 	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT + "."+Restaurant.FIELDS.RESTAURANT_CITY+" = ?";
 	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM = JPA_BY_CITY_AND_ORDER_STATUS_IN +" and " + Order.FIELDS.UPDATED + " > ?";
 	
-	public static void g(Long from) {
-		User user = (User) renderArgs.get("user");
-		if (user instanceof RestaurantBarman){
-			processGet((RestaurantBarman)user, from);
-		}
-		if (user instanceof CourierUser){
-			processGet((CourierUser)user,from);
-		}
-		error();
-	}
-	
-	private static void processGet (RestaurantBarman user, Long from){
+	@Check(RestaurantBarman.class)
+	public static void processCaffeGet ( Long from){
+		RestaurantBarman user = (RestaurantBarman) renderArgs.get("user");
 		Restaurant restaurant = user.restaurant;
 		List<Order> orders;
 		if (from != null) {
@@ -94,7 +84,9 @@ public class API extends Controller {
 		restaurant.device.save();
 		renderJSON(jobs);
 	}
-	static private void processGet (CourierUser user,Long from){
+	@Check(CourierUser.class)
+	public static void processCourierGet (Long from){
+		CourierUser user = (CourierUser) renderArgs.get("user");
 		City city = user.city;
 		List<Order> orders;
 		if (from != null) {
@@ -127,29 +119,19 @@ public class API extends Controller {
 		renderJSON(jobs);
 	}
 
-	public static void p(String message) {
-		notFoundIfNull(message);
+	@Check(CourierUser.class)
+	public static void processCourierPush( String message){
+		CourierUser user = (CourierUser) renderArgs.get("user");
 		Logger.debug("p in message = %s", message);
 		Gson g = new Gson();
-		PushMessage p = g.fromJson(message, PushMessage.class);
-		if (p.id == null || p.id.length() < 8) {
+		PushMessage pushMessage = g.fromJson(message, PushMessage.class);
+		if (pushMessage.id == null || pushMessage.id.length() < 8) {
 			notFound();
 		}
-		User user = (User) renderArgs.get("user");
-		if (user instanceof RestaurantBarman){
-			processPush((RestaurantBarman)user, p);
-		}
-		if (user instanceof CourierUser){
-			processPush((CourierUser)user,p);
-		}
-		error();
-	}
-
-	static private void processPush(CourierUser user, PushMessage message){
-		Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
+		Order order = Order.find(Order.HQL.BY_SHORT_ID, pushMessage.id).first();
 		notFoundIfNull(order);
 		Logger.debug("p found order id = %s", order.id);
-		switch (OrderStatus.convert(message.status)) {
+		switch (OrderStatus.convert(pushMessage.status)) {
 		case CONFIRMED:
 			order.orderStatus = OrderStatus.CONFIRMED;
 			order.orderConfirmed = new Date();
@@ -162,7 +144,7 @@ public class API extends Controller {
 			order.orderStatus = OrderStatus.DECLINED;
 			order.orderClosed = new Date();
 			// FIXME see how long message can be
-			order.declineMessage = message.comment; // != null ?
+			order.declineMessage = pushMessage.comment; // != null ?
 			// p.comment.substring(0, 250) :
 			// "" ;
 			break;
@@ -173,10 +155,20 @@ public class API extends Controller {
 		order.save();
 		ok();
 	}
-	private static void processPush (RestaurantBarman user, PushMessage message){
-		Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
+	
+	@Check(RestaurantBarman.class)
+	public static void processCaffePush (String message){
+		notFoundIfNull(message);
+		RestaurantBarman user = (RestaurantBarman) renderArgs.get("user");
+		Logger.debug("p in message = %s", message);
+		Gson g = new Gson();
+		PushMessage pushMessage = g.fromJson(message, PushMessage.class);
+		if (pushMessage.id == null || pushMessage.id.length() < 8) {
+			notFound();
+		}
+		Order order = Order.find(Order.HQL.BY_SHORT_ID, pushMessage.id).first();
 		notFoundIfNull(order);
-		switch (OrderStatus.convert(message.status)) {
+		switch (OrderStatus.convert(pushMessage.status)) {
 		case COOKED:
 			order.orderStatus = OrderStatus.COOKED;
 			order.orderCooked = new Date();
@@ -185,13 +177,13 @@ public class API extends Controller {
 			order.orderStatus = OrderStatus.ACCEPTED;
 			order.orderAccepted = new Date();
 			order.orderPlanedCooked = new Date(System.currentTimeMillis()
-					+ message.time * 60 * 1000);
+					+ pushMessage.time * 60 * 1000);
 			break;
 		case DECLINED:
 			order.orderStatus = OrderStatus.DECLINED;
 			order.orderClosed = new Date();
 			// FIXME see how long message can be
-			order.declineMessage = message.comment; // != null ?
+			order.declineMessage = pushMessage.comment; // != null ?
 			// p.comment.substring(0, 250) :
 			// "" ;
 			break;
