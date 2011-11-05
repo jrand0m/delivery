@@ -88,6 +88,7 @@ public class Secure extends Controller {
 		}
 		if (request.isAjax()){
 			renderArgs.put("result", "true");
+			renderArgs.put("role", User.find(User.HQL.BY_LOGIN, username).first().getClass().getName());
 			render("Secure/login.json");
 		}
 		redirectToOriginalURL();
