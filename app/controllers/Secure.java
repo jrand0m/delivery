@@ -35,11 +35,16 @@ public class Secure extends Controller {
 	}
 
 	private static void check(Check check) throws Throwable {
+		boolean hasProfile = false;
+		Class<? extends User> lastclazz = null;
 		for (Class<? extends User> clazz : check.value()) {
-			boolean hasProfile = (Boolean) Security.invoke("check", clazz);
-			if (!hasProfile) {
-				Security.invoke("onCheckFailed", clazz);
+			if (hasProfile = (Boolean) Security.invoke("check", clazz)){
+				return;
 			}
+			lastclazz = clazz;
+		}
+		if (!hasProfile) {
+			Security.invoke("onCheckFailed", lastclazz);
 		}
 	}
 
@@ -88,7 +93,7 @@ public class Secure extends Controller {
 		}
 		if (request.isAjax()){
 			renderArgs.put("result", "true");
-			renderArgs.put("role", User.find(User.HQL.BY_LOGIN, username).first().getClass().getName());
+			renderArgs.put("role", User.find(User.HQL.BY_LOGIN, username).first().getClass().getSimpleName());
 			render("Secure/login.json");
 		}
 		redirectToOriginalURL();
