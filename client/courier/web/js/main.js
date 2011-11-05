@@ -121,7 +121,7 @@ var DCWMain = {
 		
 		$('body').append(tabButtonContainer);
 		$('body').append(ordersContent);
-		
-		_.getAllOrders(this);	
+
+		_.newDialog(_.getAuthBox(this));
 	}
 };

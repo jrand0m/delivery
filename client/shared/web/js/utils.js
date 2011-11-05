@@ -3,6 +3,18 @@ $.extend(_, {
 	ajaxOk: true,
 	dialogChain: [],
 	
+	newDialog: function(dialog) {
+		_.dialogChain.push(dialog);
+		if(!_.dialogFrame.is(':visible')) {
+			_.showDialog(_.dialogChain[0]);
+		}
+	},
+	
+	urgentDialog: function(dialog) {
+		_.dialogChain.splice(0,0,dialog);
+		_.showDialog(_.dialogChain[0]);
+	},
+	
 	nextDialog: function() {
 		_.dialogChain.splice(0, 1);
 		if(_.dialogChain.length) {
@@ -10,6 +22,84 @@ $.extend(_, {
 		} else {
 			_.dialogFrame.hide();
 		}
+	},
+		
+	getAuthBox: function(parent){
+		var authForm = _.createDiv("DCWAuthForm",  "DCWAuthForm");
+			
+		var loginTextBox = $(document.createElement('input'));
+		loginTextBox.attr("id","DCWLoginTextBox");
+		loginTextBox.attr("value", _.lang.login);
+		loginTextBox.addClass('DCWInput');
+		loginTextBox.addClass('DCWAuthAltInput');
+		
+		loginTextBox.focus(function() {
+			that = $(this);
+			if(that.hasClass('DCWAuthAltInput')) {
+				that.attr("value","");
+				that.removeClass('DCWAuthAltInput');
+				that.addClass('DCWAuthInput');
+			}
+		});
+		
+		loginTextBox.blur(function() {
+			that = $(this);
+			if(that.attr('value')=='') {
+				that.attr("value", "login");
+				that.removeClass('DCWAuthInput');
+				that.addClass('DCWAuthAltInput');
+			}
+		});
+		
+		authForm.append(_.createDiv("DCWAuthBoxWrapper")
+			.append(loginTextBox));
+		
+		var passAltText = $(document.createElement('input'));
+		passAltText.attr("id","DCWPasswordAltText");
+		passAltText.addClass('DCWAuthAltInput');
+		passAltText.attr("value", _.lang.password);
+		
+		var passwordTextBox = $(document.createElement('input'));
+		passwordTextBox.attr("id","DCWPassTextBox");
+		passwordTextBox.attr("type","password");
+		passwordTextBox.addClass('DCWInput');
+		passwordTextBox.addClass('DCWAuthInput');
+		
+		var passWrapper = _.createDiv("DCWAuthBoxWrapper");
+		
+		passWrapper.append(passAltText);
+		passWrapper.append(passwordTextBox);
+		authForm.append(passWrapper);
+		
+		passwordTextBox.hide();
+		
+		passAltText.focus(function() {
+			that = $(this);
+			that.hide();
+			passwordTextBox.show();
+			passwordTextBox.focus();
+		});
+		
+		passwordTextBox.blur(function() {
+			that = $(this);
+			if(that.attr('value')=='') {
+				that.hide();
+				passAltText.show();
+			}
+		});
+		
+		var btnOk = _.createButton(_.lang.ok, 'DCWOrderButton');
+		var thisObj = this;
+		btnOk.click(function() {
+			that = $(this);
+			
+			_.authorize(loginTextBox.attr('value'), passwordTextBox.attr('value'), function(){_.getAllOrders(parent); _.nextDialog();});
+		});
+		
+		authForm.append(this.createDiv("DCWAuthBoxWrapper")
+			.append(btnOk));
+			
+		return authForm;
 	},
 	
 	getUrlVars: function() {
@@ -97,15 +187,8 @@ $.extend(_, {
 			
 		_.dialogFrame.ajaxError(function() {
 			_.ajaxOk = false;
-			_.newDialog(_.createDiv().html(_.lang.connectionError));
+			_.urgentDialog(_.createDiv().html(_.lang.connectionError));
 		});
-	},
-	
-	newDialog: function(dialog) {
-		_.dialogChain.push(dialog);
-		if(!_.dialogFrame.is(':visible')) {
-			_.showDialog(_.dialogChain[0]);
-		}
 	},
 	
 	getElementById: function(array, id) {
