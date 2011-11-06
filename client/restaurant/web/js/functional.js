@@ -1,4 +1,5 @@
 $.extend(_, {
+	role: 'RestaurantBarman',
 	
 	parseAllOrders: function(data, parent) {
 		$(data).each(function(index){

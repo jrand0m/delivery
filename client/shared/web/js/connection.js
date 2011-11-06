@@ -1,10 +1,11 @@
 $.extend(_, {
 	authorize: function(login, password, onSuccess){
 		$.ajax({
-			url: '/api/a',
-			data: {'message': {'login':login, 'password': password}},
+			url: '/login',
+			type: 'POST',
+			data: {'username':login, 'password':password, remember:true},
 			success: function(data) {
-				if(data.status) {
+				if(data.role==_.role) {
 					onSuccess();
 				}
 			}
@@ -16,7 +17,7 @@ $.extend(_, {
 			_.updateTimes(parent);
 			
 			$.ajax({
-				url: '/api/g?id=1&from=' + parent.lastOrderTime,
+				url: '/api/g?from=' + parent.lastOrderTime,
 				success: function(data) {
 					_.parseNewOrders(data, parent);
 				}
@@ -30,7 +31,7 @@ $.extend(_, {
 	
 	getAllOrders: function(parent) {
 		$.ajax({
-			url: '/api/g?id=1',
+			url: '/api/g',
 			success: function(data) {
 				_.parseAllOrders(data, parent);
 			}

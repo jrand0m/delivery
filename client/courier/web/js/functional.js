@@ -1,4 +1,6 @@
 $.extend(_, {
+	role: 'CourierUser',
+	
 	parseAllOrders: function(data, parent) {
 		$(data).each(function(index){
 			if(this.status == "SENT") {
