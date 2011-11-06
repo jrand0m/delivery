@@ -17,7 +17,7 @@ $.extend(_, {
 			_.updateTimes(parent);
 			
 			$.ajax({
-				url: '/api/g?from=' + parent.lastOrderTime,
+				url: '/api/g?from=' + (parent.lastOrderTime),
 				success: function(data) {
 					_.parseNewOrders(data, parent);
 				}

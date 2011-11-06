@@ -1,7 +1,7 @@
 DCWLang.en = {
 	init: function() {
 		DCWLang.testVal = 'testtest',
-		DCWLang.connectionError = 'Connection error! Press F5, please';
+		DCWLang.connectionError = 'Connection error! Try reloading page, please';
 		DCWLang.login = 'login';
 		DCWLang.password = 'password';
 		DCWLang.ok = 'ok';

@@ -1,7 +1,7 @@
 DCWLang.ua = {
 	init: function() {
 		DCWLang.testVal = 'тесттест';
-		DCWLang.connectionError = "Помилка з'єднання! Натисніть 'F5', будь-ласка.";
+		DCWLang.connectionError = "Помилка з'єднання! Обновіть сторінку, будь-ласка.";
 		DCWLang.login = 'логін';
 		DCWLang.password = 'пароль';
 		DCWLang.ok = 'добре';

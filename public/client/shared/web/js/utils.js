@@ -220,6 +220,6 @@ $.extend(_, {
 	
 	formatCurrencyString: function(string) {
 		var index = string.length - 2;
-		return string.slice(0,index) + ":" + string.slice(index);
+		return string.slice(0,index) + "." + string.slice(index);
 	}
 });
