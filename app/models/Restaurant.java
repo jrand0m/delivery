@@ -93,7 +93,7 @@ public class Restaurant extends Model {
 	/**
 	 * Associated device
 	 * */
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	public RestaurantDevice device;
 	/**
 	 * loginable users

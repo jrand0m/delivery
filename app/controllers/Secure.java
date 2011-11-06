@@ -3,6 +3,7 @@
  */
 package controllers;
 
+import models.users.User;
 import play.data.validation.Required;
 import play.libs.Crypto;
 import play.mvc.Before;
@@ -34,12 +35,12 @@ public class Secure extends Controller {
 	}
 
 	private static void check(Check check) throws Throwable {
-		/*for (UserRoles profile : check.value()) {
-			boolean hasProfile = (Boolean) Security.invoke("check", profile);
+		for (Class<? extends User> clazz : check.value()) {
+			boolean hasProfile = (Boolean) Security.invoke("check", clazz);
 			if (!hasProfile) {
-				Security.invoke("onCheckFailed", profile);
+				Security.invoke("onCheckFailed", clazz);
 			}
-		}*/
+		}
 	}
 
 	// ~~~ Login

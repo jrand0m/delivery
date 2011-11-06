@@ -76,8 +76,6 @@ public abstract class User extends Model {
 	 * url that will be redirected to after login;
 	 * @return relative url or null if no such preference
 	 * */
-	/*abstract*/ public String landingUrl(){
-		return null;
-	};
+	abstract public String landingUrl();
 
 }

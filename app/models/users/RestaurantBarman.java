@@ -14,4 +14,9 @@ import javax.persistence.Entity;
 @DiscriminatorValue("B")
 public class RestaurantBarman extends RestaurantUser {
 
+	@Override
+	public String landingUrl() {
+		return "/client/restaurant/web/main.html";
+	}
+
 }
