@@ -7,7 +7,7 @@ var cngcty = #{jsAction @Application.changeCity(':id') /}
 </script>
 #{/set}
 #{set 'breadCrumb' }
-<label class="forsel">Місто:</label>
+<!--label class="forsel">Місто:</label>
 <div class="selWrap selWrapPp">
 	<p id="selText1" class="selText"></p>
 	<ul id="selDrop1" class="selDrop">
@@ -15,7 +15,7 @@ var cngcty = #{jsAction @Application.changeCity(':id') /}
 		<li id ="${city.getId()}" class=" ${city.getId().toString()==session.get(controllers.Application.SESSION_KEYS.CITY_ID)?'selected':''  }" >${city.getLocalizedName()},</li>
 #{/list}
 	</ul>
-</div>
+</div-->
 <label class="forsel">Тип ресторану:</label>
 <div class="selWrap selWrapPp">
 	<p id="selText2"  class="selText"></p>
