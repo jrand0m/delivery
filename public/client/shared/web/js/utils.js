@@ -221,5 +221,32 @@ $.extend(_, {
 	formatCurrencyString: function(string) {
 		var index = string.length - 2;
 		return string.slice(0,index) + "." + string.slice(index);
+	},
+	
+	getDishesList: function(dishes) {
+		alert(JSON.stringify(dishes));
+		var parentDishesDiv = this.createDiv();
+		$(dishes).each(function(elem){
+			var dishDom = _.createDiv('DCWDishContent');
+			dishDom.append(_.createDiv('DCWDishPrice').text(
+				_.formatCurrencyString(dishes[elem].pricePerItem+"")));
+			dishDom.append(_.createSpan('DCWDishNumber').text(elem + '. '));
+			dishDom.append(_.createSpan('DCWDishCount').text(dishes[elem].count));
+			dishDom.append(_.createSpan('DCWDishName').text(dishes[elem].name));
+			/*if(dishes[elem].list && dishes[elem].list.length != 0) {
+				var dishIngredients = _.createDiv('DCWDishIngredient');
+				$(dishes[elem].list).each(function(dish) {
+					dishIngredients.append(this.name);
+				});
+				
+				dishDom.append(dishIngredients);
+			};*/
+			parentDishesDiv.append(dishDom);
+		});
+		return parentDishesDiv;
+	},
+	
+	vibrateDevice: function() {
+		External.vibrate();
 	}
 });
