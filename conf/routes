@@ -38,4 +38,4 @@ POST		/api/a									Secure.authenticate
 ######## Modules #############
 ##############################
 
-*     /     									module:messages
+#*     /     									module:messages
