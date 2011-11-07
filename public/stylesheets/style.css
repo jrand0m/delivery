@@ -27,7 +27,7 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-chi
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a{color: #fff; font-size: 22px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a:hover{text-decoration:none; text-shadow:0px 0px 2px #fff;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive a{text-decoration: none;}
-div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 34px; background-color: #e83f0b; display: none; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
+div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 34px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form{float: left; margin-left: 6px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{font-size: 17px; margin-top: 3px; border: none; height: 28px; line-height: 28px; width: 360px; border-radius: 0 5px 5px 0; padding: 0 35px 0 5px; font-family: Open Sans Condensed, sans-serif;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{
@@ -45,7 +45,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrap
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a.selected {background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {font-family: Tahoma;color: #FFFFFF; float: right; font-size: 13px; line-height: 33px; margin-right: 10px; text-decoration:none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; text-shadow:0px 0px 2px #fff;}
-div#wrapper div#wrapper_inner div#header div.header_bottom a.back {padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
+div#wrapper div#wrapper_inner div#header div.header_bottom a.back {visibility:visible !important;padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
 .jNiceHidden {display: none;}
 
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap{margin-top: 3px; border-radius: 2px 0px 0px 2px; min-width: 118px; position: relative; height: 28px; float: left; background: #fff;}
@@ -145,7 +145,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table 
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover th a{background-position: 0 -24px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p{line-height: 19px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child{ width: 75px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child sup {text-decoration: underline;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child sup {text-decoration: underline; }
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p.descr{font-size: 13px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td{padding: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr.od{background-color: #f5f5f5;}
