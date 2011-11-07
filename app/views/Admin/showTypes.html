@@ -1,0 +1,9 @@
+#{extends 'main-admin.html' /}
+
+<table border="1">
+<tr> <th>Type</th> <th>Actions</th> </tr>
+#{list items:types, as:'type'}
+<tr>
+<td>${type.categoryDisplayNameUA}</td><td><a href="#">edit</a></td>
+</tr>
+#{/list}
