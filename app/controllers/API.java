@@ -45,8 +45,8 @@ public class API extends Controller {
 	// TODO extract to Order HQL
 	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
 			+ " = ? and " + Order.FIELDS.ORDER_STATUS + " in (?,?,?) ";
-	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN
-			+ " and " + Order.FIELDS.UPDATED + " > ?";
+	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
+			+ " = ? and " + Order.FIELDS.ORDER_STATUS + " in (?) and " + Order.FIELDS.ORDER_CONFIRMED + " > ?";
 	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
 			+ "."
 			+ Restaurant.FIELDS.RESTAURANT_CITY
@@ -72,8 +72,8 @@ public class API extends Controller {
 		if (from != null) {
 			Date date = new Date(from);
 			orders = Order.find(JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM,
-					restaurant, OrderStatus.ACCEPTED, OrderStatus.COOKED,
-					OrderStatus.CONFIRMED, date).fetch();
+					restaurant, OrderStatus.CONFIRMED, date).fetch();
+			
 			/*
 			 * for (Iterator<Order> it = orders.iterator(); it.hasNext();){
 			 * Order o = it.next();
