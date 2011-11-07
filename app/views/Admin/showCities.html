@@ -1,0 +1,11 @@
+#{extends 'main-admin.html' /}
+
+<table border="1">
+<tr> <th>City Name</th> <th>Display</th> <th>Actions</th> </tr>
+#{list items:cities, as:'city'}
+<tr>
+<td>${city.cityNameUA}</td><td>${city.display}</td> <td><a href="#">edit</a></td>
+</tr>
+#{/list}
+</table>
+
