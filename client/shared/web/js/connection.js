@@ -1,4 +1,16 @@
 $.extend(_, {
+	authorize: function(login, password, onSuccess){
+		$.ajax({
+			url: '/api/a',
+			data: {'message': {'login':login, 'password': password}},
+			success: function(data) {
+				if(data.status) {
+					onSuccess();
+				}
+			}
+		});
+	},
+	
 	getNewOrders: function(parent) {
 		if(_.ajaxOk) { 
 			_.updateTimes(parent);
