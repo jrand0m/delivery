@@ -17,8 +17,9 @@ $.extend(_, {
 			_.updateTimes(parent);
 			
 			$.ajax({
-				url: '/api/g?from=' + parent.lastOrderTime,
+				url: '/api/g?from=' + (parent.lastOrderTime),
 				success: function(data) {
+					//alert(JSON.stringify(data));
 					_.parseNewOrders(data, parent);
 				}
 			});
@@ -33,6 +34,7 @@ $.extend(_, {
 		$.ajax({
 			url: '/api/g',
 			success: function(data) {
+					//alert(JSON.stringify(data));
 				_.parseAllOrders(data, parent);
 			}
 		});

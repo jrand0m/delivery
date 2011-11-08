@@ -181,18 +181,6 @@ $.extend(_, {
 		$('#DCWPendingOrdersCount').text(pendingOrdersCount);
 		$('#DCWActiveOrdersCount').text(activeOrdersCount);
 	},
-	
-	getDishesList: function(dishes) {
-		var parentDishesDiv = _.createDiv();
-		$(dishes).each(function(elem){
-			var dishDom = _.createDiv('DCWDishContent');
-			dishDom.append(_.createDiv('DCWDishName').text(dishes[elem].name));
-			dishDom.append(_.createDiv('DCWDishCount').text(dishes[elem].count));
-			dishDom.append(_.createDiv('DCWDishPrice').text(_.formatCurrencyString(dishes[elem].pricePerItem+'')));
-			parentDishesDiv.append(dishDom);
-		});
-		return parentDishesDiv;
-	},
 		
 	getRejectBtn: function(orderElem, orders) {
 		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton DCWRejectButton');

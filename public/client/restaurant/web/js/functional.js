@@ -2,17 +2,22 @@ $.extend(_, {
 	role: 'RestaurantBarman',
 	
 	parseAllOrders: function(data, parent) {
+		var doVibrate = 0;
 		$(data).each(function(index){
 			var elem = this;
+			var doVibrate = 0;
 			if(elem.status == "CONFIRMED") {
 				var elemDom = _.getNewOrderDiv(elem, parent);
 				parent.newOrdersContent.append(elemDom);
+				doVibrate = 1;
 			} else if(elem.status == "ACCEPTED") {
 				elem.timeFinished = new Date().getTime()
 					+ elem.timeToFinish;
 				parent.activeOrdersContent.append(_.getActiveOrderDiv(elem, parent));
+				doVibrate = 1;
 			} else if(elem.status == "COOKED") {
 				parent.activeOrdersContent.append(_.getActiveOrderDiv(elem, parent, true));
+				doVibrate = 1;
 			}
 			if(elem.time > parent.lastOrderTime)parent.lastOrderTime = elem.time;
 			
@@ -20,14 +25,20 @@ $.extend(_, {
 				this.refresh();
 			});
 		});
+		
+		if(doVibrate) {
+			_.vibrateDevice();
+		}
 	},
 	
 	parseNewOrders: function(data, parent) {
+		var doVibrate = 0;
 		$(data).each(function(index){
 			var elem = this;
 			if(elem.status == "CONFIRMED") {
 				var elemDom = _.getNewOrderDiv(elem, parent);
 				parent.newOrdersContent.append(elemDom);
+				doVibrate = 1;
 				if(elem.time > parent.lastOrderTime)parent.lastOrderTime = elem.time;
 			}
 			
@@ -35,22 +46,12 @@ $.extend(_, {
 				this.refresh();
 			});
 		});
+		
+		if(doVibrate) {
+			_.vibrateDevice();
+		}
 	},
 	
-	getDishesList: function(dishes) {
-		var parentDishesDiv = this.createDiv();
-		$(dishes).each(function(elem){
-			var dishDom = _.createDiv('DCWDishContent');
-			dishDom.append(_.createDiv('DCWDishPrice').text(
-				_.formatCurrencyString(dishes[elem].pricePerItem+"")));
-			dishDom.append(_.createSpan('DCWDishNumber').text(elem + '. '));
-			dishDom.append(_.createSpan('DCWDishCount').text(dishes[elem].count));
-			dishDom.append(_.createSpan('DCWDishName').text(dishes[elem].name));
-			parentDishesDiv.append(dishDom);
-		});
-		return parentDishesDiv;
-	},
-
 	getNewOrderDiv: function(orderElem, parent) {
 		
 		var orderDiv = _.createDiv("DCWOrderDiv");
