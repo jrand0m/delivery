@@ -224,7 +224,6 @@ $.extend(_, {
 	},
 	
 	getDishesList: function(dishes) {
-		alert(JSON.stringify(dishes));
 		var parentDishesDiv = this.createDiv();
 		$(dishes).each(function(elem){
 			var dishDom = _.createDiv('DCWDishContent');

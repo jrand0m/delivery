@@ -96,7 +96,7 @@ var DCWMain = {
 		$('#DCWMainOrderTable').append(row);
 		
 		var thisObj = this;
-		
+		document.addEventListener('touchmove', function(e){ e.preventDefault(); });
 		$('.DCWContentWrapper').each(function(el){
 			thisObj.myScroll.push(new iScroll(this, { snap: false, bounce: false,  momentum:false, hScrollbar:false, vScrollbar:false }));
 		});
