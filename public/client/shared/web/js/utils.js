@@ -247,5 +247,13 @@ $.extend(_, {
 	
 	vibrateDevice: function() {
 		if (typeof External !== 'undefined')External.vibrate();
+		_.evalSound('audio1');
+		//document.getElementById('audio2').play();
+	},
+	
+	evalSound: function(soundobj) {
+		var thissound=document.getElementById(soundobj);
+		thissound.play();
+		
 	}
 });

@@ -1,5 +1,6 @@
 body {background:url("../../../shared/web/img/bodyBG.png") repeat scroll 0 0 transparent; font-family:Tahoma}
 BODY {margin: 0; padding: 0;}
+#audio1 {display: none;}
 
 .DCWFake {width: 1px; height: 1px; font-size: 1px; position: absolute; line-height: 1px; overflow: hidden;}
 #DCWMainOrderTable {width: 100%; height: 100%; border-spacing: 0;}
