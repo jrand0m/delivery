@@ -244,6 +244,10 @@ $.extend(_, {
 			}
 		));
 		
+		rejectDialog.append(_.createButton(_.lang.cancel).click(function(){
+			_.nextDialog();
+		}));
+		
 		return rejectDialog;
 	},
 	

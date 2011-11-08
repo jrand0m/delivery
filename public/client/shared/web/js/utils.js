@@ -246,6 +246,6 @@ $.extend(_, {
 	},
 	
 	vibrateDevice: function() {
-		External.vibrate();
+		if (typeof External !== 'undefined')External.vibrate();
 	}
 });

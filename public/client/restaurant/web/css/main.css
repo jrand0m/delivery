@@ -12,6 +12,7 @@ BODY {margin: 0; padding: 0;}
 .DCWDialogFrame {opacity: 1; left: 50%; top: 50%; position: fixed; z-index: 101; background-color: #fff;}
 
 .DCWOrdersColumn {vertical-align: top; width: 50%; overflow: hidden;}
+.DCWContentWrapper {overflow-y: auto;}
 .DCWOrdersColumnContent {}
 #DCWNewOrdersColumn .DCWOrderDiv{border:1px solid #e83f0b; border-radius: 5px;}
 #DCWActiveOrdersColumn .DCWOrderDiv{border:1px solid #0b0be8; border-radius: 5px;}

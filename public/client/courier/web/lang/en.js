@@ -25,5 +25,6 @@ DCWLang.en = {
 		DCWLang.orderCount = 'count:';
 		DCWLang.updatedCount = 'updated:';
 		DCWLang.wasRejected = 'One of orders, that you have accepted, was rejected!';
+		DCWLang.cancel = 'cancel';
 	}
 }
