@@ -74,10 +74,11 @@ var rid = ${restaurant.id};
 							for (int base = 0; base < size; base+=4) { 
 						}%
 							<tr>
-<!--							%{
+							%{
 								for (int i = base; (i< base+4)&&( size > i); i++ ){
 									models.MenuItemGroup grp = menuItems.get(i);
-							}% -->
+							}% 
+
 									<td><a href="#${grp.anchorName()}">${grp.name}</a></td>
 							%{
 								}

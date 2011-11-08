@@ -1,0 +1,21 @@
+#{extends 'main-admin.html' /}
+<div style="color:red;background-color:silver;">${message}</div>
+#{form @Admin.addCategory() , id:'form', enctype:'multipart/form-data' } 
+<div>
+<label for="group.name">name</label>
+<input type="text" name="group.name" />
+</div>
+<div>
+<label for="group.description">description</label>
+<input type="text" name="group.description" />
+</div>
+<div>
+<label for="id">Restaurant</label>
+#{select 'id', value:1, name:'id',  id:'id'}
+#{list items:restaurants, as:'restaurant'}
+#{option restaurant.id} ${restaurant.title} #{/option}
+#{/list}
+#{/select}
+</div>
+<input type="submit" />
+#{/form}
