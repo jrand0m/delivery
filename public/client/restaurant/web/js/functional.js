@@ -207,7 +207,7 @@ $.extend(_, {
 	
 	initColunHeight: function() {
 		$('.DCWContentWrapper').each(function(el){
-			$(this).height($(window).height());
+			$(this).height($(window).height() - 5);
 		});
 	}, 
 	

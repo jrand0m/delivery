@@ -106,7 +106,8 @@ var DCWMain = {
 				thisObj.myScroll.push(_.initScroll($(this).attr('id')));
 			});
 		}
-
+		
+		_.initColunHeight();
 		$(window).resize(function() {
 			_.initColunHeight();
 		});
