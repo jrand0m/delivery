@@ -45,7 +45,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrap
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a.selected {background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {font-family: Tahoma;color: #FFFFFF; float: right; font-size: 13px; line-height: 33px; margin-right: 10px; text-decoration:none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; text-shadow:0px 0px 2px #fff;}
-div#wrapper div#wrapper_inner div#header div.header_bottom a.back {padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
+div#wrapper div#wrapper_inner div#header div.header_bottom a.back {visibility:visible !important;padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
 .jNiceHidden {display: none;}
 
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap{margin-top: 3px; border-radius: 2px 0px 0px 2px; min-width: 118px; position: relative; height: 28px; float: left; background: #fff;}
@@ -145,7 +145,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table 
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover th a{background-position: 0 -24px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p{line-height: 19px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child{ width: 75px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child sup {text-decoration: underline;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child sup {text-decoration: underline; }
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p.descr{font-size: 13px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td{padding: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr.od{background-color: #f5f5f5;}
@@ -187,7 +187,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{height: 25px; width: 200px; padding: 0 10px; line-height: 25px; font-size: 16px; font-family: Open Sans Condensed; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .err{ color: #E83F0B; margin-left: 10px; text-decoration: blink;}
 /*div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input.wrong_data{border: 2px solid #E83F0B; box-shadow: 1px 1px 1px #E83F0B; position: relative; top: 10px;}*/
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{color: #E83F0B; display: block; font-family: tahoma; font-size: 12px;  margin-left: 13px;  margin-top: -11px;  position: absolute;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{color: #E83F0B; display: block; font-family: tahoma; font-size: 12px;  margin-left: 13px;  margin-top: -15px;  position: absolute;}
 .jRadioWrapper {z-index: 2; position: relative; float: left; margin-right: 22px; margin-top: 10px;}
 .jNiceRadio {background: transparent url(/public/images/radio.jpg) no-repeat center top; height: 17px; width: 17px; position:absolute; left:0px; top:0px; cursor:pointer; vertical-align:middle;}
 .jNiceChecked {background-position: center bottom;}
@@ -338,3 +338,4 @@ div#wrapper div#wrapper_inner div#content div.left_cont table.adr th a span{bord
 div#wrapper div#wrapper_inner div#content div.left_cont table.adr td div{padding-top: 30px; position: absolute; width: 0px; right: -295px; top: 0; overflow: hidden; height: 185px; z-index: 10; background-color: #f5f5f5;}
 
 
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses, div#wrapper div#wrapper_inner div#header div.header_top div.right_links, div#wrapper div#wrapper_inner div#header div.header_bottom a.enter, div#wrapper div#wrapper_inner div#header div.header_bottom form{visibility: hidden;}
