@@ -57,17 +57,6 @@ models.users.EndUser(usr_uzor):
     lastLoginDate: 2010-09-08
     deleted: false
 
-models.users.SystemAdministrator(usr_admin):
-    name: Admin
-    surname: Admin
-    phoneNumber: "+380630683088"
-    miscInfo: admin
-    email: admin@gmail.com
-    login: admin
-    password: "123"
-    userStatus: ACTIVE
-    joinDate: 2010-09-08
-    lastLoginDate: 2010-09-08
 models.users.CourierUser(usr_c1):
     name: c1
     surname: Admin
