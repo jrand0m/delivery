@@ -14,5 +14,15 @@ models.settings.SystemSetting(stng_guessCity):
     stg_key: "guessCityByIpEnabled"
     stg_value: "false"
     isDefaultSetting: true    
-
+models.users.SystemAdministrator(usr_admin):
+    name: Admin
+    surname: Admin
+    phoneNumber: "+380630683088"
+    miscInfo: admin
+    email: admin@gmail.com
+    login: admin
+    password: "271828183"
+    userStatus: ACTIVE
+    joinDate: 2010-09-08
+    lastLoginDate: 2010-09-08
 

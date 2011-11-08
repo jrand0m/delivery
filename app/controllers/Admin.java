@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import models.MenuItem;
@@ -68,10 +69,49 @@ public class Admin extends Controller {
 		
 	}
 	
-	public static void addType         (){}
-	public static void addCategory     (){}
-	public static void addMenuItem     (){}
+	public static void addType         (RestaurantCategory cat){
+		if (cat == null){
+			renderArgs.put("message", "Please create new one.");
+			render();
+		}
+		cat.create();
+		renderArgs.put("message", "Sucessfuly added : "+ cat.categoryDisplayNameUA);
+		render();
+	}
+	public static void addCategory     (MenuItemGroup group, Restaurant id){
+		List<Restaurant>restaurants = Restaurant.findAll();
+		renderArgs.put("restaurants",restaurants);
+		if (group==null || id ==null){
+			renderArgs.put("message", "Please create new one.");
+			render();
+		}
+		Restaurant r = Restaurant.findById(id);
+		group.restaurant = r;
+		group.create();
+		renderArgs.put("message", "Sucessfuly added : "+ group.name);
+		render();
+	}
+	public static void addMenuItem     (MenuItem item, Restaurant id,MenuItemGroup groupid){
+		List<Restaurant>restaurants = Restaurant.findAll();
+		renderArgs.put("restaurants",restaurants);
+		List<MenuItemGroup> groups = MenuItemGroup.findAll();
+		renderArgs.put("groups",groups);
+		if (item == null || id == null || groupid == null){
+			renderArgs.put("message", "Please create new one.");
+			render();
+		}
+		item.menuItemCreated = new Date();
+		item.restaurant = Restaurant.findById(id);
+		item.menuItemGroup = MenuItemGroup.findById(groupid);
+		item.create();
+		renderArgs.put("message", "Please create new one.");
+		render();
+	}
 	public static void addCity(City city){
+		if (city == null ){
+			render();
+		}
+		
 		
 	}
 	public static void addRestaurant(Restaurant restaurant, Long catid, Long cityid){	
