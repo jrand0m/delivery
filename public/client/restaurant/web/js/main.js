@@ -23,7 +23,7 @@ var DCWMain = {
 			_.noTab(event);
 		});
 		fake.click(function(){
-			_.newDialog(thisObj.getCV());
+			//_.newDialog(thisObj.getCV());
 		});
 		
 		fake.attr("href", "#");
