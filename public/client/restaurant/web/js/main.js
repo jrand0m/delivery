@@ -23,7 +23,7 @@ var DCWMain = {
 			_.noTab(event);
 		});
 		fake.click(function(){
-			_.newDialog(thisObj.getCV());
+			//_.newDialog(thisObj.getCV());
 		});
 		
 		fake.attr("href", "#");
@@ -65,7 +65,7 @@ var DCWMain = {
 		this.newOrdersContent = _.createDiv("DCWOrdersColumnContent", "DCWNewOrdersColumnContent");
 		
 		newOrders.append(
-			_.createDiv('DCWContentWrapper')
+			_.createDiv('DCWContentWrapper', 'DCWNewOrdersContentWrapper')
 				.append(this.newOrdersContent
 					.append(_.createDiv("DCW10px").text(' '))));
 		row.append(newOrders);
@@ -82,7 +82,7 @@ var DCWMain = {
 		row.append(tableSeparator);
 		
 		activeOrders.append(
-			_.createDiv('DCWContentWrapper')
+			_.createDiv('DCWContentWrapper', 'DCWActiveOrdersContentWrapper')
 				.append(this.activeOrdersContent
 					.append(_.createDiv("DCW10px").text(' '))));
 		row.append(activeOrders);
@@ -96,15 +96,23 @@ var DCWMain = {
 		$('#DCWMainOrderTable').append(row);
 		
 		var thisObj = this;
+		//document.addEventListener('touchmove', function(e){ e.preventDefault(); });
 		
-		$('.DCWContentWrapper').each(function(el){
-			thisObj.myScroll.push(new iScroll(this, { snap: false, bounce: false,  momentum:false, hScrollbar:false, vScrollbar:false }));
-		});
-
+		var ua = navigator.userAgent.toLowerCase();
+		var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+		if(isAndroid) {
+			document.addEventListener('touchmove', _.preventDefaultScroll, false);
+			$('.DCWOrdersColumnContent').each(function(el){
+				thisObj.myScroll.push(_.initScroll($(this).attr('id')));
+			});
+		}
+		
+		_.initColunHeight();
 		$(window).resize(function() {
 			_.initColunHeight();
 		});
 
+		//_.getAllOrders(this);
 		_.newDialog(_.getAuthBox(this));
 	}
 };

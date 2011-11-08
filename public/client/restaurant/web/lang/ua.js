@@ -15,5 +15,6 @@ DCWLang.ua = {
 		DCWLang.timeConfirmed = '';
 		DCWLang.time = ' хв.';
 		DCWLang.price = 'ціна: ';
+		DCWLang.cancel = 'відміна';
 	}
 }

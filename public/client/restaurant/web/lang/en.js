@@ -14,5 +14,6 @@ DCWLang.en = {
 		DCWLang.timeConfirmed = '';
 		DCWLang.time = ' min';
 		DCWLang.price = 'price: ';
+		DCWLang.cancel = 'cancel';
 	}
 }

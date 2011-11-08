@@ -224,14 +224,13 @@ $.extend(_, {
 	},
 	
 	getDishesList: function(dishes) {
-		alert(JSON.stringify(dishes));
 		var parentDishesDiv = this.createDiv();
 		$(dishes).each(function(elem){
 			var dishDom = _.createDiv('DCWDishContent');
 			dishDom.append(_.createDiv('DCWDishPrice').text(
 				_.formatCurrencyString(dishes[elem].pricePerItem+"")));
-			dishDom.append(_.createSpan('DCWDishNumber').text(elem + '. '));
-			dishDom.append(_.createSpan('DCWDishCount').text(dishes[elem].count));
+			dishDom.append(_.createSpan('DCWDishNumber').text((elem + 1) + '. '));
+			//dishDom.append(_.createSpan('DCWDishCount').text(dishes[elem].count));
 			dishDom.append(_.createSpan('DCWDishName').text(dishes[elem].name));
 			/*if(dishes[elem].list && dishes[elem].list.length != 0) {
 				var dishIngredients = _.createDiv('DCWDishIngredient');
@@ -247,6 +246,14 @@ $.extend(_, {
 	},
 	
 	vibrateDevice: function() {
-		External.vibrate();
+		if (typeof External !== 'undefined')External.vibrate();
+		_.evalSound('audio1');
+		//document.getElementById('audio2').play();
+	},
+	
+	evalSound: function(soundobj) {
+		var thissound=document.getElementById(soundobj);
+		thissound.play();
+		
 	}
 });
