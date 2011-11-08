@@ -56,11 +56,13 @@ public abstract class User extends Model {
 	public Date lastLoginDate;
 	@Required
 	public String login;
+	@Required
 	public String usr_name;
 	public String usr_surname;
 	@Password
 	public String password;
 	@Phone
+	@Required
 	public String phoneNumber;
 
 	/**
@@ -74,8 +76,6 @@ public abstract class User extends Model {
 	 * url that will be redirected to after login;
 	 * @return relative url or null if no such preference
 	 * */
-	/*abstract*/ public String landingUrl(){
-		return null;
-	};
+	abstract public String landingUrl();
 
 }

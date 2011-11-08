@@ -27,12 +27,15 @@ GET         /courier/       staticDir:courier
 ##############################
 ########/Security ############
 ##############################
+POST		/api/a									Secure.authenticate
+*			/api/{action}							API.{action}
+* 			/power/edit/{action}					Admin.{action}
+*			/caffe/admn/{action}					RestaurantAdmin.{action}
+*			/{action}								Application.{action}
 
-* 		/loadFix								Application.loadFix
-*       /{controller}/{action}                  {controller}.{action}
 
 ##############################
 ######## Modules #############
 ##############################
 
-*     /     									module:messages
+#*     /     									module:messages

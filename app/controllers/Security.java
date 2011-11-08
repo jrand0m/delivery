@@ -65,8 +65,10 @@ public class Security extends Controller {
 	public static boolean check(Class<? extends User> userClass) {
 		if (isConnected()) {
 			User user = User.find(EndUser.HQL.BY_LOGIN, connected()).first();
-			if (userClass.isInstance((user)))
+			if (userClass.isInstance((user))){
+				renderArgs.put("user", user);
 				return true;
+			}
 			return false;
 		}
 		return false;
@@ -136,7 +138,7 @@ public class Security extends Controller {
 	 * 
 	 * @param profile
 	 */
-	static void onCheckFailed(String profile) {
+	static void onCheckFailed(Class<?extends User> profile) {
 		forbidden();
 	}
 

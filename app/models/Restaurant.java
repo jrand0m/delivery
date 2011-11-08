@@ -93,7 +93,7 @@ public class Restaurant extends Model {
 	/**
 	 * Associated device
 	 * */
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	public RestaurantDevice device;
 	/**
 	 * loginable users
@@ -139,6 +139,7 @@ public class Restaurant extends Model {
 	@OneToOne(fetch = FetchType.LAZY)
 	public WorkHours workHours;
 	public String twoLetters;
+	public String desc;
 
 	public boolean isOnline() {
 		Boolean online = (Boolean) Cache.get("isOnline_" + getId());
@@ -159,15 +160,15 @@ public class Restaurant extends Model {
 	}
 
 	public String description() {
-		String lang = Lang.get();
+		/*String lang = Lang.get();
 		for (RestaurantDescription desc : descriptions) {
 			if (desc.lang.equalsIgnoreCase(lang)) {
 				return desc.description;
 			}
-		}
-
+		}*/
+		if(desc == null || desc.isEmpty()){
 		return Messages.get("restaurant.nodescription");
-
+		}else {return desc;}
 	}
 
 	public String addressToString() {

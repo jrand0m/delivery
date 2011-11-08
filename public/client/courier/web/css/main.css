@@ -1,0 +1,34 @@
+BODY {margin: 0; padding: 0; }
+.DCWFake {width: 1px; height: 1px; font-size: 1px; position: absolute; line-height: 1px; overflow: hidden;}
+#DCWDialogBackgroundDiv {display: none;}
+#DCWDialogBackground {background: none repeat scroll 0 0 #333333; 
+	height: 100%; left: 0; opacity: 0.5; position: fixed;
+    top: 0; width: 100%; z-index: 100;}
+.DCWDialogFrame {opacity: 1; left: 50%; top: 50%; position: fixed; z-index: 101; background-color: #fff;}
+
+.DCWTabButtons {position: fixed; background-color: #fff; width: 100%;}
+	.DCWButtonsWrapper {background-color: #EEEEEE; overflow: hidden; padding: 10px;max-width: 800px; 
+		margin: 0 auto; border: 2px solid black; border-top: 0; border-radius: 0 0 5px 5px;}
+	.DCWOrdersButton {float: left; width: 100px; border: 1px solid black; cursor: pointer;  margin-right: 10px;
+		padding: 5px; background: url('../../../shared/web/img/header_top_bg.gif'); border-radius: 10px;}
+	
+.DCWOrders {max-width: 800px; margin: 0 auto; padding-top: 75px;}
+	.DCWOrdersContent {margin: 10px;}
+.DCWOrderDiv {border: 1px solid #000; border-radius: 5px; margin: 20px 0;}
+	.DCWOrderHeaderWrapper {overflow: hidden; background: url('../../../shared/web/img/rpi_h1_bg.gif'); 
+		border-radius: 5px 5px 0 0; padding: 3px 10px;}
+		.DCWOrderHeader {overflow: hidden;}
+		.DCWOrderTimeWrapper {}
+		.DCWOrderAdressWrapper {float: left; margin-right: 10px;}
+		.DCWOrderPriceWrapper {float: right;}
+		.DCWDelayedOrder .DCWOrderHeaderWrapper {background-color: #E83F0B; background-image: 0;}
+		.DCWTimeToFinish {display: inline;}
+		.DCWOrderButton {padding: 10px;}
+		.DCWOrderTimeButton {margin-right: 10px;}
+
+	.DCWRejectButton {float: right;}
+.DCWDishContent {color: #666; overflow: hidden; border-bottom: 1px dashed; padding: 3px 10px;}
+	.DCWDishName {float: left;}
+	.DCWDishCount {float: left;}
+	.DCWDishPrice {float: right;}
+

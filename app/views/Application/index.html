@@ -9,6 +9,9 @@ var loupd  = #{jsAction @Application.getLastOrders(':top') /}
 <script type="text/javascript" src="@{'/public/javascripts/mtmpl.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/index.js'}"></script>
 <script type="text/html" id="lotmpl">
+<style>
+div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
+</style>
 <div class="zaraz_item"><h2><%=itm.s%></h2><h3><%=itm.f%></h3>
 <p><%=itm.d%></p>
 </div>
@@ -29,7 +32,7 @@ var loupd  = #{jsAction @Application.getLastOrders(':top') /}
 						<input type="text" value="" name="you_restraunt" id="inpec01" />
 						<input type="submit" class="submit" name="you_restraunt_submit" value="" />
 					</form>
-#{if controllers.Security.isConnected() && !(user instanceof models.users.AnonymousEndUser)}
+#{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
 <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 <a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
 #{/if}

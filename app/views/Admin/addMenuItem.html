@@ -1,0 +1,37 @@
+#{extends 'main-admin.html' /}
+<div style="color:red;background-color:silver;">${message}</div>
+#{form @Admin.addMenuItem() , id:'form', enctype:'multipart/form-data' } 
+<div>
+<label for="id">Restaurant</label>
+#{select 'id', value:1, name:'id',  id:'id'}
+#{list items:restaurants, as:'restaurant'}
+#{option restaurant.id} ${restaurant.title} #{/option}
+#{/list}
+#{/select}
+</div>
+<div>
+<label for="groupid">Group</label>
+#{select 'groupid', value:1, name:'groupid',  id:'groupid'}
+#{list items:groups, as:'group'}
+#{option group.id} ${group.name} #{/option}
+#{/list}
+#{/select}
+</div>
+<div>
+<label for="item.name">name</label>
+<input type="text" name="item.name" />
+</div>
+<div>
+<label for="item.description">description</label>
+<input type="text" name="item.description" />
+</div>
+<div>
+<label for="item.price">Price (в   копейках)</label>
+<input type="text" name="item.price" />
+</div>
+<div>
+<label for="item.showComponents">есть компонеты ?</label>
+<input type="checkbox" name="item.showComponents" />
+</div>
+<input type="submit" />
+#{/form}

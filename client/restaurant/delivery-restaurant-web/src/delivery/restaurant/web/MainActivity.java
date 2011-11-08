@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.Menu;
@@ -91,6 +92,8 @@ public class MainActivity extends Activity {
  
      
         });
+		
+		view.addJavascriptInterface(new JavaScriptInterface(this), "External");
 		showResults();
 	}
 
@@ -116,7 +119,6 @@ public class MainActivity extends Activity {
                 }
             } else throw new Exception();
          } catch (Exception e) {
-        	 System.out.println("ololo");
         	 findViewById(R.id.web_view_err_dialog).setVisibility(View.VISIBLE);
          }
 
@@ -218,7 +220,7 @@ public class MainActivity extends Activity {
 							url = newUrl;
 							settings.edit().putString("server_url", url)
 									.commit();
-							MainActivity.this.showResults();
+							refresh();
 						}
 						dialog.dismiss();
 					}
@@ -248,16 +250,21 @@ public class MainActivity extends Activity {
 			settingsBtnClicked();
 			return true;
 		case R.id.menu_refresh:
-            findViewById(R.id.web_view_err_dialog).setVisibility(View.GONE);
-            pbc.setVisibility(View.VISIBLE);
-			showResults();
+			refresh();
 			return true;
 		}
 		return false;
 	}
 
+	private void refresh() {
+		findViewById(R.id.web_view_err_dialog).setVisibility(View.GONE);
+        pbc.setVisibility(View.VISIBLE);
+		showResults();
+	}
+	
 	@Override
 	public void onBackPressed() {
+		refresh();
 	}
 
 	@Override

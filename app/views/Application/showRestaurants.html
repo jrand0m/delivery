@@ -6,8 +6,11 @@
 var cngcty = #{jsAction @Application.changeCity(':id') /}
 </script>
 #{/set}
+<style>
+div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
+</style>
 #{set 'breadCrumb' }
-<label class="forsel">Місто:</label>
+<!--label class="forsel">Місто:</label>
 <div class="selWrap selWrapPp">
 	<p id="selText1" class="selText"></p>
 	<ul id="selDrop1" class="selDrop">
@@ -15,7 +18,7 @@ var cngcty = #{jsAction @Application.changeCity(':id') /}
 		<li id ="${city.getId()}" class=" ${city.getId().toString()==session.get(controllers.Application.SESSION_KEYS.CITY_ID)?'selected':''  }" >${city.getLocalizedName()},</li>
 #{/list}
 	</ul>
-</div>
+</div-->
 <label class="forsel">Тип ресторану:</label>
 <div class="selWrap selWrapPp">
 	<p id="selText2"  class="selText"></p>
@@ -34,7 +37,7 @@ var cngcty = #{jsAction @Application.changeCity(':id') /}
 		<li id="on">Відчинені</li>
 	</ul>
 </div>
-#{if controllers.Security.isConnected() && !(user instanceof models.users.AnonymousEndUser)}
+#{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
 <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 <a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
 #{/if}

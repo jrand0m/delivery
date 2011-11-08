@@ -1,0 +1,17 @@
+#{extends 'main-admin.html' /}
+<div style="color:red;background-color:silver;">${message}</div>
+#{form @Admin.addType() , id:'form', enctype:'multipart/form-data' } 
+<div>
+<label for="cat.categoryDisplayNameEN">Name EN</label>
+<input type="text" name="cat.categoryDisplayNameEN" />
+</div>
+<div>
+<label for="cat.categoryDisplayNameRU">Name RU</label>
+<input type="text" name="cat.categoryDisplayNameRU" />
+</div>
+<div>
+<label for="cat.categoryDisplayNameUA">Name UA</label>
+<input type="text" name="cat.categoryDisplayNameUA" />
+</div>
+<input type="submit" />
+#{/form}

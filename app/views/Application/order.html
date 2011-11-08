@@ -1,7 +1,7 @@
 ﻿#{extends 'main.html' /}
 #{set 'breadCrumb' }
 <a class="enter back" href="@{Application.showRestaurants()}" >&{'common.back'}</a>
-#{if controllers.Security.isConnected() && !(user instanceof models.users.AnonymousEndUser)}
+#{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
 <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 <a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
 #{/if}
@@ -19,7 +19,7 @@
 			</span>
 			
 			<span style="display:inline-block;width:100%; font: normal 13px Tahoma;">
-				&{'common.basket.status'}<b style="color:#E83F0B">Підтверджуєтся рестораном</b>
+				&{'common.basket.status'}<b id="statusf" style="color:#E83F0B">Підтверджуєтся рестораном</b>
 			</span>
 		</div>
 		
@@ -32,11 +32,11 @@
 					<td><span>&{'common.reg.surname'}</span>${order.orderOwner.usr_surname}</td>
 				</tr>
 				<tr>
-					<td><span>&{'common.reg.city'}</span>${order.restaurant.city}</td>
+					<td><span>&{'common.reg.city'}</span>${order.restaurant.city.getLocalizedName()}</td>
 				</tr>
 		
 				<tr>
-					<td><span>&{'common.reg.street'}</span>${order.deliveryAddress.street}</td>
+					<td><span>&{'common.reg.street'}</span>${order.deliveryAddress.street.name()}</td>
 				</tr>
 			
 				<tr>
@@ -68,9 +68,9 @@
 						<table class="total">
 			
 			
-				<tr><th><span>&{'common.basket.order'}</span></th><td><span>${order.getMenuTotal()} &{'common.uah'}</span></td></tr>
-				<tr class="pretotal"><th><span>&{'common.basket.delivery'}</span></th><td><span>${order.getDeliveryPrice()} &{'common.uah'}</span></td></tr>
-				<tr class="total"><th><span>&{'common.basket.total'}</span></th><td><span>${order.getGrandTotal()} &{'common.uah'}</span></td></tr>
+				<tr><th><span>&{'common.basket.order'}</span></th><td><span>${order.getMenuTotalString()} &{'common.uah'}</span></td></tr>
+				<tr class="pretotal"><th><span>&{'common.basket.delivery'}</span></th><td><span>${order.getDeliveryPriceString()} &{'common.uah'}</span></td></tr>
+				<tr class="total"><th><span>&{'common.basket.total'}</span></th><td><span>${order.getGrandTotalString()} &{'common.uah'}</span></td></tr>
 			</table>
 		</div>
 

@@ -14,6 +14,24 @@ models.geo.City(lviv):
     cityNameEN: Lvov
     display: true
 
+models.geo.Street(str1):
+    title_en: "Shevchekta pr"
+    title_ua: "Шевченка просп."
+    city: lviv
+    use: True
+
+models.geo.Street(str2):
+    title_en: "Shevchekta str"
+    title_ua: "Шевченка вул."
+    city: lviv
+    use: True
+
+models.geo.Street(str3):
+    title_en: "Shevchekta kolgosp"
+    title_ua: "Шевченкаколгосп"
+    city: lviv
+    use: False
+
 models.geo.City(chornobyl):
     cityNameUA: Чорнобиль
     cityNameRU: Чернобиль
@@ -50,10 +68,35 @@ models.users.SystemAdministrator(usr_admin):
     userStatus: ACTIVE
     joinDate: 2010-09-08
     lastLoginDate: 2010-09-08
+models.users.CourierUser(usr_c1):
+    name: c1
+    surname: Admin
+    phoneNumber: "+380630683088"
+    miscInfo: admin
+    email: admin@gmail.com
+    login: c1
+    password: "c1"
+    userStatus: ACTIVE
+    joinDate: 2010-09-08
+    lastLoginDate: 2010-09-08
+    city: lviv
+
+models.users.CourierUser(usr_c2):
+    name: c2
+    surname: Admin
+    phoneNumber: "+380630683088"
+    miscInfo: admin
+    email: admin@gmail.com
+    login: c2
+    password: "c2"
+    userStatus: ACTIVE
+    joinDate: 2010-09-08
+    lastLoginDate: 2010-09-08
+    city: lviv
 
 # Addresses
 models.geo.UserAddress(adr_uzor):
-    street: kreshchatyk
+    street: str2
     appartamentsNumber: "123"
     buldingNuber: "123"
     additionalInfo: knock three times
@@ -80,8 +123,26 @@ WorkHours(wrh_restaurant1):
     sunday: day_holy
     description: Standart time
     deleted: false
-#TODO       public Map<String, IrregularDay> irregularDays;
-models.users.RestaurantAdministration(res_admin):
+
+
+
+models.device.RestaurantDevice(device1):
+    lastPing: 2011-09-08
+#Restaurants
+Restaurant(restaurant1):
+    user: res1_admin
+    title: Pizza Chlentano!11
+    workHours: wrh_restaurant1
+    contactPerson: Judje Dred
+    contactPhone: "3044555555"
+    discount: 10.1
+    deleted: false
+    device: device1
+    city: lviv
+    showOnIndex: true
+    category: cat1
+models.users.RestaurantAdministration(res1_admin):
+    restaurant: restaurant1
     name: Galyna
     surname: Petrovich
     phoneNumber: "+380630683088"
@@ -93,25 +154,21 @@ models.users.RestaurantAdministration(res_admin):
     role: RESTAURANT
     joinDate: 2010-09-08
     lastLoginDate: 2010-09-08
-
-models.device.RestaurantDevice(device1):
-    lastPing: 2011-09-08
-#Restaurants
-Restaurant(restaurant1):
-    user: res_admin
-    title: Pizza Chlentano!11
-    workHours: wrh_restaurant1
-    contactPerson: Judje Dred
-    contactPhone: "3044555555"
-    discount: 10.1
-    deleted: false
-    device: device1
-    city: lviv
-    showOnIndex: true
-    category: cat1
-
+models.users.RestaurantBarman(res1_barman):
+    restaurant: restaurant1
+    name: barman
+    surname: Petrovich
+    phoneNumber: "+380630683088"
+    miscInfo: Extream Fapper Club President
+    email: g.spot@gmail.com
+    login: r1
+    password: "r1"
+    userStatus: ACTIVE
+    role: RESTAURANT
+    joinDate: 2010-09-08
+    lastLoginDate: 2010-09-08
 Restaurant(restaurant2):
-    user: res_admin
+    user: res1_admin
     title: Kriivka
     workHours: wrh_restaurant1
     contactPerson: Judje Dred
@@ -124,7 +181,7 @@ Restaurant(restaurant2):
     category: cat2
 
 Restaurant(restaurant3):
-    user: res_admin
+    user: res1_admin
     title: Pizza Chlentano! kiev
     workHours: wrh_restaurant1
     contactPerson: Judje Dred
@@ -137,7 +194,7 @@ Restaurant(restaurant3):
     category: cat1
 
 Restaurant(restaurant4):
-    user: res_admin
+    user: res1_admin
     title: Pizza Chlentano! chernobyl
     workHours: wrh_restaurant1
     contactPerson: Judje Dred
@@ -150,7 +207,7 @@ Restaurant(restaurant4):
     category: cat2
 
 Restaurant(restaurant5_hidden):
-    user: res_admin
+    user: res1_admin
     title: Restaurant noIndex
     workHours: wrh_restaurant1
     contactPerson: Judje Dred
@@ -163,7 +220,7 @@ Restaurant(restaurant5_hidden):
     category: cat1
 
 Restaurant(restaurant5_shown):
-    user: res_admin
+    user: res1_admin
     title: RestaurantIndexStub
     workHours: wrh_restaurant1
     contactPerson: Judje Dred
@@ -176,11 +233,11 @@ Restaurant(restaurant5_shown):
     category: cat2
 
 models.geo.Address(adr_restaurant):
-    street: kreshchatyk
+    street: str2
     appartamentsNumber: "123"
     buldingNuber: "123"
     additionalInfo: knock three times
-    user: res_admin
+    user: res1_admin
     deleted: false
 
 #Menu groups 
@@ -377,6 +434,7 @@ Order(order1):
     orderOwner: usr_uzor
     address: adr_uzor
     orderStatus: OPEN
+    updated: 2011-09-08
 #Order Itemz
 OrderItem(Order1Item1):
     menuItem: mit_pizza1
@@ -389,7 +447,7 @@ Order(order2):
     orderOwner: usr_uzor
     address: adr_uzor
     orderStatus: SENT
-
+    updated: 2011-09-08
 OrderItem(Order2Item1):
     menuItem: mit_pizza1
     order: order2
@@ -405,7 +463,7 @@ Order(order3):
     address: adr_uzor
     orderConfirmed: 2011-09-08
     orderStatus: CONFIRMED
-
+    updated: 2011-09-08
 OrderItem(Order3Item1):
     menuItem: mit_pizza1
     order: order3
@@ -423,7 +481,8 @@ Order(order4):
     orderConfirmed: 2011-09-08
     orderStatus: ACCEPTED
     orderPlanedCooked: 2011-11-09
-
+    updated: 2011-09-08
+    
 OrderItem(Order4Item1):
     menuItem: mit_pizza1
     order: order4

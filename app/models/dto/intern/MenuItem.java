@@ -3,12 +3,14 @@
  */
 package models.dto.intern;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CascadeType;
 
+import models.MenuItemComponent;
 import models.OrderItem;
 
 /**
@@ -23,15 +25,20 @@ public class MenuItem {
 		count = oi.count;
 		name = oi.menuItem.name;
 		pricePerItem = oi.menuItem.price;
-		// check for components
+		if (oi.selectedComponents != null && !oi.selectedComponents.isEmpty()) {
+			components = new ArrayList<MenuItem>();
+			for (MenuItemComponent mic : oi.selectedComponents) {
+				components.add(new MenuItem(mic));
+			}
+		}
 	}
 
-	/**
-	 * default eblja
-	 */
-	public MenuItem() {
-		// TODO Auto-generated constructor stub
+	public MenuItem(MenuItemComponent mic) {
+		count = 1;
+		name = mic.name();
+		pricePerItem = mic.price();
 	}
+
 	public Long mi;
 	public String name;
 	public String descr;

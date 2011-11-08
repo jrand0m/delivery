@@ -1,4 +1,4 @@
-# Saved by @messages on Sun Oct 16 18:39:43 EEST 2011
+# Saved by @messages on Mon Nov 07 22:30:06 EET 2011
 admin.restaurant.events.tabtitle=Акції
 admin.restaurant.footertext=2011&copy; Усі права захищено. <a href\="http\://vdoma.com.ua">vdoma.com.ua</a> 
 admin.restaurant.invoices.tabtitle=Розрахунки
@@ -31,7 +31,7 @@ common.basket.total=разом
 common.basket=Кошик
 common.gohome=на головну
 common.loggedinas=<span>%s</span> \:)
-common.login=Увійти в особистий кабінет
+common.login=увійти
 common.logout=вийти
 common.menu=Меню
 common.noworder=Зараз замовляють
@@ -51,8 +51,10 @@ common.reg.paymentType.card=банківською карткою
 common.reg.paymentType.cash=готівкою
 common.reg.paymentType=Тип оплати\:
 common.reg.phone=телефон
+common.reg.sname=Прізвище
 common.reg.street=вулиця
 common.reg.surname=прізвище
+common.register=зареєструватися
 common.showAll=Показати всі ресторани
 common.slogan=Втамуй свій голод вдома. Ми доставляємо\!
 common.uah=грн
@@ -75,6 +77,8 @@ reg.surname=Прізвище
 reg.title=Реєстрація
 reserved=Зарезервовано
 restaurant.admin.summary.lastorders=Останні замовлення
+restaurant.admin.summary.nocomments=Наразі немає жодних коментарів
+restaurant.admin.summary.noorders=Наразі немає жодних замовлень
 restaurant.admin.summary.textline=За сьогодні було зроблено %s замовленнь, отримано %s прибутку. 
 restaurant.network.caption=Мережа ресторанів
 restaurant.network.selectbtn=Вибрати ресторан
@@ -88,4 +92,8 @@ secure.password=Пароль \:
 secure.remember=пам'ятати мене
 secure.signin=залогуватися
 secure.title=Авторизація
-secure.username=Ім'я користувача \:
+secure.username=Ім'я користувача \:
+street.notacceptable=не вірна вулиця
+validation.email=не вірний формат адресу електронної пошти
+validation.phone=нефірний формат телефону
+validation.required=поле не може бути пустим

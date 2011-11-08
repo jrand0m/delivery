@@ -3,6 +3,7 @@
  */
 package controllers;
 
+import models.users.User;
 import play.data.validation.Required;
 import play.libs.Crypto;
 import play.mvc.Before;
@@ -34,12 +35,17 @@ public class Secure extends Controller {
 	}
 
 	private static void check(Check check) throws Throwable {
-		/*for (UserRoles profile : check.value()) {
-			boolean hasProfile = (Boolean) Security.invoke("check", profile);
-			if (!hasProfile) {
-				Security.invoke("onCheckFailed", profile);
+		boolean hasProfile = false;
+		Class<? extends User> lastclazz = null;
+		for (Class<? extends User> clazz : check.value()) {
+			if (hasProfile = (Boolean) Security.invoke("check", clazz)){
+				return;
 			}
-		}*/
+			lastclazz = clazz;
+		}
+		if (!hasProfile) {
+			Security.invoke("onCheckFailed", lastclazz);
+		}
 	}
 
 	// ~~~ Login
@@ -57,6 +63,11 @@ public class Secure extends Controller {
 			}
 		}
 		flash.keep("url");
+		if (request.isAjax()){
+			renderArgs.put("result", "false");
+			render("Secure/login.json");
+		}
+		
 		render();
 	}
 
@@ -64,13 +75,9 @@ public class Secure extends Controller {
 			boolean remember) throws Throwable {
 		// Check tokens
 		Boolean allowed = false;
-		// try {
-		// // This is the deprecated method name
-		// allowed = (Boolean)Security.invoke("authentify", username, password);
-		// } catch (UnsupportedOperationException e ) {
-		// This is the official method name
+
 		allowed = (Boolean) Security.invoke("authenticate", username, password);
-		// }
+
 		if (validation.hasErrors() || !allowed) {
 			flash.keep("url");
 			flash.error("secure.error");
@@ -84,7 +91,11 @@ public class Secure extends Controller {
 			response.setCookie("rememberme", Crypto.sign(username) + "-"
 					+ username, "30d");
 		}
-		// Redirect to the original URL (or /)
+		if (request.isAjax()){
+			renderArgs.put("result", "true");
+			renderArgs.put("role", User.find(User.HQL.BY_LOGIN, username).first().getClass().getSimpleName());
+			render("Secure/login.json");
+		}
 		redirectToOriginalURL();
 	}
 

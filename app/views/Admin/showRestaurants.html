@@ -1,0 +1,40 @@
+#{extends 'main-admin.html' /}
+#{form @Admin.showRestaurants() , id:'form', enctype:'multipart/form-data' } 
+#{select 'id', value:1, id:'id'}
+#{list items:cities, as:'city'}
+#{option city.id} ${city.cityNameUA} #{/option}
+#{/list}
+#{/select}
+
+<table border="1">
+<tr> 
+    <th>Actions</th> 
+    <th>Name</th> 
+    <th>Display</th> 
+
+</tr>
+#{list items:cities, as:'rest'}
+<tr>
+    <td><a href="#">edit</a></td>
+    <td>${city.title}</td>
+    <td>${city.twoLetters}</td>
+
+</tr>
+#{/list}
+</table>
+
+
+
+
+{*address : Address
+category : RestaurantCategory
+contactPerson : String
+contactPhone : String
+desc
+device : RestaurantDevice
+discount : Double
+logo : Blob
+raiting : Integer
+showOnIndex : boolean
+twoLetters : String
+workHours : WorkHours}*

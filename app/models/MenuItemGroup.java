@@ -21,7 +21,6 @@ public class MenuItemGroup extends Model {
 	public static final class FIELDS {
 		public static final String MENU_ITEM_GROUP_DELETED = "deleted";
 		public static final String MENU_ITEM_GROUP_DESCRIPTION = "description";
-		public static final String MENU_ITEM_GROUP_GENERIC = "generic";
 		public static final String MENU_ITEM_GROUP_NAME = "name";
 		public static final String RESTAURANT = "restaurant";
 
@@ -33,7 +32,6 @@ public class MenuItemGroup extends Model {
 	@OneToMany(mappedBy = MenuItem.FIELDS.MENU_ITEM_GROUP)
 	public List<MenuItem> items;
 	public String description;
-	public boolean generic = Boolean.FALSE;
 	public String name;
 
 	public String anchorName() {

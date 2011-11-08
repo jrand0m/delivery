@@ -113,7 +113,6 @@ var add = function (i,c){
 					$.fancybox(
 						rndr(msg),
 					{
-						//'titlePosition'		: 'inside',
 						'transitionIn'		: 'none',
 						'transitionOut'		: 'none'
 						}
@@ -123,7 +122,6 @@ var add = function (i,c){
 		Basket.add(i);		
 	}
 }
-
 var toggle = function (self){
 	var id = self.id.replace(/[^\d]/g, "");
 	cmp[id].en = self.checked;
