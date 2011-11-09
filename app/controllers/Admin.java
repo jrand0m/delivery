@@ -1,5 +1,9 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +24,10 @@ import models.settings.SystemSetting;
 import models.users.RestaurantBarman;
 import models.users.SystemAdministrator;
 import annotations.Check;
+import play.db.jpa.Blob;
 import play.db.jpa.JPABase;
 import play.db.jpa.Model;
+import play.libs.MimeTypes;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -303,6 +309,19 @@ public class Admin extends Controller {
 	public static void deleteComponent(Long id){
 		MenuItemComponent component = MenuItemComponent.findById(id);
 		component.delete();
+	}
+	public static void uploadLogo(Long id, File logo) throws FileNotFoundException{
+		List<Restaurant>restaurants= Restaurant.findAll();
+		renderArgs.put("restaurants", restaurants);
+		if (id == null){
+			render();
+		}
+		Restaurant restaurant = Restaurant.findById(id);
+
+		restaurant.logo = new Blob();
+		restaurant.logo.set(new FileInputStream(logo), MimeTypes.getContentType(logo.getName()));
+		restaurant.save();
+		
 	}
 
 }

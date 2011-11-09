@@ -79,8 +79,8 @@ public class Application extends Controller {
 		renderArgs.put(RENDER_KEYS.USER, user);
 		if (!session.contains(SESSION_KEYS.CITY_ID)) {
 			Logger.debug("No city defined in cookies");
-			session.put(SESSION_KEYS.CITY_ID,26
-					/*Application.guessCity(request.remoteAddress).getId()*/);
+			City city = City.find("display = ?", true).first();
+			session.put(SESSION_KEYS.CITY_ID, city.id					/*Application.guessCity(request.remoteAddress).getId()*/);
 		}
 		flash.put("url", request.url);
 	}

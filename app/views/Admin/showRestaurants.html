@@ -1,6 +1,7 @@
 #{extends 'main-admin.html' /}
 #{set 'navHelp'}
   <a href="@{Admin.addRestaurant}">ADD NEW !</a>
+<a href="@{Admin.uploadLogo()}"> upload logos</a>
 #{/set}
 #{set 'c__rest'}active#{/set}
 #{form @Admin.showRestaurants() , id:'form', enctype:'multipart/form-data' } 
