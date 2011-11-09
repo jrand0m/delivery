@@ -1,6 +1,8 @@
 #{extends 'main-admin.html' /}
+#{set 'c__itmCat'}active#{/set}
 <div style="color:red;background-color:silver;">${message}</div>
 #{form @Admin.addMenuItem() , id:'form', enctype:'multipart/form-data' } 
+<input type="hidden" value="${flash.item.id}" name="item.id" /> 
 <div>
 <label for="id">Restaurant</label>
 #{select 'id', value:1, name:'id',  id:'id'}

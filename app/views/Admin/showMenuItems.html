@@ -1,5 +1,5 @@
 #{extends 'main-admin.html' /}
-
+#{set 'c__items'}active#{/set}
 #{form @Admin.showMenuItems() , id:'form', enctype:'multipart/form-data' } 
 #{select 'id', value:1, id:'id'}
 #{list items:restaurants, as:'restaurant'}

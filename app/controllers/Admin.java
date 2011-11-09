@@ -68,28 +68,40 @@ public class Admin extends Controller {
 	public static void showUsers       (){
 		
 	}
-	
+	public static void showSettings 	(){
+		
+	}
 	public static void addType         (RestaurantCategory cat){
-		if (cat == null){
-			renderArgs.put("message", "Please create new one.");
+		System.out.println("cat >>>> " + cat.id);
+		if (cat.categoryDisplayNameUA == null){
+			renderArgs.put("thankmessage", "Please create new one.");
 			render();
 		}
 		cat.create();
-		renderArgs.put("message", "Sucessfuly added : "+ cat.categoryDisplayNameUA);
+		renderArgs.put("thankmessage", "Sucessfuly added : "+ cat.categoryDisplayNameUA);
 		render();
 	}
-	public static void addCategory     (MenuItemGroup group, Restaurant id){
+	public static void addCategory     (MenuItemGroup group, Long id){
 		List<Restaurant>restaurants = Restaurant.findAll();
 		renderArgs.put("restaurants",restaurants);
-		if (group==null || id ==null){
+		if (id ==null){
 			renderArgs.put("message", "Please create new one.");
 			render();
 		}
+		
 		Restaurant r = Restaurant.findById(id);
 		group.restaurant = r;
-		group.create();
+		group.save();
 		renderArgs.put("message", "Sucessfuly added : "+ group.name);
 		render();
+	}
+	public static void editCategory (Long id){
+		notFoundIfNull(id);
+		MenuItemGroup group = MenuItemGroup.findById(id);
+		List<Restaurant>restaurants = Restaurant.findAll();
+		renderArgs.put("group", group);
+		renderArgs.put("restaurants", restaurants);
+		renderTemplate("Admin/addCategory.html");
 	}
 	public static void addMenuItem     (MenuItem item, Restaurant id,MenuItemGroup groupid){
 		List<Restaurant>restaurants = Restaurant.findAll();
@@ -108,29 +120,43 @@ public class Admin extends Controller {
 		render();
 	}
 	public static void addCity(City city){
-		if (city == null ){
+		System.out.println("name =>" + city.cityNameUA + "; display =>"+request.headers.toString());
+		if (city.cityNameUA == null ){
 			render();
 		}
-		
-		
+		city.save();
+		render();
+	}
+	public static void editCity(Long id){
+		notFoundIfNull(id);
+		City city = City.findById(id);
+		notFoundIfNull(city);
+		renderArgs.put("city", city);
+		renderTemplate("Admin/addCity.html");
+	}
+	public static void editType(Long id){
+		notFoundIfNull(id);
+		RestaurantCategory cat = RestaurantCategory.findById(id);
+		notFoundIfNull(id);
+		renderArgs.put("cat", cat);
+		renderTemplate("Admin/addType.html");
 	}
 	public static void addRestaurant(Restaurant restaurant, Long catid, Long cityid){	
 	
 	}
 	
-	public static void editCity(Long id, City city){
-		
-	}
 	public static void deleteCity(){
 		
 		index();
 	}
-	public static void editRestaurant(Long id, Restaurant restaurant){
+	public static void editRestaurant(Long id){
 		
 	}
-	public static void deleteRestaurant(){
-		
-		flash.put("result", "cannot delete restaurant '' because there is some orders assigned");
+	public static void deleteRestaurant(Long id){
+		notFoundIfNull(id, "missing argument");
+		Restaurant restaurant = Restaurant.findById(id);
+		notFoundIfNull(restaurant, "restaraunt not found");
+		flash.put("errormessage", String.format("cannot delete restaurant '%s[%s]' because there is some orders assigned", restaurant.title, restaurant.id));
 		index();
 	}
 	

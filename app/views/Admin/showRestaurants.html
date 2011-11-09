@@ -1,11 +1,12 @@
 #{extends 'main-admin.html' /}
+#{set 'c__rest'}active#{/set}
 #{form @Admin.showRestaurants() , id:'form', enctype:'multipart/form-data' } 
 #{select 'id', value:1, id:'id'}
 #{list items:cities, as:'city'}
 #{option city.id} ${city.cityNameUA} #{/option}
 #{/list}
 #{/select}
-
+#{/form}
 <table border="1">
 <tr> 
     <th>Actions</th> 
@@ -13,11 +14,11 @@
     <th>Display</th> 
 
 </tr>
-#{list items:cities, as:'rest'}
+#{list items:restaurants, as:'rest'}
 <tr>
     <td><a href="#">edit</a></td>
-    <td>${city.title}</td>
-    <td>${city.twoLetters}</td>
+    <td>${rest.title}</td>
+    <td>${rest.twoLetters}</td>
 
 </tr>
 #{/list}
