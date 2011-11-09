@@ -137,7 +137,7 @@ public class Restaurant extends Model {
 	public List<RestaurantDescription> descriptions = new ArrayList<RestaurantDescription>();
 
 	@OneToOne(fetch = FetchType.LAZY)
-	public WorkHours workHours;
+	public WorkHours workHours = new WorkHours();
 	public String twoLetters;
 	public String desc;
 

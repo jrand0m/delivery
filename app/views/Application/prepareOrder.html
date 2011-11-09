@@ -4,11 +4,12 @@
     Order #${order.getShortHandId()}
 #{/set}
 #{set 'moreScripts'}
-<script type="text/javascript" src="@{'/public/javascripts/jquery.jsonSuggest-2.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery-ui-1.8.16.custom.min.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/jquery.tipsy.js'}"></script>
 #{/set}
 #{set 'moreStyles'}
  <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/tipsy.css'}" media="screen" />
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/jquery-ui-1.8.16.custom.css'}" media="screen" />
 #{/set}
 #{set 'breadCrumb' }
 <a class="enter back" href="@{Application.showMenu(order.restaurant.id)}" >&{'common.back'}</a>
@@ -137,6 +138,8 @@ var callback = function (s){
   t_h(); 
   $('input#cinp08').val(s.id); 
 }
-var obj = {data: streets, onSelect: callback};
-$('input#cinp04').jsonSuggest(obj);
+$( "input#cinp04" ).autocomplete({
+			source: streets,
+			select: callback
+		});
 </script>

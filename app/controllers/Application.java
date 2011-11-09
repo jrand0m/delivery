@@ -221,7 +221,7 @@ public class Application extends Controller {
 	 * 
 	 * */
 	public static void checkAndSend(String id, Long aid, String name,
-			Integer city, String sname, Long streetid, @Email String email,
+			Integer city, String sname, Long streetid, String street, @Email String email,
 			String app, @Phone String phone, String oplata) {
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user == null)
@@ -278,7 +278,12 @@ public class Application extends Controller {
 			if (str != null && str.city.equals(o.restaurant.city)) {
 				address.street = str;
 			} else {
-				validation.addError("address.street", "street.notacceptable");
+				Street streetObj = new Street();
+				streetObj.city = o.restaurant.city;
+				streetObj.title_ua = street;
+				streetObj.save();
+				address.street = streetObj; 
+				//validation.addError("address.street", "street.notacceptable");
 			}
 			address.appartamentsNumber = app;
 			address.user = user;

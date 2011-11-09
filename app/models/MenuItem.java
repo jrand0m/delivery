@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -37,7 +38,7 @@ public class MenuItem extends Model {
 	@ManyToOne(fetch=FetchType.LAZY)
 	public MenuItemGroup menuItemGroup;
 	@OneToMany(fetch = FetchType.EAGER)
-	public Set<MenuItemComponent> components = new HashSet<MenuItemComponent>();
+	public List<MenuItemComponent> components = new ArrayList<MenuItemComponent>();
 
 	public Date menuItemCreated;
 	public boolean showComponents = false;

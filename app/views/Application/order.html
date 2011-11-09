@@ -1,4 +1,7 @@
 ﻿#{extends 'main.html' /}
+#{set 'moreStyles'}
+<meta http-equiv="refresh" content="60">
+#{/set}
 #{set 'breadCrumb' }
 <a class="enter back" href="@{Application.showRestaurants()}" >&{'common.back'}</a>
 #{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
@@ -19,7 +22,7 @@
 			</span>
 			
 			<span style="display:inline-block;width:100%; font: normal 13px Tahoma;">
-				&{'common.basket.status'}<b id="statusf" style="color:#E83F0B">Підтверджуєтся рестораном</b>
+				&{'common.basket.status'}<b id="statusf" style="color:#E83F0B">${order.textStatus()}</b>
 			</span>
 		</div>
 		
@@ -81,9 +84,9 @@
 
 <div class="right_cont">
 	<div id="timer">
-		<span><b>&{'common.order.status'}</b> ресторан обробляє замовлення</span>
-		<span><b>&{'common.order.wait'}</b></span>
-		<span id="int">23</span>
+		<span><b>Приблизний час: </b></span>
+		<span></span>
+		<span id="int">${order.aproxTime()}</span>
 		<span id="time">&{'common.order.minutes'}</span>
 	</div>
 </div>
