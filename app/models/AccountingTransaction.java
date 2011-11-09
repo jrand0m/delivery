@@ -16,7 +16,7 @@ import play.db.jpa.Model;
 import enumerations.TransactionState;
 
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 public class AccountingTransaction extends Model {
 	public final static class FIELDS {
 		public final static String AT_AMOUNT = "amount";

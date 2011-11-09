@@ -25,7 +25,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="Uzer")
 public abstract class User extends Model {

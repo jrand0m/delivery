@@ -21,7 +21,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Address extends Model {
 	public final static class FIELDS {

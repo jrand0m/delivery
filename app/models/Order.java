@@ -31,7 +31,7 @@ import enumerations.OrderStatus;
 import enumerations.PaymentStatus;
 
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 @Table(name = "Orders")
 public class Order extends GenericModel {
 
@@ -137,7 +137,7 @@ public class Order extends GenericModel {
 	public String id;
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-	@Where(clause = "deleted = 0")
+//	@Where(clause = "deleted = 0")
 	public List<OrderItem> items = new ArrayList<OrderItem>();
 
 	/**

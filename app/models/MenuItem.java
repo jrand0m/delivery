@@ -17,7 +17,7 @@ import org.hibernate.annotations.Where;
 import play.db.jpa.Model;
 
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 public class MenuItem extends Model {
 	public static final class FIELDS {
 		public static final String MENU_ITEM_AVALIABLE = "avaliable";
