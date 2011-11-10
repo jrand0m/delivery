@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 		if (value != null && value.length() > 0) {
 			url = value;
 		} else {
-			url = "http://10.0.2.2:9000/public/client/restaurant/web/main.html";
+			url = "http://vdoma.com.ua/public/client/restaurant/web/main.html";
 			settings.edit().putString("server_url", url).commit();
 		}
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
