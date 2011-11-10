@@ -27,11 +27,9 @@ public class JavaScriptInterface {
     	int long_gap = 1000;    // Length of Gap Between Words
     	long[] pattern = {
     	    0,  // Start immediately
-    	    dot, short_gap, dot, short_gap, dot,    // s
+    	    dash, short_gap, dash, short_gap, dash,    // s
     	    medium_gap,
-    	    dash, short_gap, dash, short_gap, dash, // o
-    	    medium_gap,
-    	    dot, short_gap, dot, short_gap, dot,    // s
+    	    dash, short_gap, dot, short_gap, dash,    // s
     	    long_gap
     	};
     	 
