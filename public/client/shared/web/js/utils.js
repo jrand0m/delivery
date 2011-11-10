@@ -188,6 +188,12 @@ $.extend(_, {
 		_.dialogFrame.ajaxError(function() {
 			_.ajaxOk = false;
 			_.urgentDialog(_.createDiv().html(_.lang.connectionError));
+
+//			if (typeof External !== 'undefined') {
+//				External.refresh();
+//			}else {
+//				setTimeout("location.reload(true);", 10000);
+//			}
 		});
 	},
 	
@@ -246,14 +252,16 @@ $.extend(_, {
 	},
 	
 	vibrateDevice: function() {
-		if (typeof External !== 'undefined')External.vibrate();
-		_.evalSound('audio1');
-		//document.getElementById('audio2').play();
+		if (typeof External !== 'undefined') {
+			External.vibrate();
+			External.playNotificationSound();
+		} else {
+			_.evalSound('audio1');
+		}
 	},
 	
 	evalSound: function(soundobj) {
 		var thissound=document.getElementById(soundobj);
 		thissound.play();
-		
 	}
 });
