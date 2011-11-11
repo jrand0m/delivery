@@ -35,4 +35,5 @@ public class CaffeJobsList {
 	public String from;
 	public String to;
 	public long timeToDelivered;
+	public String phone;
 }
