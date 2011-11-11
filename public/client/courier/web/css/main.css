@@ -18,7 +18,7 @@ BODY {margin: 0; padding: 0; }
 	.DCWOrderHeaderWrapper {overflow: hidden; background: url('../../../shared/web/img/rpi_h1_bg.gif') 0 25px; 
 		border-radius: 5px 5px 0 0; padding: 3px 10px;}
 		.DCWOrderHeader {overflow: hidden;}
-		.DCWOrderTimeWrapper {}
+		.DCWOrderTimeWrapper {float: left;}
 		.DCWOrderAdressWrapper {float: left; margin-right: 10px;}
 		.DCWOrderPriceWrapper {float: right;}
 		.DCWDelayedOrder .DCWOrderHeaderWrapper {background-color: #E83F0B; background-image: 0;}
@@ -27,9 +27,12 @@ BODY {margin: 0; padding: 0; }
 		.DCWOrderTimeButton {margin-right: 10px;}
 
 	.DCWRejectButton {float: right;}
-.DCWDishContent {color: #666; overflow: hidden; border-bottom: 1px dashed; padding: 3px 10px;}
+	
+.DCWAdditionalInformation {resize: none;}
+
+.DCWDishContent {border-bottom: 1px dashed #999; color: #333; overflow: hidden; padding: 3px 10px;}
 	.DCWDishNumber {font-size: 0.8em;}
-	.DCWDishName {float: left;}
-	.DCWDishCount {float: left;}
+	.DCWDishName {}
+	.DCWDishCount {font-weight: bold; padding: 0 7px 0 8px; background-color: #FFCC00; margin-right: 5px;}
 	.DCWDishPrice {float: right;}
 	.DCWDishIngredient {border: 1px solid #AAAAAA;}

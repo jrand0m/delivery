@@ -104,6 +104,16 @@ $.extend(_, {
 				.append(_.lang.timeItem));
 			header.append(timesWrapper);
 		}
+	
+		if(element.additionalInfo) {
+			var additionalData = _.createDiv('DCWAdditionalDeliveryData').append(
+					$(document.createElement('textarea'))
+						.addClass('DCWAdditionalInformation')
+						.attr('readonly',"readonly")
+						.text(element.additionalInfo));
+			header.append(additionalData);
+		}
+	
 		return header;
 	},
 	
