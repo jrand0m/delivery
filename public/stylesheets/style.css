@@ -21,7 +21,7 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a{color: #666;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{font-family: Tahoma; font-size: 12px; float: right; font-weight: bold; margin-top: 35px; margin-right: 9px;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{color: #fff;}
-div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: left; margin-left: 127px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: right; margin-right: 127px; margin-top: -22px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li{float: left; margin-left: 70px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-child{margin-left: 0px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a{color: #fff; font-size: 22px;}
@@ -217,7 +217,7 @@ div#footer table td{width: 33%;padding-left: 3%; vertical-align: top;}
 div#footer table td.social_icons a{opacity: 1; position: relative; z-index: 10px; top: 10px; float: left; font-size: 30px; font-weight: bold; height: 31px; line-height: 31px; margin-right: 10px;  text-decoration: none; text-indent: 4px;  text-transform: lowercase;  width: 31px;}
 div#footer table td.social_icons a:hover{opacity: 1;}
 div#footer table td a.flogo{margin-top: -50px; display: block; color: #000; text-decoration: none;}
-div#footer table td ul{margin-top: 11px; width: 560px;}
+div#footer table td ul{ margin-left: 150px; margin-top: 11px; width: 410px;}
 div#footer table td ul li{float: left; padding: 0 8px; position: relative; z-index: 10; border-left: 1px solid #333; height: 17px; line-height: 12px;}
 div#footer table td ul li:first-child{border-left: none;}
 div#footer table td ul li a{color: #000;text-decoration:unedrline;}
@@ -342,6 +342,7 @@ div#wrapper div#wrapper_inner div#content div.static_left{z-index: 2; position: 
 div#wrapper div#wrapper_inner div#content div.static_center{z-index: 2; position: relative; box-shadow: 0 5px 8px #999999; background-color: #fff; display: table; width: 50%; border-bottom: 1px dashed #d0d0d0; border-right: 1px dashed #d0d0d0; border-left: 1px dashed #d0d0d0; padding: 10px; margin: -29px auto 0; padding-bottom: 20px;}
 div#wrapper div#wrapper_inner div#content div.static_center h3{clear: left;}
 div#wrapper div#wrapper_inner div#content div.static_center li, div#wrapper div#wrapper_inner div#content div.static_right li, div#wrapper div#wrapper_inner div#content div.static_left li{list-style: disc; list-style-position: inside; margin-top: 10px; font-family: Tahoma; font-size: 14px; color: #333;}
+div#wrapper div#wrapper_inner div#content div.static_center li.single, div#wrapper div#wrapper_inner div#content div.static_right li.single, div#wrapper div#wrapper_inner div#content div.static_left li.single{list-style: none;}
 div#wrapper div#wrapper_inner div#content div.static_right li a, div#wrapper div#wrapper_inner div#content div.static_center li a, div#wrapper div#wrapper_inner div#content div.static_left li a{color: #000;}
 div#wrapper div#wrapper_inner div#content div.static_right li a:hover, div#wrapper div#wrapper_inner div#content div.static_center li a:hover, div#wrapper div#wrapper_inner div#content div.static_left li a:hover{text-decoration: none; text-shadow: 0px 0px 1px #000;}
 div#wrapper div#wrapper_inner div#content div.static_right ul, div#wrapper div#wrapper_inner div#content div.static_left ul{margin-bottom: 10px;}
