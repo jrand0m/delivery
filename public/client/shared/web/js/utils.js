@@ -234,18 +234,18 @@ $.extend(_, {
 		$(dishes).each(function(elem){
 			var dishDom = _.createDiv('DCWDishContent');
 			dishDom.append(_.createDiv('DCWDishPrice').text(
-				_.formatCurrencyString(dishes[elem].pricePerItem+"")));
+				_.formatCurrencyString(this.pricePerItem+"")));
 			dishDom.append(_.createSpan('DCWDishNumber').text((elem + 1) + '. '));
 			//dishDom.append(_.createSpan('DCWDishCount').text(dishes[elem].count));
 			dishDom.append(_.createSpan('DCWDishName').text(dishes[elem].name));
-			/*if(dishes[elem].list && dishes[elem].list.length != 0) {
+			if(this.components && this.components.length != 0) {
 				var dishIngredients = _.createDiv('DCWDishIngredient');
-				$(dishes[elem].list).each(function(dish) {
-					dishIngredients.append(this.name);
-				});
+				//$(dishes[elem].list).each(function(dish) {
+					dishIngredients.append(_.getDishesList(this.components));
+				//});
 				
 				dishDom.append(dishIngredients);
-			};*/
+			};
 			parentDishesDiv.append(dishDom);
 		});
 		return parentDishesDiv;

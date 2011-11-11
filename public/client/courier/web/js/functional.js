@@ -80,8 +80,10 @@ $.extend(_, {
 	
 	createOrderHeader: function(element) {
 		var header = _.createDiv('DCWOrderHeaderWrapper');
-		
+		var orderData = _.createDiv('DCWOrderDataWrapper');
 		var aderessWrapper = _.createDiv('DCWOrderAdressWrapper');
+		orderData.append(_.createDiv('DCWOrderId').text(element.id));
+		aderessWrapper.append(orderData);
 		header.append(_.createDiv('DCWOrderPriceWrapper').text(_.lang.price + _.formatCurrencyString(element.price+'')));
 		aderessWrapper.append(_.createDiv('DCWOrderFrom').text(_.lang.adressFrom + element.from))
 			.append(_.createDiv('DCWOrderTo').text(_.lang.adressTo + element.to));

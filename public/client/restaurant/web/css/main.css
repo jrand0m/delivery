@@ -49,3 +49,5 @@ BODY {margin: 0; padding: 0;}
 .DCWAuthAltInput {color: #999;}
 
 .DCWOrderDiv {background: url("../../../shared/web/img/orderBG.png"); box-shadow: 0 0 9px -2px; margin: 0 0 10px;}
+
+.DCWDishIngredient {border: 1px solid #AAAAAA;}
