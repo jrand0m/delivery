@@ -28,8 +28,8 @@ BODY {margin: 0; padding: 0; }
 
 	.DCWRejectButton {float: right;}
 .DCWDishContent {color: #666; overflow: hidden; border-bottom: 1px dashed; padding: 3px 10px;}
+	.DCWDishNumber {font-size: 0.8em;}
 	.DCWDishName {float: left;}
 	.DCWDishCount {float: left;}
 	.DCWDishPrice {float: right;}
-
-.DCWDishIngredient {border: 1px solid #AAAAAA;}
+	.DCWDishIngredient {border: 1px solid #AAAAAA;}
