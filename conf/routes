@@ -23,6 +23,10 @@ POST        /login          Secure.authenticate
 GET         /logout         Secure.logout
 GET         /client/        staticDir:client
 GET         /courier/       staticDir:courier
+GET         /about       	Static.about
+GET         /rules       	Static.rules
+GET         /forRestaurants Static.forRestaurants
+GET         /contacts       Static.contacts
 
 ##############################
 ########/Security ############
@@ -32,7 +36,6 @@ POST		/api/a									Secure.authenticate
 * 			/power/edit/{action}					Admin.{action}
 *			/caffe/admn/{action}					RestaurantAdmin.{action}
 *			/{action}								Application.{action}
-
 
 ##############################
 ######## Modules #############

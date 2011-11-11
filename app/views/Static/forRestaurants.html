@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Для ресторанів</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/style.css'}" charset="utf-8" />
+        <link rel="shortcut icon" type="image/ico" href="@{'/public/images/favicon.ico'}">
+    </head>
+    <body>
+    	<div id="wrapper">
+			<div id="wrapper_inner">
+				<div id="header">
+					<div class="header_top">
+						<a href="@{Application.index()}" class="logo"><img alt="На головну!" title="На головну!" src="@{'/public/images/logo.png'}" /></a>
+						<h1>&{'common.slogan'}</h1>
+						<div class="right_links">
+							<ul class="lang">
+								<li class="${"uk".equals(lang)?"active":""}"><a href="@{Application.changeLang("uk")}">українською</a></li>
+								<li class="${"ru".equals(lang)?"active":""}"><a href="@{Application.changeLang("ru")}">русский</a></li>
+								<li class="${"en".equals(lang)?"active":""}"><a href="@{Application.changeLang("en")}">in english</a></li>
+							</ul>
+							
+						</div>
+						<ul class='main_nav'>
+							<li><a title="&{'header.nav.restorauntlist.tooltip'}" href="@{Application.showRestaurants()}">&{'header.nav.restorauntlist.text'}</a></li>
+							<!--li class="unactive"><a title="&{'header.nav.orderhistory.tooltip'}" href="#">&{'header.nav.orderhistory.text'}</a></li-->
+							<!--li><a title="&{'header.nav.deliveryandpayment.tooltip'}" href="#">&{'header.nav.deliveryandpayment.text'}</a></li-->
+						</ul>
+					</div>
+					<div class="header_bottom">
+						#{get 'breadCrumb' /}
+					</div>
+				</div>
+				<div id="content">
+					<div class="main_cont">
+						<div class="static_left">
+							<h3>Хто ми є?</h3>
+							<ul>
+								<li>Фірма, яка займається організацією доставки харчових продуктів, з можливістю замовлення через інтернет.</li>
+								<li>Молода команда професіаналів, спрямована на використання новітніх технологій в користувацьких сервісах, в особливості Інтернет-орієнтованих.</li>
+							</ul>
+						</div>
+						<div class="static_right">
+							<h3>Як це працює?</h3>
+							<ul>
+								<li>Якщо ви зацікавленні співпрацювати з нами - <a href="mailto:office@vdoma.com.ua?subject=Collaboration">зв'яжіться з нами</a>.</li>
+								<li>У нас діє гнучка система договорів і обумовлюється в рамках конкретного договору. Ми впевнені, що зможемо підібрати оптимальні для вас умови.</li>
+							</ul>
+						</div>
+						<div class="static_center">
+							<h3>Що ви отримуєте?</h3>
+							<ul>
+								<li>Збільшення клієнтської бази за рахунок замовлень через Інтернет.</li>
+								<li>Персональна сторінка та додаткова реклама в Інтернеті</li>
+								<li>Підвищення індексу вашої присутності в Інтернеті.</li>
+								<li>Приватний кабінет з гнучкою можливістю налаштування вашого меню та детальними звітами з продаж через наш сайт.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="empty_block">
+				</div>
+			</div>
+		</div>
+		<div id="footer_outer">
+			<div id="footer">
+				<table>
+					<tr>
+						<td>
+							<a href="/" class="flogo"><img src="/public/images/logo.png" /><br />&copy; вдома.сom.ua</a>
+						</td>
+						<td>
+							<ul>
+								<li><a href="/">головна</a></li>
+								<li><a href="/rules">умови доставки</a></li>
+								<li><a href="/forRestaurants">для ресторанів</a></li>
+								<li><a href="/about">про нас</a></li>
+								<li><a href="/contacts">контакти</a></li>
+							</ul>
+						</td>
+						<td class="social_icons">
+							<p>Ми у соціальних мережах:</p>
+							<a title="Вконтакте" href="http://vkontakte.ru/vdoma_com_ua"><img alt="vk" src="@{'/public/images/vk.png'}" /></a>
+							<a title="Фейсбук" href="http://www.facebook.com/groups/272545222759382/"><img alt="fb" src="@{'/public/images/fb.png'}" /></a>
+							<a title="Твіттер" href="http://twitter.com/#!/vdoma_com_ua/"><img alt="tw" src="@{'/public/images/tw.png'}" /></a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+    </body>
+</html>
