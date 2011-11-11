@@ -144,6 +144,7 @@ public class API extends Controller {
 			for (OrderItem oi : order.items) {
 				job.list.add(new MenuItem(oi));
 			}
+			job.phone = order.orderOwner.phoneNumber;
 			jobs.add(job);
 		}
 		renderJSON(jobs);
