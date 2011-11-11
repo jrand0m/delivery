@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -23,8 +21,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.Menu;
@@ -49,16 +48,21 @@ public class MainActivity extends Activity {
 	SharedPreferences settings;
 	ProgressBar pd;
 	View pbc;
+	private SoundPool soundPool;
+	private int soundID;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		settings = PreferenceManager.getDefaultSharedPreferences(this);
+		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		String value = settings.getString("server_url", "");
+		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundID = soundPool.load(this, R.raw.telephone_ring_3, 1);
 		if (value != null && value.length() > 0) {
 			url = value;
 		} else {
-			url = "http://10.0.2.2:9000/public/client/restaurant/web/main.html";
+			url = "http://vdoma.com.ua/public/client/restaurant/web/main.html";
 			settings.edit().putString("server_url", url).commit();
 		}
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -256,7 +260,7 @@ public class MainActivity extends Activity {
 		return false;
 	}
 
-	private void refresh() {
+	public void refresh() {
 		findViewById(R.id.web_view_err_dialog).setVisibility(View.GONE);
         pbc.setVisibility(View.VISIBLE);
 		showResults();
@@ -270,5 +274,12 @@ public class MainActivity extends Activity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
+	}
+	
+	public void playSound(){
+		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		soundPool.play(soundID, (float) audioManager
+				.getStreamMaxVolume(AudioManager.STREAM_MUSIC), (float) audioManager
+				.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 1, 0, 1f);
 	}
 }

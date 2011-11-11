@@ -15,7 +15,7 @@ $.extend(_, {
 				if(parent.tabOpened != 1) {
 					parent.updatedPendingOrders++;
 				}
-			} else if(this.status == "ACCEPTED") {
+			} else if(this.status == "ACCEPTED"||this.status == "COOKED"||this.status == "DELIVERING") {
 				parent.orders.push(this);
 				parent.activeOrdersContent.append(_.getActiveOrderDiv(this, parent));
 				if(parent.tabOpened != 2) {
@@ -80,8 +80,10 @@ $.extend(_, {
 	
 	createOrderHeader: function(element) {
 		var header = _.createDiv('DCWOrderHeaderWrapper');
-		
+		var orderData = _.createDiv('DCWOrderDataWrapper');
 		var aderessWrapper = _.createDiv('DCWOrderAdressWrapper');
+		orderData.append(_.createDiv('DCWOrderId').text(element.id));
+		aderessWrapper.append(orderData);
 		header.append(_.createDiv('DCWOrderPriceWrapper').text(_.lang.price + _.formatCurrencyString(element.price+'')));
 		aderessWrapper.append(_.createDiv('DCWOrderFrom').text(_.lang.adressFrom + element.from))
 			.append(_.createDiv('DCWOrderTo').text(_.lang.adressTo + element.to));
@@ -172,7 +174,7 @@ $.extend(_, {
 				newOrdersCount++;
 			} else if(array[i].status == 'CONFIRMED') {
 				pendingOrdersCount++;
-			} else if(array[i].status == 'ACCEPTED') {
+			} else if(array[i].status == "ACCEPTED"||array[i].status == "COOKED"||array[i].status == "DELIVERING") {
 				activeOrdersCount++;
 			}
 		};

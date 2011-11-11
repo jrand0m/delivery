@@ -51,7 +51,7 @@ public class API extends Controller {
 			+ "."
 			+ Restaurant.FIELDS.RESTAURANT_CITY
 			+ " = ? and "
-			+ Order.FIELDS.ORDER_STATUS + " in (?,?,?,?) ";
+			+ Order.FIELDS.ORDER_STATUS + " in (?,?,?,?,?) ";
 	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM = JPA_BY_CITY_AND_ORDER_STATUS_IN
 			+ " and " + Order.FIELDS.UPDATED + " > ?";
 
@@ -116,11 +116,11 @@ public class API extends Controller {
 		if (from != null) {
 			Date date = new Date(from);
 			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM, city,
-					OrderStatus.SENT, OrderStatus.CONFIRMED, OrderStatus.DELIVERING,
+					OrderStatus.SENT, OrderStatus.CONFIRMED, OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
 					OrderStatus.COOKED, date).fetch();
 		} else {
 			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN, city,
-					OrderStatus.SENT, OrderStatus.CONFIRMED ,OrderStatus.DELIVERING,
+					OrderStatus.SENT, OrderStatus.CONFIRMED, OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
 					OrderStatus.COOKED).fetch();
 		}
 		
@@ -144,6 +144,7 @@ public class API extends Controller {
 			for (OrderItem oi : order.items) {
 				job.list.add(new MenuItem(oi));
 			}
+			job.phone = order.orderOwner.phoneNumber;
 			jobs.add(job);
 		}
 		renderJSON(jobs);

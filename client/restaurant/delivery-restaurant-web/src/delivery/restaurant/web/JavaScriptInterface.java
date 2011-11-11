@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.Vibrator;
 
 public class JavaScriptInterface {
-    Context mContext;
+	MainActivity mContext;
 
     /** Instantiate the interface and set the context */
-    JavaScriptInterface(Context c) {
+    JavaScriptInterface(MainActivity c) {
         mContext = c;
     }
 
@@ -27,15 +27,21 @@ public class JavaScriptInterface {
     	int long_gap = 1000;    // Length of Gap Between Words
     	long[] pattern = {
     	    0,  // Start immediately
-    	    dot, short_gap, dot, short_gap, dot,    // s
+    	    dash, short_gap, dash, short_gap, dash,    // s
     	    medium_gap,
-    	    dash, short_gap, dash, short_gap, dash, // o
-    	    medium_gap,
-    	    dot, short_gap, dot, short_gap, dot,    // s
+    	    dash, short_gap, dot, short_gap, dash,    // s
     	    long_gap
     	};
     	 
     	// Only perform this pattern one time (-1 means "do not repeat")
     	v.vibrate(pattern, -1);
+    }
+    
+    public void playNotificationSound(){
+    	mContext.playSound();
+    }
+    
+    public void refresh(MainActivity activity){
+    	mContext.refresh();
     }
 }

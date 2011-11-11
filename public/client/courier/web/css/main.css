@@ -15,7 +15,7 @@ BODY {margin: 0; padding: 0; }
 .DCWOrders {max-width: 800px; margin: 0 auto; padding-top: 75px;}
 	.DCWOrdersContent {margin: 10px;}
 .DCWOrderDiv {border: 1px solid #000; border-radius: 5px; margin: 20px 0;}
-	.DCWOrderHeaderWrapper {overflow: hidden; background: url('../../../shared/web/img/rpi_h1_bg.gif'); 
+	.DCWOrderHeaderWrapper {overflow: hidden; background: url('../../../shared/web/img/rpi_h1_bg.gif') 0 25px; 
 		border-radius: 5px 5px 0 0; padding: 3px 10px;}
 		.DCWOrderHeader {overflow: hidden;}
 		.DCWOrderTimeWrapper {}
@@ -32,3 +32,4 @@ BODY {margin: 0; padding: 0; }
 	.DCWDishCount {float: left;}
 	.DCWDishPrice {float: right;}
 
+.DCWDishIngredient {border: 1px solid #AAAAAA;}
