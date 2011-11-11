@@ -155,7 +155,7 @@ $.extend(_, {
 	getActiveOrderBtns: function(orderElem, activeOrders) {
 		var btnDiv = _.createDiv('DCWActiveOrdersBtnsWrapper');
 	
-		btnDiv.append(_.getRejectBtn(orderElem, activeOrders));
+		//btnDiv.append(_.getRejectBtn(orderElem, activeOrders));
 		btnDiv.append(_.createButton(_.lang.delivered, 'DCWOrderButton')
 			.click(function() {
 					orderElem.domElem.remove();
