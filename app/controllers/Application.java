@@ -281,6 +281,7 @@ public class Application extends Controller {
 				Street streetObj = new Street();
 				streetObj.city = o.restaurant.city;
 				streetObj.title_ua = street;
+				streetObj.title_en = street;
 				streetObj.save();
 				address.street = streetObj; 
 				//validation.addError("address.street", "street.notacceptable");
