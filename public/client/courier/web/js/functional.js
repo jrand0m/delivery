@@ -83,10 +83,12 @@ $.extend(_, {
 		var orderData = _.createDiv('DCWOrderDataWrapper');
 		var aderessWrapper = _.createDiv('DCWOrderAdressWrapper');
 		orderData.append(_.createDiv('DCWOrderId').text(element.id));
-		aderessWrapper.append(orderData);
 		header.append(_.createDiv('DCWOrderPriceWrapper')
 				.append(_.createDiv('DCWOrderPhone').text(element.phone))
-				.append(_.createDiv('DCWOrderPrice').text(_.lang.price + _.formatCurrencyString(element.price+''))));
+				.append(_.createDiv('DCWOrderPrice').text(_.lang.price + _.formatCurrencyString(element.price+'')))
+				.append(_.createDiv('DCWOrderPrice').text(_.lang.customerPrice + _.formatCurrencyString(element.customerPrice+''))));
+
+		header.append(orderData);
 		aderessWrapper.append(_.createDiv('DCWOrderFrom').text(_.lang.adressFrom + element.from))
 			.append(_.createDiv('DCWOrderTo').text(_.lang.adressTo + element.to));
 		header.append(aderessWrapper);
@@ -104,6 +106,16 @@ $.extend(_, {
 				.append(_.lang.timeItem));
 			header.append(timesWrapper);
 		}
+	
+		if(element.additionalInfo) {
+			var additionalData = _.createDiv('DCWAdditionalDeliveryData').append(
+					$(document.createElement('textarea'))
+						.addClass('DCWAdditionalInformation')
+						.attr('readonly',"readonly")
+						.text(element.additionalInfo));
+			header.append(additionalData);
+		}
+	
 		return header;
 	},
 	
@@ -155,7 +167,7 @@ $.extend(_, {
 	getActiveOrderBtns: function(orderElem, activeOrders) {
 		var btnDiv = _.createDiv('DCWActiveOrdersBtnsWrapper');
 	
-		btnDiv.append(_.getRejectBtn(orderElem, activeOrders));
+		//btnDiv.append(_.getRejectBtn(orderElem, activeOrders));
 		btnDiv.append(_.createButton(_.lang.delivered, 'DCWOrderButton')
 			.click(function() {
 					orderElem.domElem.remove();
