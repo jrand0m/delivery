@@ -22,7 +22,7 @@ public class SystemCalc {
 	 */
 	public static Integer getDeliveryPrice(Order order) {
 		// FIXME create default storage
-		return 2000;
+		return 1500;
 	}
 
 	/**
