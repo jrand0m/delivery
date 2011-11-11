@@ -97,6 +97,7 @@ public class API extends Controller {
 			job.price = order.getGrandTotal();
 			job.paymentStatus = order.paymentStatus.toString();
 			job.time = order.orderConfirmed.getTime();
+			job.additionalInfo = order.deliveryAddress.additionalInfo;
 			job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
 					.getTime() - System.currentTimeMillis()
 					: null;
