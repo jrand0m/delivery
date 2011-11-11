@@ -15,8 +15,9 @@ BODY {margin: 0; padding: 0; }
 .DCWOrders {max-width: 800px; margin: 0 auto; padding-top: 75px;}
 	.DCWOrdersContent {margin: 10px;}
 .DCWOrderDiv {border: 1px solid #000; border-radius: 5px; margin: 20px 0;}
-	.DCWOrderHeaderWrapper {overflow: hidden; background: url('../../../shared/web/img/rpi_h1_bg.gif') 0 25px; 
-		border-radius: 5px 5px 0 0; padding: 3px 10px;}
+	.DCWOrderHeaderWrapper {background: url("../../../shared/web/img/header_top_bg.gif") repeat scroll 0 22px transparent; 
+		border-radius: 5px 5px 0 0; overflow: hidden; padding: 3px 10px;}
+		
 		.DCWOrderHeader {overflow: hidden;}
 		.DCWOrderTimeWrapper {float: left;}
 		.DCWOrderAdressWrapper {float: left; margin-right: 10px;}
