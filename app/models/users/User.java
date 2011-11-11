@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
@@ -24,8 +25,9 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="Uzer")
 public abstract class User extends Model {
 
 	public static final class HQL {

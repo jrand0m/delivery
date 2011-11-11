@@ -32,4 +32,8 @@ public class CaffeJobsList {
 
 	public Integer price;
 	public List<MenuItem> list = new ArrayList<MenuItem>();
+	public String from;
+	public String to;
+	public long timeToDelivered;
+	public String phone;
 }

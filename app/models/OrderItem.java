@@ -20,7 +20,7 @@ import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 public class OrderItem extends Model {
 
 	public static final class HQL {

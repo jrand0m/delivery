@@ -31,7 +31,7 @@ import enumerations.OrderStatus;
 import enumerations.PaymentStatus;
 
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 @Table(name = "Orders")
 public class Order extends GenericModel {
 
@@ -137,7 +137,7 @@ public class Order extends GenericModel {
 	public String id;
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-	@Where(clause = "deleted = 0")
+//	@Where(clause = "deleted = 0")
 	public List<OrderItem> items = new ArrayList<OrderItem>();
 
 	/**
@@ -285,4 +285,52 @@ public class Order extends GenericModel {
 		this.updated = new Date();
 		return super.save();
 	}
+	public String aproxTime(){
+		String time = "--";
+		switch (orderStatus) {
+		case ACCEPTED:
+		case COOKED:
+		case DELIVERING:
+			long x = orderPlanedDeliveryTime.getTime() - new Date().getTime();
+			x = x / 1000 / 60;
+			if (x > 0){
+				return String.valueOf(x);
+			}
+			else {return "00";}
+
+		case DELIVERED:
+		case CONFIRMED:
+		case DECLINED:
+		case RECIEVED:
+		case SENT:
+
+		default:
+			break;
+		}
+		return time;
+		
+	}
+	public String textStatus(){
+		switch (orderStatus) {
+		case ACCEPTED:
+			return "ресторан прийняв завмовлення";
+		case COOKED:
+			return "ваше замовлення приготовано, очікуємо курєра";
+		case DELIVERING:
+			return "курєр спішить до вас :) ";
+		case CONFIRMED:
+			return "адреса перевірена, замовлення поставлене в чергу";
+		case DECLINED:
+			return "відмовлено :(";
+		case RECIEVED:
+			return "";
+		case SENT:
+			return "перевіряється адреса";
+		case DELIVERED:
+		default:
+			break;
+		}
+		return "";
+	}
+	
 }

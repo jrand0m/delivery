@@ -1,0 +1,42 @@
+#{extends 'main-admin.html' /}
+#{set 'navHelp'}
+  <a href="@{Admin.addRestaurant}">ADD NEW !</a>
+<a href="@{Admin.uploadLogo()}"> upload logos</a>
+#{/set}
+#{set 'c__rest'}active#{/set}
+#{form @Admin.showRestaurants() , id:'form', enctype:'multipart/form-data' } 
+#{select 'id', value:1, id:'id'}
+#{list items:cities, as:'city'}
+#{option city.id} ${city.cityNameUA} #{/option}
+#{/list}
+#{/select}
+<input type="submit" />
+#{/form}
+<table border="1">
+<tr> 
+    <th>Actions</th> 
+    <th>Name</th> 
+    <th>Display</th> 
+    <th>showOnIndex</th>
+    <th>logo</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Work hours</th>
+    <th>Address</th>
+    <th>Last Ping</th>
+</tr>
+#{list items:restaurants, as:'rest'}
+<tr>
+    <td><a href="@{Admin.editRestaurant(rest.id)}">edit</a></td>
+    <td>${rest.title}</td>
+    <td>${rest.twoLetters}</td>
+    <td>${rest.showOnIndex}</td>
+    <td><img src="@{Application.serveLogo(rest.id)}" style="height:30px"/></td>
+    <td>${rest.desc}</td>
+    <td>${rest.category.categoryDisplayNameUA}</td>
+    <td>${rest.workHoursToday()}</td>
+    <td>${rest.addressToString()}</td>
+    <td>${rest.device?.lastPing?.since()}</td>
+</tr>
+#{/list}
+</table>

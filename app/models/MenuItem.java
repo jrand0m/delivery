@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +17,7 @@ import org.hibernate.annotations.Where;
 import play.db.jpa.Model;
 
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 public class MenuItem extends Model {
 	public static final class FIELDS {
 		public static final String MENU_ITEM_AVALIABLE = "avaliable";
@@ -37,7 +38,7 @@ public class MenuItem extends Model {
 	@ManyToOne(fetch=FetchType.LAZY)
 	public MenuItemGroup menuItemGroup;
 	@OneToMany(fetch = FetchType.EAGER)
-	public Set<MenuItemComponent> components = new HashSet<MenuItemComponent>();
+	public List<MenuItemComponent> components = new ArrayList<MenuItemComponent>();
 
 	public Date menuItemCreated;
 	public boolean showComponents = false;

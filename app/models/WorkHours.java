@@ -20,7 +20,7 @@ import play.db.jpa.Model;
 import play.i18n.Messages;
 
 @Entity
-@Where(clause = "deleted = 0")
+//@Where(clause = "deleted = 0")
 public class WorkHours extends Model {
 	public static final class FIELDS {
 		public static final String WORK_HOURS_DELETED = "deleted";

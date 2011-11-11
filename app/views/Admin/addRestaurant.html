@@ -1,0 +1,57 @@
+#{extends 'main-admin.html' /}
+#{set 'helpNav'}
+
+#{/set}
+#{set 'c__itmCat'}active#{/set}
+#{form @Admin.addRestaurant() , id:'form', enctype:'multipart/form-data' } 
+<input type="hidden" value="${restaurant?.id}" name="restaurant.id" /> 
+<div>
+<label for="restaurant.title">title</label>
+<input type="text" name="restaurant.title" value="${restaurant?.title}" />
+</div>
+<div>
+<label for="restaurant.showOnIndex">showOnIndex</label>
+<input type="text" name="restaurant.showOnIndex" value="${restaurant?.showOnIndex}" />
+</div>
+<div>
+<label for="restaurant.desc">desc</label>
+<input type="text" name="restaurant.desc" value="${restaurant?.desc}" />
+</div>
+<div>
+<label for="restaurant.twoLetters">twoLetters</label>
+<input type="text" name="restaurant.twoLetters" value="${restaurant?.twoLetters}" />
+</div>
+<div>
+<label for="barmanlogin">barman login</label>
+<input type="text" name="barmanlogin" value="${barmanlogin}" />
+</div>
+<div>
+<label for="barmanpwd">name</label>
+<input type="text" name="barmanpwd" value="${barmanpwd}" />
+</div>
+<div>
+<label for="openfrom">open from</label>
+<input type="text" name="openfrom" value="${openfrom}" />
+</div>
+<div>
+<label for="opento">open to</label>
+<input type="text" name="opento" value="${opento}"/>
+</div>
+<div>
+<label for="id">City</label>
+#{select 'cityid', value:restaurant?.city?.id, name:'cityid',  id:'cityid'}
+#{list items:cities, as:'city'}
+#{option city.id} ${city.cityNameUA} #{/option}
+#{/list}
+#{/select}
+</div>
+<div>
+<label for="id">Type</label>
+#{select 'catid', value:restaurant?.category?.id, name:'catid',  id:'catid'}
+#{list items:types, as:'type'}
+#{option type.id} ${type.categoryDisplayNameUA} #{/option}
+#{/list}
+#{/select}
+</div>
+<input type="submit" />
+#{/form}

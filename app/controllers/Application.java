@@ -79,8 +79,8 @@ public class Application extends Controller {
 		renderArgs.put(RENDER_KEYS.USER, user);
 		if (!session.contains(SESSION_KEYS.CITY_ID)) {
 			Logger.debug("No city defined in cookies");
-			session.put(SESSION_KEYS.CITY_ID,
-					Application.guessCity(request.remoteAddress).getId());
+			City city = City.find("display = ?", true).first();
+			session.put(SESSION_KEYS.CITY_ID, city.id					/*Application.guessCity(request.remoteAddress).getId()*/);
 		}
 		flash.put("url", request.url);
 	}
@@ -221,7 +221,7 @@ public class Application extends Controller {
 	 * 
 	 * */
 	public static void checkAndSend(String id, Long aid, String name,
-			Integer city, String sname, Long streetid, @Email String email,
+			Integer city, String sname, Long streetid, String street, @Email String email,
 			String app, @Phone String phone, String oplata) {
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user == null)
@@ -278,7 +278,13 @@ public class Application extends Controller {
 			if (str != null && str.city.equals(o.restaurant.city)) {
 				address.street = str;
 			} else {
-				validation.addError("address.street", "street.notacceptable");
+				Street streetObj = new Street();
+				streetObj.city = o.restaurant.city;
+				streetObj.title_ua = street;
+				streetObj.title_en = street;
+				streetObj.save();
+				address.street = streetObj; 
+				//validation.addError("address.street", "street.notacceptable");
 			}
 			address.appartamentsNumber = app;
 			address.user = user;

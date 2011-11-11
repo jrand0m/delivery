@@ -1,0 +1,57 @@
+#{extends 'main-admin.html' /}
+#{set 'c__orders'}active#{/set}
+#{form @Admin.showOrders() , id:'form', enctype:'multipart/form-data' } 
+#{select 'id', value:1, id:'id'}
+#{list items:restaurants, as:'restaurant'}
+#{option restaurant.id} ${restaurant.title} #{/option}
+#{/list}
+#{/select}
+<input type="submit" />
+#{/form}
+
+
+
+<table border="1">
+<tr> 
+<th>Actions</th>
+  
+  <th>Id</th> 
+  <th>Restaurant</th> 
+  <th>Order Status</th> 
+  <th>Total</th> 
+  <th>Order Created</th> 
+  <th>Owner</th> 
+  <th>Address</th> 
+  <th>Planed Cooked</th> 
+  <th>Planed Delivery</th> 
+  <th>Items count</th> 
+  <th>Decline Message</th> 
+  <th>paymentStatus</th> 
+  <th>updated</th> 
+ 
+   </tr>
+#{list items:orders, as:'order'}
+<tr>
+<td><a href="#">edit</a></td>
+
+<td>${order.shortHandId}</td>
+<td><a href="#">${order.restaurant.title}</a></td>
+<td>${order.orderStatus}</td> 
+<td>${(order.getGrandTotal()/100).formatCurrency('UAH').raw()}</td>
+ <td>${order.orderCreated}</td>
+ <td><a href="#">${order.orderOwner.usr_name}</a></td>
+ <td>${order.deliveryAddress?.toString()}</td>
+ <td>${order.orderPlanedCooked!=null? new Date( order.orderPlanedCooked.getTime() - new Date().getTime()  ).since():"not set"}</td>
+ <td>${order.orderPlanedDeliveryTime!=null? new Date( order.orderPlanedDeliveryTime.getTime() - new Date().getTime()  ).since():"not set"}</td>
+ <td><a href="#">${order.items?.size()}</a></td>
+ <td>${order.declineMessage}</td>
+ <td>${order.paymentStatus}</td>
+ <td>${order.updated}</td>
+</tr>
+#{/list}
+</table>
+
+
+
+
+

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -137,8 +138,10 @@ public class Restaurant extends Model {
 	public List<RestaurantDescription> descriptions = new ArrayList<RestaurantDescription>();
 
 	@OneToOne(fetch = FetchType.LAZY)
-	public WorkHours workHours;
+	public WorkHours workHours = new WorkHours();
 	public String twoLetters;
+	@Column(name = "restaurant_descr")
+	public String desc;
 
 	public boolean isOnline() {
 		Boolean online = (Boolean) Cache.get("isOnline_" + getId());
@@ -159,15 +162,15 @@ public class Restaurant extends Model {
 	}
 
 	public String description() {
-		String lang = Lang.get();
+		/*String lang = Lang.get();
 		for (RestaurantDescription desc : descriptions) {
 			if (desc.lang.equalsIgnoreCase(lang)) {
 				return desc.description;
 			}
-		}
-
+		}*/
+		if(desc == null || desc.isEmpty()){
 		return Messages.get("restaurant.nodescription");
-
+		}else {return desc;}
 	}
 
 	public String addressToString() {
