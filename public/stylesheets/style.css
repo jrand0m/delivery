@@ -6,7 +6,7 @@ a, input{outline: 0px none;}
 html{font-family:'Open Sans Condensed',Sans-Serif; font-size: 16px; color: #000;}
 textarea{resize: none;}
 li{list-style: none;}
-div#wrapper{margin: 0 auto; width: 1011px;  /*padding-bottom: 50px;*/ background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
+div#wrapper{margin: 0 auto; width: 1011px; background: url(/public/images/body_bg.jpg) repeat-y right top transparent; padding-right: 9px;min-height: 100%;}
 div#wrapper div#wrapper_inner{display: inline-block; width: 984px; padding-left: 18px; padding-right: 9px; padding-top: 9px; min-height: 100%;}
 div#wrapper div#wrapper_inner div#header{}
 div#wrapper div#wrapper_inner div#header div.header_top{margin-bottom: 15px; min-height: 75px; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
@@ -21,7 +21,7 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a{color: #666;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{font-family: Tahoma; font-size: 12px; float: right; font-weight: bold; margin-top: 35px; margin-right: 9px;}
 div#wrapper div#wrapper_inner div#header div.header_top a.enter{color: #fff;}
-div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: left; margin-left: 127px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{float: right; margin-right: 127px; margin-top: -22px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li{float: left; margin-left: 70px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-child{margin-left: 0px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a{color: #fff; font-size: 22px;}
@@ -30,8 +30,7 @@ div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive 
 div#wrapper div#wrapper_inner div#header div.header_bottom{min-height: 34px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form{float: left; margin-left: 6px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{font-size: 17px; margin-top: 3px; border: none; height: 28px; line-height: 28px; width: 360px; border-radius: 0 5px 5px 0; padding: 0 35px 0 5px; font-family: Open Sans Condensed, sans-serif;}
-div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{
-background: url(/public/images/search_ico.png) no-repeat scroll center center transparent;border: medium none;cursor: pointer;height: 22px;opacity:0.5;width: 33px;line-height: 22px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{background: url(/public/images/search_ico.png) no-repeat scroll center center transparent;border: medium none;cursor: pointer;height: 22px;opacity:0.5;width: 33px;line-height: 22px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .submit:hover{opacity: 1;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form label{color: #FFFFFF;float: left;font-size: 19px;line-height: 32px;margin-right: 16px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceInputWrapper{float: left; margin-top: 3px;}
@@ -47,14 +46,12 @@ div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {font-family:
 div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; text-shadow:0px 0px 2px #fff;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.back {visibility:visible !important;padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
 .jNiceHidden {display: none;}
-
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap{margin-top: 3px; border-radius: 2px 0px 0px 2px; min-width: 118px; position: relative; height: 28px; float: left; background: #fff;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap:hover{background:#f5f5f5}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap p{width: 100%; line-height: 28px; position: absolute; height: 28px; color: #000; cursor: pointer; font-size: 17px; text-align: center; background: url(/public/images/arrow_down.gif) no-repeat 105px 3px transparent;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul{background-color: #fff; line-height: 24px; overflow: hidden; display: none; z-index: 100; left: 0px; width: 108px; list-style-type: none; position: absolute; top: 25px; height: auto;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li{cursor: pointer; color: #000; text-align: center; display: block; font-size: 17px; text-decoration: none}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li:hover, div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li.selected{background-color: #e6e6e6;}
-
 div#wrapper div#wrapper_inner div#content{padding-top: 15px;}
 div#wrapper div#wrapper_inner div#content div.main_cont{padding-bottom: 10px; float: left; width: 100%;}
 div.rest_item_prev{width: 230px; margin-left: 18px; padding-bottom: 20px; float: left; border-radius: 5px; border: 1px solid #b3b3b3; }
@@ -84,7 +81,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont{width: 680px; float: lef
 div#wrapper div#wrapper_inner div#content div.right_cont{width: 295px; float: right; padding-right: 2px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1 span{font-size: 13px; /*display: block;*/ margin-left: 7px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1 span{font-size: 13px; margin-left: 7px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1 a{font-family: Tahoma; font-size: 13px; font-weight: bold; position: absolute; right: 10px; top: 3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont{padding: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.img_wrap{float: left; width: 160px; height: 110px; text-align: center; display: table-cell; vertical-align: middle;}
@@ -94,14 +91,12 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.r
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description {float: right; width: 285px; padding-right: 5px; position: relative; min-height: 110px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description a.menu{position: absolute; bottom: 5px; right: 0; text-align: center; text-decoration: none; background: url(/public/images/menu_but_bg2.gif) repeat-x scroll 0 0 transparent; height: 34px; line-height: 34px; width: 160px; border: 1px solid #C03409; border-radius: 3px 3px 3px 3px; color: #000000; display: inline-block; font-size: 19px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description p{max-height: 66px; overflow: hidden; font-size: 13.5px; line-height: 16px;}
-
 div#wrapper div#wrapper_inner div#content div.right_cont div.right_block{width: 295px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check{width: 288px; margin-bottom: 15px; border-radius: 0px; border: none; background-color: #f4f4f4;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.advert{border-radius: 0; border: 0;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.advert a img{border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.right_block h1{background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.right_block div.rb_cont{padding: 5px;}
-
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off {}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off .offline{ font-weight:normal; color:white;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off h1{background-image: none; background-color: #979797;}
@@ -109,7 +104,6 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off d
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.rating {background: url(/public/images/star--arrow.png) no-repeat left center transparent; padding-left: 27px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.work_time {background: url(/public/images/clock-select.png) no-repeat left center transparent; padding-left: 27px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.dostavka {background: url(/public/images/car-red.png) no-repeat left center transparent; padding-left: 27px; }
-
 div#login {width: 220px; display: table; margin: 0 auto; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
 div#login h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#login form{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
@@ -121,21 +115,16 @@ div#login p.error{text-align: center; color: red; font-size: 14px; text-decorati
 div#login p#remember-field{margin-bottom: -10px;}
 div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; height: 31px; margin-top: -15px; width: 73px;}
 div#login div input[type="submit"]{margin: 10px 0;background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
-
-
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 span{font-size: 13px; /*display: block;*/ margin-left: 7px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 span{font-size: 13px; margin-left: 7px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 a{font-family: Tahoma; font-size: 13px; position: absolute; right: 10px; top: 3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table{padding: 5px 10px; width: 100%; line-height: 26px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td{width: 25%; vertical-align: top;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a{color: #000; padding: 3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a:hover{background-color: #cccccc;}
-
-div#wrapper div#wrapper_inner div#content div.right_cont div#basket{}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket h1{font-weight: bold;background: url(/public/images/ico_shopping_cart.png) no-repeat 260px center #E83F0B; color: #fff;}
-
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table{padding: 5px 10px; width: 100%; border-collapse: collapse;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th{width: 5%; vertical-align: top; padding-top: 5px;}
@@ -149,9 +138,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table 
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p.descr{font-size: 13px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td{padding: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr.od{background-color: #f5f5f5;}
-/*div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:nth-child(even){background-color: #f5f5f5;}*/
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover{background-color: #cccccc; cursor: pointer;}
-
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table{padding-bottom: 10px; border-collapse: collapse; width: 270px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span{float: left; width: 12px; height: 12px; margin-top: 4px; background: url(/public/images/plus_minus_delete_but2.gif) no-repeat transparent;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.minus{background-position: 0 -12px;}
@@ -181,13 +168,12 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout h1{position
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.result_form{float:left; margin: 10px 0 0 10px; padding: 5px 10px; line-height: 20px; line-height: 35px; border-collapse: collapse;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.result_form span{ font:normal 13px Tahoma; padding:0 5px 0 0;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form{margin-top: 10px; padding: 5px 10px; line-height: 20px; line-height: 35px; width: 100%; border-collapse: collapse;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form th{font-weight: normal; text-align: right; font-size: 13px; padding-right: 5px; font-family:Tahoma;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form th{text-transform: capitalize; color: #333333; font-weight: normal; text-align: right; font-size: 13px; padding-right: 5px; font-family:Tahoma;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td{vertical-align: middle; font-size: 18px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td label{float: left; margin-right: 10px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{height: 25px; width: 200px; padding: 0 10px; line-height: 25px; font-size: 16px; font-family: Open Sans Condensed; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .err{ color: #E83F0B; margin-left: 10px; text-decoration: blink;}
-/*div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input.wrong_data{border: 2px solid #E83F0B; box-shadow: 1px 1px 1px #E83F0B; position: relative; top: 10px;}*/
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{color: #E83F0B; display: block; font-family: tahoma; font-size: 12px;  margin-left: 13px;  margin-top: -15px;  position: absolute;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{position: relative; z-index: 2; height: 25px; width: 200px; padding: 0 10px; line-height: 25px; font-size: 16px; font-family: Open Sans Condensed; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .err{ color: #E83F0B; margin-left: 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{z-index: 1; color: #E83F0B; display: block; font-family: tahoma; font-size: 12px;  margin-left: 65px;  margin-top: -15px;  position: absolute;}
 .jRadioWrapper {z-index: 2; position: relative; float: left; margin-right: 22px; margin-top: 10px;}
 .jNiceRadio {background: transparent url(/public/images/radio.jpg) no-repeat center top; height: 17px; width: 17px; position:absolute; left:0px; top:0px; cursor:pointer; vertical-align:middle;}
 .jNiceChecked {background-position: center bottom;}
@@ -212,7 +198,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additio
 div#wrapper div#wrapper_inner div#content div.left_cont h3.wait_time span{font-size: 45px;}
 div#footer_outer{width: 1020px; margin: 0 auto;}
 div#footer{height: 35px;  font: 13px Tahoma; position: relative; z-index: 100; width: 982px; margin: -80px auto 0; background: url(/public/images/header_top_bg.gif) repeat-x 0 0 transparent;  border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;}
-div#footer table{width: 100%; height: 75px; border-collapse: collapse;}
+div#footer table{color: #333; width: 100%; height: 75px; border-collapse: collapse;}
 div#footer table td{width: 33%;padding-left: 3%; vertical-align: top;}
 div#footer table td.social_icons a{opacity: 1; position: relative; z-index: 10px; top: 10px; float: left; font-size: 30px; font-weight: bold; height: 31px; line-height: 31px; margin-right: 10px;  text-decoration: none; text-indent: 4px;  text-transform: lowercase;  width: 31px;}
 div#footer table td.social_icons a:hover{opacity: 1;}
@@ -240,21 +226,18 @@ div#wrapper div#wrapper_inner div#content div.index_bottom div.first{margin-left
 div#wrapper div#wrapper_inner div#content div.index_bottom div.staps h3{font-size: 20px; font-weight: normal; line-height: 30px; margin-bottom: 10px;}
 div#wrapper div#wrapper_inner div#content div.index_bottom div.staps h3 span{background-color: #E83F0B; border-radius: 17px 17px 17px 17px; color: #FFFFFF; display: inline-block; font-size: 26px; font-weight: bold; height: 31px; line-height: 31px; margin-right: 5px; text-indent: 2px; width: 31px;}
 div#wrapper div#wrapper_inner div#content div.index_bottom div.staps p{color: #333333; font-family: Tahoma; font-size: 13px; line-height: 19px; padding-left: 15px;}
-
 div#wrapper div#wrapper_inner div#content div.zaraz{float: right; margin-top: 40px; width: 291px;}
 div#wrapper div#wrapper_inner div#content div.zaraz h1{color: #e83f0b; margin-bottom: 10px;}
 div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item{margin-bottom: 2px; width: 289px; height: 73px; overflow: hidden; border: 1px solid #e83f0b; background-color: #fff;}
 div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item h2{float: left; background-color: #e83f0b; width: 73px; height: 73px; text-align: center; line-height: 73px;  margin-right: 5px; color: #fff; font-weight: normal; font-size: 55px;}
 div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item h3{font-size: 15px;}
 div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item p{font-size: 14px; line-height: 17px;}
-
 div#wrapper div#wrapper_inner div#header div.header_bottom label.forsel{color: #fff;font-size: 19px; margin-left: 50px; margin-right: 11px; margin-top: 4px; float: left;}
 div#wrapper div#wrapper_inner div#header div.header_bottom label.forsel:first-child{margin-left: 20px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp{border-radius: 3px 3px 3px 3px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p{background-position: 101px 3px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p.selText{text-align: left; text-indent: 15px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selDrop li{text-align: left; text-indent: 15px;}
-
 .ing_popup{background-color: #FFFFFF; border-radius: 5px 5px 5px 5px;}
 .ing_popup h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; line-height: 27px; margin-bottom: 10px; padding: 3px 10px;}
 .ing_popup p{margin-left: 10px;}
@@ -272,17 +255,14 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selD
 .ing_popup table.wrapper tr.button div{background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: medium none; border-radius: 5px 5px 5px 5px; color: #FFFFFF; cursor: pointer; float: right; font-size: 32px; height: 45px; line-height: 45px; margin: 10px 0 10px 23px;  text-align: center; width: 250px;}
 .ing_popup table.wrapper tr.button:hover{background-color: transparent;}
 .ing_popup table.wrapper input[type="checkbox"]{margin-left: 5px; margin-right: 5px;}
-
 .ing_popup .jNiceCheckbox {float: left;  margin-left: 5px; margin-right: 10px;display: block; background: transparent url(/public/images/checkbox.png) no-repeat center top; vertical-align: middle; width: 17px; height: 17px}
 .ing_popup .jNiceChecked {background-position: center bottom;}
-
 input[type="radio"]{ position:relative; top:1px; margin: 0 5px 0 0;}
 #timer{width:100%;background:url(/public/images/timer.jpg);height:250px; border-radius:3px;}
 #timer span{color:#fff; display:inline-block; width:100%; font:normal 13px Tahoma; padding: 3px 0 0 10px;}
 #timer span b{font:normal 18px Tahoma;}
 #timer span#int{font:bold 160px/135px "Open Sans Condensed"; text-align:center; padding:10px 0 0 0;}
 #timer span#time{font:normal 20px "Open Sans Condensed"; text-align:center; padding:0;}
-
 div#wrapper div#wrapper_inner div#content div.cabinetwrap{width: 100%; float: left; border: 1px solid #B3B3B3; border-radius: 5px;}
 div#wrapper div#wrapper_inner div#content div.tabgroup{margin-bottom: 10px; width: 100%; float: left; height: 28px; padding-top: 4px; line-height: 32px; border-bottom: 1px solid #B3B3B3; background: url(/public/images/header_top_bg.gif) repeat-x center center transparent; border-radius: 5px 5px 0 0;}
 div#wrapper div#wrapper_inner div#content div.tabgroup a:first-child{margin-left: 8px; margin-right: 5px;}
@@ -290,13 +270,9 @@ div#wrapper div#wrapper_inner div#content div.tabgroup a{padding: 0 6px; border:
 div#wrapper div#wrapper_inner div#content div.tabgroup a.active{border: 1px solid #b3b3b3; border-bottom: 0 none; border-radius: 5px 5px 0 0; background-color: #fff;}
 div#wrapper div#wrapper_inner div#content div.tabgroup a:hover{border: 1px solid #b3b3b3; height: 25px; border-radius: 5px 5px 0 0; background-color: #f1f1f1;}
 div#wrapper div#wrapper_inner div#content div.tabgroup a.active:hover{border: 1px solid #b3b3b3; height: 26px; border-bottom: 0 none; border-radius: 5px 5px 0 0; background-color: #fff;}
-
-
 div#wrapper div#wrapper_inner div#content div.cabinetwrap table.lastorders{margin-left: 10px;}
 div#wrapper div#wrapper_inner div#content div.cabinetwrap table.lastorders tr td:first-child{padding-right: 20px;}
 div#wrapper div#wrapper_inner div#content div.cabinetwrap table.lastorders a{color: #000;}
-
-
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check{padding-bottom: 10px; border-collapse: collapse; width: 100%}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check th span{float: left; width: 12px; height: 12px; margin-top: 4px; background: url(/public/images/plus_minus_delete_but2.gif) no-repeat transparent;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check th {width: 45px; vertical-align: top;padding-top: 4px;}
@@ -304,8 +280,6 @@ div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check t
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check td p{line-height: 18px; font-weight: bold;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check td p.descr{font-size: 13px; font-weight: normal;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check tr td:last-child{text-decoration: underline; text-align: right; white-space: nowrap;}
-
-
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total{width: 100%; border-collapse: collapse; border-top: 1px solid #E83F0B; font-size: 18px; margin-top: 10px; margin-right: 10px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total span{background-color: #f4f4f4; padding: 0 5px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th{width: 75%; text-align: left; font-weight: normal;}
@@ -317,17 +291,13 @@ div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total t
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total td{padding-top: 5px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th, div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total td{background: url(/public/images/dot.gif) repeat-x -4px 16px transparent;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr:last-child td{background-image: none; text-align: right;}
-
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.delete{cursor: pointer; background-position: 0 -23px;}
-
-
 div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit{width: 330px; margin-bottom: 20px; border-right: 1px dotted #e83f0b; line-height: 30px; float: left;}
 div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit th{font-family: Tahoma; text-align: right; font-weight: normal; font-size: 13px;}
 div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit th label{margin-right: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td input[type="text"], div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td input[type="password"]{border: 1px solid #b3b3b3; border-radius: 3px; width: 170px; padding: 0 10px; line-height: 25px; height: 25px;}
 div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td input[type="submit"]{float: right; margin-top: 10px; width: 190px; height: 34px; color: #fff; font-family: 'Open Sans Condensed',Sans-Serif; border: none; font-size: 25px; cursor: pointer; background: url(/public/images/save_bg.png) no-repeat 0 0 transparent;}
 div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td {width: 192px; padding-right: 20px;}
-
 div#wrapper div#wrapper_inner div#content div.left_cont table.adr{border-collapse: collapse; margin-bottom: 20px; width: 300px; font-family: Tahoma; font-size: 13px; float: left; margin-left: 20px; line-height: 30px;}
 div#wrapper div#wrapper_inner div#content div.left_cont table.adr tr:hover, div#wrapper div#wrapper_inner div#content div.left_cont table.adr tr.act{background-color: #f5f5f5;}
 div#wrapper div#wrapper_inner div#content div.left_cont table.adr th{color: #e83f0b; padding: 0 5px; vertical-align: top;}
@@ -336,12 +306,11 @@ div#wrapper div#wrapper_inner div#content div.left_cont table.adr td a{margin-le
 div#wrapper div#wrapper_inner div#content div.left_cont table.adr th a{color: #e83f0b; float: left; text-decoration: none; font-weight: normal;}
 div#wrapper div#wrapper_inner div#content div.left_cont table.adr th a span{border-bottom: 1px solid #e83f0b;}
 div#wrapper div#wrapper_inner div#content div.left_cont table.adr td div{padding-top: 30px; position: absolute; width: 0px; right: -295px; top: 0; overflow: hidden; height: 185px; z-index: 10; background-color: #f5f5f5;}
-
-
 div#wrapper div#wrapper_inner div#content div.static_left{z-index: 2; position: relative; box-shadow: 0 5px 8px #999999; background-color: #fff; float: left; width: 50%; border-right: 1px dashed #d0d0d0; border-bottom: 1px dashed #d0d0d0; padding: 10px;}
 div#wrapper div#wrapper_inner div#content div.static_center{z-index: 2; position: relative; box-shadow: 0 5px 8px #999999; background-color: #fff; display: table; width: 50%; border-bottom: 1px dashed #d0d0d0; border-right: 1px dashed #d0d0d0; border-left: 1px dashed #d0d0d0; padding: 10px; margin: -29px auto 0; padding-bottom: 20px;}
 div#wrapper div#wrapper_inner div#content div.static_center h3{clear: left;}
 div#wrapper div#wrapper_inner div#content div.static_center li, div#wrapper div#wrapper_inner div#content div.static_right li, div#wrapper div#wrapper_inner div#content div.static_left li{list-style: disc; list-style-position: inside; margin-top: 10px; font-family: Tahoma; font-size: 14px; color: #333;}
+div#wrapper div#wrapper_inner div#content div.static_center li.single, div#wrapper div#wrapper_inner div#content div.static_right li.single, div#wrapper div#wrapper_inner div#content div.static_left li.single{list-style: none;}
 div#wrapper div#wrapper_inner div#content div.static_right li a, div#wrapper div#wrapper_inner div#content div.static_center li a, div#wrapper div#wrapper_inner div#content div.static_left li a{color: #000;}
 div#wrapper div#wrapper_inner div#content div.static_right li a:hover, div#wrapper div#wrapper_inner div#content div.static_center li a:hover, div#wrapper div#wrapper_inner div#content div.static_left li a:hover{text-decoration: none; text-shadow: 0px 0px 1px #000;}
 div#wrapper div#wrapper_inner div#content div.static_right ul, div#wrapper div#wrapper_inner div#content div.static_left ul{margin-bottom: 10px;}
