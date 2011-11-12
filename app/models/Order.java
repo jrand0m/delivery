@@ -291,7 +291,7 @@ public class Order extends GenericModel {
 		case ACCEPTED:
 		case COOKED:
 		case DELIVERING:
-			long x = orderPlanedDeliveryTime.getTime() - new Date().getTime();
+			long x = orderPlanedDeliveryTime==null?new Date().getTime():orderPlanedDeliveryTime.getTime() - new Date().getTime();
 			x = x / 1000 / 60;
 			if (x > 0){
 				return String.valueOf(x);
