@@ -291,6 +291,7 @@ public class Application extends Controller {
 			}
 			address.appartamentsNumber = app;
 			address.user = user;
+			address.additionalInfo = addinfo;
 			// TODO do proper validation
 			address.validateAndCreate();
 			if (validation.hasErrors()) {
@@ -321,6 +322,7 @@ public class Application extends Controller {
 				}
 				address.appartamentsNumber = app;
 				address.user = user;
+				address.additionalInfo = addinfo;
 				// TODO do proper validation
 				address.validateAndCreate();
 				if (validation.hasErrors()) {
@@ -331,7 +333,7 @@ public class Application extends Controller {
 			}
 		}
 		o.deliveryAddress = address;
-		o.deliveryAddress.additionalInfo = addinfo;
+		
 		o.orderStatus = OrderStatus.SENT;
 		o.save();
 		try{

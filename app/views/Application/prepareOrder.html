@@ -55,7 +55,7 @@
 				<label for="cinp07">&{'common.reg.phone'} +380</label></th><td>
 				<input name="phone" type="text" value="${flash.phone}" id="cinp07" /><br />
 					<span class="wrong_data">#{error 'phone' /}</span></td><th><label>&{'common.reg.paymentType'}</label></th><td><span><input type="radio" name="oplata" checked />&{'common.reg.paymentType.cash'}</span></td></tr>
-					<tr><td colspan="2"></td><th style="vertical-align: top;"><label class="tal" for="aditional_info">Додаткова<br />інформація<br />(код дверeй<br />під'їзду, etc)</label></th><td><textarea id="addinfo">${flash.addinfo}</textarea></td></tr>
+					<tr><td colspan="2"></td><th style="vertical-align: top;"><label class="tal" for="aditional_info">Додаткова<br />інформація<br />(код дверeй<br />під'їзду, etc)</label></th><td><textarea id="addinfo" name="addinfo">${flash.addinfo}</textarea></td></tr>
 				<tr><th></th><td></td>
 				<!--th class="frst" colspan='2'><span><input type="radio" name="oplata" disabled="true" />&{'common.reg.paymentType.card'}<img class="card_pic" src="/public/images/visamastercard.png" /></span></th></tr-->
 			</table>

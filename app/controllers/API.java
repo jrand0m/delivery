@@ -48,7 +48,10 @@ public class API extends Controller {
 	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
 			+ " = ? and " + Order.FIELDS.ORDER_STATUS + " in (?,?,?) ";
 	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
-			+ " = ? and " + Order.FIELDS.ORDER_STATUS + " in (?) and " + Order.FIELDS.ORDER_CONFIRMED + " > ?";
+			+ " = ? and "
+			+ Order.FIELDS.ORDER_STATUS
+			+ " in (?) and "
+			+ Order.FIELDS.ORDER_CONFIRMED + " > ?";
 	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
 			+ "."
 			+ Restaurant.FIELDS.RESTAURANT_CITY
@@ -90,12 +93,6 @@ public class API extends Controller {
 			job.price = order.getMenuTotal();
 			job.paymentStatus = order.paymentStatus.toString();
 			job.time = order.orderConfirmed.getTime();
-			if (order.deliveryAddress == null){
-				Logger.warn("No delivery address for order id %s", order.shortHandId);
-				job.additionalInfo = "<null>";
-			} else {
-				job.additionalInfo = order.deliveryAddress.additionalInfo;
-			}
 			job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
 					.getTime() - System.currentTimeMillis()
 					: null;
@@ -115,14 +112,16 @@ public class API extends Controller {
 		if (from != null) {
 			Date date = new Date(from);
 			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM, city,
-					OrderStatus.SENT, OrderStatus.CONFIRMED, OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
+					OrderStatus.SENT, OrderStatus.CONFIRMED,
+					OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
 					OrderStatus.COOKED, date).fetch();
 		} else {
 			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN, city,
-					OrderStatus.SENT, OrderStatus.CONFIRMED, OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
+					OrderStatus.SENT, OrderStatus.CONFIRMED,
+					OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
 					OrderStatus.COOKED).fetch();
 		}
-		
+
 		Logger.info("Found %d orders", orders.size());
 		List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
 		for (Order order : orders) {
@@ -136,6 +135,13 @@ public class API extends Controller {
 			job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
 					.getTime() - System.currentTimeMillis()
 					: null;
+			if (order.deliveryAddress == null) {
+				Logger.warn("No delivery address for order id %s",
+						order.shortHandId);
+				job.additionalInfo = "<null>";
+			} else {
+				job.additionalInfo = order.deliveryAddress.additionalInfo;
+			}
 			job.from = order.restaurant.addressToString();
 			job.to = order.deliveryAddress == null ? "none"
 					: order.deliveryAddress.toString();
@@ -211,8 +217,10 @@ public class API extends Controller {
 			order.orderStatus = OrderStatus.ACCEPTED;
 			order.orderAccepted = new Date();
 			order.orderPlanedCooked = new Date(System.currentTimeMillis()
-					+ OrderUtils.convertToMinutes(message.time) );
-			order.orderPlanedDeliveryTime = new Date(order.orderPlanedCooked.getTime() + order.orderPlanedDeliveryTime.getTime());
+					+ OrderUtils.convertToMinutes(message.time));
+			order.orderPlanedDeliveryTime = new Date(
+					order.orderPlanedCooked.getTime()
+							+ order.orderPlanedDeliveryTime.getTime());
 			break;
 		case DECLINED:
 			order.orderStatus = OrderStatus.DECLINED;
