@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.mail.SimpleEmail;
+
 import jobs.DevBootStrap;
 import models.MenuItem;
 import models.MenuItemComponent;
@@ -40,6 +42,7 @@ import play.data.validation.Phone;
 import play.data.validation.Required;
 import play.i18n.Lang;
 import play.libs.Crypto;
+import play.libs.Mail;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.test.Fixtures;
@@ -330,6 +333,15 @@ public class Application extends Controller {
 		o.deliveryAddress = address;
 		o.orderStatus = OrderStatus.SENT;
 		o.save();
+		try{
+			SimpleEmail simpleEmail = new SimpleEmail();
+			simpleEmail.setFrom("no-reply <robot@vdoma.com.ua>");
+			simpleEmail.addTo("380964831310@sms.kyivstar.net");
+			simpleEmail.setMsg("you got new order");
+			Mail.send(simpleEmail);
+		} catch (Exception e) {
+			Logger.error("Failed to send notification email!", e);
+		}
 		order(o.getShortHandId());
 	}
 

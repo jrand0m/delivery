@@ -12,6 +12,16 @@ public class OrderItemJSON {
 			desc = oi.desc();
 			count = oi.count;
 			components = oi.selectedComponentsNames();
+			if (!components.isEmpty()){
+				desc += "<br /> (";
+				for (int i = 0 ; i<components.size(); i ++){
+					desc += components.get(i);
+					if (i<components.size()-1){
+						desc+= ", ";
+					}
+				}
+				desc+= ") ";
+			}
 		}
 		/**
 		 * price is displayed including selected components
