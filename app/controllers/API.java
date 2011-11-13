@@ -177,7 +177,7 @@ public class API extends Controller {
 		case CONFIRMED:
 			order.orderStatus = OrderStatus.CONFIRMED;
 			order.orderConfirmed = new Date();
-			order.orderPlanedDeliveryTime = new Date(message.time);
+			order.orderPlanedDeliveryTime = new Date(message.time * 1000 * 60);
 			break;
 		case DELIVERED:
 			order.orderStatus = OrderStatus.DELIVERED;
@@ -212,7 +212,7 @@ public class API extends Controller {
 			order.orderAccepted = new Date();
 			order.orderPlanedCooked = new Date(System.currentTimeMillis()
 					+ OrderUtils.convertToMinutes(message.time) );
-			order.orderPlanedDeliveryTime = new Date(order.orderPlanedCooked.getTime() +  OrderUtils.convertToMinutes(order.orderPlanedDeliveryTime.getTime()));
+			order.orderPlanedDeliveryTime = new Date(order.orderPlanedCooked.getTime() + order.orderPlanedDeliveryTime.getTime());
 			break;
 		case DECLINED:
 			order.orderStatus = OrderStatus.DECLINED;

@@ -68,7 +68,7 @@ public class Application extends Controller {
 		renderText("Cleared db and forsed fixture load");
 	}
 
-	@Before(unless = { "serveLogo", "loadFix", "comps", "changeCity",
+	@Before(unless = { "getLastOrders","serveLogo", "loadFix", "comps", "changeCity",
 			"changeLang" }/*
 						 * unless =
 						 * {"getCurrentUser","guessCity","deleteOrRemOrderItem"
