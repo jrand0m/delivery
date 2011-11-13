@@ -3,6 +3,8 @@
  */
 package controllers;
 
+import helpers.OrderUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -73,15 +75,6 @@ public class API extends Controller {
 			Date date = new Date(from);
 			orders = Order.find(JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM,
 					restaurant, OrderStatus.CONFIRMED, date).fetch();
-			
-			/*
-			 * for (Iterator<Order> it = orders.iterator(); it.hasNext();){
-			 * Order o = it.next();
-			 * 
-			 * if (o.updated.before(date)){ it.remove(); }
-			 * 
-			 * }
-			 */
 		} else {
 			orders = Order.find(JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN,
 					restaurant, OrderStatus.ACCEPTED, OrderStatus.COOKED,
@@ -97,7 +90,12 @@ public class API extends Controller {
 			job.price = order.getMenuTotal();
 			job.paymentStatus = order.paymentStatus.toString();
 			job.time = order.orderConfirmed.getTime();
-			job.additionalInfo = order.deliveryAddress.additionalInfo;
+			if (order.deliveryAddress == null){
+				Logger.warn("No delivery address for order id %s", order.shortHandId);
+				job.additionalInfo = "<null>";
+			} else {
+				job.additionalInfo = order.deliveryAddress.additionalInfo;
+			}
 			job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
 					.getTime() - System.currentTimeMillis()
 					: null;
@@ -179,6 +177,7 @@ public class API extends Controller {
 		case CONFIRMED:
 			order.orderStatus = OrderStatus.CONFIRMED;
 			order.orderConfirmed = new Date();
+			order.orderPlanedDeliveryTime = new Date(message.time);
 			break;
 		case DELIVERED:
 			order.orderStatus = OrderStatus.DELIVERED;
@@ -212,7 +211,8 @@ public class API extends Controller {
 			order.orderStatus = OrderStatus.ACCEPTED;
 			order.orderAccepted = new Date();
 			order.orderPlanedCooked = new Date(System.currentTimeMillis()
-					+ message.time * 60 * 1000);
+					+ OrderUtils.convertToMinutes(message.time) );
+			order.orderPlanedDeliveryTime = new Date(order.orderPlanedCooked.getTime() +  OrderUtils.convertToMinutes(order.orderPlanedDeliveryTime.getTime()));
 			break;
 		case DECLINED:
 			order.orderStatus = OrderStatus.DECLINED;
