@@ -94,7 +94,7 @@ public class API extends Controller {
 			CaffeJobsList job = new CaffeJobsList();
 			job.id = order.getShortHandId();
 			job.status = order.orderStatus.toString();
-			job.price = order.getGrandTotal();
+			job.price = order.getMenuTotal();
 			job.paymentStatus = order.paymentStatus.toString();
 			job.time = order.orderConfirmed.getTime();
 			job.additionalInfo = order.deliveryAddress.additionalInfo;
@@ -131,7 +131,8 @@ public class API extends Controller {
 			CaffeJobsList job = new CaffeJobsList();
 			job.id = order.getShortHandId();
 			job.status = order.orderStatus.toString();
-			job.price = order.getGrandTotal();
+			job.price = order.getMenuTotal();
+			job.customerPrice = order.getGrandTotal();
 			job.paymentStatus = order.paymentStatus.toString();
 			job.time = order.updated.getTime();
 			job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
