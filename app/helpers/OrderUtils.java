@@ -19,5 +19,10 @@ public class OrderUtils {
 		}
 		return count;
 	}
+	
+	public static Long convertToMinutes (long milliseconds){
+		return milliseconds /1000/60;
+		
+	}
 
 }

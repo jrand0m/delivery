@@ -517,6 +517,7 @@ public class Application extends Controller {
 		user.create();
 		user.login = "Anonymous_" + user.getId();
 		user.lastLoginDate = new Date();
+		user.joinDate = new Date();
 		user.password = Crypto.passwordHash(user.login + "1");
 		session.put("username", user.login);
 		user.save();

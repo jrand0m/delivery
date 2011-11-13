@@ -1,7 +1,7 @@
 #{extends 'main-admin.html' /}
 #{set 'c__itmCat'}active#{/set}
 #{form @Admin.addType() , id:'form', enctype:'multipart/form-data' }
-<input type="hidden" value="cat?.id" name="cat.id" /> 
+<input type="hidden" value="${cat?.id}" name="cat.id" /> 
 <div>
 <label for="cat.categoryDisplayNameEN">Name EN</label>
 <input type="text" name="cat.categoryDisplayNameEN" value="${cat?.categoryDisplayNameEN}" />
