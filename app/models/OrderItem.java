@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -92,7 +93,18 @@ public class OrderItem extends Model {
 		return menuItem.name();
 	}
 	public String desc() {
-		return menuItem.description();
+		String s = menuItem.description();
+		if (!selectedComponents.isEmpty()){
+			s += " (";
+			for (Iterator<MenuItemComponent> i = selectedComponents.iterator(); i.hasNext(); ){
+				s += i.next().name();
+				if (i.hasNext()){
+					s+= ", ";
+				}
+			}
+			s+= ") ";
+		}
+		return s;
 	}
 	public String priceString(){
 		String string = new BigDecimal(orderItemPrice).setScale(2,RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN)).toString();

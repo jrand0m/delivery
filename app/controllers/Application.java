@@ -225,7 +225,7 @@ public class Application extends Controller {
 	 * */
 	public static void checkAndSend(String id, Long aid, String name,
 			Integer city, String sname, Long streetid, String street, @Email String email,
-			String app, @Phone String phone, String oplata) {
+			String app, @Phone String phone, String oplata , String addinfo) {
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user == null)
 			badRequest();
@@ -331,6 +331,7 @@ public class Application extends Controller {
 			}
 		}
 		o.deliveryAddress = address;
+		o.deliveryAddress.additionalInfo = addinfo;
 		o.orderStatus = OrderStatus.SENT;
 		o.save();
 		try{
