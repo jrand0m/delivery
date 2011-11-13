@@ -173,7 +173,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td label{float: left; margin-right: 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout label.tal{line-height: 17px; text-transform: none; vertical-align: top;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{position: relative; z-index: 2; height: 25px; width: 200px; padding: 0 10px; line-height: 25px; font-size: 14px; font-family: Tahoma; border-radius: 5px; border: 1px solid #b3b3b3; color: #333;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form textarea#aditional_info{position: relative; z-index: 2; height: 80px; width: 200px; padding: 5px 10px; font-size: 14px; font-family: Tahoma; border-radius: 5px; border: 1px solid #b3b3b3; color: #333;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form textarea#addinfo{position: relative; z-index: 2; height: 80px; width: 200px; padding: 5px 10px; font-size: 14px; font-family: Tahoma; border-radius: 5px; border: 1px solid #b3b3b3; color: #333;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .err{ color: #E83F0B; margin-left: 10px; margin-top: 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{color: #E83F0B; display: block; font-family: tahoma; font-size: 11px; margin-top: -15px; position: absolute; z-index: 1;}
 .jRadioWrapper {z-index: 2; position: relative; float: left; margin-right: 22px; margin-top: 10px;}
