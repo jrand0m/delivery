@@ -92,7 +92,7 @@ $.extend(_, {
 		aderessWrapper.append(_.createDiv('DCWOrderFrom').text(_.lang.adressFrom + element.from))
 			.append(_.createDiv('DCWOrderTo').text(_.lang.adressTo + element.to));
 		header.append(aderessWrapper);
-		if(element.status == 'ACCEPTED') {
+		if(element.status == "ACCEPTED"||element.status == "COOKED"||element.status == "DELIVERING") {
 			var timesWrapper = _.createDiv('DCWOrderTimeWrapper');
 			timesWrapper.append(_.createDiv()
 				.append(_.lang.timeTake)
@@ -172,6 +172,7 @@ $.extend(_, {
 			.click(function() {
 					orderElem.domElem.remove();
 					_.removeElement(activeOrders, orderElem);
+					_.updateCounters(activeOrders);
 					_.sendOrderStatusChanged(orderElem, 'DELIVERED');
 				}));
 		
@@ -253,6 +254,7 @@ $.extend(_, {
 				if(text) {
 					element.domElem.remove();
 					_.removeElement(parentArray, element);
+					_.updateCounters(parentArray);
 					_.nextDialog();
 					_.sendOrderRejected(element, text);
 				}
@@ -283,7 +285,7 @@ $.extend(_, {
 	
 	updateTimes: function(parent) {
 		$(parent.orders).each(function(){
-			if(this.status == 'ACCEPTED') {
+			if(this.status == "ACCEPTED"||this.status == "COOKED"||this.status == "DELIVERING") {
 				var timeToDeliver = (this.timeDelivered - new Date().getTime()) / 60000;
 				var timeToPrepare = (this.timePrepared - new Date().getTime()) / 60000;
 				$('.DCWTimeToDeliver', this.domElem)
