@@ -132,13 +132,13 @@ public class API extends Controller {
 			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM, city,
 					OrderStatus.SENT, OrderStatus.CONFIRMED,
 					OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
-					OrderStatus.COOKED, OrderStatus.DELIVERED, user.getId(),
+					OrderStatus.COOKED, OrderStatus.DELIVERED, user,
 					date).fetch();
 		} else {
 			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN, city,
 					OrderStatus.SENT, OrderStatus.CONFIRMED,
 					OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
-					OrderStatus.COOKED, user.getId()).fetch();
+					OrderStatus.COOKED, user).fetch();
 		}
 
 		Logger.info("Found %d orders", orders.size());
