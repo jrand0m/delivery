@@ -92,8 +92,8 @@ var rid = ${restaurant.id};
 					
 					#{list items:menuItems, as:'grp'}
 					<div class="det_rest_menu">	
+						<a class="anchor_link" name="${grp.anchorName()}"></a>
 						<h1>${grp.name}</h1>
-						<a name="${grp.anchorName()}"></a>
 						<table> <!-- class="od" -->
 							%{
 								for (int i = 0; i < grp.items.size(); i++){
