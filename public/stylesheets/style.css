@@ -125,7 +125,8 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td{w
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a{color: #000; padding: 3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a:hover{background-color: #cccccc;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket h1{font-weight: bold;background: url(/public/images/ico_shopping_cart.png) no-repeat 260px center #E83F0B; color: #fff;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{position: relative; width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu a.anchor_link{position: absolute; top: -15px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table{padding: 5px 10px; width: 100%; border-collapse: collapse;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th{width: 5%; vertical-align: top; padding-top: 5px;}
