@@ -3,7 +3,7 @@
     ${restaurant.title} menu list
 #{/set}
 #{set 'breadCrumb' }
-<a class="enter back" href="@{Application.showRestaurants()}" >&{'common.back'}</a>
+<a class="enter back" href="/" >&{'common.back'}</a>
 #{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
 <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 <a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
@@ -115,7 +115,7 @@ var rid = ${restaurant.id};
 				</div>
 				<div class="right_cont">
 					<div class="right_block" id="basket">
-						<h1>&{'common.basket'}</h1>
+						<div><h1>&{'common.basket'}</h1></div>
 						<div class="rb_cont">
 							<form action="@{Application.checkout}">
 								<table>
