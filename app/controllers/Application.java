@@ -3,10 +3,13 @@ package controllers;
 import helpers.CACHE_KEYS;
 import helpers.GeoDataHelper;
 import helpers.PropertyVault;
+import helpers.Transliterator;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -71,19 +74,24 @@ public class Application extends Controller {
 		renderText("Cleared db and forsed fixture load");
 	}
 
-	@Before(unless = { "getLastOrders","serveLogo", "loadFix", "comps", "changeCity",
-			"changeLang" }/*
-						 * unless =
-						 * {"getCurrentUser","guessCity","deleteOrRemOrderItem"
-						 * ,"createNewOpenOrder", "createOrAddOrderItem", }
-						 */)
+	@Before(unless = { "getLastOrders", "serveLogo", "loadFix", "comps",
+			"changeCity", "changeLang" }/*
+										 * unless =
+										 * {"getCurrentUser","guessCity"
+										 * ,"deleteOrRemOrderItem"
+										 * ,"createNewOpenOrder",
+										 * "createOrAddOrderItem", }
+										 */)
 	public static void _pre() {
 		EndUser user = getCurrentUser();
 		renderArgs.put(RENDER_KEYS.USER, user);
 		if (!session.contains(SESSION_KEYS.CITY_ID)) {
 			Logger.debug("No city defined in cookies");
 			City city = City.find("display = ?", true).first();
-			session.put(SESSION_KEYS.CITY_ID, city.id					/*Application.guessCity(request.remoteAddress).getId()*/);
+			session.put(SESSION_KEYS.CITY_ID, city.id /*
+													 * Application.guessCity(request
+													 * .remoteAddress).getId()
+													 */);
 		}
 		flash.put("url", request.url);
 	}
@@ -100,8 +108,6 @@ public class Application extends Controller {
 		renderArgs.put("order", order);
 		render("/Application/order.html");
 	}
-
-
 
 	public static void checkout(String id) {
 		// FIXME move to locker ?
@@ -224,8 +230,9 @@ public class Application extends Controller {
 	 * 
 	 * */
 	public static void checkAndSend(String id, Long aid, String name,
-			Integer city, String sname, Long streetid, String street, @Email String email,
-			String app, @Phone String phone, String oplata , String addinfo) {
+			Integer city, String sname, Long streetid, String street,
+			@Email String email, String app, @Phone String phone,
+			String oplata, String addinfo) {
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user == null)
 			badRequest();
@@ -286,8 +293,9 @@ public class Application extends Controller {
 				streetObj.title_ua = street;
 				streetObj.title_en = street;
 				streetObj.save();
-				address.street = streetObj; 
-				//validation.addError("address.street", "street.notacceptable");
+				address.street = streetObj;
+				// validation.addError("address.street",
+				// "street.notacceptable");
 			}
 			address.appartamentsNumber = app;
 			address.user = user;
@@ -333,17 +341,30 @@ public class Application extends Controller {
 			}
 		}
 		o.deliveryAddress = address;
-		
+
 		o.orderStatus = OrderStatus.SENT;
 		o.save();
-		try{
+		try {
 			SimpleEmail simpleEmail = new SimpleEmail();
 			simpleEmail.setFrom("no-reply <robot@vdoma.com.ua>");
 			simpleEmail.addTo("380964831310@sms.kyivstar.net");
-			simpleEmail.setMsg("you got new order");
+			simpleEmail.addTo("380673864501@sms.kyivstar.net");
+			simpleEmail.setSubject(Transliterator
+					.transliterate(o.restaurant.title));
+			simpleEmail.setMsg("tel:"
+					+ (phone == null ? "-" : Transliterator.transliterate(phone))
+					+ ";price:"
+					+ (new BigDecimal(o.getGrandTotal()).setScale(2,
+							RoundingMode.HALF_EVEN).divide(new BigDecimal(100)
+							.setScale(2, RoundingMode.HALF_EVEN))) + ";to:"
+					+ Transliterator
+					.transliterate(street) +"," +
+					Transliterator
+					.transliterate(app)
+					);
 			Mail.send(simpleEmail);
 		} catch (Exception e) {
-			Logger.error("Failed to send notification email!", e);
+			Logger.error("Failed to send notification email! " + e.getMessage(), e);
 		}
 		order(o.getShortHandId());
 	}

@@ -55,11 +55,11 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li{cur
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li:hover, div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li.selected{background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#content{padding-top: 15px;}
 div#wrapper div#wrapper_inner div#content div.main_cont{padding-bottom: 10px; float: left; width: 100%; font-family: Tahoma; color: #333;}
-div.rest_item_prev{width: 230px; margin-left: 18px; padding-bottom: 20px; float: left; border-radius: 5px; border: 1px solid #b3b3b3; }
-div.rest_item_prev:first-child{margin-left: 0px}
-div.rest_item_prev h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal;  height: 40px; line-height: 17px; padding: 3px 10px;}
+div.rest_item_prev{width: 230px; margin-left: 18px; padding-bottom: 20px; float: left;  border: 1px solid #b3b3b3; }
+div.rest_item_prev:first-child{margin-left: 15px}
+div.rest_item_prev h1{position: relative; background: url(/public/images/main.png); font-size: 23px; font-weight: normal;  height: 40px; line-height: 17px; padding: 3px 10px;}
 div.rest_item_prev h1 span{font-size: 13px; width:140px; white-space:nowrap; display: inline-block; overflow: hidden;}
-div.rest_item_prev h1 b{display: inline-block; font-weight: normal; height: 23px; overflow: hidden; white-space: nowrap; width: 210px; font-size: 17px;}
+div.rest_item_prev h1 b{display: inline-block;border-bottom:1px solid #666; font-weight: normal; height: 23px; overflow: hidden; white-space: nowrap; width: 210px; font-size: 17px;}
 div.rest_item_prev h1 a{font-family: Tahoma; font-size: 13px;position: absolute; right: 10px; top: 25px;}
 div.rest_item_prev div.logo{height: 110px; position: relative; width: 210px; padding: 0 10px; text-align: center; display: table-cell; vertical-align: middle;}
 div.rest_item_prev div.logo i{display: inline-block; height: 100%; vertical-align: middle;}
@@ -68,14 +68,14 @@ div.rest_item_prev p{padding-left: 27px; padding-right: 10px; margin-left: 10px;
 div.rest_item_prev p.info{background: url(/public/images/information-frame.png) no-repeat left 5px transparent; height: 40px; line-height: 22px; overflow: hidden;}
 div.rest_item_prev p.work_time{background: url(/public/images/clock-select.png) no-repeat left center transparent;}
 div.rest_item_prev p.dostavka{background: url(/public/images/car-red.png) no-repeat left center transparent;}
-div.rest_item_prev a.menu_but{background: url(/public/images/menu_but_bg.gif) repeat-x 0 0 transparent; width: 160px; display: inline-block; height: 36px; margin-left: 35px; font-size: 17px; color: #000; text-decoration: none; line-height: 36px; border-radius: 3px; border: 1px solid #c03409; text-align: center;}
+div.rest_item_prev a.menu_but{background: url(/public/images/menu_new.png); width: 160px; display: inline-block; height: 36px; margin-left: 35px; font-size: 17px; color: #fff; text-decoration: none; line-height: 36px;  border: 1px solid #fff; text-align: center;}
 div.rest_item_prev form.rform{float: left; margin-bottom: 14px; margin-left: 37px; margin-top: 3px;}
 div.rest_item_prev form.rform label.rlabel{float: left; display: inline !important;}
 div.rest_item_prev form.rform .ui-stars-star{margin-top: 3px;}
 div.rest_item_prev form.rform .ui-stars-cancel{visibility: hidden}
-div.rest_offline h1{background-color: #979797; background-image: none;}
+div.rest_offline h1{background: url(/public/images/offline.png); }
 div.rest_offline h1 a{color:white;}
-div.rest_offline a.menu_but{background-position: 0 -36px; border: 1px solid #979797;}
+div.rest_offline a.menu_but{background-position: 0 -36px; }
 div.rest_network_view{background-color: #fc7c0d;}
 
 div#wrapper div#wrapper_inner div#content div.left_cont{width: 680px; float: left; position: relative;}
@@ -93,7 +93,8 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.r
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description {float: right; width: 285px; padding-right: 5px; position: relative; min-height: 110px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description a.menu{position: absolute; bottom: 5px; right: 0; text-align: center; text-decoration: none; background: url(/public/images/menu_but_bg2.gif) repeat-x scroll 0 0 transparent; height: 34px; line-height: 34px; width: 160px; border: 1px solid #C03409; border-radius: 3px 3px 3px 3px; color: #000000; display: inline-block; font-size: 19px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description p{max-height: 66px; overflow: hidden; font-size: 13.5px; line-height: 16px;}
-div#wrapper div#wrapper_inner div#content div.right_cont div.right_block{width: 295px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block{width: 285px; margin-bottom: 15px; border: 1px solid #F03E00; }
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block div:first-child{background: url(/public/images/knaparik_bg.png)}
 div#wrapper div#wrapper_inner div#content div.right_cont div.check{width: 288px; margin-bottom: 15px; border-radius: 0px; border: none; background-color: #f4f4f4;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.advert{border-radius: 0; border: 0;}
 div#wrapper div#wrapper_inner div#content div.right_cont div.advert a img{border: 1px solid #b3b3b3;}
@@ -117,18 +118,18 @@ div#login p.error{text-align: center; color: red; font-size: 14px; text-decorati
 div#login p#remember-field{margin-bottom: -10px;}
 div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; height: 31px; margin-top: -15px; width: 73px;}
 div#login div input[type="submit"]{margin: 10px 0;background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 665px; float: left; margin-bottom: 15px;border: 1px solid #b3b3b3;margin-left:10px}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(/public/images/main.png); line-height: 20px; font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 span{font-size: 13px; margin-left: 7px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 a{font-family: Tahoma; font-size: 13px; position: absolute; right: 10px; top: 3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table{padding: 5px 10px; width: 100%; line-height: 26px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td{width: 25%; vertical-align: top;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a{color: #000; padding: 3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a:hover{background-color: #cccccc;}
-div#wrapper div#wrapper_inner div#content div.right_cont div#basket h1{font-weight: bold;background: url(/public/images/ico_shopping_cart.png) no-repeat 260px center #E83F0B; color: #fff;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{position: relative; width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket h1{background: url(/public/images/ico_shopping_cart.png) no-repeat 260px center; color: #fff;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{position: relative; width: 665px;margin-left:10px; float: left; margin-bottom: 15px;  border: 1px solid #b3b3b3;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu a.anchor_link{position: absolute; top: -15px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu h1{position: relative; background: url(/public/images/main.png); line-height: 20px; font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table{padding: 5px 10px; width: 100%; border-collapse: collapse;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th{width: 5%; vertical-align: top; padding-top: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a{width: 24px; display: inline-block; margin-top: 4px; height: 24px; background: url(/public/images/add_but2.png) no-repeat 0 0 transparent;}
@@ -160,14 +161,14 @@ div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.tot
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total{line-height: 15px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td{padding-bottom: 5px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td p{padding-left: 5px; color: #E83F0B;}
-div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]{border-radius: 2px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent; border: 1px solid #f5f5f5; color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; position: relative; left: 21px; margin: 10px 0; width: 250px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]{border-radius: 2px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent; border: 1px solid #f5f5f5; color: #FFFFFF; font-family:Tahoma; font-size: 17px; height: 45px; position: relative; left: 21px; margin: 10px 0; width: 230px;}
 div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]:hover{border:1px solid #c03409}
 
 div#wrapper div#wrapper_inner div#content div.order{width: 345px; float: right; padding-right: 2px;}
 div#wrapper div#wrapper_inner div#content div.order th{width: 25px;}
 
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; /*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout{width: 665px; float: left; margin-bottom: 15px; margin-left:10px;/*box-shadow: 6px 6px 9px -4px #B3B3B3;*/ border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout h1{position: relative; background: url(/public/images/main.png); line-height: 20px;  font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.result_form{float:left; margin: 10px 0 0 10px; padding: 5px 10px; line-height: 20px; line-height: 35px; border-collapse: collapse;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.result_form span{ font:normal 13px Tahoma; padding:0 5px 0 0;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form{margin-top: 10px; padding: 5px 10px; line-height: 20px; line-height: 35px; width: 100%; border-collapse: collapse;}
@@ -192,7 +193,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total th{text-transform: uppercase; padding-top: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total td{padding-top: 5px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total th, div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total td{background: url(/public/images/dot.jpg) repeat-x -4px 16px transparent;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]{border:1px solid #f5f5f5;border-radius: 5px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent;color: #FFFFFF; font-family: Open Sans Condensed; font-size: 32px; height: 45px; position: relative; left: 21px; margin: 10px 0 10px 30px; width: 250px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]{border:1px solid #f5f5f5;border-radius: 5px; cursor: pointer; background: url(/public/images/knaparik_bg.png) no-repeat scroll 0 0 transparent;color: #FFFFFF; font-family: Tahoma; font-size: 17px; height: 45px; position: relative; left: 21px; margin: 10px 0 10px 30px; width: 250px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]:hover{border:1px solid #e83f0b;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr:last-child td{background-image: none; text-align: center;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .frst span{text-align:left;display:block;margin-left:67px;}
