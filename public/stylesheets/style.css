@@ -4,6 +4,7 @@ html,body {height: 100%;}
 a img{border: 0 none;}
 a, input{outline: 0px none;}
 html{font-family:Tahoma,Sans-Serif; font-size: 13px; color: #333;  background: #f4f4f4 url(/public/images/body.png);}
+body{background:url(/public/images/wrapper_bg.png) center 30px no-repeat;}
 textarea{resize: none;}
 li{list-style: none;}
 div#wrapper{margin: 0 auto; width: 984px;min-height: 100%;}
@@ -14,7 +15,7 @@ div#wrapper div#wrapper_inner div#header div.header_top{margin-bottom: 15px; min
 div#wrapper div#wrapper_inner div#header div.header_top a.logo{float: left; margin-left: 9px; margin-top: -21px;}
 div#wrapper div#wrapper_inner div#header div.header_top h1{color: #000; font-weight: normal; display: none; margin-top: 6px; text-shadow: 1px 1px 1px #E6E6E6; filter: Shadow(Color=#E6E6E6, Direction=45, Strength=2);}
 div#wrapper div#wrapper_inner div#header div.header_top img.h1{display: inline; margin: 15px 0 0 15px;}
-div#wrapper div#wrapper_inner div#header div.header_top img#slogan{display: block;float: right;height: 51px;margin: 0 -27px 0 0;}
+div#wrapper div#wrapper_inner div#header div.header_top img#slogan{display: block;float: right;height: 51px;}
 div#wrapper div#wrapper_inner div#header div.header_top div.right_links{float: right; width: 201px;}
 *+html div#wrapper div#wrapper_inner div#header div.header_top div.right_links{margin-top: -40px;}
 div#wrapper div#wrapper_inner div#header div.header_top ul.lang{font-family: Tahoma; font-size: 12px; margin-top: 6px;}
