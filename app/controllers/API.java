@@ -61,7 +61,7 @@ public class API extends Controller {
 			+ " = ?) "
 			+ "OR ("
 			+ Order.FIELDS.ORDER_STATUS
-			+ " in (?,?,?,?,?) AND "
+			+ " in (?,?,?,?) AND "
 			+ Order.FIELDS.CONFIRMED_COURIER + " = ?))";
 	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
 			+ "."
@@ -74,7 +74,7 @@ public class API extends Controller {
 			+ Order.FIELDS.ORDER_STATUS
 			+ " in (?,?,?,?) AND "
 			+ Order.FIELDS.CONFIRMED_COURIER
-			+ " = ?) "
+			+ " = ?)) "
 			+ " and "
 			+ Order.FIELDS.UPDATED + " > ?";
 
@@ -148,6 +148,7 @@ public class API extends Controller {
 			job.id = order.getShortHandId();
 			
 			if (order.orderStatus.equals(OrderStatus.CONFIRMED)
+					&& (order.confirmedCourier != null)
 					&& !order.confirmedCourier.getId().equals(user.getId())) {
 				job.status = "ALREADY_CONFIRMED";
 			} else {
