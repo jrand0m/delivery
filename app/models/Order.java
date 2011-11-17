@@ -27,6 +27,7 @@ import org.hibernate.annotations.Where;
 
 import play.db.jpa.GenericModel;
 import play.db.jpa.JPABase;
+import play.libs.Codec;
 import enumerations.OrderStatus;
 import enumerations.PaymentStatus;
 
@@ -240,7 +241,7 @@ public class Order extends GenericModel {
 					"Taking shorthand on null id!");
 		}
 		if (shortHandId == null) {
-			shortHandId = Integer.toHexString(id.hashCode());
+			shortHandId = Codec.hexSHA1(id).substring(0, 8);
 			save();
 		}
 		return shortHandId;
