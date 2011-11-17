@@ -20,8 +20,9 @@
 			<div id="wrapper_inner">
 				<div id="header">
 					<div class="header_top">
-						<a href="@{Application.index()}" class="logo"><img alt="На головну!" title="На головну!" src="@{'/public/images/logo.png'}" /></a>
+						<a href="@{Application.index()}" class="logo"><img alt="На головну!" title="На головну!" src="@{'/public/images/logo.png'}" width="79" /></a>
 						<h1>&{'common.slogan'}</h1>
+						<img class="h1" src="@{'/public/images/h1.png'}" />
 						<div class="right_links">
 							<ul class="lang">
 								<li class="${"uk".equals(lang)?"active":""}"><a href="@{Application.changeLang("uk")}">українською</a></li>
@@ -31,7 +32,7 @@
 							
 						</div>
 						<ul class='main_nav'>
-							<li><a title="&{'header.nav.restorauntlist.tooltip'}" href="@{Application.showRestaurants()}">&{'header.nav.restorauntlist.text'}</a></li>
+							<!--<li><a title="&{'header.nav.restorauntlist.tooltip'}" href="@{Application.showRestaurants()}">&{'header.nav.restorauntlist.text'}</a></li>-->
 							<!--li class="unactive"><a title="&{'header.nav.orderhistory.tooltip'}" href="#">&{'header.nav.orderhistory.text'}</a></li-->
 							<!--li><a title="&{'header.nav.deliveryandpayment.tooltip'}" href="#">&{'header.nav.deliveryandpayment.text'}</a></li-->
 						</ul>
@@ -54,7 +55,7 @@
 				<table>
 					<tr>
 						<td>
-							<a href="/" class="flogo"><img src="/public/images/logo.png" /><br />&copy; вдома.сom.ua</a>
+							<a href="/" class="flogo"><img src="/public/images/logo.png" width="71" /><br />&copy; вдома.сom.ua</a>
 						</td>
 						<td>
 							<ul>
@@ -66,7 +67,7 @@
 							</ul>
 						</td>
 						<td class="social_icons">
-							<p>Ми у соціальних мережах:</p>
+							<!--<p>Ми у соціальних мережах:</p>-->
 							<a title="Вконтакте" href="http://vkontakte.ru/vdoma_com_ua"><img alt="vk" src="@{'/public/images/vk.png'}" /></a>
 							<a title="Фейсбук" href="http://www.facebook.com/groups/272545222759382/"><img alt="fb" src="@{'/public/images/fb.png'}" /></a>
 							<a title="Твіттер" href="http://twitter.com/#!/vdoma_com_ua/"><img alt="tw" src="@{'/public/images/tw.png'}" /></a>
