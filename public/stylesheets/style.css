@@ -61,7 +61,7 @@ div.rest_item_prev:first-child{margin-left: 15px}
 div.rest_item_prev h1{position: relative; background: url(/public/images/main.png); font-size: 23px; font-weight: normal;  height: 40px; line-height: 17px; padding: 3px 10px;}
 div.rest_item_prev h1 span{font-size: 13px; width:140px; white-space:nowrap; display: inline-block; overflow: hidden;}
 div.rest_item_prev h1 b{display: inline-block;border-bottom:1px solid #666; font-weight: normal; height: 23px; overflow: hidden; white-space: nowrap; width: 210px; font-size: 17px;}
-div.rest_item_prev h1 a{font-family: Tahoma; font-size: 13px;position: absolute; right: 10px; top: 25px;}
+div.rest_item_prev h1 a{display: none;font-family: Tahoma; font-size: 13px;position: absolute; right: 10px; top: 25px;}
 div.rest_item_prev div.logo{height: 110px; position: relative; width: 210px; padding: 0 10px; text-align: center; display: table-cell; vertical-align: middle;}
 div.rest_item_prev div.logo i{display: inline-block; height: 100%; vertical-align: middle;}
 div.rest_item_prev div.logo img.logo{vertical-align: middle; max-width: 210px; max-height: 110px}
@@ -74,10 +74,10 @@ div.rest_item_prev form.rform{float: left; margin-bottom: 14px; margin-left: 37p
 div.rest_item_prev form.rform label.rlabel{float: left; display: inline !important;}
 div.rest_item_prev form.rform .ui-stars-star{margin-top: 3px;}
 div.rest_item_prev form.rform .ui-stars-cancel{visibility: hidden}
-div.rest_offline h1{background: url(/public/images/offline.png); }
+/*div.rest_offline h1{background: url(/public/images/offline.png); }
 div.rest_offline h1 a{color:white;}
 div.rest_offline a.menu_but{background-position: 0 -36px; }
-div.rest_network_view{background-color: #fc7c0d;}
+div.rest_network_view{background-color: #fc7c0d;}*/
 
 div#wrapper div#wrapper_inner div#content div.left_cont{width: 680px; float: left; position: relative;}
 div#wrapper div#wrapper_inner div#content div.restMenu{margin-bottom: 30px;}
