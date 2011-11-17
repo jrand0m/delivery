@@ -6,16 +6,10 @@ package controllers;
 import helpers.OrderUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
-import models.Courier;
 import models.Order;
 import models.OrderItem;
 import models.Restaurant;
@@ -27,7 +21,6 @@ import models.users.CourierUser;
 import models.users.RestaurantBarman;
 import models.users.User;
 import play.Logger;
-import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -138,7 +131,7 @@ public class API extends Controller {
 			if (order.deliveryAddress == null) {
 				Logger.warn("No delivery address for order id %s",
 						order.shortHandId);
-				job.additionalInfo = "<null>";
+				job.additionalInfo = null;
 			} else {
 				job.additionalInfo = order.deliveryAddress.additionalInfo;
 			}
