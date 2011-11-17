@@ -100,8 +100,8 @@ var rid = ${restaurant.id};
 								models.MenuItem itm = grp.items.get(i);
 								boolean odd = i%2!=0;
 							}%
-							<tr class="${odd == true ? "od" : "even"}">
-								<th><a id="a${itm.id}" class="ingredient_popup_but" onclick="add(${itm.id},${itm.showComponents})" title="&{'common.basket.buttonTitle'}"></a></th>
+							<tr onclick="add(${itm.id},${itm.showComponents})" class="${odd == true ? "od" : "even"}">
+								<th><a id="a${itm.id}" class="ingredient_popup_but"  title="&{'common.basket.buttonTitle'}"></a></th>
 								<td>
 									<p>${itm.name}</p>
 									<p class="descr">${itm.description}</p>
