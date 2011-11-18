@@ -46,7 +46,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrap
 div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a.selected {background-color: #e6e6e6;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {display:none;font-family: Tahoma;color: #FFFFFF; float: right; font-size: 13px; line-height: 33px; margin-right: 10px; text-decoration:none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; text-shadow:0px 0px 2px #fff;}
-div#wrapper div#wrapper_inner div#header div.header_bottom a.back {color:#000;margin-top: -6px;visibility:visible !important;padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
+div#wrapper div#wrapper_inner div#header div.header_bottom a.back {color:#000;margin-top: -6px;visibility:visible !important;padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;display:block;}
 .jNiceHidden {display: none;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap{margin-top: 3px; border-radius: 2px 0px 0px 2px; min-width: 118px; position: relative; height: 28px; float: left; background: #fff;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap:hover{background:#f5f5f5}
