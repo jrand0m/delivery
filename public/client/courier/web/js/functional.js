@@ -15,7 +15,7 @@ $.extend(_, {
 				if(parent.tabOpened != 1) {
 					parent.updatedPendingOrders++;
 				}
-			} else if(this.status == "ACCEPTED"||this.status == "COOKED"||this.status == "DELIVERING") {
+			} else if(_.isActive(this)) {
 				parent.orders.push(this);
 				parent.activeOrdersContent.append(_.getActiveOrderDiv(this, parent));
 				if(parent.tabOpened != 2) {
@@ -92,7 +92,7 @@ $.extend(_, {
 		aderessWrapper.append(_.createDiv('DCWOrderFrom').text(_.lang.adressFrom + element.from))
 			.append(_.createDiv('DCWOrderTo').text(_.lang.adressTo + element.to));
 		header.append(aderessWrapper);
-		if(element.status == 'ACCEPTED') {
+		if(_.isActive(element)) {
 			var timesWrapper = _.createDiv('DCWOrderTimeWrapper');
 			timesWrapper.append(_.createDiv()
 				.append(_.lang.timeTake)
@@ -172,6 +172,7 @@ $.extend(_, {
 			.click(function() {
 					orderElem.domElem.remove();
 					_.removeElement(activeOrders, orderElem);
+					_.updateCounters(activeOrders);
 					_.sendOrderStatusChanged(orderElem, 'DELIVERED');
 				}));
 		
@@ -188,7 +189,7 @@ $.extend(_, {
 				newOrdersCount++;
 			} else if(array[i].status == 'CONFIRMED') {
 				pendingOrdersCount++;
-			} else if(array[i].status == "ACCEPTED"||array[i].status == "COOKED"||array[i].status == "DELIVERING") {
+			} else if(_.isActive(array[i])) {
 				activeOrdersCount++;
 			}
 		};
@@ -253,6 +254,7 @@ $.extend(_, {
 				if(text) {
 					element.domElem.remove();
 					_.removeElement(parentArray, element);
+					_.updateCounters(parentArray);
 					_.nextDialog();
 					_.sendOrderRejected(element, text);
 				}
@@ -283,7 +285,7 @@ $.extend(_, {
 	
 	updateTimes: function(parent) {
 		$(parent.orders).each(function(){
-			if(this.status == 'ACCEPTED') {
+			if(_.isActive(this)) {
 				var timeToDeliver = (this.timeDelivered - new Date().getTime()) / 60000;
 				var timeToPrepare = (this.timePrepared - new Date().getTime()) / 60000;
 				$('.DCWTimeToDeliver', this.domElem)
@@ -296,6 +298,14 @@ $.extend(_, {
 				}
 			}
 		});
+	},
+	
+	isActive: function(order) {
+		if(order.status == "ACCEPTED"||order.status == "COOKED"||order.status == "DELIVERING") {
+			return true;
+		} else {
+			return false;
+		}
 	},
 	
 	isTest: function() {

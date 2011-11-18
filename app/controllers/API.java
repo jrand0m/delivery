@@ -48,10 +48,28 @@ public class API extends Controller {
 	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
 			+ "."
 			+ Restaurant.FIELDS.RESTAURANT_CITY
-			+ " = ? and "
-			+ Order.FIELDS.ORDER_STATUS + " in (?,?,?,?,?) ";
-	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM = JPA_BY_CITY_AND_ORDER_STATUS_IN
-			+ " and " + Order.FIELDS.UPDATED + " > ?";
+			+ " = ? AND "
+			+ "(("
+			+ Order.FIELDS.ORDER_STATUS
+			+ " = ?) "
+			+ "OR ("
+			+ Order.FIELDS.ORDER_STATUS
+			+ " in (?,?,?,?) AND "
+			+ Order.FIELDS.CONFIRMED_COURIER + " = ?))";
+	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
+			+ "."
+			+ Restaurant.FIELDS.RESTAURANT_CITY
+			+ " = ? AND "
+			+ "(("
+			+ Order.FIELDS.ORDER_STATUS
+			+ " in (?,?)) "
+			+ "OR ("
+			+ Order.FIELDS.ORDER_STATUS
+			+ " in (?,?,?,?) AND "
+			+ Order.FIELDS.CONFIRMED_COURIER
+			+ " = ?)) "
+			+ " and "
+			+ Order.FIELDS.UPDATED + " > ?";
 
 	public static void g(Long from) {
 		User user = (User) renderArgs.get("user");
@@ -107,12 +125,13 @@ public class API extends Controller {
 			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM, city,
 					OrderStatus.SENT, OrderStatus.CONFIRMED,
 					OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
-					OrderStatus.COOKED, date).fetch();
+					OrderStatus.COOKED, OrderStatus.DELIVERED, user,
+					date).fetch();
 		} else {
 			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN, city,
 					OrderStatus.SENT, OrderStatus.CONFIRMED,
 					OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
-					OrderStatus.COOKED).fetch();
+					OrderStatus.COOKED, user).fetch();
 		}
 
 		Logger.info("Found %d orders", orders.size());
@@ -120,7 +139,15 @@ public class API extends Controller {
 		for (Order order : orders) {
 			CaffeJobsList job = new CaffeJobsList();
 			job.id = order.getShortHandId();
-			job.status = order.orderStatus.toString();
+			
+			if (order.orderStatus.equals(OrderStatus.CONFIRMED)
+					&& (order.confirmedCourier != null)
+					&& !order.confirmedCourier.getId().equals(user.getId())) {
+				job.status = "ALREADY_CONFIRMED";
+			} else {
+				job.status = order.orderStatus.toString();
+			}
+
 			job.price = order.getMenuTotal();
 			job.customerPrice = order.getGrandTotal();
 			job.paymentStatus = order.paymentStatus.toString();
@@ -176,6 +203,7 @@ public class API extends Controller {
 		case CONFIRMED:
 			order.orderStatus = OrderStatus.CONFIRMED;
 			order.orderConfirmed = new Date();
+			order.confirmedCourier = user;
 			order.orderPlanedDeliveryTime = new Date(message.time * 1000 * 60);
 			break;
 		case DELIVERED:

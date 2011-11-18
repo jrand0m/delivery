@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import models.geo.UserAddress;
+import models.users.CourierUser;
 import models.users.EndUser;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -59,6 +60,7 @@ public class Order extends GenericModel {
 		public static final String RESTAURANT_DISCOUNT = "restaurantDiscount";
 		public static final String TOTAL_MENU_PRICE = "totalMenuPrice";
 		public static final String UPDATED = "updated";
+		public static final String CONFIRMED_COURIER = "confirmedCourier";
 		
 	}
 
@@ -192,6 +194,9 @@ public class Order extends GenericModel {
 	public Restaurant restaurant;
 
 	public String shortHandId;
+	
+	@ManyToOne
+	public CourierUser confirmedCourier;
 
 	/**
 	 * calculated delivery price for this order
