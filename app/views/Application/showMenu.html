@@ -3,7 +3,7 @@
     ${restaurant.title} menu list
 #{/set}
 #{set 'breadCrumb' }
-<a class="enter back" href="@{Application.showRestaurants()}" >&{'common.back'}</a>
+<a class="enter back" href="/" >&{'common.back'}</a>
 #{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
 <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
 <a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
@@ -92,16 +92,16 @@ var rid = ${restaurant.id};
 					
 					#{list items:menuItems, as:'grp'}
 					<div class="det_rest_menu">	
+						<a class="anchor_link" name="${grp.anchorName()}"></a>
 						<h1>${grp.name}</h1>
-						<a name="${grp.anchorName()}"></a>
 						<table> <!-- class="od" -->
 							%{
 								for (int i = 0; i < grp.items.size(); i++){
 								models.MenuItem itm = grp.items.get(i);
 								boolean odd = i%2!=0;
 							}%
-							<tr class="${odd == true ? "od" : "even"}">
-								<th><a id="a${itm.id}" class="ingredient_popup_but" onclick="add(${itm.id},${itm.showComponents})" title="&{'common.basket.buttonTitle'}"></a></th>
+							<tr onclick="add(${itm.id},${itm.showComponents})" class="${odd == true ? "od" : "even"}">
+								<th><a id="a${itm.id}" class="ingredient_popup_but"  title="&{'common.basket.buttonTitle'}"></a></th>
 								<td>
 									<p>${itm.name}</p>
 									<p class="descr">${itm.description}</p>
@@ -115,7 +115,7 @@ var rid = ${restaurant.id};
 				</div>
 				<div class="right_cont">
 					<div class="right_block" id="basket">
-						<h1>&{'common.basket'}</h1>
+						<div><h1>&{'common.basket'}</h1></div>
 						<div class="rb_cont">
 							<form action="@{Application.checkout}">
 								<table>

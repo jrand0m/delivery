@@ -5,7 +5,7 @@
 #{/set}
 #{set 'moreScripts'}
 <script type="text/javascript" src="@{'/public/javascripts/jquery-ui-1.8.16.custom.min.js'}"></script>
-<script type="text/javascript" src="@{'/public/javascripts/jquery.tipsy.js'}"></script>
+<!--<script type="text/javascript" src="@{'/public/javascripts/jquery.tipsy.js'}"></script>-->
 #{/set}
 #{set 'moreStyles'}
  <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/tipsy.css'}" media="screen" />
@@ -82,7 +82,7 @@
 </div>
 <div class="right_cont">
 	<div class="right_block" id="basket">
-		<h1>&{'common.basket'}</h1>
+		<div><h1>&{'common.basket'}</h1></div>
 		<div class="rb_cont">
 			<form action="#">
 				<table>
@@ -103,7 +103,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-var streets = [
+/*var streets = [
 #{list items:streets, as:'street'}
 {
   "id" : "${street.id}",
@@ -142,5 +142,5 @@ var callback = function (s){
 $( "input#cinp04" ).autocomplete({
 			source: streets,
 			select: callback
-		});
+		});*/
 </script>
