@@ -22,7 +22,7 @@ public class CourierUser extends User {
 	public City city;
 	@Override
 	public String landingUrl() {
-		return "/client/courier/web/main.html";
+		return "/client/c";
 	}
 
 }

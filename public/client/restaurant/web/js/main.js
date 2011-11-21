@@ -112,7 +112,10 @@ var DCWMain = {
 			_.initColunHeight();
 		});
 
-		//_.getAllOrders(this);
-		_.newDialog(_.getAuthBox(this));
+		if(_.internal) {
+			_.getAllOrders(this);
+		} else {
+			_.newDialog(_.getAuthBox(this));
+		}
 	}
 };
