@@ -24,7 +24,7 @@ DCWLang.ua = {
 		DCWLang.customerPrice = 'отримати: ';
 		DCWLang.timeItem = 'хв.';
 		DCWLang.orderCount = 'кількість:';
-		DCWLang.updatedCount = 'обновлених:';
+		DCWLang.updatedCount = 'оновлених:';
 		DCWLang.wasRejected = 'Одне з заброньованих вами замовлень, було відхилено!';
 		DCWLang.cancel = 'відміна';
 	}

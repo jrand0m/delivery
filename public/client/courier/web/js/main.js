@@ -50,7 +50,7 @@ var DCWMain = {
 		
 	showContent: function() {
 		var thisObj = this;
-		var newOrdersButtonsDiv = _.createDiv('DCWOrdersButton')
+		var newOrdersButtonsDiv = _.createDiv('DCWOrdersButton DCWTabButton DCWActiveButton')
 			.append(_.createDiv().text(_.lang.newOrders))
 			.append(_.createDiv()
 				.append(_.createSpan().text(_.lang.orderCount))
@@ -67,7 +67,7 @@ var DCWMain = {
 				_.updateUpdatedOrdersCount(thisObj);
 			});
 		
-		var pendingOrdersButtonsDiv = _.createDiv('DCWOrdersButton')
+		var pendingOrdersButtonsDiv = _.createDiv('DCWOrdersButton DCWTabButton')
 			.append(_.createDiv().text(_.lang.pendingOrders))
 			.append(_.createDiv()
 				.append(_.createSpan().text(_.lang.orderCount))
@@ -84,7 +84,7 @@ var DCWMain = {
 				_.updateUpdatedOrdersCount(thisObj);
 			});
 			
-		var activeOrdersButtonsDiv = _.createDiv('DCWOrdersButton')
+		var activeOrdersButtonsDiv = _.createDiv('DCWOrdersButton DCWTabButton')
 			.append(_.createDiv().text(_.lang.activeOrders))
 			.append(_.createDiv()
 				.append(_.createSpan().text(_.lang.orderCount))
@@ -122,6 +122,11 @@ var DCWMain = {
 		$('body').append(tabButtonContainer);
 		$('body').append(ordersContent);
 
+		$('.DCWTabButton').click(function () {
+			$(".DCWTabButton").removeClass('DCWActiveButton');
+			$(this).addClass('DCWActiveButton');
+		});
+		
 		if(_.internal) {
 			_.getAllOrders(this);
 		} else {

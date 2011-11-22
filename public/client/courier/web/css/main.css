@@ -7,6 +7,9 @@ BODY {margin: 0; padding: 0; }
 .DCWDialogFrame {opacity: 1; left: 50%; top: 50%; position: fixed; z-index: 101; background-color: #fff;}
 
 .DCWTabButtons {position: fixed; background-color: #fff; width: 100%;}
+
+.DCWOrdersButton.DCWTabButton{background-color: #CCCCCC; background-image: none;}
+.DCWOrdersButton.DCWActiveButton{ background: url("../../../shared/web/img/header_top_bg.gif") repeat scroll 0 0 transparent;}
 	.DCWButtonsWrapper {background-color: #EEEEEE; overflow: hidden; padding: 10px;max-width: 800px; 
 		margin: 0 auto; border: 2px solid black; border-top: 0; border-radius: 0 0 5px 5px;}
 	.DCWOrdersButton {float: left; width: 100px; border: 1px solid black; cursor: pointer;  margin-right: 10px;
