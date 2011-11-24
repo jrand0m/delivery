@@ -28,7 +28,13 @@ BODY {margin: 0; padding: 0;}
 .DCWOrderPriceContainer {float: right;}
 	.DCWOrderPriceDiv {}
 	
-.DCWRejectOrderButton {float: right;}
+
+.DCWOrderButton {padding: 7px 10px 7px 10px;}
+.DCWOrderDiv .DCWOrderButton {padding: 7px 10px 7px 30px;}
+	.DCWRejectOrderButton {float: right;}
+	.DCWTickBtn {background: url("../../../restaurant/web/img/tick.png") no-repeat scroll 4px 2px #EEEEEE;}
+	.DCWCrossBtn {background: url("../../../restaurant/web/img/cross.png") no-repeat scroll 4px 2px #EEEEEE;}
+	.DCWHomeBtn {background: url("../../../restaurant/web/img/home.png") no-repeat scroll 4px 2px #EEEEEE;}
 	
 .DCWDishContent {border-bottom: 1px dashed #999; color: #333; overflow: hidden; padding: 3px 10px;}
 	.DCWDishNumber {font-size: 0.8em;}

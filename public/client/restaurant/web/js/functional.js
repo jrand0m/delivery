@@ -35,7 +35,14 @@ $.extend(_, {
 		var doVibrate = 0;
 		$(data).each(function(index){
 			var elem = this;
-			if(elem.status == "CONFIRMED") {
+			var elemExists;
+			if(_.getElementById(parent.newOrders, elem.id)) {
+				elemExists = true;
+			} else {
+				elemExists = false
+			}
+			
+			if(elem.status == "CONFIRMED" && !elemExists) {
 				var elemDom = _.getNewOrderDiv(elem, parent);
 				parent.newOrdersContent.append(elemDom);
 				doVibrate = 1;
@@ -73,8 +80,8 @@ $.extend(_, {
 	},
 	
 	getTimeBtn: function(parent, time, orderElem) {
-		var btn = this.createButton(time+'', 'DCWOrderButton');
-		btn.prepend('<img src="img/tick.png" style="vertical-align: middle">');
+		var btn = this.createButton(time+'', 'DCWOrderButton DCWTickBtn');
+		//btn.prepend($('<img/>',{class: 'tickBtn'});//'<img src="img/tick.png" style="vertical-align: middle">');
 		$(btn).click(function(el){
 			_.timeButtonPressed(parent, orderElem, time);
 		});
@@ -82,8 +89,8 @@ $.extend(_, {
 	},
 	
 	getRejectBtn: function(parrentArray, orderElem) {
-		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton DCWRejectOrderButton');
-		btnRject.prepend('<img src="img/cross.png" style="vertical-align: middle">');
+		var btnRject = _.createButton(_.lang.reject, 'DCWOrderButton DCWRejectOrderButton DCWCrossBtn');
+		//btnRject.prepend('<img src="img/cross.png" style="vertical-align: middle">');
 		$(btnRject).click(function(el){
 			_.newDialog(_.getRejectDialog(parrentArray, orderElem));
 		});
@@ -106,10 +113,10 @@ $.extend(_, {
 	
 	getActiveOrderDivBtns: function(parrentArray, orderElem, isCoocked) {
 		var btnDiv = this.createDiv('DCWActiveOrdersBtnsWrapper');
-		var btnMade = _.createButton(_.lang.ready, 'DCWOrderButton ready');
-		btnMade.prepend('<img src="img/tick.png" style="vertical-align: middle">');
-		var btnTaken = _.createButton(_.lang.taken, 'DCWOrderButton taken');
-		btnTaken.prepend('<img src="img/home.png" style="vertical-align: middle">');
+		var btnMade = _.createButton(_.lang.ready, 'DCWOrderButton ready DCWTickBtn');
+		//btnMade.prepend('<img src="img/tick.png" style="vertical-align: middle">');
+		var btnTaken = _.createButton(_.lang.taken, 'DCWOrderButton taken DCWHomeBtn');
+		//btnTaken.prepend('<img src="img/home.png" style="vertical-align: middle">');
 		
 		btnMade.click(function() {
 			_.sendOrderStatusChanged(orderElem, 'COOKED');

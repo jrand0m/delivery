@@ -41,6 +41,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	WebView view;
@@ -50,6 +51,8 @@ public class MainActivity extends Activity {
 	View pbc;
 	private SoundPool soundPool;
 	private int soundID;
+	boolean isRestarting;
+	WebChromeClient wcc;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class MainActivity extends Activity {
 		if (value != null && value.length() > 0) {
 			url = value;
 		} else {
-			url = "http://vdoma.com.ua/public/client/restaurant/web/main.html";
+			url = "http://10.0.2.2/client/r?username=r1&password=r1";
 			settings.edit().putString("server_url", url).commit();
 		}
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -75,71 +78,97 @@ public class MainActivity extends Activity {
 		pbc = (RelativeLayout) findViewById(R.id.web_view_progress_bar_container);
 		view = (WebView) findViewById(R.id.webview_main);
 		view.getSettings().setJavaScriptEnabled(true);
-		view.setWebChromeClient(new WebChromeClient() {
-			public void onProgressChanged(WebView view, int progress) {
-				if(progress < 100 && pd.getVisibility() == ProgressBar.GONE){
-					pbc.setVisibility(View.VISIBLE);
-                }
-                pd.setProgress(progress);
-                if(progress == 100) {
-                	pbc.setVisibility(View.GONE);
-                }
+		wcc = new DeliveryChromeClient(pd, pbc);
+		view.setWebChromeClient(wcc);
+
+		view.setWebViewClient(new WebViewClient() {
+			@Override
+			public void onReceivedError(WebView view, int errorCode,
+					String description, String failingUrl) {
+				findViewById(R.id.web_view_err_dialog).setVisibility(
+						View.VISIBLE);
 			}
 		});
-		
-		view.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
-            {
-                findViewById(R.id.web_view_err_dialog).setVisibility(View.VISIBLE);
-            }
- 
-     
-        });
-		
+
 		view.addJavascriptInterface(new JavaScriptInterface(this), "External");
 		showResults();
 	}
 
 	public void showResults() {
-        String htmlContent = "";
-        try {
-            
-            HttpGet httpGet = new HttpGet(url);
-            HttpResponse response;
-            HttpParams httpParameters = new BasicHttpParams();
-            int timeoutConnection = 3000;
-            HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-            int timeoutSocket = 5000;
-            HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
 
-            DefaultHttpClient client = new DefaultHttpClient(httpParameters);
-            response = client.execute(httpGet);
-            if (response.getStatusLine().getStatusCode() == 200) {
-                HttpEntity entity = response.getEntity();
-                if (entity != null) {
-                    InputStream inputStream = entity.getContent();
-                    htmlContent = convertToString(inputStream);
-                }
-            } else throw new Exception();
-         } catch (Exception e) {
-        	 findViewById(R.id.web_view_err_dialog).setVisibility(View.VISIBLE);
-         }
+		if (!isRestarting) {
+			isRestarting = true;
+//			wcc.
+			pd.setProgress(0);
+			new Thread(new Runnable() {
 
-         view.loadDataWithBaseURL(url, htmlContent, "text/html", "utf-8", null);
+				@Override
+				public void run() {
+					String htmlContent = "";
+					try {
+						HttpGet httpGet = new HttpGet(url);
+						HttpResponse response;
+						HttpParams httpParameters = new BasicHttpParams();
+						int timeoutConnection = 10000;
+						HttpConnectionParams.setConnectionTimeout(
+								httpParameters, timeoutConnection);
+						int timeoutSocket = 5000;
+						HttpConnectionParams.setSoTimeout(httpParameters,
+								timeoutSocket);
+
+						DefaultHttpClient client = new DefaultHttpClient(
+								httpParameters);
+						response = client.execute(httpGet);
+						if (response.getStatusLine().getStatusCode() == 200) {
+							HttpEntity entity = response.getEntity();
+							if (entity != null) {
+								InputStream inputStream = entity.getContent();
+								htmlContent = convertToString(inputStream);
+							}
+						} else
+							throw new Exception();
+
+						view.loadDataWithBaseURL(url, htmlContent, "text/html",
+								"utf-8", null);
+						isRestarting = false;
+						MainActivity.this.runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								findViewById(R.id.web_view_err_dialog)
+										.setVisibility(View.GONE);
+							}
+						});
+					} catch (Exception e) {
+						isRestarting = false;
+						MainActivity.this.runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								findViewById(R.id.web_view_err_dialog)
+										.setVisibility(View.VISIBLE);
+							}
+						});
+						showResults();
+					}
+				}
+			}).start();
+		}
 	}
-	
-	public String convertToString(InputStream inputStream){
-        StringBuffer string = new StringBuffer();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String line;
-        try {
-            while ((line = reader.readLine()) != null) {
-                string.append(line + "\n");
-            }
-        } catch (IOException e) {}
-        return string.toString();
-    }
+
+	public String convertToString(InputStream inputStream) {
+		StringBuffer string = new StringBuffer();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				inputStream));
+		String line;
+		try {
+			while ((line = reader.readLine()) != null) {
+				string.append(line + "\n");
+			}
+		} catch (IOException e) {
+		}
+		return string.toString();
+	}
 
 	protected void settingsBtnClicked() {
 		final Dialog dialog = new Dialog(this);
@@ -249,7 +278,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) { 
+		switch (item.getItemId()) {
 		case R.id.menu_settings:
 			settingsBtnClicked();
 			return true;
@@ -261,11 +290,13 @@ public class MainActivity extends Activity {
 	}
 
 	public void refresh() {
-		findViewById(R.id.web_view_err_dialog).setVisibility(View.GONE);
-        pbc.setVisibility(View.VISIBLE);
-		showResults();
+		if (!isRestarting) {
+			findViewById(R.id.web_view_err_dialog).setVisibility(View.GONE);
+			pbc.setVisibility(View.VISIBLE);
+			showResults();
+		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		refresh();
@@ -275,11 +306,13 @@ public class MainActivity extends Activity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 	}
-	
-	public void playSound(){
+
+	public void playSound() {
 		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 		soundPool.play(soundID, (float) audioManager
-				.getStreamMaxVolume(AudioManager.STREAM_MUSIC), (float) audioManager
-				.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 1, 0, 1f);
+				.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+				(float) audioManager
+						.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 1, 0,
+				1f);
 	}
 }
