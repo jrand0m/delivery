@@ -1,6 +1,7 @@
 $.extend(_, {
 	authorize: function(login, password, onSuccess){
 		$.ajax({
+		    timeout: 2000,
 			url: '/login',
 			type: 'POST',
 			data: {'username':login, 'password':password, remember:true},
@@ -17,6 +18,7 @@ $.extend(_, {
 			_.updateTimes(parent);
 			
 			$.ajax({
+			    timeout: 2000,
 				url: '/api/g?from=' + (parent.lastOrderTime),
 				success: function(data) {
 					//alert(JSON.stringify(data));
@@ -32,6 +34,7 @@ $.extend(_, {
 	
 	getAllOrders: function(parent) {
 		$.ajax({
+		    timeout: 2000,
 			url: '/api/g',
 			success: function(data) {
 					//alert(JSON.stringify(data));
@@ -46,6 +49,7 @@ $.extend(_, {
 	
   	sendOrderConfirmed: function(element, time, onSuccess) {
 		$.ajax({
+		    timeout: 2000,
 			url: '/api/p',
 			dataType: "json",
 			
@@ -63,6 +67,7 @@ $.extend(_, {
 	
 	sendOrderStatusChanged: function(element, status, onSuccess) {
 		$.ajax({
+		    timeout: 2000,
 			url: '/api/p',
 			data: {'message': $.toJSON({ 'status' : status, 'id' : element.id})},
 			success: function(data) {
@@ -73,6 +78,7 @@ $.extend(_, {
 	
 	sendOrderRejected: function(element, comment, onSuccess) {
 		$.ajax({
+		    timeout: 2000,
 			url: '/api/p',
 			data: {'message': $.toJSON({ 'status' : 'DECLINED', 'id' : element.id, 'comment': comment})},
 			success: function(data) {
