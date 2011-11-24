@@ -35,7 +35,14 @@ $.extend(_, {
 		var doVibrate = 0;
 		$(data).each(function(index){
 			var elem = this;
-			if(elem.status == "CONFIRMED") {
+			var elemExists;
+			if(_.getElementById(parent.newOrders, elem.id)) {
+				elemExists = true;
+			} else {
+				elemExists = false
+			}
+			
+			if(elem.status == "CONFIRMED" && !elemExists) {
 				var elemDom = _.getNewOrderDiv(elem, parent);
 				parent.newOrdersContent.append(elemDom);
 				doVibrate = 1;
