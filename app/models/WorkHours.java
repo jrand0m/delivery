@@ -20,6 +20,7 @@ import play.db.jpa.Model;
 import play.i18n.Messages;
 
 @Entity
+@Deprecated
 //@Where(clause = "deleted = 0")
 public class WorkHours extends Model {
 	public static final class FIELDS {
