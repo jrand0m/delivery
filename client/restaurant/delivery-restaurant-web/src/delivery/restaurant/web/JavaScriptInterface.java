@@ -2,6 +2,7 @@ package delivery.restaurant.web;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.widget.Toast;
 
 public class JavaScriptInterface {
 	MainActivity mContext;
@@ -41,7 +42,12 @@ public class JavaScriptInterface {
     	mContext.playSound();
     }
     
-    public void refresh(MainActivity activity){
-    	mContext.refresh();
+    public void refresh(){
+    	mContext.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				mContext.refresh();
+			}
+		});
     }
 }

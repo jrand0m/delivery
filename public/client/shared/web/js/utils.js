@@ -189,11 +189,12 @@ $.extend(_, {
 			_.ajaxOk = false;
 			_.urgentDialog(_.createDiv().html(_.lang.connectionError));
 
-//			if (typeof External !== 'undefined') {
-//				External.refresh();
-//			}else {
-//				setTimeout("location.reload(true);", 10000);
-//			}
+
+			if (typeof External !== 'undefined') {
+				External.refresh();
+			} else {
+				setTimeout("location.reload(true);", 10000);
+			}
 		});
 	},
 	
