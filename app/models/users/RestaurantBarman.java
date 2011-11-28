@@ -16,7 +16,6 @@ public class RestaurantBarman extends RestaurantUser {
 
 	@Override
 	public String landingUrl() {
-		return "/client/restaurant/web/main.html";
+		return "/client/r";
 	}
-
 }

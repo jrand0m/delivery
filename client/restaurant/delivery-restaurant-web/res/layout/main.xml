@@ -38,7 +38,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_centerVertical="true"
 	        android:padding="2dip"
-	        android:text="Connection error. Try to refresh page, or change settings.">
+	        android:text="Connection error. Trying to refresh.">
 	    </TextView>
 	</RelativeLayout>
 </RelativeLayout>
