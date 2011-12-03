@@ -26,6 +26,7 @@ import models.geo.City;
 import models.settings.SystemSetting;
 import models.users.EndUser;
 import models.users.RestaurantUser;
+import models.time.WorkHours;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Where;
@@ -137,8 +138,8 @@ public class Restaurant extends Model {
 	@OneToMany(mappedBy = RestaurantDescription.FIELDS.RESTAURANT)
 	public List<RestaurantDescription> descriptions = new ArrayList<RestaurantDescription>();
 
-	@OneToOne(fetch = FetchType.LAZY)
-	public WorkHours workHours = new WorkHours();
+	@OneToOne(fetch = FetchType.LAZY,cascade={CascadeType.PERSIST})
+	public WorkHours workHours;
 	public String twoLetters;
 	@Column(name = "restaurant_descr")
 	public String desc;
@@ -180,7 +181,7 @@ public class Restaurant extends Model {
 	}
 
 	public String workHoursToday() {
-		return workHours.today();
+		return workHours.todayAsString();
 	}
 
 	public String isOnlineAsString() {
