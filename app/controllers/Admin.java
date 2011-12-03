@@ -3,33 +3,27 @@ package controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import enumerations.DayType;
-import enumerations.DeviceStatus;
 
 import models.MenuItem;
 import models.MenuItemComponent;
 import models.MenuItemGroup;
 import models.Order;
-import models.RegularDay;
 import models.Restaurant;
 import models.RestaurantCategory;
 import models.device.RestaurantDevice;
 import models.geo.City;
 import models.settings.SystemSetting;
+import models.time.WorkHours;
 import models.users.RestaurantBarman;
 import models.users.SystemAdministrator;
-import annotations.Check;
 import play.db.jpa.Blob;
-import play.db.jpa.JPABase;
-import play.db.jpa.Model;
 import play.libs.MimeTypes;
 import play.mvc.Controller;
 import play.mvc.With;
+import annotations.Check;
+import enumerations.DeviceStatus;
 
 @With(Secure.class)
 @Check(SystemAdministrator.class)
@@ -137,8 +131,7 @@ public class Admin extends Controller {
 		renderTemplate("Admin/addCategory.html");
 	}
 
-	public static void addMenuItem(MenuItem item, Long id,
-			Long groupid) {
+	public static void addMenuItem(MenuItem item, Long id, Long groupid) {
 		List<Restaurant> restaurants = Restaurant.findAll();
 		renderArgs.put("restaurants", restaurants);
 		List<MenuItemGroup> groups = MenuItemGroup.findAll();
@@ -154,7 +147,8 @@ public class Admin extends Controller {
 		renderArgs.put("message", "Created!");
 		render();
 	}
-	public static void editMenuItem(Long id){
+
+	public static void editMenuItem(Long id) {
 		MenuItem item = MenuItem.findById(id);
 		renderArgs.put("group", item.menuItemGroup.id);
 		renderArgs.put("id", item.restaurant.id);
@@ -191,7 +185,7 @@ public class Admin extends Controller {
 	public static void addRestaurant(Restaurant restaurant, Long catid,
 			Long cityid, String openfrom, String opento, String barmanlogin,
 			String barmanpwd) {
-		
+
 		List<City> cities = City.findAll();
 		List<RestaurantCategory> types = RestaurantCategory.findAll();
 		renderArgs.put("cities", cities);
@@ -212,8 +206,8 @@ public class Admin extends Controller {
 			r.twoLetters = restaurant.twoLetters;
 			restaurant = r;
 			b = RestaurantBarman.find("restaurant = ?", restaurant).first();
-			
-		}else {
+
+		} else {
 			b = new RestaurantBarman();
 			restaurant.device = new RestaurantDevice();
 			restaurant.device.deviceActivatedDate = new Date();
@@ -226,34 +220,18 @@ public class Admin extends Controller {
 		b.usr_name = barmanlogin;
 		b.password = barmanpwd;
 		b.restaurant = restaurant;
-		
+
 		restaurant.city = city;
 		restaurant.category = type;
-		List<Model> instanses = new ArrayList<Model>();
-		if (restaurant.workHours.regularDays.isEmpty()) {
-			instanses.add(restaurant.workHours);
-			for (DayType dtype : DayType.values()){
-				RegularDay day = new RegularDay();
-				day.from = openfrom;
-				day.to = opento;
-				day.dayType = dtype;
-				day.root = restaurant.workHours;
-				instanses.add(day);
-			}
+		if (restaurant.workHours == null) {
+			restaurant.workHours = new WorkHours(openfrom, opento);
 		} else {
-			for (RegularDay day : restaurant.workHours.regularDays) {
-				day.from = openfrom;
-				day.to = opento;
-				day.save();
-			}
+			restaurant.workHours.updateAll(openfrom, opento);
 		}
-		for (Model i : instanses){
-			i.save();
-		}
+		restaurant.workHours.save();
 		restaurant.save();
 		b.save();
 		render();
-
 	}
 
 	public static void deleteCity() {
@@ -267,9 +245,12 @@ public class Admin extends Controller {
 		renderArgs.put("restaurant", restaurant);
 		renderArgs.put("catid", restaurant.category.id);
 		renderArgs.put("cityid", restaurant.city.id);
-		//renderArgs.put("openfrom", restaurant.workHours.regularDays.iterator().next().from);
-		//renderArgs.put("opento", restaurant.workHours.regularDays.iterator().next().to);
-		RestaurantBarman b = RestaurantBarman.find("restaurant = ?",restaurant).first();
+		// renderArgs.put("openfrom",
+		// restaurant.workHours.regularDays.iterator().next().from);
+		// renderArgs.put("opento",
+		// restaurant.workHours.regularDays.iterator().next().to);
+		RestaurantBarman b = RestaurantBarman
+				.find("restaurant = ?", restaurant).first();
 		renderArgs.put("barmanlogin", b.login);
 		renderArgs.put("barmanpwd", b.password);
 		List<City> cities = City.findAll();
@@ -290,38 +271,42 @@ public class Admin extends Controller {
 						restaurant.title, restaurant.id));
 		index();
 	}
-	public static void addComp(Long id, String name, String descr, Integer price){
+
+	public static void addComp(Long id, String name, String descr, Integer price) {
 		MenuItem item = MenuItem.findById(id);
 		MenuItemComponent component = new MenuItemComponent();
 		component.itm_name = name;
 		component.itm_price = price;
 		component.itm_desc = descr;
 		component.itm_root = item;
-		if (item.showComponents == false)
-		{
+		if (item.showComponents == false) {
 			item.showComponents = true;
 			item.save();
 		}
 		component.save();
 		editMenuItem(item.id);
-		
+
 	}
-	public static void deleteComponent(Long id){
+
+	public static void deleteComponent(Long id) {
 		MenuItemComponent component = MenuItemComponent.findById(id);
 		component.delete();
 	}
-	public static void uploadLogo(Long id, File logo) throws FileNotFoundException{
-		List<Restaurant>restaurants= Restaurant.findAll();
+
+	public static void uploadLogo(Long id, File logo)
+			throws FileNotFoundException {
+		List<Restaurant> restaurants = Restaurant.findAll();
 		renderArgs.put("restaurants", restaurants);
-		if (id == null){
+		if (id == null) {
 			render();
 		}
 		Restaurant restaurant = Restaurant.findById(id);
 
 		restaurant.logo = new Blob();
-		restaurant.logo.set(new FileInputStream(logo), MimeTypes.getContentType(logo.getName()));
+		restaurant.logo.set(new FileInputStream(logo),
+				MimeTypes.getContentType(logo.getName()));
 		restaurant.save();
-		
+
 	}
 
 }
