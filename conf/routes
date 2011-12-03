@@ -3,7 +3,24 @@
 # ~~~~
 # Home page
 GET     /                                       Application.index
+GET		/index.php								Application.index
+*		/order/index.php						Application.order
+*		/order/checkout.php						Application.checkout
+*		/order/checkAndSend.php					Application.checkAndSend
+*		/order/add.php							Application.addOrderItem
+*		/order/cng.php							Application.cngOrderItem
+*		/order/list.php							Application.basket
+*		/show/restaurants.php					Application.showRestaurants
+*		/show/menu.php							Application.showMenu
+*		/show/last.php							Application.getLastOrders
+*		/show/comp.php							Application.comps
+*		/change/lang.php						Application.changeLang
+*		/change/city.php						Application.changeCity
+*		/serve/logo.php							Application.serveLogo
 
+# Add these as soon as registration will be possible :)
+# newUser()
+# registerNewUser(EndUser)
 
 
 # Map static resources from the /app/public folder to the /public path
@@ -18,13 +35,13 @@ GET     /favicon.ico                            staticFile:/public/images/favico
 ######## Security ############
 ##############################
 
-GET			/login			Secure.login
-POST        /login          Secure.authenticate
-GET         /logout         Secure.logout
-GET         /about       	Static.about
-GET         /rules       	Static.rules
-GET         /forRestaurants Static.forRestaurants
-GET         /contacts       Static.contacts
+GET			/login.php			Secure.login
+POST        /login.php          Secure.authenticate
+GET         /logout.php         Secure.logout
+GET         /about.php       	Static.about
+GET         /rules.php       	Static.rules
+GET         /forRestaurants.php Static.forRestaurants
+GET         /contacts.php       Static.contacts
 
 ##############################
 ########/Security ############
@@ -33,7 +50,6 @@ POST		/api/a									Secure.authenticate
 *			/api/{action}							API.{action}
 * 			/power/edit/{action}					Admin.{action}
 *			/caffe/admn/{action}					RestaurantAdmin.{action}
-*			/{action}								Application.{action}
 * 			/client/r								Client.restaurant
 * 			/client/c								Client.courier
 

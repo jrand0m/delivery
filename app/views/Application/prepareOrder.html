@@ -15,11 +15,11 @@
 <a class="enter back" href="@{Application.showMenu(order.restaurant.id)}" >&{'common.back'}</a>
 #{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
 <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+*{<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>}*
 #{/if}
 #{else}
 <a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>
+*{<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>}*
 #{/else}
 #{/set}
 <div class="left_cont">
@@ -68,7 +68,7 @@
 			<div class="additional_addreses">
 				<h2>Додаткові адреси</h2>
 				#{if user instanceof models.users.AnonymousEndUser}
-					<p><a href="@{Application.newUser()}">Зареєструйтеся</a> щоби отримати можливість використовувати попередні або збережені адреси</p>
+					*{<p><a href="@{Application.newUser()}">Зареєструйтеся</a> щоби отримати можливість використовувати попередні або збережені адреси</p>}*
 				#{/if}
 				#{else}
 					#{list items:user.addressBook, as:'address'}

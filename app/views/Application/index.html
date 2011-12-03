@@ -34,11 +34,11 @@ div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
 					</form>
 #{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
 <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+*{<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>}*
 #{/if}
 #{else}
 <a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>
+*{<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>}*
 #{/else}
 #{/set}
 
