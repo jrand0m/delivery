@@ -95,7 +95,7 @@ public class API extends Controller {
 					OrderStatus.CONFIRMED).fetch();
 		}
 
-		Logger.info("Found %d orders", orders.size());
+		Logger.info("Found %d orders for agent %s", orders.size(), Security.connected() );
 		List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
 		for (Order order : orders) {
 			CaffeJobsList job = new CaffeJobsList();
