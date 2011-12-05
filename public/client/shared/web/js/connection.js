@@ -2,7 +2,7 @@ $.extend(_, {
 	authorize: function(login, password, onSuccess){
 		$.ajax({
 		    timeout: 10000,
-			url: '/login',
+			url: '/login.php',
 			type: 'POST',
 			data: {'username':login, 'password':password, remember:true},
 			success: function(data) {
