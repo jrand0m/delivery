@@ -12,6 +12,10 @@ nbproject/
 /gae-1.4
 /precompiled
 *.kate-swp
+data/*
+server.pid
+log/*
+logs/*
 *~
 /.sonar/batch/antlr-2.7.6.jar
 /.sonar/batch/commons-beanutils-1.8.3.jar
