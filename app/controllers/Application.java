@@ -534,7 +534,6 @@ public class Application extends Controller {
 		renderJSON(new BasketJSON(order));
 	}
 
-	/* ----------- private -------------- */
 	public static void serveLogo(long id) throws IOException {
 		final Restaurant restaurant = Restaurant.findById(id);
 		notFoundIfNull(restaurant);
@@ -549,6 +548,7 @@ public class Application extends Controller {
 		renderBinary(is);
 	}
 
+	/* ----------- private -------------- */
 	private static EndUser createAnonymousUser() {
 		AnonymousEndUser user = new AnonymousEndUser();
 		user.create();

@@ -31,7 +31,7 @@ public class WorkHours extends GenericModel {
 	public static final int DEFAULT_FROM_MINUTES = 30;
 	public static final int DEFAULT_TO_HOUR = 22;
 	public static final int DEFAULT_TO_MINUTES = 00;
-
+	public static final String TIME_FORMAT = "HH:mm";
 	public static final LocalTime DEFAULT_FROM = new LocalTime(
 			DEFAULT_FROM_HOUR, DEFAULT_FROM_MINUTES);
 	public static final LocalTime DEFAULT_TO = new LocalTime(DEFAULT_TO_HOUR,
@@ -97,31 +97,31 @@ public class WorkHours extends GenericModel {
 	}
 
 	public String todayAsString() {
-		DateTimeZone zone = DateTimeZone.forID("Europe/Kyiv");
+		DateTimeZone zone = DateTimeZone.forID("Europe/Kiev");
 		Chronology chron = ISOChronology.getInstance(zone);
 		LocalDateTime dt = new LocalDateTime(chron);
 		String s = Messages.get("restaurant.workhours.undefined");
 		switch (dt.getDayOfWeek()) {
 		case DateTimeConstants.MONDAY:
-			s = mon_start.toString() + " - " + mon_end.toString();
+			s = mon_start.toString(TIME_FORMAT) + " - " + mon_end.toString(TIME_FORMAT);
 			break;
 		case DateTimeConstants.TUESDAY:
-			s = tue_start.toString() + " - " + tue_end.toString();
+			s = tue_start.toString(TIME_FORMAT) + " - " + tue_end.toString(TIME_FORMAT);
 			break;
 		case DateTimeConstants.WEDNESDAY:
-			s = wed_start.toString() + " - " + wed_end.toString();
+			s = wed_start.toString(TIME_FORMAT) + " - " + wed_end.toString(TIME_FORMAT);
 			break;
 		case DateTimeConstants.THURSDAY:
-			s = thu_start.toString() + " - " + thu_end.toString();
+			s = thu_start.toString(TIME_FORMAT) + " - " + thu_end.toString(TIME_FORMAT);
 			break;
 		case DateTimeConstants.FRIDAY:
-			s = fri_start.toString() + " - " + fri_end.toString();
+			s = fri_start.toString(TIME_FORMAT) + " - " + fri_end.toString(TIME_FORMAT);
 			break;
 		case DateTimeConstants.SATURDAY:
-			s = sat_start.toString() + " - " + sat_end.toString();
+			s = sat_start.toString(TIME_FORMAT) + " - " + sat_end.toString(TIME_FORMAT);
 			break;
 		case DateTimeConstants.SUNDAY:
-			s = sun_start.toString() + " - " + sun_end.toString();
+			s = sun_start.toString(TIME_FORMAT) + " - " + sun_end.toString(TIME_FORMAT);
 			break;
 		}
 		return s;
