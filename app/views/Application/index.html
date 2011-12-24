@@ -55,7 +55,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
 							<i></i><img class="logo" src="@{Application.serveLogo(restaurant.id)}" />
 						</div>
 						<p class="info">${restaurant.description()}</p>
-						<p class="work_time"><b>Щодня з</b> 10:00 до 22:00
+						<p class="work_time"><b>Сьогодні </b> ${restaurant.workHoursToday()}
 						<span>
 							Понеділок 10:00 - 20:00<br/>
 							Вівторок 10:00 - 20:00<br/>
@@ -68,7 +68,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
 						
 						</p>
 						<p class="dostavka">Доставка <b>15 грн</b><span>&{'common.basket.title'}</span></p>
-						<!--<p class="stars">Рейтинг<span class="rate1"></span></p>-->
+						*{<!--<p class="stars">Рейтинг<span class="rate1"></span></p>--> }*
 					%{ if (!ntw) { }%
 						<a class="menu_but" href="@{Application.showMenu(restaurant.id)}" title="&{'common.viewRestMunu'}">&{'common.menu'}</a>
 					</div>
@@ -88,7 +88,7 @@ div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
 									<i></i><img class="logo" src="@{Application.serveLogo(subrest.id)}" />
 								</div>
 								<p class="info">${subrest.description()}</p>
-								<p class="work_time">10:00 - 22:00</p>
+								<p class="work_time">${subrest.workHoursToday()}1 :00 - 22:00</p>
 								<p class="dostavka">&{'common.basket.delivery'}</p>
 								<a class="menu_but" href="@{Application.showMenu(subrest.id)}" title="&{'common.viewRestMunu'}">&{'common.menu'}</a>
 							</div>
