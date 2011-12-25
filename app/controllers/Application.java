@@ -88,10 +88,14 @@ public class Application extends Controller {
 		if (!session.contains(SESSION_KEYS.CITY_ID)) {
 			Logger.debug("No city defined in cookies");
 			City city = City.find("display = ?", true).first();
+			if (city != null){
 			session.put(SESSION_KEYS.CITY_ID, city.id /*
 													 * Application.guessCity(request
 													 * .remoteAddress).getId()
 													 */);
+			} else {
+				Logger.warn("No visible city found");
+			}
 		}
 		flash.put("url", request.url);
 	}
