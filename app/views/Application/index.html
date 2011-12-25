@@ -55,9 +55,20 @@ div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
 							<i></i><img class="logo" src="@{Application.serveLogo(restaurant.id)}" />
 						</div>
 						<p class="info">${restaurant.description()}</p>
-						<p class="work_time">10:00 - 22:00</p>
-						<p class="dostavka">&{'common.basket.delivery'}</p>
-						<p class="stars">Рейтинг<span class="rate1"></span></p>
+						<p class="work_time"><b>Щодня з</b> 10:00 до 22:00
+						<span>
+							Понеділок 10:00 - 20:00<br/>
+							Вівторок 10:00 - 20:00<br/>
+							Середа 10:00 - 20:00<br/>
+							Четвер 10:00 - 20:00<br/>
+							Пятниця 10:00 - 20:00<br/>
+							Субота 10:00 - 20:00<br/>
+							Неділя 10:00 - 20:00<br/>
+						</span>
+						
+						</p>
+						<p class="dostavka">Доставка <b>15 грн</b><span>&{'common.basket.title'}</span></p>
+						<!--<p class="stars">Рейтинг<span class="rate1"></span></p>-->
 					%{ if (!ntw) { }%
 						<a class="menu_but" href="@{Application.showMenu(restaurant.id)}" title="&{'common.viewRestMunu'}">&{'common.menu'}</a>
 					</div>
