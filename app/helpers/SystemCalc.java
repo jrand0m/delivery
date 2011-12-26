@@ -21,8 +21,11 @@ public class SystemCalc {
 	 * @return delivery price
 	 */
 	public static Integer getDeliveryPrice(Order order) {
-		// FIXME create default storage
-		return 1500;
+		int delivery = 1500;
+		if(order.getMenuTotal() > 15000){
+			delivery = 0;
+		}
+		return delivery ;
 	}
 
 	/**
