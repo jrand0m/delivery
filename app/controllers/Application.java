@@ -343,6 +343,7 @@ public class Application extends Controller {
 		o.deliveryAddress = address;
 
 		o.orderStatus = OrderStatus.SENT;
+		o.deliveryPrice = o.getDeliveryPrice();
 		o.save();
 		try {
 			SimpleEmail simpleEmail = new SimpleEmail();
