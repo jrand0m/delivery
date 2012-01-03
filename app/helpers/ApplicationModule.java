@@ -1,6 +1,6 @@
 package helpers;
 
-import models.DBSession;
+import models.session.DBSession;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
@@ -14,7 +14,7 @@ public class ApplicationModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		bind(DBSession.class).in(Singleton.class);
+		//bind(DBSession.class).in(Singleton.class);
 	}
 
 }
