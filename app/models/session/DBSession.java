@@ -1,4 +1,4 @@
-package models;
+package models.session;
 
 import java.io.IOException;
 import java.io.Reader;

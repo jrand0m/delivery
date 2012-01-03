@@ -1,3 +1,4 @@
+package unit;
 import org.junit.Test;
 
 import play.test.UnitTest;

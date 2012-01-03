@@ -1,0 +1,3 @@
+CREATE USER vdoma_usr WITH PASSWORD '271828183';
+CREATE DATABASE vdoma_db WITH OWNER = vdoma_usr;
+GRANT ALL PRIVILEGES ON DATABASE vdoma_db to vdoma_usr;
