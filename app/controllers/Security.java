@@ -110,10 +110,12 @@ public class Security extends Controller {
 			}
 
 		} else {
-			helpers.Logger.logSystemWarn(LogActionType.INFO,
+			Logger.warn("Strange behaviour on auth: signed in but no username. %s",
+					request.remoteAddress);
+/*XXX			helpers.Logger.logSystemWarn(LogActionType.INFO,
 					"Strange behaviour on auth: signed in but no username. %s",
 					request.remoteAddress);
-		}
+*/		}
 	}
 
 	/**

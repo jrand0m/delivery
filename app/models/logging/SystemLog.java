@@ -16,7 +16,7 @@ import enumerations.LogLevel;
 
 /**
  * @author Mike
- * 
+ * @deprecated -needs redesign
  */
 @Entity
 @Table(name = "SystemLogs")

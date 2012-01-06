@@ -40,10 +40,10 @@ public class GeoDataHelper {
 					geoDataPromise.invoke(null);
 					play.Logger
 							.warn("Cannot access or read from external geodata API ");
-					Logger.logSystemWarn(
+					/*XXX Logger.logSystemWarn(
 							LogActionType.DUMP,
 							"Cannot access or read from external geodata API for IP %s ",
-							ip);
+							ip);*/
 					return;
 				}
 				NodeList nameNodes = doc.getElementsByTagNameNS("gml", "name");
@@ -102,10 +102,10 @@ public class GeoDataHelper {
 					}
 
 				} else {
-					Logger.logSystemWarn(
+					/*XXX Logger.logSystemWarn(
 							LogActionType.DUMP,
 							"Coordinates tag present but contains invalid content(%s)",
-							textContent);
+							textContent);*/
 				}
 				return resultCoordinates;
 			}
