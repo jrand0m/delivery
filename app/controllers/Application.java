@@ -565,7 +565,12 @@ public class Application extends Controller {
 		return user;
 	}
 
-	// FIXME fix guess system by moving to new MyJob.now()
+	/** 
+	 * FIXME fix guess system by moving to new MyJob.now()
+	 * @param ip - ip address of client
+	 * @return City to show
+	 */
+	@SuppressWarnings("unused")
 	private static City guessCity(String ip) {
 		Boolean guessByIp = (Boolean) Cache
 				.get(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED);

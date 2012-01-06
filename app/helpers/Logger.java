@@ -17,8 +17,10 @@ import models.logging.SystemLog;
 
 /**
  * @author Mike TODO Write logger wrapper!
+ * @deprecated - neeeds redesign
  */
 public class Logger {
+	@Deprecated
 	public static void logDevicePing(GenericDevice device) {
 		DeviceLog log = new DeviceLog();
 		log.device = device;
@@ -29,7 +31,8 @@ public class Logger {
 		log.create();
 		play.Logger.debug("Device %s ping logged", device.id);
 	}
-
+	
+	@Deprecated
 	public static void logSystemInfo(LogActionType type, String message,
 			Object... objects) {
 		play.Logger.info(message, objects);
@@ -40,6 +43,8 @@ public class Logger {
 		syslog.info = String.format(message, objects);
 		syslog.create();
 	}
+	
+	@Deprecated
 	public static void logSystemWarn(LogActionType type, String message,
 			Object... objects) {
 		play.Logger.warn(message, objects);
@@ -50,6 +55,7 @@ public class Logger {
 		syslog.info = String.format(message, objects);
 		syslog.create();
 	}
+	@Deprecated
 	public static void logSystemDebug(LogActionType type, String message,
 			Object... objects) {
 		play.Logger.debug(message, objects);
@@ -60,6 +66,7 @@ public class Logger {
 		syslog.info = String.format(message, objects);
 		syslog.create();
 	}
+	@Deprecated
 	public static void logSystemError(LogActionType type, String message,
 			Object... objects) {
 		play.Logger.error(message, objects);
