@@ -68,12 +68,6 @@ public class Application extends Controller {
 		public static final String CITY_ID = "city";
 	}
 
-	public static void loadFix() {
-		Fixtures.deleteDatabase();
-		new DevBootStrap().doJob();
-		renderText("Cleared db and forsed fixture load");
-	}
-
 	@Before(unless = { "getLastOrders", "serveLogo", "loadFix", "comps",
 			"changeCity", "changeLang" }/*
 										 * unless =
