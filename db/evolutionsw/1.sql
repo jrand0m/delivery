@@ -5,20 +5,14 @@
 -- ----------------------------
 CREATE SEQUENCE "hibernate_sequence"
  INCREMENT 1
- MINVALUE 1
- MAXVALUE 9223372036854775807
- START 3402
- CACHE 1;
+ START 1;
 
 -- ----------------------------
 -- Sequence structure for "workhours_seq"
 -- ----------------------------
 CREATE SEQUENCE "workhours_seq"
  INCREMENT 1
- MINVALUE 1
- MAXVALUE 9223372036854775807
- START 1
- CACHE 1;
+ START 1;
 
 -- ----------------------------
 -- Table structure for "accountinggroup"
