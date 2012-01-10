@@ -1,9 +1,9 @@
 
 # --- !Ups
 -- ----------------------------
--- Sequence structure for "hibernate_sequence"
+-- Sequence structure for "addresss_sequence"
 -- ----------------------------
-CREATE SEQUENCE "hibernate_sequence"
+CREATE SEQUENCE "address_sequence"
  INCREMENT 1
  START 1;
 
@@ -15,44 +15,14 @@ CREATE SEQUENCE "workhours_seq"
  START 1;
 
 -- ----------------------------
--- Table structure for "accountinggroup"
--- ----------------------------
-CREATE TABLE "accountinggroup" (
-"id" int8 NOT NULL,
-"deleted" bool NOT NULL,
-"description" varchar(255),
-"name" varchar(255)
-)
-WITH (OIDS=FALSE)
-
-;
-
--- ----------------------------
--- Table structure for "accountingtransaction"
--- ----------------------------
-CREATE TABLE "accountingtransaction" (
-"id" int8 NOT NULL,
-"amount" int4,
-"deleted" bool NOT NULL,
-"description" varchar(255),
-"operationdate" timestamp(6),
-"regulardayinmonthno" int4,
-"state" varchar(255),
-"group_id" int8,
-"target_id" int8
-)
-WITH (OIDS=FALSE)
-
-;
-
--- ----------------------------
 -- Table structure for "address"
 -- ----------------------------
 CREATE TABLE "address" (
 "id" int8 NOT NULL,
-"buldingnuber" varchar(255),
+"buldingnumber" varchar(10), -- renamed from 'buildingnuber', varchar len changed from 255
 "deleted" bool NOT NULL,
-"street_id" int8
+"street_id" int8,
+"city_id" int8 -- added field (must be a foreign key)
 )
 WITH (OIDS=FALSE)
 
@@ -61,25 +31,24 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Table structure for "anonymousenduser"
 -- ----------------------------
-CREATE TABLE "anonymousenduser" (
-"usid" varchar(255),
-"id" int8 NOT NULL
-)
-WITH (OIDS=FALSE)
-
-;
+-- CREATE TABLE "anonymousenduser" ( -- deleted now users distinquish by special field
+-- "usid" varchar(255),
+--  "id" int8 NOT NULL
+-- )
+-- WITH (OIDS=FALSE)
+-- ;
 
 -- ----------------------------
 -- Table structure for "city"
 -- ----------------------------
 CREATE TABLE "city" (
 "id" int8 NOT NULL,
-"citynameen" varchar(255),
-"citynameru" varchar(255),
-"citynameua" varchar(255),
-"display" bool NOT NULL,
-"zipend" int4,
-"zipstart" int4
+"citynamekey" varchar(255), -- rename from citynameen (we store only city key)
+-- "citynameru" varchar(255), -- deleted
+-- "citynameua" varchar(255), -- deleted 
+"display" bool NOT NULL -- ,
+-- "zipend" int4, -- deleted
+-- "zipstart" int4 -- deleted
 )
 WITH (OIDS=FALSE)
 
@@ -91,11 +60,11 @@ WITH (OIDS=FALSE)
 CREATE TABLE "comment" (
 "id" int8 NOT NULL,
 "commonrating" int4,
-"date" timestamp(6),
+"comment_date" date, -- changed type from timestamp(6), renamed from 'date'
 "showasanonymous" bool NOT NULL,
-"status" varchar(255),
-"text" varchar(255),
-"order_id" varchar(255),
+"status" varchar(255), -- TODO restrict to values
+"text" varchar(255), -- comment on order
+"order_id" varchar(255), 
 "restaurant_id" int8
 )
 WITH (OIDS=FALSE)
@@ -107,8 +76,8 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 CREATE TABLE "coordinates" (
 "id" int8 NOT NULL,
-"latitude" float8,
-"longitude" float8
+"latitude" float8, -- todo change to point 
+"longitude" float8 -- todo change to point 
 )
 WITH (OIDS=FALSE)
 
@@ -542,9 +511,9 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 CREATE TABLE "street" (
 "id" int8 NOT NULL,
-"title_en" varchar(255),
-"title_ua" varchar(255),
-"use" bool NOT NULL,
+"title_key" varchar(255), -- renamed from title_en 
+-- "title_ua" varchar(255), -- deleted
+"display" bool NOT NULL, -- renamed from use
 "city_id" int8
 )
 WITH (OIDS=FALSE)
@@ -630,7 +599,7 @@ CREATE TABLE "usersettings" (
 "startdate" timestamp(6),
 "_stg_key" varchar(255),
 "_stg_value" varchar(255),
-"owner" bytea
+"user_id" int8 -- changed type and renamed
 )
 WITH (OIDS=FALSE)
 
@@ -639,17 +608,18 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Table structure for "uzer"
 -- ----------------------------
-CREATE TABLE "uzer" (
+CREATE TABLE "users" ( -- renamed from uzer
 "id" int8 NOT NULL,
 "deleted" bool NOT NULL,
 "email" varchar(255),
 "joindate" timestamp(6),
-"lastlogindate" timestamp(6),
+"lastlogin" timestamp(6), -- renamed from lastlogindate
 "login" varchar(255),
-"password" varchar(255),
+"passwd" varchar(255), -- renamed from password, TODO  must be md5
 "phonenumber" varchar(255),
-"usr_name" varchar(255),
-"usr_surname" varchar(255)
+"usr_name" varchar(255), -- user name and surname
+--"usr_surname" varchar(255) -- deleted
+"registered" boolean not null default FALSE
 )
 WITH (OIDS=FALSE)
 
