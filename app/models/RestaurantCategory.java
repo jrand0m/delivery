@@ -1,12 +1,10 @@
 package models;
 
-import javax.persistence.Entity;
-
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.i18n.Lang;
 
-@Entity
+
 public class RestaurantCategory extends Model {
 	/**
 	 * on this field applies slugvify

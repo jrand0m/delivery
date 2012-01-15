@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import play.db.jpa.Model;
-@Entity
+
 public class MenuItemComponent extends Model {
 	public static class FIELDS {
 		public static final String ITM_ROOT = "itm_root";

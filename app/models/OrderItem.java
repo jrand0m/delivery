@@ -9,18 +9,14 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.Where;
-
-import play.Logger;
 import play.db.jpa.Model;
 
-@Entity
+
 //@Where(clause = "deleted = 0")
 public class OrderItem extends Model {
 

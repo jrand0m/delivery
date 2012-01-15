@@ -5,7 +5,6 @@ package models.logging;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
@@ -18,7 +17,7 @@ import enumerations.LogLevel;
  * @author Mike
  * @deprecated -needs redesign
  */
-@Entity
+
 @Table(name = "SystemLogs")
 public class SystemLog extends Model {
 	public static final class FIELDS {

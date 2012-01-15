@@ -5,14 +5,9 @@ package models.users;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Where;
 
 import play.data.validation.Email;
 import play.data.validation.Password;
@@ -24,7 +19,7 @@ import play.db.jpa.Model;
  * @author Mike
  * 
  */
-@Entity
+
 //@Where(clause = "deleted = 0")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="Uzer")

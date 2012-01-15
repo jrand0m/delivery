@@ -7,7 +7,6 @@ package models.users;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
@@ -18,7 +17,7 @@ import models.geo.UserAddress;
  * 
  * @author mike
  */
-@Entity
+
 public class EndUser extends User {
 	public static final class FIELDS {
 		public static final String USER_ADDRESS_BOOK = "addressBook";

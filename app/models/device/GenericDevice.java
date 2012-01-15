@@ -9,24 +9,18 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.Where;
-
-import enumerations.DeviceStatus;
 
 import play.db.jpa.Model;
+import enumerations.DeviceStatus;
 
 /**
  * @author Mike
  * 
  */
-@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DEVICE_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("GENERIC_DEVICE")

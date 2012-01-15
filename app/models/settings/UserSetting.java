@@ -3,17 +3,15 @@ package models.settings;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import models.users.EndUser;
 import play.data.validation.Max;
 import play.data.validation.Min;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
-import models.users.EndUser;
 
-@Entity
 @Table(name = "UserSettings")
 public class UserSetting extends Model {
 	public static final class FIELDS {
