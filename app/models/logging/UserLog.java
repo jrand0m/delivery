@@ -6,22 +6,20 @@ package models.logging;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import enumerations.LogActionType;
-import enumerations.LogLevel;
-
 import models.users.EndUser;
 import play.db.jpa.Model;
+import enumerations.LogActionType;
+import enumerations.LogLevel;
 
 /**
  * @author Mike
  * 
  */
-@Entity
+
 @Table(name = "UserLogs")
 public class UserLog extends Model {
 

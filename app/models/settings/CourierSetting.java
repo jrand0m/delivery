@@ -3,7 +3,6 @@ package models.settings;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import models.Courier;
@@ -12,7 +11,7 @@ import play.data.validation.Min;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
-@Entity
+
 @Table(name = "CourierSettings")
 public class CourierSetting extends Model {
 	public static final class FIELDS {

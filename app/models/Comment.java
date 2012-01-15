@@ -5,7 +5,6 @@ package models;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
@@ -17,7 +16,6 @@ import enumerations.CommentStatus;
 /**
  * @author Mike user can comment once per order(avoid spam)
  */
-@Entity
 public class Comment extends Model {
 	public static final class FIELDS {
 		public static final String COMMENT_ORDER = "order";

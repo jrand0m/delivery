@@ -1,9 +1,7 @@
 package models.geo;
 
-import javax.persistence.Entity;
-
 import play.db.jpa.Model;
-@Entity
+
 public class Coordinates extends Model {
 	public static final class FIELDS{
 		public static final String LONGITUDE = "longitude";

@@ -1,23 +1,17 @@
 package models.geo;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
-import models.users.EndUser;
 import models.users.User;
 
 import org.apache.commons.lang.NotImplementedException;
-import org.hibernate.annotations.Where;
 
 import play.data.validation.Match;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
-import play.db.jpa.Model;
 
-@Entity
+
 public class UserAddress extends Address {
 
 	public final static class FIELDS {

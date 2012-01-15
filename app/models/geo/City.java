@@ -4,9 +4,6 @@
 package models.geo;
 
 import helpers.GeoDataHelper;
-
-import javax.persistence.Entity;
-
 import play.db.jpa.Model;
 import play.i18n.Lang;
 
@@ -14,7 +11,7 @@ import play.i18n.Lang;
  * @author Mike
  * 
  */
-@Entity
+
 public class City extends Model {
 	public static class FIELDS {
 		public static final String CITY_NAME_EN ="cityNameEN";

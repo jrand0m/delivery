@@ -3,7 +3,6 @@
  */
 package models;
 
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 import play.db.jpa.Model;
@@ -12,7 +11,6 @@ import play.db.jpa.Model;
  * @author Mike
  * 
  */
-@Entity
 public class RestaurantDescription extends Model {
 	public static final class FIELDS {
 		public static final String LANG = "lang";

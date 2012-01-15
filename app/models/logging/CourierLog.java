@@ -5,22 +5,20 @@ package models.logging;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import enumerations.LogActionType;
-import enumerations.LogLevel;
-
 import models.Courier;
 import play.db.jpa.Model;
+import enumerations.LogActionType;
+import enumerations.LogLevel;
 
 /**
  * @author Mike
  * 
  */
-@Entity
+
 @Table(name = "CourierLogs")
 public class CourierLog extends Model {
 	public static final class FIELDS {

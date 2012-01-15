@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -24,7 +23,6 @@ import models.users.CourierUser;
 import models.users.EndUser;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Where;
 
 import play.db.jpa.GenericModel;
 import play.db.jpa.JPABase;
@@ -32,7 +30,7 @@ import play.libs.Codec;
 import enumerations.OrderStatus;
 import enumerations.PaymentStatus;
 
-@Entity
+
 //@Where(clause = "deleted = 0")
 @Table(name = "Orders")
 public class Order extends GenericModel {

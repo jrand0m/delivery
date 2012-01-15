@@ -1,8 +1,5 @@
 package models.time;
 
-import javassist.compiler.ast.Pair;
-
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,7 +8,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.Chronology;
-import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
@@ -20,11 +16,9 @@ import org.joda.time.chrono.ISOChronology;
 
 import play.Logger;
 import play.db.jpa.GenericModel;
-import play.db.jpa.Model;
 import play.i18n.Messages;
-import play.libs.Time.CronExpression;
 
-@Entity
+
 @Table(name = "Restaurant_Workhours")
 public class WorkHours extends GenericModel {
 	public static final int DEFAULT_FROM_HOUR = 8;

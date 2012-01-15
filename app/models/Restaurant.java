@@ -7,14 +7,10 @@ package models;
 import helpers.PropertyVault;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,21 +19,14 @@ import javax.persistence.OneToOne;
 import models.device.RestaurantDevice;
 import models.geo.Address;
 import models.geo.City;
-import models.settings.SystemSetting;
-import models.users.EndUser;
-import models.users.RestaurantUser;
 import models.time.WorkHours;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.Where;
-
+import models.users.RestaurantUser;
 import play.cache.Cache;
 import play.data.validation.Max;
 import play.data.validation.Min;
 import play.data.validation.Phone;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
-import play.i18n.Lang;
 import play.i18n.Messages;
 import play.libs.Codec;
 
@@ -46,7 +35,7 @@ import play.libs.Codec;
  * @author mike
  * 
  */
-@Entity
+
 public class Restaurant extends Model {
 	public static class FIELDS {
 		public static final String RESTAURANT_COMMENTS = "comments";
