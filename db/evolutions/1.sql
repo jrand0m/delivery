@@ -118,63 +118,72 @@ CREATE SEQUENCE "workhours_sequence"
 
 # --- !Downs
 
+
 -- ----------------------------
 -- Sequence structure for "addresss_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "address_sequence" CASCADE;
+DROP SEQUENCE "address_sequence" CASCADE;
 -- ----------------------------
 -- Sequence structure for "city_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "city_sequence" CASCADE;
+DROP SEQUENCE "city_sequence" CASCADE;
 -- ----------------------------
 -- Sequence structure for "comment_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "comment_sequence" CASCADE;
+DROP SEQUENCE "comment_sequence" CASCADE;
 -- ----------------------------
 -- Sequence structure for "coordinates_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "coordinates_sequence" CASCADE;
+DROP SEQUENCE "coordinates_sequence" CASCADE;
 -- ----------------------------
 -- Sequence structure for "ip_geo_data_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "ip_geo_data_sequence" CASCADE;
+DROP SEQUENCE "ip_geo_data_sequence" CASCADE;
 -- ----------------------------
 -- Sequence structure for "menuitem_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "menuitem_sequence" CASCADE;
+DROP SEQUENCE "menuitem_sequence" CASCADE;
 -- ----------------------------
 -- Sequence structure for "menuitemcomponent_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "menuitemcomponent_sequence" CASCADE;
+DROP SEQUENCE "menuitemcomponent_sequence" CASCADE;
 -- ----------------------------
 -- Sequence structure for "menuitemgroup_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "menuitemgroup_sequence" CASCADE;
+DROP SEQUENCE "menuitemgroup_sequence" CASCADE;
  -- ----------------------------
 -- Sequence structure for "orderitem_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "orderitem_sequence" CASCADE;
+DROP SEQUENCE "orderitem_sequence" CASCADE;
  -- ----------------------------
 -- Sequence structure for "orders_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "orders_sequence" CASCADE;
+DROP SEQUENCE "orders_sequence" CASCADE;
  -- ----------------------------
 -- Sequence structure for "restaurant_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "restaurant_sequence" CASCADE;
+DROP SEQUENCE "restaurant_sequence" CASCADE;
  -- ----------------------------
 -- Sequence structure for "restaurant_workhours_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "restaurant_workhours_sequence" CASCADE;
+DROP SEQUENCE "restaurant_workhours_sequence" CASCADE;
  -- ----------------------------
 -- Sequence structure for "restaurantcategory_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "restaurantcategory_sequence" CASCADE;
+DROP SEQUENCE "restaurantcategory_sequence" CASCADE;
  -- ----------------------------
 -- Sequence structure for "restaurantdescription_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "restaurantdescription_sequence" CASCADE;
+DROP SEQUENCE "restaurantdescription_sequence" CASCADE;
 -- ----------------------------
--- Sequence structure for "workhours_seq"
+-- Sequence structure for "workhours_sequence"
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "workhours_seq" CASCADE;
+DROP SEQUENCE "workhours_sequence" CASCADE;
+-- ----------------------------
+-- Sequence structure for "users_sequence"
+-- ----------------------------
+DROP SEQUENCE "users_sequence" CASCADE;
+-- ----------------------------
+-- Sequence structure for "street_sequence"
+-- ----------------------------
+DROP SEQUENCE "street_sequence" CASCADE;
