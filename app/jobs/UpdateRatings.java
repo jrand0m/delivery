@@ -24,7 +24,7 @@ import play.jobs.On;
  * @author Mike
  * 
  */
-@On("0 4 * * * ?")
+@On("0 0 4 * * ?")
 public class UpdateRatings extends Job {
 	private static long MILLISECONDS_IN_DAY = 1000/* ms */* 60/* s */* 60/* m */* 24/* h */;
 
