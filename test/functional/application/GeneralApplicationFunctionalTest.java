@@ -1,4 +1,4 @@
-package functional;
+package functional.application;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
@@ -6,10 +6,10 @@ import org.junit.Test;
 import play.test.FunctionalTest;
 import play.mvc.Http.Response;
 
-public class ApplicationFunctionalTest extends FunctionalTest {
+public class GeneralApplicationFunctionalTest extends FunctionalTest {
 	
 	@Test
-	public void renderIndexPage(){
+	public void renderIndexPageWithoutErrors(){
 		Response r = GET("/");
 		assertIsOk(r);
 		Document doc = Jsoup.parse(getContent(r));
