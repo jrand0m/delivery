@@ -1,4 +1,4 @@
-package functional;
+package functional.api;
 import org.junit.Test;
 
 import play.mvc.Http.Response;
@@ -6,7 +6,7 @@ import play.test.FunctionalTest;
 import play.test.UnitTest;
 
 
-public class APIFunctionalTest extends FunctionalTest {
+public class InternalCourierAPIFunctionalTest extends FunctionalTest {
 	
 	@Test
     public void testUnloginedUserGetApiAccess() {
