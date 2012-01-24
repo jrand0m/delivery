@@ -1,7 +1,7 @@
 package helpers.guice;
 
-import helpers.persistance.MyBatisSQLSessionFactoryProvider;
-import helpers.persistance.SQLSessionProvider;
+import helpers.guice.providers.MyBatisSQLSessionFactoryProvider;
+import helpers.guice.providers.SQLSessionProvider;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
