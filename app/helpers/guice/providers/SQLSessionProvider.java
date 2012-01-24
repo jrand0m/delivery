@@ -1,4 +1,4 @@
-package helpers.persistance;
+package helpers.guice.providers;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;

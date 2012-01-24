@@ -1,4 +1,4 @@
-package helpers.persistance;
+package helpers.guice.providers;
 
 import java.io.IOException;
 import java.io.Reader;
