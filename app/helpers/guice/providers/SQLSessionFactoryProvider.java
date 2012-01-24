@@ -12,7 +12,7 @@ import play.Play;
 
 import com.google.inject.Provider;
 
-public class MyBatisSQLSessionFactoryProvider implements
+public class SQLSessionFactoryProvider implements
 		Provider<SqlSessionFactory> {
 
 	private SqlSessionFactory _instance = null;
