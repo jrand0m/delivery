@@ -51,12 +51,39 @@
 					<span class="wrong_data">#{error 'email' /}</span></td><th>
 				<label for="cinp06">&{'common.reg.homenumber'}</label></th><td>
 				<input name="app" type="text" value="${flash.app}" id="cinp06" />
-					<span class="wrong_data">#{error 'address.appartamentsNumber' /}</span></td></tr><tr><th>
-				<label for="cinp07">&{'common.reg.phone'} +380</label></th><td>
+					<span class="wrong_data">#{error 'address.appartamentsNumber' /}</span></td></tr><tr><th style="vertical-align:top;">
+				<label for="cinp07">&{'common.reg.phone'} +380</label>
+				<label style="display:block;">&{'common.reg.paymentType'}</label>
+				</th><td style="padding-top: 5px;vertical-align:top;">
 				<input name="phone" type="text" value="${flash.phone}" id="cinp07" /><br />
-					<span class="wrong_data">#{error 'phone' /}</span></td><th><label>&{'common.reg.paymentType'}</label></th><td><span><input type="radio" name="oplata" checked />&{'common.reg.paymentType.cash'}</span></td></tr>
-					<tr><td colspan="2"></td><th style="vertical-align: top;"><label class="tal" for="aditional_info">Додаткова<br />інформація<br />(код дверeй<br />під'їзду, etc)</label></th><td><textarea id="addinfo" name="addinfo">${flash.addinfo}</textarea></td></tr>
-				<tr><th></th><td></td>
+					<span class="wrong_data">#{error 'phone' /}</span>
+					<span style="padding-top:3px;display:block;"><input type="radio" name="oplata" checked />&{'common.reg.paymentType.cash'}</span>
+					</td>
+					
+					<th style="vertical-align: top;"><label class="tal" for="aditional_info">Додаткова<br />інформація<br />(код дверeй<br />під'їзду, etc)</label></th><td><textarea id="addinfo" name="addinfo">${flash.addinfo}</textarea></td></tr>
+					<tr>
+					<td colspan="4">
+					<textarea readonly>Важливо!
+- Замовлення приймаються тільки в межах міста.
+- Одне замовлення можна здійснити лише з одного закладу.
+
+Умови доставки
+
+ - Ціна доставки 15 грн.
+ - Безкоштовна доставка відбувається при здійсненні замовлення на сумму більшу 150 грн.
+ - В ціну страв може бути включена ціна упаковки.
+ - Замовлення доставляються нашими кур'єрами в час вказанний на останній сторінці замовлення.
+ -  Замовлення можна зробити у час, залежний від роботи закладу, в якому ви хочети зробити замовлення. Час роботи закладу вказаний в блоці з інформацією про заклад.
+ 
+Варто зауважити, що
+
+ - діючі правила будуть змінюватись і удосконалюватись, оскільки сервіс працює в тестовому режимі і робота над його вдосконаленням триває. Ми робитимемо все можливе, щоб наш сервіс повністю задовільняв ваші потреби.
+ - Підписуйтесь в соціальних мережах на наші оновлення і будьте завжди в курсі найновіших можливостей сервісу, акцій, знижок і багатьох приємних бонусів, які чекаютимуть вас незабаром.
+
+
+					</textarea></td>
+					</tr>
+				
 				<!--th class="frst" colspan='2'><span><input type="radio" name="oplata" disabled="true" />&{'common.reg.paymentType.card'}<img class="card_pic" src="/public/images/visamastercard.png" /></span></th></tr-->
 			</table>
 			<table class="total">
@@ -78,11 +105,11 @@
 			</div>
 		#{/form}
 	</div>
-	<h3 class="wait_time">~<span>5</span> &{'common.order.minutes'} </h3>
+	<h3 class="wait_time"><img src="/public/images/banners/forfun.png" /> </h3>
 </div>
 <div class="right_cont">
 	<div class="right_block" id="basket">
-		<div><h1>&{'common.basket'}</h1></div>
+		<div><h1>*{'common.basket'}*</h1></div>
 		<div class="rb_cont">
 			<form action="#">
 				<table>
