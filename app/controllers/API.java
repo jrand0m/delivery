@@ -17,9 +17,9 @@ import models.dto.intern.CaffeJobsList;
 import models.dto.intern.MenuItem;
 import models.dto.intern.PushMessage;
 import models.geo.City;
+import models.users.BaseUser;
 import models.users.CourierUser;
 import models.users.RestaurantBarman;
-import models.users.User;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -72,7 +72,7 @@ public class API extends Controller {
 			+ Order.FIELDS.UPDATED + " > ?";
 
 	public static void g(Long from) {
-		User user = (User) renderArgs.get("user");
+		BaseUser user = (BaseUser) renderArgs.get("user");
 		if (user instanceof RestaurantBarman) {
 			processGet((RestaurantBarman) user, from);
 		}
@@ -184,7 +184,7 @@ public class API extends Controller {
 		if (p.id == null || p.id.length() < 8) {
 			notFound();
 		}
-		User user = (User) renderArgs.get("user");
+		BaseUser user = (BaseUser) renderArgs.get("user");
 		if (user instanceof RestaurantBarman) {
 			processPush((RestaurantBarman) user, p);
 		}

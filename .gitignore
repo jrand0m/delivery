@@ -76,3 +76,9 @@ logs/*
 /crud
 /betterlogs-1.0
 /target
+*.ids
+*.iml
+*.ipr
+*.iws
+test-result/
+

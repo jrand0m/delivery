@@ -2,7 +2,7 @@ package models.geo;
 
 import javax.persistence.ManyToOne;
 
-import models.users.User;
+import models.users.BaseUser;
 
 import org.apache.commons.lang.NotImplementedException;
 
@@ -35,7 +35,7 @@ public class UserAddress extends Address {
 	 * */
 
 	@ManyToOne
-	public User user;
+	public BaseUser user;
 
 	@Override
 	public String toString() {

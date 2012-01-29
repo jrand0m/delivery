@@ -2,10 +2,7 @@ package controllers;
 
 import models.users.CourierUser;
 import models.users.RestaurantBarman;
-import models.users.User;
 import play.mvc.Controller;
-import play.mvc.With;
-import annotations.Check;
 
 public class Client extends Controller {
 
