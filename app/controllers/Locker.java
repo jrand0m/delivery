@@ -1,13 +1,11 @@
 package controllers;
 
-import java.util.List;
-
 import annotations.Check;
 
 import models.Order;
 import models.geo.UserAddress;
+import models.users.BaseUser;
 import models.users.EndUser;
-import models.users.User;
 import play.Logger;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -15,12 +13,12 @@ import play.mvc.Router;
 import play.mvc.With;
 
 /**
- * User Personal Page Controller
+ * BaseUser Personal Page Controller
  * 
  * @author mike
  * */
 @With(Secure.class)
-@Check(User.class)
+@Check(BaseUser.class)
 public class Locker extends Controller {
 	
 	public static final class RENDER_KEYS{

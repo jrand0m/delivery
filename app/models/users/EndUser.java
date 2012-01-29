@@ -18,7 +18,7 @@ import models.geo.UserAddress;
  * @author mike
  */
 
-public class EndUser extends User {
+public class EndUser extends BaseUser {
 	public static final class FIELDS {
 		public static final String USER_ADDRESS_BOOK = "addressBook";
 		public static final String USER_ORDER_BOOK = "orderBook";

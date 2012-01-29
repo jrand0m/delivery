@@ -4,10 +4,7 @@ import helpers.SystemCalc;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.EnumType;
@@ -146,7 +143,7 @@ public class Order extends GenericModel {
 	 * */
 	public Date orderAccepted;
 	/**
-	 * User order close date/time
+	 * BaseUser order close date/time
 	 * */
 	public Date orderClosed;
 	/**
@@ -167,7 +164,7 @@ public class Order extends GenericModel {
 	public Date orderDelivered;
 	public Date updated;
 	/**
-	 * User who made this order
+	 * BaseUser who made this order
 	 * */
 	@ManyToOne
 	public EndUser orderOwner;
@@ -332,6 +329,7 @@ public class Order extends GenericModel {
 		case SENT:
 			return "перевіряється адреса";
 		case DELIVERED:
+            return "замовлення доставлено";
 		default:
 			break;
 		}

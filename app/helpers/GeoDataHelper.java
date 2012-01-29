@@ -20,9 +20,15 @@ import play.cache.Cache;
 import play.libs.F.Promise;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
+import play.modules.guice.InjectSupport;
+import services.GeoService;
 
+import javax.inject.Inject;
+@InjectSupport
 public class GeoDataHelper {
 	private static final String GEOIP_EXTERNAL_URL = "http://api.hostip.info/?ip=%s&position=%s";
+    @Inject
+    private static GeoService geoService;
 
 	public static Promise<IpGeoData> requestFromExternalServer(final String ip) {
 		final Promise<IpGeoData> geoDataPromise = new Promise<IpGeoData>();
@@ -52,15 +58,15 @@ public class GeoDataHelper {
 					play.Logger
 							.debug("City name for IP %s is %s", ip, cityName);
 					result = new IpGeoData();
-					City city = City.find("cityNameEN = ?", cityName).first();
+					City city = geoService.getCityByAlias("cityName");
 					if (city == null) {
 						play.Logger
 								.debug("City '%s' was not found in DB, creating new one",
 										cityName);
 						city = new City();
 						city.display = false;
-						city.cityNameEN = cityName;
-						city.create();
+                        city.cityAliasName = cityName;
+						geoService.insertCity(city);
 					}
 					result.city = city;
 					result.ip = ip;
@@ -113,9 +119,9 @@ public class GeoDataHelper {
 		geoDataFetchThread.start();
 		return geoDataPromise;
 	}
-
+    @Deprecated
 	public static City getSystemDefaultCity() {
-		City city = (City) Cache.get(CACHE_KEYS.DEFAULT_CITY);
+		/*City city = (City) Cache.get(CACHE_KEYS.DEFAULT_CITY);
 		if (city == null){
 			String defCityId = PropertyVault.getSystemValueFor(SystemSetting.KEYS.DEFAULT_CITY_ID);
 			if (defCityId == null){
@@ -124,8 +130,8 @@ public class GeoDataHelper {
 				city = City.findById(Long.valueOf(defCityId));
 			}
 			Cache.set(CACHE_KEYS.DEFAULT_CITY, city);
-		}
+		} */
 		
-		return city ;
+		return null ;
 	}
 }

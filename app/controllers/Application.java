@@ -3,24 +3,14 @@ package controllers;
 import helpers.CACHE_KEYS;
 import helpers.GeoDataHelper;
 import helpers.PropertyVault;
-import helpers.Transliterator;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.mail.SimpleEmail;
-
-import jobs.DevBootStrap;
 import models.MenuItem;
-import models.MenuItemComponent;
 import models.MenuItemGroup;
 import models.Order;
 import models.OrderItem;
@@ -29,7 +19,6 @@ import models.RestaurantCategory;
 import models.dto.extern.BasketJSON;
 import models.dto.extern.LastOrdersJSON;
 import models.dto.extern.MenuCompWrapJson;
-import models.dto.extern.MenuComponentsJSON;
 import models.geo.City;
 import models.geo.IpGeoData;
 import models.geo.Street;
@@ -38,25 +27,37 @@ import models.settings.SystemSetting;
 import models.users.AnonymousEndUser;
 import models.users.EndUser;
 import play.Logger;
-import play.Play;
 import play.cache.Cache;
 import play.data.validation.Email;
 import play.data.validation.Phone;
-import play.data.validation.Required;
 import play.i18n.Lang;
 import play.libs.Crypto;
-import play.libs.Mail;
 import play.mvc.Before;
 import play.mvc.Controller;
-import play.test.Fixtures;
 import enumerations.OrderStatus;
+import services.*;
+
+import javax.inject.Inject;
 
 public class Application extends Controller {
 
-	// TODO Make more flexible(extract to SystemSetting)
-	public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
+    // TODO Make more flexible(extract to SystemSetting)
+    public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
+    @Inject
+    private static GeoService geoService;
+    @Inject
+    private static OrderService orderService;
+    @Inject
+    private static RestaurantService restaurantService;
+    @Inject
+    private static LiveService liveService;
+    @Inject
+    private static BasketService basketService;
+    @Inject
+    private static MailService mailService;
 
-	public static class RENDER_KEYS {
+
+    public static class RENDER_KEYS {
 		public static final String USER = "user";
 		public static final String INDEX_RESTAURANTS = "restaurants";
 		public static final String AVALIABLE_CITIES = "cities";
@@ -81,12 +82,9 @@ public class Application extends Controller {
 		renderArgs.put(RENDER_KEYS.USER, user);
 		if (!session.contains(SESSION_KEYS.CITY_ID)) {
 			Logger.debug("No city defined in cookies");
-			City city = City.find("display = ?", true).first();
+			City city = geoService.getCityByRemoteAddress(request.remoteAddress);
 			if (city != null){
-			session.put(SESSION_KEYS.CITY_ID, city.id /*
-													 * Application.guessCity(request
-													 * .remoteAddress).getId()
-													 */);
+			session.put(SESSION_KEYS.CITY_ID, city.id);
 			} else {
 				Logger.warn("No visible city found");
 			}
@@ -98,11 +96,8 @@ public class Application extends Controller {
 		notFoundIfNull(id);
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		notFoundIfNull(user);
-		Order order = Order.find(Order.HQL.BY_SHORT_ID, id).first();
+		Order order = orderService.getOrderBySIDAndOwner(id, user);
 		notFoundIfNull(order);
-		if (!order.orderOwner.equals(user)) {
-			notFound();
-		}
 		renderArgs.put("order", order);
 		render("/Application/order.html");
 	}
@@ -112,48 +107,29 @@ public class Application extends Controller {
 		notFoundIfNull(id);
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		notFoundIfNull(user);
-		Order order = Order.find(Order.HQL.BY_SHORT_ID, id).first();
+        Order order = orderService.getOrderBySIDAndOwner(id, user);
 		notFoundIfNull(order);
-		if (!order.orderOwner.equals(user)) {
-			notFound();
-		}
 		if (order.orderStatus != OrderStatus.OPEN) {
 			redirect("Application.order", id);
 		}
 		if (order.items.isEmpty()) {
 			redirect("Application.showMenu", order.restaurant.getId());
 		}
-		City city = order.restaurant.city;
-		List<Street> streets = (List<Street>) Cache.get("streets" + city.id);
-		if (streets == null) {
-			streets = Street.find("city = ? and use = ?", city, true).fetch();
-			Cache.add("streets" + city.id, streets, "1d");
-		}
+
+		City city = orderService.getOrdersCity(order);
+		List<Street> streets = geoService.getStreetsOf(city);
 		renderArgs.put("streets", streets);
 		renderArgs.put("order", order);
 		render("/Application/prepareOrder.html");
 	}
 
 	public static void index() {
-		List<Restaurant> restaurants = (List<Restaurant>) Cache
-				.get(CACHE_KEYS.INDEX_PAGE_RESTAURANTS
-						+ session.get(SESSION_KEYS.CITY_ID));
-		if (restaurants == null) {
-			String cityId = session.get(SESSION_KEYS.CITY_ID);
-			// TODO decide whether to cache city
-			City city = City.getCityByIdSafely(cityId);
-			restaurants = Restaurant.find(
-					Restaurant.HQL.BY_CITY_AND_SHOW_ON_INDEX, city, true)
-					.fetch(4);
-			Cache.set(CACHE_KEYS.INDEX_PAGE_RESTAURANTS + cityId, restaurants,
-					"2h");
-		}
-		List<City> cityList = (List<City>) Cache
-				.get(CACHE_KEYS.AVALIABLE_CITIES);
-		if (cityList == null) {
-			cityList = City.find(City.HQL.BY_DISPLAY, true).fetch();
-			Cache.set(CACHE_KEYS.AVALIABLE_CITIES, cityList, "8h");
-		}
+        String cityId = session.get(SESSION_KEYS.CITY_ID);
+        if  (cityId==null||!cityId.matches("([1-9])|([1-9][0-9])")){
+            badRequest();
+        }
+		List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
+		List<City> cityList = geoService.getVisibleCities();
 		renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
 		renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
 		render();
@@ -169,19 +145,17 @@ public class Application extends Controller {
 	}
 
 	public static void showRestaurants() {
-		List<City> cityList = (List<City>) Cache
-				.get(CACHE_KEYS.AVALIABLE_CITIES);
-		if (cityList == null) {
-			cityList = City.find(City.HQL.BY_DISPLAY, true).fetch();
-			Cache.set(CACHE_KEYS.AVALIABLE_CITIES, cityList, "8h");
-		}
-		City city = City.getCityByIdSafely(session.get(SESSION_KEYS.CITY_ID));
-		List<Restaurant> restaurants = Restaurant.find(Restaurant.HQL.BY_CITY,
-				city).fetch();
+		List<City> cityList = geoService.getVisibleCities();
+        String cityId = session.get(SESSION_KEYS.CITY_ID);
+        if  (cityId==null||!cityId.matches("([1-9])|([1-9][0-9])")){
+            badRequest();
+        }
+
+		List<Restaurant> restaurants = geoService.getRestsByCity(Long.parseLong(cityId));
 		// categories
 		Set<RestaurantCategory> categories = new HashSet<RestaurantCategory>();
 		for (Restaurant rest : restaurants) {
-			RestaurantCategory category = rest.category;
+			RestaurantCategory category = rest.category;//XXX ??? must be deep get !
 			if (category != null) {
 				categories.add(category);
 			}
@@ -194,9 +168,9 @@ public class Application extends Controller {
 
 	public static void showMenu(Long id) {
 		notFoundIfNull(id);
-		Restaurant restaurant = Restaurant.findById(id);
+		Restaurant restaurant = restaurantService.getById(id);
 		notFoundIfNull(restaurant);
-		List<MenuItemGroup> menuItems = restaurant.menuBook;
+		List<MenuItemGroup> menuItems = restaurantService.getMenuBookFor(id);
 		renderArgs.put("restaurant", restaurant);
 		// FIXME Cache for 5 hours or it will die.
 		render(menuItems);
@@ -233,26 +207,28 @@ public class Application extends Controller {
 			String oplata, String addinfo) {
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user == null)
+            Logger.error("User is null");
 			badRequest();
 		checkAuthenticity();
 		if (id == null || id.isEmpty()) {
+            Logger.error("Order id is null or empty");
 			badRequest();
 		}
 
-		Order o = Order.findById(id);
+		Order o = orderService.getOrderBySIDAndOwner(id, user);
 		if (o == null) {
-			badRequest();
-		}
-		if (!o.orderOwner.equals(user)) {
+            Logger.error("No such order for current owner");
 			badRequest();
 		}
 		// TODO 'FROZEN' STATUS
 		if (!o.orderStatus.equals(OrderStatus.OPEN)) {
+            Logger.error("Bad order state");
 			badRequest();
 		}
-		Restaurant r = o.restaurant;
-		for (OrderItem itm : o.items) {
-			if (!itm.menuItem.restaurant.equals(r)) {
+		Restaurant r = restaurantService.getByOrder(o);
+        List<OrderItem> items = orderService.getItems(o);
+		for (OrderItem itm : items ) {
+			if (!orderService.getRestaurantFromOrderItem(itm).equals(r)) {
 				o.orderStatus = OrderStatus.DECLINED;
 				o.save();
 				Logger.error(
@@ -342,8 +318,9 @@ public class Application extends Controller {
 
 		o.orderStatus = OrderStatus.SENT;
 		o.deliveryPrice = o.getDeliveryPrice();
-		o.save();
-		try {
+
+		orderService.update(o);
+		/*try {
 			SimpleEmail simpleEmail = new SimpleEmail();
 			simpleEmail.setFrom("no-reply <robot@vdoma.com.ua>");
 			simpleEmail.addTo("380964831310@sms.kyivstar.net");
@@ -364,7 +341,8 @@ public class Application extends Controller {
 			Mail.send(simpleEmail);
 		} catch (Exception e) {
 			Logger.error("Failed to send notification email! " + e.getMessage(), e);
-		}
+		}*/
+        mailService.sendNewOrderNotification(o);
 		order(o.getShortHandId());
 	}
 
@@ -383,13 +361,7 @@ public class Application extends Controller {
 
 	public static void changeCity(Long id) {
 		Logger.debug("changing city to id = %s", id);
-		City city = City.findById(id);
-		if (city == null) {
-			session.put(SESSION_KEYS.CITY_ID, GeoDataHelper
-					.getSystemDefaultCity().getId().toString());
-		} else {
-			session.put(SESSION_KEYS.CITY_ID, id.toString());
-		}
+		City city = geoService.getCityById(id);
 		String url = flash.get("url");
 		if (url == null || url.isEmpty()) {
 			url = "/";
@@ -402,27 +374,9 @@ public class Application extends Controller {
 	public static void getLastOrders(boolean top) {
 		ArrayList<LastOrdersJSON> o = new ArrayList<LastOrdersJSON>();
 		if (session.contains(SESSION_KEYS.CITY_ID)) {
-			City city = City.getCityByIdSafely(session
-					.get(SESSION_KEYS.CITY_ID));
+			City city = geoService.getCityById(Long.parseLong(session.get(SESSION_KEYS.CITY_ID)));
 			List<Order> recent = null;
-			if (top) {
-				await(5000);
-				recent = Order.find(Order.HQL.LAST_ORDERS_BY_CITY_AND_STATUS,
-						city, OrderStatus.ACCEPTED).fetch(10);
-			} else {
-				boolean isEmpty = true;
-				while (isEmpty) {
-					recent = Order
-							.find(Order.HQL.LAST_ORDERS_BY_CITY_AND_STATUS_AND_AFTER_DATE,
-									city, OrderStatus.ACCEPTED, request.date)
-							.fetch();
-					await(10000);
-					isEmpty = recent.isEmpty();
-				}
-			}
-			for (Order ord : recent) {
-				o.add(new LastOrdersJSON(ord));
-			}
+			o = liveService.getLastOrdersForCity(city);
 		} else {
 			Logger.debug("No city in sesion, waiting to prevent ddos/dos");
 			await(20000);
@@ -433,7 +387,7 @@ public class Application extends Controller {
 	public static void comps(final Long id) {
 		notFoundIfNull(id);
 		await(1000);
-		MenuItem mi = MenuItem.findById(id);
+		/*MenuItem mi = MenuItem.findById(id);
 		List<MenuItemComponent> comps = MenuItemComponent.find(
 				MenuItemComponent.FIELDS.ITM_ROOT + "= ?", mi).fetch();
 		List<MenuComponentsJSON> asJsons = new ArrayList<MenuComponentsJSON>();
@@ -445,7 +399,8 @@ public class Application extends Controller {
 		wrap.dc = mi.description();
 		wrap.nm = mi.name();
 		wrap.pc = mi.price;
-		wrap.items = asJsons;
+		wrap.items = asJsons; */
+        MenuCompWrapJson wrap = basketService.getComponensForMenuItem(id)/*.wrapInJson()*/;
 		renderJSON(wrap);
 	}
 
@@ -454,21 +409,19 @@ public class Application extends Controller {
 			await(15000);
 			notFound("Order not found");
 		}
-		MenuItem itm = MenuItem.findById(id);
+		MenuItem itm = restaurantService.getMenuItemById(id);
 		// FIXME problems if we dynamicly delete order and user will refresh
 		// page. add to js basket failure to refresh by updateurl
 		notFoundIfNull(itm);
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		notFoundIfNull(user);
 		// TODO add safe caching
-		Order order = Order.find(
-				Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS_AND_RESTAURANT, user,
-				OrderStatus.OPEN, itm.restaurant).first();
+		Order order = orderService.getCurrentOrderFor(user, itm.restaurant);
 		notFoundIfNull(order);
 		OrderItem oi = new OrderItem(itm, order, component);
-		oi.save();
-		order.items.add(oi);
-		order.save();
+		oi = orderService.insertOrderItem(oi);
+		order.items.add(oi);// TODO add recursive save, or add this line to services
+		orderService.update(order);
 		renderJSON(new BasketJSON(order));
 	}
 
@@ -479,18 +432,17 @@ public class Application extends Controller {
 		}
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		notFoundIfNull(user);
-		OrderItem itm = OrderItem.findById(id);
+		OrderItem itm = orderService.getOrderItemByIdAndOwner(id, user);
 		notFoundIfNull(itm);
-		if (!itm.order.orderOwner.equals(user)) {
-			notFound();
-		}
 		if (itm.order.orderStatus == OrderStatus.OPEN) {
 			if (count < 1) {
-				itm.delete();
+				orderService.deleteOrderItem(itm);
 			} else {
 				itm.count = count;
-			}
-			renderJSON(new BasketJSON(itm.order));
+                orderService.updateOrderItem(itm);
+            }
+            BasketJSON json = basketService.getBasketAsJSON(itm.order);
+			renderJSON(json);
 		}
 		notFound();
 	}
@@ -519,22 +471,22 @@ public class Application extends Controller {
 		Order order = null;
 		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		if (user == null) {
-			user = createAnonymousUser();
+			user = createAnonymousUser(); //TODO userService.createNewAnonymousUser();
 		}
-		Restaurant restaurant = (Restaurant) Restaurant.findById(chart);
+		Restaurant restaurant = restaurantService.getById(chart);
 		notFoundIfNull(restaurant);
-		order = Order.find(
-				Order.HQL.BY_ORDER_OWNER_AND_ORDER_STATUS_AND_RESTAURANT, user,
-				OrderStatus.OPEN, restaurant).first();
+		order = orderService.getCurrentOrderFor(user,restaurant);
 		if (order == null) {
-			order = createNewOpenOrder(user, restaurant);
+			order = orderService.createNewOpenOrderFor(user, restaurant);
 		}
-		renderJSON(new BasketJSON(order));
+        BasketJSON json = basketService.getBasketAsJSON(order);
+		renderJSON(json);
 	}
 
-	public static void serveLogo(long id) throws IOException {
-		final Restaurant restaurant = Restaurant.findById(id);
-		notFoundIfNull(restaurant);
+	public static void serveLogo(long id) {
+		
+		
+		/*notFoundIfNull(restaurant);
 		InputStream is;
 		if (restaurant.logo.exists()) {
 			response.setContentTypeIfNotSet(restaurant.logo.type());
@@ -542,8 +494,10 @@ public class Application extends Controller {
 		} else {
 			is = new FileInputStream(Play.applicationPath
 					+ "/public/images/no_image.jpg");
-		}
-		renderBinary(is);
+		}*/
+		//renderBinary(is);
+        String url = restaurantService.getLogoPathFor(id);
+        redirect(url);
 	}
 
 	/* ----------- private -------------- */
@@ -591,7 +545,7 @@ public class Application extends Controller {
 
 	/**
 	 * intended for local use so no 'public' modifier
-	 * 
+	 * TODO move to service
 	 * @param jpaBase
 	 * */
 	private static Order createNewOpenOrder(final EndUser user,

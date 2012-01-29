@@ -7,12 +7,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import models.users.EndUser;
-import models.users.User;
+import models.users.BaseUser;
 import play.Logger;
 import play.Play;
 import play.mvc.Controller;
 import play.utils.Java;
-import enumerations.LogActionType;
 
 /**
  * @author Mike
@@ -44,7 +43,7 @@ public class Security extends Controller {
 	static boolean authenticate(String username, String password) {
 		Logger.debug("Trying to login as %s", username);
 		// FIXME login by db
-		User user = User.find(User.HQL.BY_LOGIN_OR_EMAIL, username, username)
+		BaseUser user = BaseUser.find(BaseUser.HQL.BY_LOGIN_OR_EMAIL, username, username)
 				.first();
 		if (user != null && user.password.equals(password)) {
 
@@ -62,9 +61,9 @@ public class Security extends Controller {
 	 * @param profile
 	 * @return true if you are allowed to execute this controller method.
 	 */
-	public static boolean check(Class<? extends User> userClass) {
+	public static boolean check(Class<? extends BaseUser> userClass) {
 		if (isConnected()) {
-			User user = User.find(EndUser.HQL.BY_LOGIN, connected()).first();
+			BaseUser user = BaseUser.find(EndUser.HQL.BY_LOGIN, connected()).first();
 			if (userClass.isInstance((user))){
 				renderArgs.put("user", user);
 				return true;
@@ -99,7 +98,7 @@ public class Security extends Controller {
 	 */
 	static void onAuthenticated() {
 		if (session.contains("username")) {
-			User user = User.find(User.HQL.BY_LOGIN, session.get("username"))
+			BaseUser user = BaseUser.find(BaseUser.HQL.BY_LOGIN, session.get("username"))
 					.first();
 			if (user == null) {
 				badRequest();
@@ -140,7 +139,7 @@ public class Security extends Controller {
 	 * 
 	 * @param profile
 	 */
-	static void onCheckFailed(Class<?extends User> profile) {
+	static void onCheckFailed(Class<?extends BaseUser> profile) {
 		forbidden();
 	}
 

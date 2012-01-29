@@ -20,20 +20,31 @@ import models.users.RestaurantBarman;
 import models.users.SystemAdministrator;
 import play.db.jpa.Blob;
 import play.libs.MimeTypes;
+import play.modules.guice.InjectSupport;
 import play.mvc.Controller;
 import play.mvc.With;
 import annotations.Check;
 import enumerations.DeviceStatus;
+import services.GeoService;
+import services.RestaurantService;
+
+import javax.inject.Inject;
 
 @With(Secure.class)
 @Check(SystemAdministrator.class)
+@InjectSupport
 public class Admin extends Controller {
-	public static void index() {
+    @Inject
+    private static GeoService geoService;
+    @Inject
+    private static RestaurantService restaurantService;
+
+    public static void index() {
 		render();
 	}
 
 	public static void showCities() {
-		List<City> cities = City.findAll();
+		List<City> cities = geoService.getAllCities();
 		render(cities);
 	}
 
@@ -81,7 +92,7 @@ public class Admin extends Controller {
 			restaurants = Restaurant.find("city.id = ?", id).fetch();
 		}
 		renderArgs.put("restaurants", restaurants);
-		renderArgs.put("cities", City.find("display = ?", true).fetch());
+		renderArgs.put("cities", geoService.getVisibleCities());
 		render();
 	}
 
@@ -157,18 +168,16 @@ public class Admin extends Controller {
 	}
 
 	public static void addCity(City city) {
-		System.out.println("name =>" + city.cityNameUA + "; display =>"
-				+ request.headers.toString());
-		if (city.cityNameUA == null) {
+		if (city.cityNameKey == null) {
 			render();
 		}
-		city.save();
+		geoService.insertCity(city);
 		render();
 	}
 
 	public static void editCity(Long id) {
 		notFoundIfNull(id);
-		City city = City.findById(id);
+		City city = geoService.getCityById(id);
 		notFoundIfNull(city);
 		renderArgs.put("city", city);
 		renderTemplate("Admin/addCity.html");
@@ -186,15 +195,15 @@ public class Admin extends Controller {
 			Long cityid, String openfrom, String opento, String barmanlogin,
 			String barmanpwd) {
 
-		List<City> cities = City.findAll();
-		List<RestaurantCategory> types = RestaurantCategory.findAll();
+		List<City> cities = geoService.getVisibleCities();
+		List<RestaurantCategory> types = restaurantService.getAllCategories();
 		renderArgs.put("cities", cities);
 		renderArgs.put("types", types);
 		if (cityid == null) {
 			renderArgs.put("errormessage", "no cityid");
 			render();
 		}
-		City city = City.findById(cityid);
+		City city = geoService.getCityById(cityid);
 		// notFoundIfNull(city);
 		RestaurantCategory type = RestaurantCategory.findById(catid);
 		RestaurantBarman b = null;
@@ -253,7 +262,7 @@ public class Admin extends Controller {
 				.find("restaurant = ?", restaurant).first();
 		renderArgs.put("barmanlogin", b.login);
 		renderArgs.put("barmanpwd", b.password);
-		List<City> cities = City.findAll();
+		List<City> cities = geoService.getVisibleCities();
 		List<RestaurantCategory> types = RestaurantCategory.findAll();
 		renderArgs.put("cities", cities);
 		renderArgs.put("types", types);

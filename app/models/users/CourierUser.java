@@ -12,7 +12,7 @@ import models.geo.City;
  * 
  */
 
-public class CourierUser extends User {
+public class CourierUser extends BaseUser {
 	public Integer sallary = 0;
 	public Integer gasPayment = 0;
 	@ManyToOne

@@ -13,7 +13,7 @@ public enum OrderStatus {
 	 * */
 	OPEN(),
 	/**
-	 * User confirms order
+	 * BaseUser confirms order
 	 * */
 	SENT(),
 	/**
