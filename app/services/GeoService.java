@@ -29,4 +29,8 @@ public interface GeoService {
     City insertCity(City city);
 
     List<City> getAllCities();
+
+    Street getStreetById(Long streetid);
+
+    Street insertStreet(Street streetObj);
 }

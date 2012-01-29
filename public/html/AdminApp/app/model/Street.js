@@ -1,6 +1,6 @@
 Ext.define('AV.model.Street', {
     extend: 'Ext.data.Model',
-    fields: ['id','city','title_ua','title_en','use'],
+    fields: ['id','city','title_ua','title_en','display'],
     associations: [
         { type: 'belongsTo', model: 'City' }
     ]
