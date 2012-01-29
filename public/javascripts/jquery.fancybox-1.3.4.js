@@ -1050,7 +1050,7 @@
 
 		outer.append(
 			content = $('<div id="fancybox-content"></div>'),
-			close = $('<a id="fancybox-close"></a>'),
+			close = $('<a id="fancybox-close">закрити</a>'),
 			title = $('<div id="fancybox-title"></div>'),
 
 			nav_left = $('<a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a>'),

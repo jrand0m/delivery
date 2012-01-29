@@ -93,16 +93,19 @@
 	z-index: 1101;
 }
 
+#fancybox-close:hover {text-decoration:underline;}
 #fancybox-close {
-	position: absolute;
-	top: 0px;
-	right: -5px;
-	width: 30px;
-	height: 30px;
-	background: transparent url('/public/images/close-button.png') 0px 0px;
-	cursor: pointer;
-	z-index: 1103;
-	display: none;
+    background: url("/public/images/close-button.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: none;
+    height: 30px;
+    padding: 4px 0 0 29px;
+    position: absolute;
+    right: -65px;
+    top: -27px;
+    width: 30px;
+    z-index: 1103;
 }
 
 #fancybox-error {
