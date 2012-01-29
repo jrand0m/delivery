@@ -199,7 +199,7 @@ public class Application extends Controller {
 	/**
 	 * id:ff808181333095ab0133309ed4e90005 name:sda city:1 surname:asd
 	 * street:asd email:asd@cacc.ccom apartment:ds phone:asd oplata:on
-	 * 
+	 *  TODO get orderCity one time(extract to varialble)
 	 * */
 	public static void checkAndSend(String id, Long aid, String name,
 			Integer city, String sname, Long streetid, String street,
@@ -257,16 +257,16 @@ public class Application extends Controller {
 			address = new UserAddress();
 			Street str = null;
 			if (streetid != null) {
-				str = Street.findById(streetid);
+				str = geoService.getStreetById(streetid);
 			}
-			if (str != null && str.city.equals(o.restaurant.city)) {
+			if (str!=null && orderService.getOrdersCity(o).id == str.city_id) {
 				address.street = str;
 			} else {
 				Street streetObj = new Street();
-				streetObj.city = o.restaurant.city;
+				streetObj.city_id = orderService.getOrdersCity(o).id;
 				streetObj.title_ua = street;
 				streetObj.title_en = street;
-				streetObj.save();
+				geoService.insertStreet(streetObj);
 				address.street = streetObj;
 				// validation.addError("address.street",
 				// "street.notacceptable");
@@ -294,9 +294,9 @@ public class Application extends Controller {
 				address = new UserAddress();
 				Street str = null;
 				if (streetid != null) {
-					str = Street.findById(streetid);
+					str = geoService.getStreetById(streetid);
 				}
-				if (str != null && str.city.equals(o.restaurant.city)) {
+				if (str!=null && orderService.getOrdersCity(o).id == str.city_id) {
 					address.street = str;
 				} else {
 					validation.addError("address.street",
