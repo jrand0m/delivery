@@ -8,9 +8,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import models.Order;
+import models.geo.Address;
 import models.geo.UserAddress;
 
 /**
@@ -24,8 +26,8 @@ public class EndUser extends BaseUser {
 		public static final String USER_ORDER_BOOK = "orderBook";
 	}
 
-	@OneToMany(mappedBy = UserAddress.FIELDS.USER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	public List<UserAddress> addressBook;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	public List<Address> addressBook;
 	@OneToMany(mappedBy = Order.FIELDS.ORDER_OWNER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<Order> orderBook;
 	@Override
