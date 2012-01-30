@@ -285,7 +285,7 @@ public class Application extends Controller {
 
 		} else {
 			if (aid != null) {
-				address = UserAddress.findById(aid);
+				address = geoService.getAddressById(aid);
 				if (address == null || !address.user.equals(user)) {
 					address = null;
 				}
