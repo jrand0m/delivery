@@ -1,8 +1,10 @@
 package services;
 
 import models.Restaurant;
+import models.geo.Address;
 import models.geo.City;
 import models.geo.Street;
+import models.geo.UserAddress;
 
 import java.util.List;
 
@@ -33,4 +35,6 @@ public interface GeoService {
     Street getStreetById(Long streetid);
 
     Street insertStreet(Street streetObj);
+
+    Address getAddressById(Long aid);
 }

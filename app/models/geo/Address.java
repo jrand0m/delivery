@@ -3,10 +3,9 @@
  */
 package models.geo;
 
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+import play.data.validation.Max;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
@@ -15,27 +14,39 @@ import play.db.jpa.Model;
  * 
  */
 
-//@Where(clause = "deleted = 0")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Address extends Model {
-	public final static class FIELDS {
-		public final static String ADDRESS_BULDING_NUBER = "buldingNuber";
-		public final static String ADDRESS_DELETED = "deleted";
-		public final static String ADDRESS_STREET = "street";
-		public final static String USER = "user";
-	}
+@Entity
+@Table(name = "vd_address")
+@SequenceGenerator(name = "address_seq_gen", sequenceName = "address_seq")
+public class Address {
 
-	public boolean deleted = false;
+    @Id
+    @Column(name = "address_id" )
+    @GeneratedValue(generator = "address_seq_gen", strategy = GenerationType.SEQUENCE)
+    public Long id;
 
-	public String buldingNuber;
-	/*@MaxSize(100)
-	@MinSize(4)
-	@Match("[А-яA-z0-9\\.,\\\\ /]+")
-	public String street;*/
-	@Required
-	@ManyToOne
-	public Street street;
-	
+    @Max(value = 30)
+    @Column(name = "building_number")
+    public String buildingNumber;
+
+    @Column(name = "apartments_number")
+    public String apartmentsNumber;
+    
+    public String additionalInfo;
+
+    public boolean deleted = false;
+
+    public Long city_id;
+
+    public Long street_id;
+
+
+    @Required
+    @ManyToOne
+    public City city;
+
+    @Required
+    @ManyToOne
+    public Street street;	
 	/*
 	 * (non-Javadoc)
 	 * 

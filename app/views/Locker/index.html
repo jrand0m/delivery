@@ -7,7 +7,7 @@
 
 #{form @Locker.addAddress() , id:'newAddress' }
   <label for="address.street">Street</label> <input name="address.street" type="text" /><br/>
-  <label for="address.appartamentsNumber">App No</label> <input name="address.appartamentsNumber" type="text" /><br/>
+  <label for="address.apartmentsNumber">App No</label> <input name="address.apartmentsNumber" type="text" /><br/>
   <label for="address.buldingNuber">Building No</label> <input name="address.buldingNuber" type="text" /><br/>
   <label for="address.additionalInfo">Additional Info</label> <input name="address.additionalInfo" type="text" /><br/>
   <input type="submit" />
@@ -18,7 +18,7 @@
      <li>
      <p>
     street:  			${address.street}            <br>
-    appartamentsNumber: ${address.appartamentsNumber}<br>
+    apartmentsNumber: ${address.appartamentsNumber}<br>
 	buldingNuber:		${address.buldingNuber}      <br>
 	additionalInfo:    	${address.additionalInfo}    <br>
 	<a href="@@{Locker.editAddress(address.id)}">edit</a><a href="@@{Locker.deleteAddress(address.id)}">delete</a>
