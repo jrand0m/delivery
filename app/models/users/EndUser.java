@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 
 import models.Order;
 import models.geo.Address;
-import models.geo.UserAddress;
 
 /**
  * 

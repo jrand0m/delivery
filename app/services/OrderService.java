@@ -14,6 +14,7 @@ import java.util.List;
  * Time: 11:23 PM
  */
 public interface OrderService {
+
     Order getOrderBySIDAndOwner(String id, EndUser user);
 
     City getOrdersCity(Order order);
@@ -35,4 +36,6 @@ public interface OrderService {
     Restaurant getRestaurantFromOrderItem(OrderItem itm);
 
     List<OrderItem> getItems(Order o);
+
+    boolean isEmptyOrder(Order order);
 }
