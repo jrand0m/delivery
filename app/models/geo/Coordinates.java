@@ -2,6 +2,7 @@ package models.geo;
 
 import play.db.jpa.Model;
 
+@Deprecated
 public class Coordinates extends Model {
 	public static final class FIELDS{
 		public static final String LONGITUDE = "longitude";

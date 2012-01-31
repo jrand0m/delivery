@@ -1,10 +1,6 @@
 package models.time;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.Chronology;
@@ -18,8 +14,9 @@ import play.Logger;
 import play.db.jpa.GenericModel;
 import play.i18n.Messages;
 
-
+@Entity
 @Table(name = "Restaurant_Workhours")
+@SequenceGenerator(name = "workhours_seq_gen", sequenceName = "workhours_seq")
 public class WorkHours extends GenericModel {
 	public static final int DEFAULT_FROM_HOUR = 8;
 	public static final int DEFAULT_FROM_MINUTES = 30;
@@ -32,8 +29,8 @@ public class WorkHours extends GenericModel {
 			DEFAULT_TO_MINUTES);
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "workhours_seq")
-	@SequenceGenerator(name = "workhours_seq", sequenceName = "workhours_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "workhours_seq_gen")
+
 	public Long id;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
