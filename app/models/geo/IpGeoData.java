@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 import play.db.jpa.Model;
 
-
+@Deprecated
 @Table(name="IP_GEO_DATA")
 public class IpGeoData extends Model {
 	public static class FIELDS {

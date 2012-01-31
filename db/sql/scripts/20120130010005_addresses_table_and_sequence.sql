@@ -17,7 +17,6 @@ CREATE TABLE "vd_address" (
    FOREIGN KEY ( "street_id" ) REFERENCES vd_street ("street_id")
 )
 --WITH (OIDS=FALSE)
-
 ;
 
 
