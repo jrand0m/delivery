@@ -55,6 +55,8 @@ public class Application extends Controller {
     private static BasketService basketService;
     @Inject
     private static MailService mailService;
+    @Inject
+    private static UserService userService;
 
 
     public static class RENDER_KEYS {
@@ -271,50 +273,53 @@ public class Application extends Controller {
 				// validation.addError("address.street",
 				// "street.notacceptable");
 			}
-			address.appartamentsNumber = app;
-			address.user = user;
+			address.apartmentsNumber = app;
+            address.buildingNumber = "???" ;//TODO add later
 			address.additionalInfo = addinfo;
 			// TODO do proper validation
-			address.validateAndCreate();
+			geoService.validateAndInsertAddress(address, validation);
 			if (validation.hasErrors()) {
 				params.flash();
 				validation.keep();
 				checkout(o.getShortHandId());
-			}
-			user.save();
+			} else {
+                userService.addAddressToUserAddressBook(address,user);
+                userService.update(user);
+            }
 
 		} else {
 			if (aid != null) {
 				address = geoService.getAddressById(aid);
-				if (address == null || !address.user.equals(user)) {
+				if (!userService.addressIsAssociatedWithUser(address,user)) {
 					address = null;
 				}
 			}
 			if (address == null) {
-				address = new UserAddress();
+				address = new Address();
 				Street str = null;
 				if (streetid != null) {
 					str = geoService.getStreetById(streetid);
 				}
 				if (str!=null && orderService.getOrdersCity(o).id == str.city_id) {
-					address.street = str;
+					address.street_id = str.id;
+                    //address.street = str
 				} else {
 					validation.addError("address.street",
 							"street.notacceptable");
 				}
-				address.appartamentsNumber = app;
-				address.user = user;
+				address.apartmentsNumber = app;
+                address.buildingNumber = "???";
 				address.additionalInfo = addinfo;
-				// TODO do proper validation
-				address.validateAndCreate();
+                geoService.validateAndInsertAddress(address, validation);
 				if (validation.hasErrors()) {
 					params.flash();
 					validation.keep();
 					checkout(o.getShortHandId());
 				}
+                userService.addAddressToUserAddressBook(address,user);
 			}
 		}
-		o.deliveryAddress = address;
+		o.deliveryAddress_id = address.id;
 
 		o.orderStatus = OrderStatus.SENT;
 		o.deliveryPrice = o.getDeliveryPrice();

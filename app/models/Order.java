@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import models.geo.UserAddress;
+import models.geo.Address;
 import models.users.CourierUser;
 import models.users.EndUser;
 
@@ -113,7 +113,9 @@ public class Order extends GenericModel {
 	public String declineMessage;
 	public boolean deleted = false;
 	@ManyToOne
-	public UserAddress deliveryAddress;
+
+	public Address deliveryAddress;
+    public Long deliveryAddress_id;
 	/**
 	 * Price calculated by application using formula, that should be paid by
 	 * user. value in coins
