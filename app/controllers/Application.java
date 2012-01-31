@@ -19,10 +19,10 @@ import models.RestaurantCategory;
 import models.dto.extern.BasketJSON;
 import models.dto.extern.LastOrdersJSON;
 import models.dto.extern.MenuCompWrapJson;
+import models.geo.Address;
 import models.geo.City;
 import models.geo.IpGeoData;
 import models.geo.Street;
-import models.geo.UserAddress;
 import models.settings.SystemSetting;
 import models.users.AnonymousEndUser;
 import models.users.EndUser;
@@ -112,7 +112,7 @@ public class Application extends Controller {
 		if (order.orderStatus != OrderStatus.OPEN) {
 			redirect("Application.order", id);
 		}
-		if (order.items.isEmpty()) {
+		if (orderService.isEmptyOrder(order)) {
 			redirect("Application.showMenu", order.restaurant.getId());
 		}
 
@@ -237,7 +237,7 @@ public class Application extends Controller {
 				error("Consistency error, root node mismatch. Order declined");
 			}
 		}
-		UserAddress address = null;
+		Address address = null;
 		if (user instanceof AnonymousEndUser) {
 			if ((user.usr_name == null || user.usr_name.isEmpty())) {
 				user.usr_name = name;
@@ -254,7 +254,7 @@ public class Application extends Controller {
 				validation.required(phone);
 			}
 
-			address = new UserAddress();
+			address = new Address();
 			Street str = null;
 			if (streetid != null) {
 				str = geoService.getStreetById(streetid);
