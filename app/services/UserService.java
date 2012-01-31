@@ -7,7 +7,7 @@ import org.mybatis.guice.transactional.Isolation;
 import org.mybatis.guice.transactional.Transactional;
 
 /**
- * BaseUser: Mike Stetsyshyn
+ * User: Mike Stetsyshyn
  * Date: 1/28/12
  * Time: 6:46 PM
  */

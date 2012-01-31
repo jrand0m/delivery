@@ -14,7 +14,7 @@ import models.Comment;
 import models.Order;
 import models.Restaurant;
 import models.users.RestaurantAdministration;
-import models.users.BaseUser;
+import models.users.User;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -27,7 +27,7 @@ public class RestaurantAdmin extends Controller {
 	@Before
 	public static void _prepare(){
 		String login = Security.connected();
-		RestaurantAdministration user = RestaurantAdministration.find(BaseUser.HQL.BY_LOGIN, login).first();
+		RestaurantAdministration user = RestaurantAdministration.find(User.HQL.BY_LOGIN, login).first();
 		notFoundIfNull(user);
 		renderArgs.put("user", user);
 		renderArgs.put("login", login);

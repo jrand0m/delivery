@@ -145,7 +145,7 @@ public class Order extends GenericModel {
 	 * */
 	public Date orderAccepted;
 	/**
-	 * BaseUser order close date/time
+	 * User order close date/time
 	 * */
 	public Date orderClosed;
 	/**
@@ -166,7 +166,7 @@ public class Order extends GenericModel {
 	public Date orderDelivered;
 	public Date updated;
 	/**
-	 * BaseUser who made this order
+	 * User who made this order
 	 * */
 	@ManyToOne
 	public EndUser orderOwner;

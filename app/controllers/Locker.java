@@ -4,7 +4,7 @@ import annotations.Check;
 
 import models.Order;
 import models.geo.Address;
-import models.users.BaseUser;
+import models.users.User;
 import models.users.EndUser;
 import play.Logger;
 import play.modules.guice.InjectSupport;
@@ -18,12 +18,12 @@ import services.UserService;
 import javax.inject.Inject;
 
 /**
- * BaseUser Personal Page Controller
+ * User Personal Page Controller
  * 
  * @author mike
  * */
 @With(Secure.class)
-@Check(BaseUser.class)
+@Check(User.class)
 @InjectSupport
 public class Locker extends Controller {
     @Inject

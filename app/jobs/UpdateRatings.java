@@ -3,8 +3,6 @@
  */
 package jobs;
 
-import helpers.PropertyVault;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -30,15 +28,15 @@ public class UpdateRatings extends Job {
 
 	@Override
 	public void doJob() {
-		String rrtg = PropertyVault.getSystemValueFor("ratingsRefreshTimeGap");
+		//String rrtg = PropertyVault.getSystemValueFor("ratingsRefreshTimeGap");
 
 		Long gapInDays = null;
-		if (rrtg != null) {
+		/*if (rrtg != null) {
 			gapInDays = Long.parseLong(rrtg);
-		} else {
+		*///} else {
 			Logger.warn("UpdateRatings Job: couldnot load 'ratingsRefreshTimeGap' system value dafaulting to 30 days");
 			gapInDays = 30L;
-		}
+		//}
 
 		List<Comment> comments = Comment.find(
 				"status = ? and (date between ? and ?) ",

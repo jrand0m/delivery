@@ -10,7 +10,7 @@ import play.mvc.Router;
  * 
  */
 
-public class SystemAdministrator extends BaseUser {
+public class SystemAdministrator extends User {
 	public String lastloginip;
 
 	@Override

@@ -19,8 +19,6 @@ CREATE TABLE "vd_address" (
 --WITH (OIDS=FALSE)
 ;
 
-
-
 --//@UNDO
 
 DROP TABLE "vd_address";

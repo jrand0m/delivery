@@ -12,8 +12,8 @@ import models.MenuItemGroup;
 import models.Order;
 import models.Restaurant;
 import models.RestaurantCategory;
-import models.device.RestaurantDevice;
 import models.geo.City;
+
 import models.settings.SystemSetting;
 import models.time.WorkHours;
 import models.users.RestaurantBarman;
@@ -27,6 +27,7 @@ import annotations.Check;
 import enumerations.DeviceStatus;
 import services.GeoService;
 import services.RestaurantService;
+import services.SystemService;
 
 import javax.inject.Inject;
 
@@ -38,6 +39,8 @@ public class Admin extends Controller {
     private static GeoService geoService;
     @Inject
     private static RestaurantService restaurantService;
+    @Inject
+    private static SystemService sysService;
 
     public static void index() {
 		render();
@@ -49,7 +52,7 @@ public class Admin extends Controller {
 	}
 
 	public static void showTypes() {
-		List<RestaurantCategory> types = RestaurantCategory.findAll();
+		List<RestaurantCategory> types = restaurantService.getAllCategories();
 		render(types);
 	}
 
@@ -101,7 +104,7 @@ public class Admin extends Controller {
 	}
 
 	public static void showSettings() {
-		List<SystemSetting> settings = SystemSetting.findAll();
+		List<SystemSetting> settings = sysService.findAllSystemSettings();
 		renderArgs.put("settings", settings);
 		render();
 	}
@@ -112,7 +115,7 @@ public class Admin extends Controller {
 			renderArgs.put("thankmessage", "Please create new one.");
 			render();
 		}
-		cat.create();
+		restaurantService.insertCategory(cat);
 		renderArgs.put("thankmessage", "Sucessfuly added : "
 				+ cat.categoryDisplayNameUA);
 		render();
@@ -185,7 +188,7 @@ public class Admin extends Controller {
 
 	public static void editType(Long id) {
 		notFoundIfNull(id);
-		RestaurantCategory cat = RestaurantCategory.findById(id);
+		RestaurantCategory cat = restaurantService.getRestaurantCategoryById(id);
 		notFoundIfNull(id);
 		renderArgs.put("cat", cat);
 		renderTemplate("Admin/addType.html");
@@ -205,7 +208,7 @@ public class Admin extends Controller {
 		}
 		City city = geoService.getCityById(cityid);
 		// notFoundIfNull(city);
-		RestaurantCategory type = RestaurantCategory.findById(catid);
+		RestaurantCategory type = restaurantService.getRestaurantCategoryById(catid);
 		RestaurantBarman b = null;
 		if (restaurant.id != null) {
 			Restaurant r = Restaurant.findById(restaurant.id);
@@ -218,11 +221,7 @@ public class Admin extends Controller {
 
 		} else {
 			b = new RestaurantBarman();
-			restaurant.device = new RestaurantDevice();
-			restaurant.device.deviceActivatedDate = new Date();
-			restaurant.device.status = DeviceStatus.ACTIVE;
-			restaurant.device.lastPing = new Date(0);
-			restaurant.device.save();
+			restaurant.lastPing = new Date(0);
 			b.joinDate = new Date();
 		}
 		b.login = barmanlogin;
@@ -232,12 +231,14 @@ public class Admin extends Controller {
 
 		restaurant.city = city;
 		restaurant.category = type;
-		if (restaurant.workHours == null) {
-			restaurant.workHours = new WorkHours(openfrom, opento);
+        WorkHours workHours = restaurantService.getWorkHours(restaurant);
+		if (workHours == null) {
+			workHours = new WorkHours(openfrom, opento);
 		} else {
-			restaurant.workHours.updateAll(openfrom, opento);
+			workHours.updateAll(openfrom, opento);
 		}
-		restaurant.workHours.save();
+        workHours = restaurantService.insertWorkHours(workHours);
+        restaurantService.setWorkHoursFor(restaurant,workHours);
 		restaurant.save();
 		b.save();
 		render();
@@ -263,7 +264,7 @@ public class Admin extends Controller {
 		renderArgs.put("barmanlogin", b.login);
 		renderArgs.put("barmanpwd", b.password);
 		List<City> cities = geoService.getVisibleCities();
-		List<RestaurantCategory> types = RestaurantCategory.findAll();
+		List<RestaurantCategory> types = restaurantService.getAllCategories();
 		renderArgs.put("cities", cities);
 		renderArgs.put("types", types);
 		renderTemplate("Admin/addRestaurant.html");
