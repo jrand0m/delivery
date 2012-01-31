@@ -15,9 +15,9 @@ import play.db.jpa.GenericModel;
 import play.i18n.Messages;
 
 @Entity
-@Table(name = "Restaurant_Workhours")
+@Table(name = "vd_restaurant_workhours")
 @SequenceGenerator(name = "workhours_seq_gen", sequenceName = "workhours_seq")
-public class WorkHours extends GenericModel {
+public class WorkHours {
 	public static final int DEFAULT_FROM_HOUR = 8;
 	public static final int DEFAULT_FROM_MINUTES = 30;
 	public static final int DEFAULT_TO_HOUR = 22;
@@ -30,40 +30,48 @@ public class WorkHours extends GenericModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "workhours_seq_gen")
+    public Integer id;
 
-	public Long id;
-
+    @Column(name = "mon_start")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime mon_start;
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
+    @Column(name = "mon_end")
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime mon_end;
-
+    @Column(name = "tue_start")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime tue_start;
+    @Column(name = "tue_end")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime tue_end;
-
+    @Column(name = "wed_start")
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime wed_start;
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
+    @Column(name = "wed_end")
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime wed_end;
-
+    @Column(name = "thu_start")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime thu_start;
+    @Column(name = "thu_end")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime thu_end;
-
+    @Column(name = "fri_start")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime fri_start;
+    @Column(name = "fri_end")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime fri_end;
-
+    @Column(name = "sat_start")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime sat_start;
+    @Column(name = "sat_end")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime sat_end;
-
+    @Column(name = "sun_start")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime sun_start;
+    @Column(name = "sun_end")
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	public LocalTime sun_end;
 
@@ -76,15 +84,6 @@ public class WorkHours extends GenericModel {
 	 * */
 	public WorkHours(String openfrom, String opento) {
 		updateAll(openfrom, opento);
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	@Override
-	public Object _key() {
-		return getId();
 	}
 
 	public String todayAsString() {

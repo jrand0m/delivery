@@ -4,9 +4,8 @@
  */
 package models;
 
-import helpers.PropertyVault;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,11 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import models.device.RestaurantDevice;
 import models.geo.Address;
 import models.geo.City;
 import models.time.WorkHours;
 import models.users.RestaurantUser;
+import play.Logger;
 import play.cache.Cache;
 import play.data.validation.Max;
 import play.data.validation.Min;
@@ -37,7 +36,8 @@ import play.libs.Codec;
  */
 
 public class Restaurant extends Model {
-	public static class FIELDS {
+
+    public static class FIELDS {
 		public static final String RESTAURANT_COMMENTS = "comments";
 		public static final String RESTAURANT_USERS = "users";
 		public static final String RESTAURANT_RAITING = "raiting";
@@ -55,14 +55,14 @@ public class Restaurant extends Model {
 		public static final String DELETED = "deleted";
 		public static final String SHOW_ON_INDEX = "showOnIndex";
 		public static final String CATEGORY = "category";
-		
+
 		public static final String TWO_LETTERS = "twoLetters";
 	}
-	
+
 	public static class HQL {
 		public static final String BY_CITY_AND_SHOW_ON_INDEX = FIELDS.RESTAURANT_CITY + " = ? and " +FIELDS.SHOW_ON_INDEX + " = ?";
 		public static final String BY_CITY = FIELDS.RESTAURANT_CITY +" = ? ";
-		
+
 	}
 	@ManyToOne
 	public RestaurantCategory category;
@@ -81,11 +81,7 @@ public class Restaurant extends Model {
 	 * logo image , ATTENTION! stores in /attachents/ dir
 	 * */
 	public Blob logo;
-	/**
-	 * Associated device
-	 * */
-	@OneToOne(fetch=FetchType.EAGER)
-	public RestaurantDevice device;
+
 	/**
 	 * loginable users
 	 * */
@@ -113,6 +109,8 @@ public class Restaurant extends Model {
 	 * */
 	@Phone
 	public String contactPhone;
+
+    public Date lastPing;
 	/**
 	 * XXX should i store it here ? Restaurant setting ?
 	 * */
@@ -136,10 +134,13 @@ public class Restaurant extends Model {
 	public boolean isOnline() {
 		Boolean online = (Boolean) Cache.get("isOnline_" + getId());
 		if (online == null) {
-			long waitTimeInMiliseconds = Long.parseLong(PropertyVault
-					.getSystemValueFor("pingTime"));
-			if (device != null && device.lastPing != null) {
-				online = System.currentTimeMillis() - device.lastPing.getTime() < waitTimeInMiliseconds;
+			long waitTimeInMiliseconds = 300000;
+                    Logger.debug("//TODO:get from system properties >>> %s", waitTimeInMiliseconds);
+
+			/* Long.parseLong(PropertyVault
+					.getSystemValueFor("pingTime"))*/;
+			if (lastPing != null) {
+				online = System.currentTimeMillis() - lastPing.getTime() < waitTimeInMiliseconds;
 			} else {
 				// FIXME Hardcore workaround on device null;
 				online = true;
@@ -181,7 +182,7 @@ public class Restaurant extends Model {
 	public String getTwoLetters() {
 		if (twoLetters == null || twoLetters.isEmpty())
 		{
-			return "VD";
+			return "__";
 		} else 
 		return twoLetters;
 	}

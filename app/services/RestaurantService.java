@@ -1,6 +1,7 @@
 package services;
 
 import models.*;
+import models.time.WorkHours;
 
 import java.util.List;
 
@@ -21,4 +22,14 @@ public interface RestaurantService {
     Restaurant getByOrder(Order o);
 
     List<RestaurantCategory> getAllCategories();
+
+    void setWorkHoursFor(Restaurant restaurant, WorkHours workHours);
+
+    WorkHours insertWorkHours(WorkHours workHours);
+
+    WorkHours getWorkHours(Restaurant restaurant);
+
+    RestaurantCategory insertCategory(RestaurantCategory cat);
+
+    RestaurantCategory getRestaurantCategoryById(Long id);
 }

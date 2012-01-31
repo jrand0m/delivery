@@ -2,7 +2,6 @@ package controllers;
 
 import helpers.CACHE_KEYS;
 import helpers.GeoDataHelper;
-import helpers.PropertyVault;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -523,8 +522,7 @@ public class Application extends Controller {
 	 * @param ip - ip address of client
 	 * @return City to show
 	 */
-	@SuppressWarnings("unused")
-	private static City guessCity(String ip) {
+/*	private static City guessCity(String ip) {
 		Boolean guessByIp = (Boolean) Cache
 				.get(CACHE_KEYS.GUESS_CITY_SYSOPT_ENABLED);
 		if (guessByIp == null) {
@@ -546,7 +544,7 @@ public class Application extends Controller {
 			return GeoDataHelper.getSystemDefaultCity();
 		}
 		return igdata.city;
-	}
+	}*/
 
 	/**
 	 * intended for local use so no 'public' modifier

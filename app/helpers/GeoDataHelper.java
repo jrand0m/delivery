@@ -10,9 +10,6 @@ import org.w3c.dom.NodeList;
 import enumerations.LogActionType;
 
 import models.geo.City;
-import models.geo.Coordinates;
-import models.geo.IpGeoData;
-import models.geo.IpGeoData.HQL;
 import models.settings.SystemSetting;
 import models.settings.SystemSetting.DEFAULT_VALUES;
 import models.settings.SystemSetting.KEYS;
@@ -26,7 +23,7 @@ import services.GeoService;
 import javax.inject.Inject;
 @InjectSupport
 public class GeoDataHelper {
-	private static final String GEOIP_EXTERNAL_URL = "http://api.hostip.info/?ip=%s&position=%s";
+/*	private static final String GEOIP_EXTERNAL_URL = "http://api.hostip.info/?ip=%s&position=%s";
     @Inject
     private static GeoService geoService;
 
@@ -46,10 +43,10 @@ public class GeoDataHelper {
 					geoDataPromise.invoke(null);
 					play.Logger
 							.warn("Cannot access or read from external geodata API ");
-					/*XXX Logger.logSystemWarn(
+					*//*XXX Logger.logSystemWarn(
 							LogActionType.DUMP,
 							"Cannot access or read from external geodata API for IP %s ",
-							ip);*/
+							ip);*//*
 					return;
 				}
 				NodeList nameNodes = doc.getElementsByTagNameNS("gml", "name");
@@ -108,10 +105,10 @@ public class GeoDataHelper {
 					}
 
 				} else {
-					/*XXX Logger.logSystemWarn(
+					*//*XXX Logger.logSystemWarn(
 							LogActionType.DUMP,
 							"Coordinates tag present but contains invalid content(%s)",
-							textContent);*/
+							textContent);*//*
 				}
 				return resultCoordinates;
 			}
@@ -121,7 +118,7 @@ public class GeoDataHelper {
 	}
     @Deprecated
 	public static City getSystemDefaultCity() {
-		/*City city = (City) Cache.get(CACHE_KEYS.DEFAULT_CITY);
+		*//*City city = (City) Cache.get(CACHE_KEYS.DEFAULT_CITY);
 		if (city == null){
 			String defCityId = PropertyVault.getSystemValueFor(SystemSetting.KEYS.DEFAULT_CITY_ID);
 			if (defCityId == null){
@@ -130,8 +127,8 @@ public class GeoDataHelper {
 				city = City.findById(Long.valueOf(defCityId));
 			}
 			Cache.set(CACHE_KEYS.DEFAULT_CITY, city);
-		} */
+		} *//*
 		
 		return null ;
-	}
+	}*/
 }

@@ -3,7 +3,7 @@
  */
 package controllers;
 
-import models.users.BaseUser;
+import models.users.User;
 import play.data.validation.Required;
 import play.libs.Crypto;
 import play.mvc.Before;
@@ -36,8 +36,8 @@ public class Secure extends Controller {
 
 	private static void check(Check check) throws Throwable {
 		boolean hasProfile = false;
-		Class<? extends BaseUser> lastclazz = null;
-		for (Class<? extends BaseUser> clazz : check.value()) {
+		Class<? extends User> lastclazz = null;
+		for (Class<? extends User> clazz : check.value()) {
 			if (hasProfile = (Boolean) Security.invoke("check", clazz)){
 				return;
 			}
@@ -93,7 +93,7 @@ public class Secure extends Controller {
 		}
 		if (request.isAjax()){
 			renderArgs.put("result", "true");
-			renderArgs.put("role", BaseUser.find(BaseUser.HQL.BY_LOGIN, username).first().getClass().getSimpleName());
+			renderArgs.put("role", User.find(User.HQL.BY_LOGIN, username).first().getClass().getSimpleName());
 			render("Secure/login.json");
 		}
 		redirectToOriginalURL();
