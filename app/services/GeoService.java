@@ -4,6 +4,7 @@ import models.Restaurant;
 import models.geo.Address;
 import models.geo.City;
 import models.geo.Street;
+import play.data.validation.Validation;
 
 import java.util.List;
 
@@ -36,4 +37,8 @@ public interface GeoService {
     Street insertStreet(Street streetObj);
 
     Address getAddressById(Long aid);
+
+    boolean validateAndInsertAddress(Address address, Validation validation);
+
+    Address insertAddress(Address address);
 }

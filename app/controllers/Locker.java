@@ -3,14 +3,19 @@ package controllers;
 import annotations.Check;
 
 import models.Order;
-import models.geo.UserAddress;
+import models.geo.Address;
 import models.users.BaseUser;
 import models.users.EndUser;
 import play.Logger;
+import play.modules.guice.InjectSupport;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
 import play.mvc.With;
+import services.GeoService;
+import services.UserService;
+
+import javax.inject.Inject;
 
 /**
  * BaseUser Personal Page Controller
@@ -19,9 +24,14 @@ import play.mvc.With;
  * */
 @With(Secure.class)
 @Check(BaseUser.class)
+@InjectSupport
 public class Locker extends Controller {
-	
-	public static final class RENDER_KEYS{
+    @Inject
+    private static GeoService geoService;
+    @Inject
+    private static UserService userService;
+
+    public static final class RENDER_KEYS{
 
 		public static final String USER = "user";
 		
@@ -60,41 +70,44 @@ public class Locker extends Controller {
 	}
 	
 
-	public static void addAddress(UserAddress address) {
+	public static void addAddress(Address address) {
 
 		if (address == null) {
 			redirect(Router.getFullUrl("Locker.index"));
 		}
-		address.user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-		address.create();
+
+		geoService.insertAddress(address);
+        EndUser user =(EndUser) renderArgs.get(RENDER_KEYS.USER);
+		userService.addAddressToUserAddressBook(address,user);
 		// TODO in future do it asynchronously!
 		todo();
 	}
 
-	public static void editAddress(UserAddress address) {
+	public static void editAddress(Address address) {
 
 		if (address.id == null) {
-			error("Data inconsistency detected");
+			badRequest();
 		}
 
-		address.user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		/*address.user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
 		UserAddress base = UserAddress.findById(address.id);
 		if (!address.equals(base)) {
 			// TODO Make logging
 			// LogItem.log(Address.class.getName(), field, newValue, oldValue,
 			// address.id, modifiedBy, modifiedOn)
 			address.save();
-		}
-
+		}*/
+        todo();
 	}
 
 	public static void deleteAddress(Long id) {
 		if (id != null) {
-			// TODO add logging
-			UserAddress address = UserAddress.findById(id);
+			/*// TODO add logging
+			UserAddress address = geoService.get
 			address.deleted = true;
-			address.save();
+			address.save();*/
 		}
+        todo();
 	}
 
 }
