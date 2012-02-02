@@ -1,8 +1,8 @@
 package models.dto.extern;
 
-import java.util.ArrayList;
-
 import models.OrderItem;
+
+import java.util.ArrayList;
 
 public class OrderItemJSON {
 		public OrderItemJSON(OrderItem oi) {

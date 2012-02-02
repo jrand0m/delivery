@@ -15,7 +15,7 @@ CREATE TABLE "vd_user" (
   "vd_user_type"    varchar(100)  not null,
   "last_login_date" timestamp     not null,
   "created_date"    timestamp     not null,
-  "updated_date"    timestamp     not null default localtimestamp(),
+  "updated_date"    timestamp     not null default localtimestamp,
   "deleted"         bool          not null default false
 )
 --WITH (OIDS=FALSE)

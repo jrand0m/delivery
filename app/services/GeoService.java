@@ -38,7 +38,7 @@ public interface GeoService {
 
     Address getAddressById(Long aid);
 
-    boolean validateAndInsertAddress(Address address, Validation validation);
+    Address validateAndInsertAddress(Address address, Validation validation);
 
     Address insertAddress(Address address);
 }

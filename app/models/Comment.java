@@ -3,15 +3,14 @@
  */
 package models;
 
-import java.util.Date;
+import enumerations.CommentStatus;
+import play.db.jpa.Model;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
-import play.db.jpa.Model;
-import enumerations.CommentStatus;
+import java.util.Date;
 
 /**
  * @author Mike user can comment once per order(avoid spam)

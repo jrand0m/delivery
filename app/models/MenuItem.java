@@ -1,14 +1,13 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import play.db.jpa.Model;
 
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import play.db.jpa.Model;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 //@Where(clause = "deleted = 0")

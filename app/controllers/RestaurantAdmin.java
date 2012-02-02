@@ -1,5 +1,16 @@
 package controllers;
 
+import enumerations.OrderStatus;
+import models.Comment;
+import models.Order;
+import models.Restaurant;
+
+import models.users.User;
+import play.mvc.Before;
+import play.mvc.Controller;
+import play.mvc.With;
+
+import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
@@ -8,34 +19,22 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Query;
-
-import models.Comment;
-import models.Order;
-import models.Restaurant;
-import models.users.RestaurantAdministration;
-import models.users.User;
-import play.mvc.Before;
-import play.mvc.Controller;
-import play.mvc.With;
-import enumerations.OrderStatus;
-
 @With(Secure.class)
 //@Check(UserRoles.RESTAURANT_ADMIN)
 public class RestaurantAdmin extends Controller {
 
 	@Before
 	public static void _prepare(){
-		String login = Security.connected();
+/*		String login = Security.connected();
 		RestaurantAdministration user = RestaurantAdministration.find(User.HQL.BY_LOGIN, login).first();
 		notFoundIfNull(user);
 		renderArgs.put("user", user);
-		renderArgs.put("login", login);
+		renderArgs.put("login", login);*/
 	}
 	
 	
 	public static void summary() {
-		List<Order> lastOrders = null;
+		/*List<Order> lastOrders = null;
 		List<Comment> lastComments = null;
 		Restaurant restaurant = ((RestaurantAdministration)renderArgs.get("user")).restaurant;
 		Calendar cal = Calendar.getInstance();
@@ -52,7 +51,7 @@ public class RestaurantAdmin extends Controller {
 		lastComments = Comment.find(Comment.HQL.BY_RESTAURANT_ORDERBY_DATE_DESC, params).fetch(5);
 		renderArgs.put("todaysRevenue", todaysRevenue.toString());
 		renderArgs.put("lastComments", lastComments);
-		renderArgs.put("lastOrders", lastOrders);
+		renderArgs.put("lastOrders", lastOrders);*/
 		render();
 	}
 
@@ -90,13 +89,13 @@ public class RestaurantAdmin extends Controller {
 	
 	/*UTIL METHODS*/
 	public static void getSummaryChartData(){
-		
-		List<ChartDataHolder> chartData = new ArrayList<ChartDataHolder>();
+
+		List<ChartDataHolder> chartData = new ArrayList<ChartDataHolder>(); /*
 		List<Order> orders = Order.find(Order.HQL.BY_RESTAURANT_AND_STATUS, ((RestaurantAdministration)renderArgs.get("user")).restaurant, OrderStatus.DELIVERED).fetch();
 		for (Order order:orders){
 			ChartDataHolder holder = new ChartDataHolder(order.orderCooked, String.valueOf(order.totalMenuPrice - (order.totalMenuPrice* order.restaurantDiscount)));
 			chartData.add(holder);
-		}
+		}*/
 		renderTemplate("RestaurantAdmin/summaryChartData.js", chartData);
 	}
 	/*helper classes */

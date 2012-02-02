@@ -4,21 +4,9 @@
  */
 package models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
 import models.geo.Address;
 import models.geo.City;
 import models.time.WorkHours;
-import models.users.RestaurantUser;
 import play.Logger;
 import play.cache.Cache;
 import play.data.validation.Max;
@@ -29,6 +17,11 @@ import play.db.jpa.Model;
 import play.i18n.Messages;
 import play.libs.Codec;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * 
  * @author mike
@@ -36,6 +29,8 @@ import play.libs.Codec;
  */
 
 public class Restaurant extends Model {
+
+
 
     public static class FIELDS {
 		public static final String RESTAURANT_COMMENTS = "comments";
@@ -83,10 +78,10 @@ public class Restaurant extends Model {
 	public Blob logo;
 
 	/**
-	 * loginable users
+	 * loginable power user id
 	 * */
-	@OneToMany(fetch = FetchType.LAZY)
-	public List<RestaurantUser> users;
+	public Long user_id;
+	
 	/**
 	 * Zip of city in witch Restaurant resides
 	 * */
@@ -98,6 +93,10 @@ public class Restaurant extends Model {
 	 * 30 days
 	 * */
 	public Integer raiting;
+
+
+    public String deviceLogin;
+    public String devicePassword;
 	/**
 	 * Name of contact person to contact( assigned by Restaurant through admin
 	 * i-face)

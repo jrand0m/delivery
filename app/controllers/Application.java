@@ -1,42 +1,25 @@
 package controllers;
 
-import helpers.CACHE_KEYS;
-import helpers.GeoDataHelper;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import models.MenuItem;
-import models.MenuItemGroup;
-import models.Order;
-import models.OrderItem;
-import models.Restaurant;
-import models.RestaurantCategory;
+import enumerations.OrderStatus;
+import enumerations.UserType;
+import models.*;
 import models.dto.extern.BasketJSON;
 import models.dto.extern.LastOrdersJSON;
 import models.dto.extern.MenuCompWrapJson;
 import models.geo.Address;
 import models.geo.City;
-import models.geo.IpGeoData;
 import models.geo.Street;
-import models.settings.SystemSetting;
-import models.users.AnonymousEndUser;
-import models.users.EndUser;
+import models.users.User;
 import play.Logger;
-import play.cache.Cache;
 import play.data.validation.Email;
 import play.data.validation.Phone;
 import play.i18n.Lang;
-import play.libs.Crypto;
 import play.mvc.Before;
 import play.mvc.Controller;
-import enumerations.OrderStatus;
 import services.*;
 
 import javax.inject.Inject;
+import java.util.*;
 
 public class Application extends Controller {
 
@@ -79,7 +62,7 @@ public class Application extends Controller {
 										 * "createOrAddOrderItem", }
 										 */)
 	public static void _pre() {
-		EndUser user = getCurrentUser();
+		User user = getCurrentUser();
 		renderArgs.put(RENDER_KEYS.USER, user);
 		if (!session.contains(SESSION_KEYS.CITY_ID)) {
 			Logger.debug("No city defined in cookies");
@@ -95,7 +78,7 @@ public class Application extends Controller {
 
 	public static void order(String id) {
 		notFoundIfNull(id);
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		User user = (User) renderArgs.get(RENDER_KEYS.USER);
 		notFoundIfNull(user);
 		Order order = orderService.getOrderBySIDAndOwner(id, user);
 		notFoundIfNull(order);
@@ -106,7 +89,7 @@ public class Application extends Controller {
 	public static void checkout(String id) {
 		// FIXME move to locker ?
 		notFoundIfNull(id);
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		User user = (User) renderArgs.get(RENDER_KEYS.USER);
 		notFoundIfNull(user);
         Order order = orderService.getOrderBySIDAndOwner(id, user);
 		notFoundIfNull(order);
@@ -136,11 +119,10 @@ public class Application extends Controller {
 		render();
 	}
 
-	private static EndUser getCurrentUser() {
-		EndUser user = null;
+	private static User getCurrentUser() {
+		User user = null;
 		if (Security.isConnected()) {
-			user = EndUser.find(EndUser.HQL.BY_LOGIN, Security.connected())
-					.first();
+			user = userService.getUserByLogin(Security.connected());
 		}
 		return user;
 	}
@@ -181,11 +163,11 @@ public class Application extends Controller {
 		render();
 	}
 
-	public static void registerNewUser(EndUser user) {
+	public static void registerNewUser(User user) {
 		Logger.debug(">>> Registering new user %s", user.toString());
-		user.joinDate = new Date();
+		user.createdDate = new Date();
 		user.lastLoginDate = new Date();
-		user.create();
+		userService.insertUser(user);
 		Logger.debug(">>> TODO: Try converting order history.");
 		try {
 			Secure.authenticate(user.login, user.password, false);
@@ -206,7 +188,7 @@ public class Application extends Controller {
 			Integer city, String sname, Long streetid, String street,
 			@Email String email, String app, @Phone String phone,
 			String oplata, String addinfo) {
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		User user = (User) renderArgs.get(RENDER_KEYS.USER);
 		if (user == null)
             Logger.error("User is null");
 			badRequest();
@@ -239,17 +221,13 @@ public class Application extends Controller {
 			}
 		}
 		Address address = null;
-		if (user instanceof AnonymousEndUser) {
-			if ((user.usr_name == null || user.usr_name.isEmpty())) {
-				user.usr_name = name;
-				if (!validation.valid(user.usr_name).ok) {
+		if (userService.isUserInRole(user, UserType.ANONYMOUS)) {
+			if (user.name.isEmpty()) {
+				user.name = name;
+				if (!validation.valid(user.name).ok) {
 					validation.addError("name", "name.required");
 				}
 			}
-			if ((user.usr_surname == null || user.usr_surname.isEmpty())) {
-				user.usr_surname = sname;
-			}
-
 			if (user.phoneNumber == null || !user.phoneNumber.isEmpty()) {
 				user.phoneNumber = phone;
 				validation.required(phone);
@@ -276,7 +254,7 @@ public class Application extends Controller {
             address.buildingNumber = "???" ;//TODO add later
 			address.additionalInfo = addinfo;
 			// TODO do proper validation
-			geoService.validateAndInsertAddress(address, validation);
+            address = geoService.validateAndInsertAddress(address, validation);
 			if (validation.hasErrors()) {
 				params.flash();
 				validation.keep();
@@ -417,7 +395,7 @@ public class Application extends Controller {
 		// FIXME problems if we dynamicly delete order and user will refresh
 		// page. add to js basket failure to refresh by updateurl
 		notFoundIfNull(itm);
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		User user = (User) renderArgs.get(RENDER_KEYS.USER);
 		notFoundIfNull(user);
 		// TODO add safe caching
 		Order order = orderService.getCurrentOrderFor(user, itm.restaurant);
@@ -434,7 +412,7 @@ public class Application extends Controller {
 			await(15000);
 			notFound("Order not found");
 		}
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		User user = (User) renderArgs.get(RENDER_KEYS.USER);
 		notFoundIfNull(user);
 		OrderItem itm = orderService.getOrderItemByIdAndOwner(id, user);
 		notFoundIfNull(itm);
@@ -473,9 +451,9 @@ public class Application extends Controller {
 		 */
 		notFoundIfNull(chart);
 		Order order = null;
-		EndUser user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+		User user = (User) renderArgs.get(RENDER_KEYS.USER);
 		if (user == null) {
-			user = createAnonymousUser(); //TODO userService.createNewAnonymousUser();
+			user = userService.createAnonymousUser(); //TODO userService.createNewAnonymousUser();
 		}
 		Restaurant restaurant = restaurantService.getById(chart);
 		notFoundIfNull(restaurant);
@@ -505,17 +483,6 @@ public class Application extends Controller {
 	}
 
 	/* ----------- private -------------- */
-	private static EndUser createAnonymousUser() {
-		AnonymousEndUser user = new AnonymousEndUser();
-		user.create();
-		user.login = "Anonymous_" + user.getId();
-		user.lastLoginDate = new Date();
-		user.joinDate = new Date();
-		user.password = Crypto.passwordHash(user.login + "1");
-		session.put("username", user.login);
-		user.save();
-		return user;
-	}
 
 	/** 
 	 * FIXME fix guess system by moving to new MyJob.now()
@@ -551,7 +518,7 @@ public class Application extends Controller {
 	 * TODO move to service
 	 * @param jpaBase
 	 * */
-	private static Order createNewOpenOrder(final EndUser user,
+	private static Order createNewOpenOrder(final User user,
 			Restaurant jpaBase) {
 		Logger.debug(">>> Creating new order for user: %s", user);
 		Order o = new Order();

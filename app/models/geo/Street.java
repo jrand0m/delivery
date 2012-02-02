@@ -1,9 +1,8 @@
 package models.geo;
 
-import javax.persistence.*;
-
-import play.db.jpa.Model;
 import play.i18n.Lang;
+
+import javax.persistence.*;
 @Entity
 @Table(name = "vd_street")
 @SequenceGenerator(name="street_seq_gen", sequenceName = "street_seq")

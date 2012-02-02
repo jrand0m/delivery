@@ -3,9 +3,9 @@
  */
 package models;
 
-import javax.persistence.ManyToOne;
-
 import play.db.jpa.Model;
+
+import javax.persistence.ManyToOne;
 
 /**
  * @author Mike

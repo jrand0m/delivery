@@ -3,22 +3,27 @@
  */
 package controllers;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
-import models.users.EndUser;
+import enumerations.UserType;
 import models.users.User;
 import play.Logger;
 import play.Play;
+import play.modules.guice.InjectSupport;
 import play.mvc.Controller;
 import play.utils.Java;
+import services.UserService;
+
+import javax.inject.Inject;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 /**
  * @author Mike
  * 
  */
+@InjectSupport
 public class Security extends Controller {
-
+    @Inject
+    private static UserService userService;
 	/**
 	 * @Deprecated
 	 * 
@@ -42,11 +47,7 @@ public class Security extends Controller {
 	 */
 	static boolean authenticate(String username, String password) {
 		Logger.debug("Trying to login as %s", username);
-		// FIXME login by db
-		User user = User.find(User.HQL.BY_LOGIN_OR_EMAIL, username, username)
-				.first();
-		if (user != null && user.password.equals(password)) {
-
+		if (userService.verifyCredentials(username, password)) {
 			return true;
 		}
 		Logger.debug("Login failed.");
@@ -58,13 +59,13 @@ public class Security extends Controller {
 	 * This method is called prior to the method's controller annotated with the @Check
 	 * method.
 	 * 
-	 * @param profile
+	 * @param userType
 	 * @return true if you are allowed to execute this controller method.
 	 */
-	public static boolean check(Class<? extends User> userClass) {
+	public static boolean check(UserType userType) {
 		if (isConnected()) {
-			User user = User.find(EndUser.HQL.BY_LOGIN, connected()).first();
-			if (userClass.isInstance((user))){
+			User user = userService.getUserByLogin( connected());
+			if (userType.equals(user.userType)){
 				renderArgs.put("user", user);
 				return true;
 			}
@@ -98,16 +99,7 @@ public class Security extends Controller {
 	 */
 	static void onAuthenticated() {
 		if (session.contains("username")) {
-			User user = User.find(User.HQL.BY_LOGIN, session.get("username"))
-					.first();
-			if (user == null) {
-				badRequest();
-			}
-			String url = user.landingUrl();
-			if (url != null) {
-				flash.put("url", url);
-			}
-
+			userService.touchUser(session.get("username"));
 		} else {
 			Logger.warn("Strange behaviour on auth: signed in but no username. %s",
 					request.remoteAddress);
@@ -139,7 +131,7 @@ public class Security extends Controller {
 	 * 
 	 * @param profile
 	 */
-	static void onCheckFailed(Class<?extends User> profile) {
+	static void onCheckFailed(Enum<UserType> profile) {
 		forbidden();
 	}
 

@@ -1,7 +1,6 @@
 package models;
 
 import play.data.validation.Required;
-import play.db.jpa.Model;
 import play.i18n.Lang;
 
 import javax.persistence.*;

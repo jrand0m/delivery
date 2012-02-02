@@ -1,11 +1,10 @@
 package models.geo;
 
-import java.util.Date;
+import play.db.jpa.Model;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import play.db.jpa.Model;
+import java.util.Date;
 
 @Deprecated
 @Table(name="IP_GEO_DATA")

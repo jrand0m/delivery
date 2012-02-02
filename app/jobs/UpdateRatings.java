@@ -3,20 +3,14 @@
  */
 package jobs;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import enumerations.CommentStatus;
-
 import models.Comment;
 import models.Restaurant;
-
 import play.Logger;
 import play.jobs.Job;
 import play.jobs.On;
+
+import java.util.*;
 
 /**
  * @author Mike

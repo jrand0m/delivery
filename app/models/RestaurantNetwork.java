@@ -3,12 +3,11 @@
  */
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
+import play.i18n.Messages;
 
 import javax.persistence.OneToMany;
-
-import play.i18n.Messages;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Mike

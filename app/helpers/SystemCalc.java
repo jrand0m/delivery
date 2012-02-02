@@ -3,10 +3,10 @@
  */
 package helpers;
 
+import models.Order;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
-import models.Order;
 
 /**
  * @author Mike

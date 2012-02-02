@@ -3,12 +3,8 @@
  */
 package models.geo;
 
-import helpers.GeoDataHelper;
-import play.db.jpa.Model;
-import play.i18n.Lang;
 import play.i18n.Messages;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 
 /**

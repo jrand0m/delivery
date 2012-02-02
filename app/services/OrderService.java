@@ -4,7 +4,7 @@ import models.Order;
 import models.OrderItem;
 import models.Restaurant;
 import models.geo.City;
-import models.users.EndUser;
+import models.users.User;
 
 import java.util.List;
 
@@ -15,19 +15,19 @@ import java.util.List;
  */
 public interface OrderService {
 
-    Order getOrderBySIDAndOwner(String id, EndUser user);
+    Order getOrderBySIDAndOwner(String id, User user);
 
     City getOrdersCity(Order order);
 
-    Order getCurrentOrderFor(EndUser user, Restaurant restaurant);
+    Order getCurrentOrderFor(User user, Restaurant restaurant);
 
-    Order createNewOpenOrderFor(EndUser user, Restaurant restaurant);
+    Order createNewOpenOrderFor(User user, Restaurant restaurant);
 
     void deleteOrderItem(OrderItem itm);
 
     void updateOrderItem(OrderItem itm);
 
-    OrderItem getOrderItemByIdAndOwner(Long id, EndUser user);
+    OrderItem getOrderItemByIdAndOwner(Long id, User user);
 
     void update(Order order);
 
@@ -38,4 +38,8 @@ public interface OrderService {
     List<OrderItem> getItems(Order o);
 
     boolean isEmptyOrder(Order order);
+
+    List<Order> getOrdersForCourier(User user);
+
+    List<Order> getOrdersForCourier(User user, Long from);
 }

@@ -3,15 +3,11 @@
  */
 package models.dto.intern;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.CascadeType;
-
 import models.MenuItemComponent;
 import models.OrderItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Mike
