@@ -13,19 +13,19 @@ import play.Play;
 import java.util.Properties;
 
 public class MyBatisConfigModule extends MyBatisModule {
-    
+
     @Override
     protected void initialize() {
         Logger.debug("Configuring mybatis started");
         Module driverHelper = null;
         Properties driverProps = new Properties();
-        if (Play.runingInTestMode() || Play.id == null){
+        if (Play.runingInTestMode() || Play.id == null) {
             Logger.debug("Using in-mem db config");
             driverHelper = JdbcHelper.H2_IN_MEMORY_NAMED;
             driverProps.setProperty("JDBC.schema", "play");
             driverProps.setProperty("JDBC.username", "sa");
             driverProps.setProperty("JDBC.password", "");
-        }  else if (Play.mode.isProd()){
+        } else if (Play.mode.isProd()) {
             Logger.debug("Using postgresql config");
             driverHelper = JdbcHelper.PostgreSQL;
             driverProps.setProperty("JDBC.schema", "vdoma_db");
@@ -41,7 +41,7 @@ public class MyBatisConfigModule extends MyBatisModule {
         bindTransactionFactoryType(JdbcTransactionFactory.class);
         addMapperClass(SampleMapper.class);
         //TODO 1) make mybatis config load from application conf file(i mean database settings dependant on test(must load in-mem db)/prod/dev)
-    	//TODO 2) make evolutions work(use mybatis evolutions framework, mb it is cooler!)!
+        //TODO 2) make evolutions work(use mybatis evolutions framework, mb it is cooler!)!
         Logger.debug("MyBatisConfig finished");
     }
 }

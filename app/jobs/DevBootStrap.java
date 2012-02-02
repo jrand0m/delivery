@@ -7,10 +7,10 @@ import play.jobs.OnApplicationStart;
 
 @OnApplicationStart
 public class DevBootStrap extends Job {
-	@Override
-	public void doJob() {
-		if (Play.mode.isDev()) {
+    @Override
+    public void doJob() {
+        if (Play.mode.isDev()) {
 
-		}
-	}
+        }
+    }
 }

@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Select;
 public interface SampleMapper {
     @Insert("insert into SAMPLE (\"TEXTX\") values (#{text})")
     void create(String text);
+
     @Select("select * from SAMPLE where id = #{id}")
     Sample get(Integer id);
 }

@@ -9,16 +9,16 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for security Check roles in value for current logged in user
- * 
+ *
  * @author mike
- * */
+ */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 public @interface Check {
 
-	/**
-	 * roles to check (array of strings eg.
-	 * */
+    /**
+     * roles to check (array of strings eg.
+     */
     UserType[] value();
 
 }

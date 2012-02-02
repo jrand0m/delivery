@@ -23,170 +23,171 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 
  * @author mike
- * 
  */
 
 public class Restaurant extends Model {
 
 
-
     public static class FIELDS {
-		public static final String RESTAURANT_COMMENTS = "comments";
-		public static final String RESTAURANT_USERS = "users";
-		public static final String RESTAURANT_RAITING = "raiting";
-		public static final String RESTAURANT_CONTACT_PERSON = "contactPerson";
-		public static final String RESTAURANT_DISCOUNT = "discount";
-		public static final String RESTAURANT_MENU_BOOK = "menuBook";
-		public static final String RESTAURANT_TITLE = "title";
-		public static final String RESTAURANT_WORK_HOURS = "workHours";
-		// /public static final String RESTAURANT_LAST_CONNECTION =
-		// "lastConnection";
-		public static final String RESTAURANT_LOGO = "logo";
-		public static final String RESTAURANT_CITY = "city";
-		public static final String RESTAURANT_DEVICE = "device";
-		public static final String DESCRIPTIONS = "descriptions";
-		public static final String DELETED = "deleted";
-		public static final String SHOW_ON_INDEX = "showOnIndex";
-		public static final String CATEGORY = "category";
+        public static final String RESTAURANT_COMMENTS = "comments";
+        public static final String RESTAURANT_USERS = "users";
+        public static final String RESTAURANT_RAITING = "raiting";
+        public static final String RESTAURANT_CONTACT_PERSON = "contactPerson";
+        public static final String RESTAURANT_DISCOUNT = "discount";
+        public static final String RESTAURANT_MENU_BOOK = "menuBook";
+        public static final String RESTAURANT_TITLE = "title";
+        public static final String RESTAURANT_WORK_HOURS = "workHours";
+        // /public static final String RESTAURANT_LAST_CONNECTION =
+        // "lastConnection";
+        public static final String RESTAURANT_LOGO = "logo";
+        public static final String RESTAURANT_CITY = "city";
+        public static final String RESTAURANT_DEVICE = "device";
+        public static final String DESCRIPTIONS = "descriptions";
+        public static final String DELETED = "deleted";
+        public static final String SHOW_ON_INDEX = "showOnIndex";
+        public static final String CATEGORY = "category";
 
-		public static final String TWO_LETTERS = "twoLetters";
-	}
+        public static final String TWO_LETTERS = "twoLetters";
+    }
 
-	public static class HQL {
-		public static final String BY_CITY_AND_SHOW_ON_INDEX = FIELDS.RESTAURANT_CITY + " = ? and " +FIELDS.SHOW_ON_INDEX + " = ?";
-		public static final String BY_CITY = FIELDS.RESTAURANT_CITY +" = ? ";
+    public static class HQL {
+        public static final String BY_CITY_AND_SHOW_ON_INDEX = FIELDS.RESTAURANT_CITY + " = ? and " + FIELDS.SHOW_ON_INDEX + " = ?";
+        public static final String BY_CITY = FIELDS.RESTAURANT_CITY + " = ? ";
 
-	}
-	@ManyToOne
-	public RestaurantCategory category;
-	public boolean deleted = false;
-	public boolean showOnIndex = false;
-	@ManyToOne
-	public City city;
-	@OneToOne
-	public Address address;
-	/**
-	 * All comments given to this restaurant
-	 * */
-	@OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
-	public List<Comment> comments;
-	/**
-	 * logo image , ATTENTION! stores in /attachents/ dir
-	 * */
-	public Blob logo;
+    }
 
-	/**
-	 * loginable power user id
-	 * */
-	public Long user_id;
-	
-	/**
-	 * Zip of city in witch Restaurant resides
-	 * */
-	@Max(100000)
-	@Min(999)
-	public Integer cityZip;
-	/**
-	 * Updates by job at 4 o'clock every day based on approved comments for past
-	 * 30 days
-	 * */
-	public Integer raiting;
+    @ManyToOne
+    public RestaurantCategory category;
+    public boolean deleted = false;
+    public boolean showOnIndex = false;
+    @ManyToOne
+    public City city;
+    @OneToOne
+    public Address address;
+    /**
+     * All comments given to this restaurant
+     */
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    public List<Comment> comments;
+    /**
+     * logo image , ATTENTION! stores in /attachents/ dir
+     */
+    public Blob logo;
+
+    /**
+     * loginable power user id
+     */
+    public Long user_id;
+
+    /**
+     * Zip of city in witch Restaurant resides
+     */
+    @Max(100000)
+    @Min(999)
+    public Integer cityZip;
+    /**
+     * Updates by job at 4 o'clock every day based on approved comments for past
+     * 30 days
+     */
+    public Integer raiting;
 
 
     public String deviceLogin;
     public String devicePassword;
-	/**
-	 * Name of contact person to contact( assigned by Restaurant through admin
-	 * i-face)
-	 * */
-	public String contactPerson;
-	public String salt = Codec.UUID();
-	/**
-	 * Fone of contact person (assigned by Restaurant through admin i-face)
-	 * */
-	@Phone
-	public String contactPhone;
+    /**
+     * Name of contact person to contact( assigned by Restaurant through admin
+     * i-face)
+     */
+    public String contactPerson;
+    public String salt = Codec.UUID();
+    /**
+     * Fone of contact person (assigned by Restaurant through admin i-face)
+     */
+    @Phone
+    public String contactPhone;
 
     public Date lastPing;
-	/**
-	 * XXX should i store it here ? Restaurant setting ?
-	 * */
-	public Double discount;
-	@OneToMany(mappedBy = "restaurant")
-	public List<MenuItemGroup> menuBook = new ArrayList<MenuItemGroup>();
-	/**
-	 * Restaurant Title
-	 * */
-	public String title;
+    /**
+     * XXX should i store it here ? Restaurant setting ?
+     */
+    public Double discount;
+    @OneToMany(mappedBy = "restaurant")
+    public List<MenuItemGroup> menuBook = new ArrayList<MenuItemGroup>();
+    /**
+     * Restaurant Title
+     */
+    public String title;
 
-	@OneToMany(mappedBy = RestaurantDescription.FIELDS.RESTAURANT)
-	public List<RestaurantDescription> descriptions = new ArrayList<RestaurantDescription>();
+    @OneToMany(mappedBy = RestaurantDescription.FIELDS.RESTAURANT)
+    public List<RestaurantDescription> descriptions = new ArrayList<RestaurantDescription>();
 
-	@OneToOne(fetch = FetchType.LAZY,cascade={CascadeType.PERSIST})
-	public WorkHours workHours;
-	public String twoLetters;
-	@Column(name = "restaurant_descr")
-	public String desc;
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+    public WorkHours workHours;
+    public String twoLetters;
+    @Column(name = "restaurant_descr")
+    public String desc;
 
-	public boolean isOnline() {
-		Boolean online = (Boolean) Cache.get("isOnline_" + getId());
-		if (online == null) {
-			long waitTimeInMiliseconds = 300000;
-                    Logger.debug("//TODO:get from system properties >>> %s", waitTimeInMiliseconds);
+    public boolean isOnline() {
+        Boolean online = (Boolean) Cache.get("isOnline_" + getId());
+        if (online == null) {
+            long waitTimeInMiliseconds = 300000;
+            Logger.debug("//TODO:get from system properties >>> %s", waitTimeInMiliseconds);
 
-			/* Long.parseLong(PropertyVault
-					.getSystemValueFor("pingTime"))*/;
-			if (lastPing != null) {
-				online = System.currentTimeMillis() - lastPing.getTime() < waitTimeInMiliseconds;
-			} else {
-				// FIXME Hardcore workaround on device null;
-				online = true;
-			}
-			long waitTimeInMin = (waitTimeInMiliseconds / 1000 / 60) + 1;
+            /* Long.parseLong(PropertyVault
+                       .getSystemValueFor("pingTime"))*/
+            ;
+            if (lastPing != null) {
+                online = System.currentTimeMillis() - lastPing.getTime() < waitTimeInMiliseconds;
+            } else {
+                // FIXME Hardcore workaround on device null;
+                online = true;
+            }
+            long waitTimeInMin = (waitTimeInMiliseconds / 1000 / 60) + 1;
 
-			Cache.set("isOnline_" + getId(), online, waitTimeInMin + "mn");
-		}
-		return online;
-	}
+            Cache.set("isOnline_" + getId(), online, waitTimeInMin + "mn");
+        }
+        return online;
+    }
 
-	public String description() {
-		/*String lang = Lang.get();
-		for (RestaurantDescription desc : descriptions) {
-			if (desc.lang.equalsIgnoreCase(lang)) {
-				return desc.description;
-			}
-		}*/
-		if(desc == null || desc.isEmpty()){
-		return Messages.get("restaurant.nodescription");
-		}else {return desc;}
-	}
+    public String description() {
+        /*String lang = Lang.get();
+          for (RestaurantDescription desc : descriptions) {
+              if (desc.lang.equalsIgnoreCase(lang)) {
+                  return desc.description;
+              }
+          }*/
+        if (desc == null || desc.isEmpty()) {
+            return Messages.get("restaurant.nodescription");
+        } else {
+            return desc;
+        }
+    }
 
-	public String addressToString() {
-		// FIXME Hardcore workaround
-		return address != null ? address.toString() : Messages
-				.get("restaurant.noaddress");
-	}
+    public String addressToString() {
+        // FIXME Hardcore workaround
+        return address != null ? address.toString() : Messages
+                .get("restaurant.noaddress");
+    }
 
-	public String workHoursToday() {
-		return workHours.todayAsString();
-	}
+    public String workHoursToday() {
+        return workHours.todayAsString();
+    }
 
-	public String isOnlineAsString() {
-		return isOnline() ? Messages.get("restaurant.online") : Messages
-				.get("restaurant.offline");
-	}
+    public String isOnlineAsString() {
+        return isOnline() ? Messages.get("restaurant.online") : Messages
+                .get("restaurant.offline");
+    }
 
-	public String getTwoLetters() {
-		if (twoLetters == null || twoLetters.isEmpty())
-		{
-			return "__";
-		} else 
-		return twoLetters;
-	}
-	public void setTwoLetters(String ltrs) {
-			twoLetters = ltrs;
-	}
+    public String getTwoLetters() {
+        if (twoLetters == null || twoLetters.isEmpty()) {
+            return "__";
+        } else
+            return twoLetters;
+    }
+
+    public void setTwoLetters(String ltrs) {
+        twoLetters = ltrs;
+    }
 
 }

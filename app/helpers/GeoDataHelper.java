@@ -1,6 +1,7 @@
 package helpers;
 
 import play.modules.guice.InjectSupport;
+
 @InjectSupport
 public class GeoDataHelper {
 /*	private static final String GEOIP_EXTERNAL_URL = "http://api.hostip.info/?ip=%s&position=%s";

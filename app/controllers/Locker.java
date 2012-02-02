@@ -18,9 +18,9 @@ import javax.inject.Inject;
 
 /**
  * User Personal Page Controller
- * 
+ *
  * @author mike
- * */
+ */
 @With(Secure.class)
 @Check(UserType.REGISTERED)
 @InjectSupport
@@ -30,83 +30,83 @@ public class Locker extends Controller {
     @Inject
     private static UserService userService;
 
-    public static final class RENDER_KEYS{
+    public static final class RENDER_KEYS {
 
-		public static final String USER = "user";
-		
-	}
-	
-	@Before
-	public static void __prepare() {
-		Logger.debug(">>> Accesing locker %s ? %s", Security.connected(),
-				session.getId());
-		if (!Security.isConnected()) {
-			Logger.debug(">>> Anonymous locker -> redirecting to basket()");
-			notFound();
+        public static final String USER = "user";
 
-		}
-		String userName = Security.connected();
-		User user = userService.getUserByLogin(userName);
-		if (user == null) {
-			Logger.debug(">>> locker -> user is null -> forbidden");
-			forbidden();
-		}
-		renderArgs.put(RENDER_KEYS.USER, user);
-	}
+    }
 
-	public static void index() {
-		// FIXME move to locker
-		Order order = null;
-		renderArgs.put("order", order);
-		render("/Locker/cabinetLastOrders.html");
-	}
+    @Before
+    public static void __prepare() {
+        Logger.debug(">>> Accesing locker %s ? %s", Security.connected(),
+                session.getId());
+        if (!Security.isConnected()) {
+            Logger.debug(">>> Anonymous locker -> redirecting to basket()");
+            notFound();
 
-	public static void cabinetProfile() {
-		// FIXME move to locker
-		Order order = null;
-		renderArgs.put("order", order);
-		render("/Locker/cabinetProfile.html");
-	}
-	
+        }
+        String userName = Security.connected();
+        User user = userService.getUserByLogin(userName);
+        if (user == null) {
+            Logger.debug(">>> locker -> user is null -> forbidden");
+            forbidden();
+        }
+        renderArgs.put(RENDER_KEYS.USER, user);
+    }
 
-	public static void addAddress(Address address) {
+    public static void index() {
+        // FIXME move to locker
+        Order order = null;
+        renderArgs.put("order", order);
+        render("/Locker/cabinetLastOrders.html");
+    }
 
-		if (address == null) {
-			redirect(Router.getFullUrl("Locker.index"));
-		}
+    public static void cabinetProfile() {
+        // FIXME move to locker
+        Order order = null;
+        renderArgs.put("order", order);
+        render("/Locker/cabinetProfile.html");
+    }
 
-		geoService.insertAddress(address);
-        User user =(User) renderArgs.get(RENDER_KEYS.USER);
-		userService.addAddressToUserAddressBook(address,user);
-		// TODO in future do it asynchronously!
-		todo();
-	}
 
-	public static void editAddress(Address address) {
+    public static void addAddress(Address address) {
 
-		if (address.id == null) {
-			badRequest();
-		}
+        if (address == null) {
+            redirect(Router.getFullUrl("Locker.index"));
+        }
 
-		/*address.user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
-		UserAddress base = UserAddress.findById(address.id);
-		if (!address.equals(base)) {
-			// TODO Make logging
-			// LogItem.log(Address.class.getName(), field, newValue, oldValue,
-			// address.id, modifiedBy, modifiedOn)
-			address.save();
-		}*/
+        geoService.insertAddress(address);
+        User user = (User) renderArgs.get(RENDER_KEYS.USER);
+        userService.addAddressToUserAddressBook(address, user);
+        // TODO in future do it asynchronously!
         todo();
-	}
+    }
 
-	public static void deleteAddress(Long id) {
-		if (id != null) {
-			/*// TODO add logging
-			UserAddress address = geoService.get
-			address.deleted = true;
-			address.save();*/
-		}
+    public static void editAddress(Address address) {
+
+        if (address.id == null) {
+            badRequest();
+        }
+
+        /*address.user = (EndUser) renderArgs.get(RENDER_KEYS.USER);
+          UserAddress base = UserAddress.findById(address.id);
+          if (!address.equals(base)) {
+              // TODO Make logging
+              // LogItem.log(Address.class.getName(), field, newValue, oldValue,
+              // address.id, modifiedBy, modifiedOn)
+              address.save();
+          }*/
         todo();
-	}
+    }
+
+    public static void deleteAddress(Long id) {
+        if (id != null) {
+            /*// TODO add logging
+               UserAddress address = geoService.get
+               address.deleted = true;
+               address.save();*/
+        }
+        todo();
+    }
 
 }
