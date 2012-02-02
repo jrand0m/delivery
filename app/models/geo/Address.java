@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package models.geo;
 
@@ -10,7 +10,6 @@ import javax.persistence.*;
 
 /**
  * @author Mike
- * 
  */
 
 @Entity
@@ -19,7 +18,7 @@ import javax.persistence.*;
 public class Address {
 
     @Id
-    @Column(name = "address_id" )
+    @Column(name = "address_id")
     @GeneratedValue(generator = "address_seq_gen", strategy = GenerationType.SEQUENCE)
     public Long id;
 
@@ -52,12 +51,12 @@ public class Address {
     @Required
     @ManyToOne
     @JoinColumn(name = "street_id")
-    public Street street;	
+    public Street street;
 
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
 
-		return String.format("%s, %s/%s", street, buildingNumber, apartmentsNumber);
-	}
+        return String.format("%s, %s/%s", street, buildingNumber, apartmentsNumber);
+    }
 
 }

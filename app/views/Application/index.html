@@ -2,8 +2,8 @@
 #{set title:'Home' /}
 #{set 'moreScripts'}
 <script type="text/javascript">
-var cngcty = #{jsAction @Application.changeCity(':id') /}
-var loupd  = #{jsAction @Application.getLastOrders(':top') /}
+var cngcty = #{jsAction @Application.changeCity(':id') /};
+var loupd  = #{jsAction @Application.getLastOrders(':top') /};
 </script>
 <script type="text/javascript" src="@{'/public/javascripts/cookies.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/mtmpl.js'}"></script>

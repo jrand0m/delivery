@@ -32,7 +32,7 @@ public interface GeoService {
 
     List<City> getAllCities();
 
-    Street getStreetById(Long streetid);
+    Street getStreetById(Long streetId);
 
     Street insertStreet(Street streetObj);
 

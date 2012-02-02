@@ -10,6 +10,7 @@ package helpers.persistance.dao.samples;
 public class Sample {
     public String text;
     public Integer id;
+
     public Sample(String s) {
         text = s;
     }

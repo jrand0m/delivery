@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package jobs;
 
@@ -11,8 +11,8 @@ import play.jobs.OnApplicationStart;
  */
 @OnApplicationStart
 public class ProdBootstrap extends Job {
-	@Override
-	public void doJob() throws Exception {
-		
-	}
+    @Override
+    public void doJob() throws Exception {
+
+    }
 }

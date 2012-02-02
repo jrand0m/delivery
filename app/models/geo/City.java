@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package models.geo;
 
@@ -21,15 +21,15 @@ public class City {
     public Long id;
 
     @Column(name = "city_name_key", nullable = false)
-	public String cityNameKey;
+    public String cityNameKey;
 
     @Column(name = "city_alias_name")
     public String cityAliasName;
 
     @Column(name = "display")
-	public boolean display = false;
+    public boolean display = false;
 
-	public String getLocalizedName(){
-		return Messages.get(cityNameKey);
-	}
+    public String getLocalizedName() {
+        return Messages.get(cityNameKey);
+    }
 }

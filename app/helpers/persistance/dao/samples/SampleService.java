@@ -8,7 +8,9 @@ package helpers.persistance.dao.samples;
  * To change this template use File | Settings | File Templates.
  */
 public interface SampleService {
-    void create (String text);
-    void create (Sample sample);
-    Sample getById (Integer id);
+    void create(String text);
+
+    void create(Sample sample);
+
+    Sample getById(Integer id);
 }

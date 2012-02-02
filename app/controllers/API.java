@@ -25,44 +25,43 @@ import java.util.List;
 
 /**
  * @author Mike
- * 
  */
 @InjectSupport
 @With(Secure.class)
 public class API extends Controller {
-	// TODO extract to Order HQL
-	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
-			+ " = ? and " + Order.FIELDS.ORDER_STATUS + " in (?,?,?) ";
-	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
-			+ " = ? and "
-			+ Order.FIELDS.ORDER_STATUS
-			+ " in (?) and "
-			+ Order.FIELDS.ORDER_CONFIRMED + " > ?";
-	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
-			+ "."
-			+ Restaurant.FIELDS.RESTAURANT_CITY
-			+ " = ? AND "
-			+ "(("
-			+ Order.FIELDS.ORDER_STATUS
-			+ " = ?) "
-			+ "OR ("
-			+ Order.FIELDS.ORDER_STATUS
-			+ " in (?,?,?,?) AND "
-			+ Order.FIELDS.CONFIRMED_COURIER + " = ?))";
-	private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
-			+ "."
-			+ Restaurant.FIELDS.RESTAURANT_CITY
-			+ " = ? AND "
-			+ "(("
-			+ Order.FIELDS.ORDER_STATUS
-			+ " in (?,?)) "
-			+ "OR ("
-			+ Order.FIELDS.ORDER_STATUS
-			+ " in (?,?,?,?) AND "
-			+ Order.FIELDS.CONFIRMED_COURIER
-			+ " = ?)) "
-			+ " and "
-			+ Order.FIELDS.UPDATED + " > ?";
+    // TODO extract to Order HQL
+    private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
+            + " = ? and " + Order.FIELDS.ORDER_STATUS + " in (?,?,?) ";
+    private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
+            + " = ? and "
+            + Order.FIELDS.ORDER_STATUS
+            + " in (?) and "
+            + Order.FIELDS.ORDER_CONFIRMED + " > ?";
+    private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
+            + "."
+            + Restaurant.FIELDS.RESTAURANT_CITY
+            + " = ? AND "
+            + "(("
+            + Order.FIELDS.ORDER_STATUS
+            + " = ?) "
+            + "OR ("
+            + Order.FIELDS.ORDER_STATUS
+            + " in (?,?,?,?) AND "
+            + Order.FIELDS.CONFIRMED_COURIER + " = ?))";
+    private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
+            + "."
+            + Restaurant.FIELDS.RESTAURANT_CITY
+            + " = ? AND "
+            + "(("
+            + Order.FIELDS.ORDER_STATUS
+            + " in (?,?)) "
+            + "OR ("
+            + Order.FIELDS.ORDER_STATUS
+            + " in (?,?,?,?) AND "
+            + Order.FIELDS.CONFIRMED_COURIER
+            + " = ?)) "
+            + " and "
+            + Order.FIELDS.UPDATED + " > ?";
     @Inject
     private static RestaurantService restaurantService;
     @Inject
@@ -70,181 +69,181 @@ public class API extends Controller {
 
     public static void g(Long from) {
 
-        if(session.contains("_id")){
+        if (session.contains("_id")) {
             processGetAsRestaurant(session.get("_id"), from);
         }
-		User user = (User) renderArgs.get("user");
-		
-		if (UserType.COURIER.equals(user.userType)) {
-			processGet( user, from);
-		}
-		notFound();
-	}
+        User user = (User) renderArgs.get("user");
 
-	private static void processGetAsRestaurant(String device, Long from) {
+        if (UserType.COURIER.equals(user.userType)) {
+            processGet(user, from);
+        }
+        notFound();
+    }
 
-		List<Order> orders;
-		if (from != null) {
-			orders = restaurantService.getLastOrdersForDeviceFrom(device, from);
-		} else {
-			orders = restaurantService.getLastOrdersForDevice(device);
-		}
+    private static void processGetAsRestaurant(String device, Long from) {
 
-		Logger.info("Found %d orders for agent %s", orders.size(), Security.connected() );
-		List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
-		for (Order order : orders) {
-			CaffeJobsList job = new CaffeJobsList();
-			job.id = order.getShortHandId();
-			job.status = order.orderStatus.toString();
-			job.price = order.getMenuTotal();
-			job.paymentStatus = order.paymentStatus.toString();
-			job.time = order.orderConfirmed.getTime();
-			job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
-					.getTime() - System.currentTimeMillis()
-					: null;
-			for (OrderItem oi : order.items) {
-				job.list.add(new MenuItem(oi));
-			}
-			jobs.add(job);
-		}
-		restaurantService.updateDevicePing(device);
-		renderJSON(jobs);
-	}
+        List<Order> orders;
+        if (from != null) {
+            orders = restaurantService.getLastOrdersForDeviceFrom(device, from);
+        } else {
+            orders = restaurantService.getLastOrdersForDevice(device);
+        }
 
-	static private void processGet(User user, Long from) {
-		List<Order> orders;
-		if (from != null) {
-			orders = orderService.getOrdersForCourier(user,from);
-		} else {
-			orders = orderService.getOrdersForCourier(user);
-		}
+        Logger.info("Found %d orders for agent %s", orders.size(), Security.connected());
+        List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
+        for (Order order : orders) {
+            CaffeJobsList job = new CaffeJobsList();
+            job.id = order.getShortHandId();
+            job.status = order.orderStatus.toString();
+            job.price = order.getMenuTotal();
+            job.paymentStatus = order.paymentStatus.toString();
+            job.time = order.orderConfirmed.getTime();
+            job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
+                    .getTime() - System.currentTimeMillis()
+                    : null;
+            for (OrderItem oi : order.items) {
+                job.list.add(new MenuItem(oi));
+            }
+            jobs.add(job);
+        }
+        restaurantService.updateDevicePing(device);
+        renderJSON(jobs);
+    }
 
-		Logger.info("Found %d orders", orders.size());
-		List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
-		for (Order order : orders) {
-			CaffeJobsList job = new CaffeJobsList();
-			job.id = order.getShortHandId();
-			
-			if (order.orderStatus.equals(OrderStatus.CONFIRMED)
-					&& !(order.confirmedCourier_id==(user.id))) {
-				job.status = "ALREADY_CONFIRMED";
-			} else {
-				job.status = order.orderStatus.toString();
-			}
+    static private void processGet(User user, Long from) {
+        List<Order> orders;
+        if (from != null) {
+            orders = orderService.getOrdersForCourier(user, from);
+        } else {
+            orders = orderService.getOrdersForCourier(user);
+        }
 
-			job.price = order.getMenuTotal();
-			job.customerPrice = order.getGrandTotal();
-			job.paymentStatus = order.paymentStatus.toString();
-			job.time = order.updated.getTime();
-			job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
-					.getTime() - System.currentTimeMillis()
-					: null;
-			if (order.deliveryAddress == null) {
-				Logger.warn("No delivery address for order id %s",
-						order.shortHandId);
-				job.additionalInfo = null;
-			} else {
-				job.additionalInfo = order.deliveryAddress.additionalInfo;
-			}
-			job.from = order.restaurant.addressToString();
-			job.to = order.deliveryAddress == null ? "none"
-					: order.deliveryAddress.toString();
-			job.timeToDelivered = order.orderPlanedDeliveryTime == null ? 0
-					: order.orderPlanedDeliveryTime.getTime();
-			for (OrderItem oi : order.items) {
-				job.list.add(new MenuItem(oi));
-			}
-			job.phone = order.orderOwner.phoneNumber;
-			jobs.add(job);
-		}
-		renderJSON(jobs);
-	}
+        Logger.info("Found %d orders", orders.size());
+        List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
+        for (Order order : orders) {
+            CaffeJobsList job = new CaffeJobsList();
+            job.id = order.getShortHandId();
 
-	public static void p(String message) {
-		notFoundIfNull(message);
-		Logger.debug("p in message = %s", message);
-		Gson g = new Gson();
-		PushMessage p = g.fromJson(message, PushMessage.class);
-		if (p.id == null || p.id.length() < 8) {
-			notFound();
-		}
-		User user = (User) renderArgs.get("user");
-		if (session.contains("_id")) {
-			processPushAsRestaurant(session.get("_id"), p);
-		}
-		if (UserType.COURIER.equals(user.userType)) {
-            processPushAsCourier( user, p);
-		}
-		error();
-	}
+            if (order.orderStatus.equals(OrderStatus.CONFIRMED)
+                    && !(order.confirmedCourier_id == (user.id))) {
+                job.status = "ALREADY_CONFIRMED";
+            } else {
+                job.status = order.orderStatus.toString();
+            }
 
-	static private void processPushAsCourier(User user, PushMessage message) {
-		Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
-		notFoundIfNull(order);
-		Logger.debug("p found order id = %s", order.id);
-		switch (OrderStatus.convert(message.status)) {
-		case ACCEPTED:
-		case CONFIRMED:
-			order.orderStatus = OrderStatus.CONFIRMED;
-			order.orderConfirmed = new Date();
-			order.confirmedCourier_id = user.id;
-			order.orderPlanedDeliveryTime = new Date(message.time * 1000 * 60);
-			break;
-		case DELIVERED:
-			order.orderStatus = OrderStatus.DELIVERED;
-			order.orderDelivered = new Date();
-			break;
-		case DECLINED:
-			order.orderStatus = OrderStatus.DECLINED;
-			order.orderClosed = new Date();
-			// FIXME see how long message can be
-			order.declineMessage = message.comment; // != null ?
-			// p.comment.substring(0, 250) :
-			// "" ;
-			break;
-		default:
-			Logger.debug("p not found corresponding status ");
-			notFound();
-		}
-		order.save();
-		ok();
-	}
+            job.price = order.getMenuTotal();
+            job.customerPrice = order.getGrandTotal();
+            job.paymentStatus = order.paymentStatus.toString();
+            job.time = order.updated.getTime();
+            job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
+                    .getTime() - System.currentTimeMillis()
+                    : null;
+            if (order.deliveryAddress == null) {
+                Logger.warn("No delivery address for order id %s",
+                        order.shortHandId);
+                job.additionalInfo = null;
+            } else {
+                job.additionalInfo = order.deliveryAddress.additionalInfo;
+            }
+            job.from = order.restaurant.addressToString();
+            job.to = order.deliveryAddress == null ? "none"
+                    : order.deliveryAddress.toString();
+            job.timeToDelivered = order.orderPlanedDeliveryTime == null ? 0
+                    : order.orderPlanedDeliveryTime.getTime();
+            for (OrderItem oi : order.items) {
+                job.list.add(new MenuItem(oi));
+            }
+            job.phone = order.orderOwner.phoneNumber;
+            jobs.add(job);
+        }
+        renderJSON(jobs);
+    }
 
-	private static void processPushAsRestaurant(String deviceId, PushMessage message) {
-		Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
-		notFoundIfNull(order);
-		switch (OrderStatus.convert(message.status)) {
-		case COOKED:
-			order.orderStatus = OrderStatus.COOKED;
-			order.orderCooked = new Date();
-			break;
-		case ACCEPTED:
-			order.orderStatus = OrderStatus.ACCEPTED;
-			order.orderAccepted = new Date();
-			order.orderPlanedCooked = new Date(System.currentTimeMillis()
-					+ OrderUtils.convertToMinutes(message.time));
-			order.orderPlanedDeliveryTime = new Date(
-					order.orderPlanedCooked.getTime()
-							+ order.orderPlanedDeliveryTime.getTime());
-			break;
-		case DECLINED:
-			order.orderStatus = OrderStatus.DECLINED;
-			order.orderClosed = new Date();
-			// FIXME see how long message can be
-			order.declineMessage = message.comment; // != null ?
-			// p.comment.substring(0, 250) :
-			// "" ;
-			break;
-		case DELIVERING:
-			order.orderStatus = OrderStatus.DELIVERING;
-			order.orderTaken = new Date();
-			break;
-		default:
-			Logger.debug("p not found corresponding status ");
-			notFound();
-		}
+    public static void p(String message) {
+        notFoundIfNull(message);
+        Logger.debug("p in message = %s", message);
+        Gson g = new Gson();
+        PushMessage p = g.fromJson(message, PushMessage.class);
+        if (p.id == null || p.id.length() < 8) {
+            notFound();
+        }
+        User user = (User) renderArgs.get("user");
+        if (session.contains("_id")) {
+            processPushAsRestaurant(session.get("_id"), p);
+        }
+        if (UserType.COURIER.equals(user.userType)) {
+            processPushAsCourier(user, p);
+        }
+        error();
+    }
+
+    static private void processPushAsCourier(User user, PushMessage message) {
+        Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
+        notFoundIfNull(order);
+        Logger.debug("p found order id = %s", order.id);
+        switch (OrderStatus.convert(message.status)) {
+            case ACCEPTED:
+            case CONFIRMED:
+                order.orderStatus = OrderStatus.CONFIRMED;
+                order.orderConfirmed = new Date();
+                order.confirmedCourier_id = user.id;
+                order.orderPlanedDeliveryTime = new Date(message.time * 1000 * 60);
+                break;
+            case DELIVERED:
+                order.orderStatus = OrderStatus.DELIVERED;
+                order.orderDelivered = new Date();
+                break;
+            case DECLINED:
+                order.orderStatus = OrderStatus.DECLINED;
+                order.orderClosed = new Date();
+                // FIXME see how long message can be
+                order.declineMessage = message.comment; // != null ?
+                // p.comment.substring(0, 250) :
+                // "" ;
+                break;
+            default:
+                Logger.debug("p not found corresponding status ");
+                notFound();
+        }
+        order.save();
+        ok();
+    }
+
+    private static void processPushAsRestaurant(String deviceId, PushMessage message) {
+        Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
+        notFoundIfNull(order);
+        switch (OrderStatus.convert(message.status)) {
+            case COOKED:
+                order.orderStatus = OrderStatus.COOKED;
+                order.orderCooked = new Date();
+                break;
+            case ACCEPTED:
+                order.orderStatus = OrderStatus.ACCEPTED;
+                order.orderAccepted = new Date();
+                order.orderPlanedCooked = new Date(System.currentTimeMillis()
+                        + OrderUtils.convertToMinutes(message.time));
+                order.orderPlanedDeliveryTime = new Date(
+                        order.orderPlanedCooked.getTime()
+                                + order.orderPlanedDeliveryTime.getTime());
+                break;
+            case DECLINED:
+                order.orderStatus = OrderStatus.DECLINED;
+                order.orderClosed = new Date();
+                // FIXME see how long message can be
+                order.declineMessage = message.comment; // != null ?
+                // p.comment.substring(0, 250) :
+                // "" ;
+                break;
+            case DELIVERING:
+                order.orderStatus = OrderStatus.DELIVERING;
+                order.orderTaken = new Date();
+                break;
+            default:
+                Logger.debug("p not found corresponding status ");
+                notFound();
+        }
         orderService.update(order);
         restaurantService.updateDevicePing(deviceId);
-		ok();
-	}
+        ok();
+    }
 }
