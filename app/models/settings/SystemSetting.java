@@ -1,13 +1,11 @@
 package models.settings;
 
-import java.util.Date;
-
-import javax.persistence.*;
-
 import play.data.validation.Max;
 import play.data.validation.Min;
 import play.data.validation.Required;
-import play.db.jpa.Model;
+
+import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity

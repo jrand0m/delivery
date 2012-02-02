@@ -1,38 +1,29 @@
 package controllers;
 
+import annotations.Check;
+import enumerations.UserType;
+import models.*;
+import models.geo.City;
+import models.settings.SystemSetting;
+import models.time.WorkHours;
+import play.db.jpa.Blob;
+import play.libs.MimeTypes;
+import play.modules.guice.InjectSupport;
+import play.mvc.Controller;
+import play.mvc.With;
+import services.GeoService;
+import services.RestaurantService;
+import services.SystemService;
+
+import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
 
-import models.MenuItem;
-import models.MenuItemComponent;
-import models.MenuItemGroup;
-import models.Order;
-import models.Restaurant;
-import models.RestaurantCategory;
-import models.geo.City;
-
-import models.settings.SystemSetting;
-import models.time.WorkHours;
-import models.users.RestaurantBarman;
-import models.users.SystemAdministrator;
-import play.db.jpa.Blob;
-import play.libs.MimeTypes;
-import play.modules.guice.InjectSupport;
-import play.mvc.Controller;
-import play.mvc.With;
-import annotations.Check;
-import enumerations.DeviceStatus;
-import services.GeoService;
-import services.RestaurantService;
-import services.SystemService;
-
-import javax.inject.Inject;
-
 @With(Secure.class)
-@Check(SystemAdministrator.class)
+@Check(UserType.VD_ADMIN)
 @InjectSupport
 public class Admin extends Controller {
     @Inject
@@ -209,25 +200,9 @@ public class Admin extends Controller {
 		City city = geoService.getCityById(cityid);
 		// notFoundIfNull(city);
 		RestaurantCategory type = restaurantService.getRestaurantCategoryById(catid);
-		RestaurantBarman b = null;
-		if (restaurant.id != null) {
-			Restaurant r = Restaurant.findById(restaurant.id);
-			r.desc = restaurant.desc;
-			r.showOnIndex = restaurant.showOnIndex;
-			r.title = restaurant.title;
-			r.twoLetters = restaurant.twoLetters;
-			restaurant = r;
-			b = RestaurantBarman.find("restaurant = ?", restaurant).first();
 
-		} else {
-			b = new RestaurantBarman();
-			restaurant.lastPing = new Date(0);
-			b.joinDate = new Date();
-		}
-		b.login = barmanlogin;
-		b.usr_name = barmanlogin;
-		b.password = barmanpwd;
-		b.restaurant = restaurant;
+		restaurant.deviceLogin = barmanlogin.trim();
+        restaurant.devicePassword = barmanpwd.trim();
 
 		restaurant.city = city;
 		restaurant.category = type;
@@ -240,7 +215,6 @@ public class Admin extends Controller {
         workHours = restaurantService.insertWorkHours(workHours);
         restaurantService.setWorkHoursFor(restaurant,workHours);
 		restaurant.save();
-		b.save();
 		render();
 	}
 
@@ -259,10 +233,8 @@ public class Admin extends Controller {
 		// restaurant.workHours.regularDays.iterator().next().from);
 		// renderArgs.put("opento",
 		// restaurant.workHours.regularDays.iterator().next().to);
-		RestaurantBarman b = RestaurantBarman
-				.find("restaurant = ?", restaurant).first();
-		renderArgs.put("barmanlogin", b.login);
-		renderArgs.put("barmanpwd", b.password);
+		renderArgs.put("barmanlogin", restaurant.deviceLogin);
+		renderArgs.put("barmanpwd",   restaurant.devicePassword);
 		List<City> cities = geoService.getVisibleCities();
 		List<RestaurantCategory> types = restaurantService.getAllCategories();
 		renderArgs.put("cities", cities);

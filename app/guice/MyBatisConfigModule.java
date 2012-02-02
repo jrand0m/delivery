@@ -3,8 +3,6 @@ package guice;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
 import helpers.persistance.dao.samples.SampleMapper;
-import helpers.persistance.dao.samples.SampleService;
-import helpers.persistance.dao.samples.SampleServiceImpl;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.guice.MyBatisModule;
 import org.mybatis.guice.datasource.builtin.PooledDataSourceProvider;

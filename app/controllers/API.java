@@ -1,41 +1,34 @@
-/**
- * 
- */
 package controllers;
 
+import com.google.gson.Gson;
+import enumerations.OrderStatus;
+import enumerations.UserType;
 import helpers.OrderUtils;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-
 import models.Order;
 import models.OrderItem;
 import models.Restaurant;
 import models.dto.intern.CaffeJobsList;
 import models.dto.intern.MenuItem;
 import models.dto.intern.PushMessage;
-import models.geo.City;
 import models.users.User;
-import models.users.CourierUser;
-import models.users.RestaurantBarman;
 import play.Logger;
+import play.modules.guice.InjectSupport;
 import play.mvc.Controller;
 import play.mvc.With;
+import services.OrderService;
+import services.RestaurantService;
 
-import annotations.Check;
-
-import com.google.gson.Gson;
-
-import enumerations.OrderStatus;
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Mike
  * 
  */
+@InjectSupport
 @With(Secure.class)
-@Check({ RestaurantBarman.class, CourierUser.class })
 public class API extends Controller {
 	// TODO extract to Order HQL
 	private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
@@ -70,29 +63,31 @@ public class API extends Controller {
 			+ " = ?)) "
 			+ " and "
 			+ Order.FIELDS.UPDATED + " > ?";
+    @Inject
+    private static RestaurantService restaurantService;
+    @Inject
+    private static OrderService orderService;
 
-	public static void g(Long from) {
+    public static void g(Long from) {
+
+        if(session.contains("_id")){
+            processGetAsRestaurant(session.get("_id"), from);
+        }
 		User user = (User) renderArgs.get("user");
-		if (user instanceof RestaurantBarman) {
-			processGet((RestaurantBarman) user, from);
+		
+		if (UserType.COURIER.equals(user.userType)) {
+			processGet( user, from);
 		}
-		if (user instanceof CourierUser) {
-			processGet((CourierUser) user, from);
-		}
-		error();
+		notFound();
 	}
 
-	private static void processGet(RestaurantBarman user, Long from) {
-		Restaurant restaurant = user.restaurant;
+	private static void processGetAsRestaurant(String device, Long from) {
+
 		List<Order> orders;
 		if (from != null) {
-			Date date = new Date(from);
-			orders = Order.find(JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM,
-					restaurant, OrderStatus.CONFIRMED, date).fetch();
+			orders = restaurantService.getLastOrdersForDeviceFrom(device, from);
 		} else {
-			orders = Order.find(JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN,
-					restaurant, OrderStatus.ACCEPTED, OrderStatus.COOKED,
-					OrderStatus.CONFIRMED).fetch();
+			orders = restaurantService.getLastOrdersForDevice(device);
 		}
 
 		Logger.info("Found %d orders for agent %s", orders.size(), Security.connected() );
@@ -112,26 +107,16 @@ public class API extends Controller {
 			}
 			jobs.add(job);
 		}
-		restaurant.lastPing = new Date();
-		restaurant.save();
+		restaurantService.updateDevicePing(device);
 		renderJSON(jobs);
 	}
 
-	static private void processGet(CourierUser user, Long from) {
-		City city = user.city;
+	static private void processGet(User user, Long from) {
 		List<Order> orders;
 		if (from != null) {
-			Date date = new Date(from);
-			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM, city,
-					OrderStatus.SENT, OrderStatus.CONFIRMED,
-					OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
-					OrderStatus.COOKED, OrderStatus.DELIVERED, user,
-					date).fetch();
+			orders = orderService.getOrdersForCourier(user,from);
 		} else {
-			orders = Order.find(JPA_BY_CITY_AND_ORDER_STATUS_IN, city,
-					OrderStatus.SENT, OrderStatus.CONFIRMED,
-					OrderStatus.ACCEPTED, OrderStatus.DELIVERING,
-					OrderStatus.COOKED, user).fetch();
+			orders = orderService.getOrdersForCourier(user);
 		}
 
 		Logger.info("Found %d orders", orders.size());
@@ -141,8 +126,7 @@ public class API extends Controller {
 			job.id = order.getShortHandId();
 			
 			if (order.orderStatus.equals(OrderStatus.CONFIRMED)
-					&& (order.confirmedCourier != null)
-					&& !order.confirmedCourier.getId().equals(user.getId())) {
+					&& !(order.confirmedCourier_id==(user.id))) {
 				job.status = "ALREADY_CONFIRMED";
 			} else {
 				job.status = order.orderStatus.toString();
@@ -185,16 +169,16 @@ public class API extends Controller {
 			notFound();
 		}
 		User user = (User) renderArgs.get("user");
-		if (user instanceof RestaurantBarman) {
-			processPush((RestaurantBarman) user, p);
+		if (session.contains("_id")) {
+			processPushAsRestaurant(session.get("_id"), p);
 		}
-		if (user instanceof CourierUser) {
-			processPush((CourierUser) user, p);
+		if (UserType.COURIER.equals(user.userType)) {
+            processPushAsCourier( user, p);
 		}
 		error();
 	}
 
-	static private void processPush(CourierUser user, PushMessage message) {
+	static private void processPushAsCourier(User user, PushMessage message) {
 		Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
 		notFoundIfNull(order);
 		Logger.debug("p found order id = %s", order.id);
@@ -203,7 +187,7 @@ public class API extends Controller {
 		case CONFIRMED:
 			order.orderStatus = OrderStatus.CONFIRMED;
 			order.orderConfirmed = new Date();
-			order.confirmedCourier = user;
+			order.confirmedCourier_id = user.id;
 			order.orderPlanedDeliveryTime = new Date(message.time * 1000 * 60);
 			break;
 		case DELIVERED:
@@ -226,7 +210,7 @@ public class API extends Controller {
 		ok();
 	}
 
-	private static void processPush(RestaurantBarman user, PushMessage message) {
+	private static void processPushAsRestaurant(String deviceId, PushMessage message) {
 		Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
 		notFoundIfNull(order);
 		switch (OrderStatus.convert(message.status)) {
@@ -259,9 +243,8 @@ public class API extends Controller {
 			Logger.debug("p not found corresponding status ");
 			notFound();
 		}
-		order.save();
-		user.restaurant.lastPing = new Date();
-		user.restaurant.save();
+        orderService.update(order);
+        restaurantService.updateDevicePing(deviceId);
 		ok();
 	}
 }

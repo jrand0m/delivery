@@ -3,23 +3,20 @@
  */
 package controllers;
 
-import models.users.User;
+import annotations.Check;
+import enumerations.UserType;
 import play.data.validation.Required;
 import play.libs.Crypto;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Http;
-import annotations.AllowAnonymous;
-import annotations.Check;
 
 public class Secure extends Controller {
 
 	@Before(unless = { "login", "authenticate", "logout" })
 	static void checkAccess() throws Throwable {
-		boolean allowAnon = getActionAnnotation(AllowAnonymous.class) != null;
-
 		// Authent
-		if (!session.contains("username") && !allowAnon) {
+		if (!session.contains("username")) {
 			flash.put("url", "GET".equals(request.method) ? request.url : "/"); // seems
 			login();
 		}
@@ -36,8 +33,8 @@ public class Secure extends Controller {
 
 	private static void check(Check check) throws Throwable {
 		boolean hasProfile = false;
-		Class<? extends User> lastclazz = null;
-		for (Class<? extends User> clazz : check.value()) {
+        Enum<UserType> lastclazz = null;
+		for (Enum<UserType> clazz : check.value()) {
 			if (hasProfile = (Boolean) Security.invoke("check", clazz)){
 				return;
 			}
@@ -91,9 +88,9 @@ public class Secure extends Controller {
 			response.setCookie("rememberme", Crypto.sign(username) + "-"
 					+ username, "30d");
 		}
-		if (request.isAjax()){
+		if (request.isAjax()&& false){
 			renderArgs.put("result", "true");
-			renderArgs.put("role", User.find(User.HQL.BY_LOGIN, username).first().getClass().getSimpleName());
+			renderArgs.put("role", "courieruser");
 			render("Secure/login.json");
 		}
 		redirectToOriginalURL();

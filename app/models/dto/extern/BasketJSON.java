@@ -1,12 +1,12 @@
 package models.dto.extern;
 
+import models.Order;
+import models.OrderItem;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-
-import models.Order;
-import models.OrderItem;
 
 public class BasketJSON {
 	public BasketJSON(Order o) {

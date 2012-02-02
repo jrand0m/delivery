@@ -1,11 +1,10 @@
 package models;
 
-import java.util.List;
+import play.db.jpa.Model;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import play.db.jpa.Model;
+import java.util.List;
 
 
 //@Where(clause = "deleted = 0")

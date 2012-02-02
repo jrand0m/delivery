@@ -1,15 +1,14 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import play.db.jpa.Model;
 
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
-import play.db.jpa.Model;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class MenuItemComponent extends Model {
 	public static class FIELDS {

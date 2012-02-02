@@ -1,26 +1,6 @@
 package helpers;
 
-import java.util.Date;
-import java.util.concurrent.ExecutionException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import enumerations.LogActionType;
-
-import models.geo.City;
-import models.settings.SystemSetting;
-import models.settings.SystemSetting.DEFAULT_VALUES;
-import models.settings.SystemSetting.KEYS;
-import play.cache.Cache;
-import play.libs.F.Promise;
-import play.libs.WS;
-import play.libs.WS.HttpResponse;
 import play.modules.guice.InjectSupport;
-import services.GeoService;
-
-import javax.inject.Inject;
 @InjectSupport
 public class GeoDataHelper {
 /*	private static final String GEOIP_EXTERNAL_URL = "http://api.hostip.info/?ip=%s&position=%s";

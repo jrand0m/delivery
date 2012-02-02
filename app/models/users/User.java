@@ -1,12 +1,10 @@
 package models.users;
 
-import java.util.Date;
-
-import javax.persistence.*;
-
 import enumerations.UserType;
 import play.data.validation.*;
-import play.db.jpa.Model;
+
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author Mike

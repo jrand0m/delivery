@@ -32,4 +32,16 @@ public interface RestaurantService {
     RestaurantCategory insertCategory(RestaurantCategory cat);
 
     RestaurantCategory getRestaurantCategoryById(Long id);
+    /**
+     * get it to device service
+     * */
+    List<Order> getLastOrdersForDeviceFrom(String device, Long from);
+    /**
+     * get it to device service
+     * */
+    List<Order> getLastOrdersForDevice(String device);
+    /**
+     * get it to device service
+     * */
+    void updateDevicePing(String device);
 }

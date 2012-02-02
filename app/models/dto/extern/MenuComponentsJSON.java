@@ -1,9 +1,9 @@
 package models.dto.extern;
 
+import models.MenuItemComponent;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import models.MenuItemComponent;
 
 public class MenuComponentsJSON {
 	

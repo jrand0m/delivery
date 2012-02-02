@@ -3,11 +3,10 @@
  */
 package models.geo;
 
-import javax.persistence.*;
-
 import play.data.validation.Max;
 import play.data.validation.Required;
-import play.db.jpa.Model;
+
+import javax.persistence.*;
 
 /**
  * @author Mike

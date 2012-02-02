@@ -1,18 +1,12 @@
 package models.time;
 
-import javax.persistence.*;
-
 import org.hibernate.annotations.Type;
-import org.joda.time.Chronology;
-import org.joda.time.DateTimeConstants;
-import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDateTime;
-import org.joda.time.LocalTime;
+import org.joda.time.*;
 import org.joda.time.chrono.ISOChronology;
-
 import play.Logger;
-import play.db.jpa.GenericModel;
 import play.i18n.Messages;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "vd_restaurant_workhours")

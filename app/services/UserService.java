@@ -1,10 +1,8 @@
 package services;
 
+import enumerations.UserType;
 import models.geo.Address;
-import models.users.EndUser;
 import models.users.User;
-import org.mybatis.guice.transactional.Isolation;
-import org.mybatis.guice.transactional.Transactional;
 
 /**
  * User: Mike Stetsyshyn
@@ -16,9 +14,23 @@ public interface UserService {
 
     User getUserByLogin(String connected);
 
-    void addAddressToUserAddressBook(Address address, EndUser user);
+    void addAddressToUserAddressBook(Address address, User user);
 
-    void update(EndUser user);
+    void update(User user);
 
-    boolean addressIsAssociatedWithUser(Address address, EndUser user);
+    boolean addressIsAssociatedWithUser(Address address, User user);
+
+    User insertUser(User user);
+
+    boolean isUserInRole(User user, UserType anonymous);
+
+    User createAnonymousUser();
+
+    boolean verifyCredentials(String username, String pwd);
+
+    void touchUser(String username);
+
+    boolean verifyDeviceCredentials(String username, String password);
+
+    boolean isUserInRole(String connected, UserType courier);
 }

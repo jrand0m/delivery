@@ -1,11 +1,10 @@
 package controllers;
 
 import annotations.Check;
-
+import enumerations.UserType;
 import models.Order;
 import models.geo.Address;
 import models.users.User;
-import models.users.EndUser;
 import play.Logger;
 import play.modules.guice.InjectSupport;
 import play.mvc.Before;
@@ -23,7 +22,7 @@ import javax.inject.Inject;
  * @author mike
  * */
 @With(Secure.class)
-@Check(User.class)
+@Check(UserType.REGISTERED)
 @InjectSupport
 public class Locker extends Controller {
     @Inject
@@ -47,7 +46,7 @@ public class Locker extends Controller {
 
 		}
 		String userName = Security.connected();
-		EndUser user = EndUser.find(EndUser.HQL.BY_LOGIN, userName).first();
+		User user = userService.getUserByLogin(userName);
 		if (user == null) {
 			Logger.debug(">>> locker -> user is null -> forbidden");
 			forbidden();
@@ -77,7 +76,7 @@ public class Locker extends Controller {
 		}
 
 		geoService.insertAddress(address);
-        EndUser user =(EndUser) renderArgs.get(RENDER_KEYS.USER);
+        User user =(User) renderArgs.get(RENDER_KEYS.USER);
 		userService.addAddressToUserAddressBook(address,user);
 		// TODO in future do it asynchronously!
 		todo();

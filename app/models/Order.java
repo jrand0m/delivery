@@ -1,31 +1,22 @@
 package models;
 
+import enumerations.OrderStatus;
+import enumerations.PaymentStatus;
 import helpers.SystemCalc;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.*;
-
-import javax.persistence.CascadeType;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import models.geo.Address;
-import models.users.CourierUser;
-import models.users.EndUser;
-
+import models.users.User;
 import org.hibernate.annotations.GenericGenerator;
-
 import play.db.jpa.GenericModel;
 import play.db.jpa.JPABase;
 import play.libs.Codec;
-import enumerations.OrderStatus;
-import enumerations.PaymentStatus;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 
 //@Where(clause = "deleted = 0")
@@ -169,7 +160,7 @@ public class Order extends GenericModel {
 	 * User who made this order
 	 * */
 	@ManyToOne
-	public EndUser orderOwner;
+	public User orderOwner;
 
 	/**
 	 * is set + time told by client
@@ -193,7 +184,7 @@ public class Order extends GenericModel {
 	public String shortHandId;
 	
 	@ManyToOne
-	public CourierUser confirmedCourier;
+	public Long confirmedCourier_id;
 
 	/**
 	 * calculated delivery price for this order
