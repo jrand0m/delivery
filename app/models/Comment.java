@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * @author Mike user can comment once per order(avoid spam)
  */
-public class Comment extends Model {
+public class Comment {
     public static final class FIELDS {
         public static final String COMMENT_ORDER = "order";
         public static final String COMMENT_RESTAURANT = "restaurant";

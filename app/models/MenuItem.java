@@ -11,7 +11,7 @@ import java.util.List;
 
 
 //@Where(clause = "deleted = 0")
-public class MenuItem extends Model {
+public class MenuItem  {
     public static final class FIELDS {
         public static final String MENU_ITEM_AVALIABLE = "avaliable";
         public static final String MENU_ITEM_DELETED = "deleted";

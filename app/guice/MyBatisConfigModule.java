@@ -9,6 +9,7 @@ import org.mybatis.guice.datasource.builtin.PooledDataSourceProvider;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 import play.Logger;
 import play.Play;
+import play.db.DB;
 
 import java.util.Properties;
 
@@ -18,7 +19,7 @@ public class MyBatisConfigModule extends MyBatisModule {
     protected void initialize() {
         Logger.debug("Configuring mybatis started");
         Module driverHelper = null;
-        Properties driverProps = new Properties();
+        /*Properties driverProps = new Properties();
         if (Play.runingInTestMode() || Play.id == null) {
             Logger.debug("Using in-mem db config");
             driverHelper = JdbcHelper.H2_IN_MEMORY_NAMED;
@@ -33,11 +34,11 @@ public class MyBatisConfigModule extends MyBatisModule {
             driverProps.setProperty("JDBC.password", "271828183");
             driverProps.setProperty("JDBC.port", "5432");
             driverProps.setProperty("JDBC.host", "127.0.0.1");
-        }
+        }*/
+        //Names.bindProperties(binder(), driverProps);
+        /*install(driverHelper);*/
         environmentId(Play.mode.name());
-        Names.bindProperties(binder(), driverProps);
-        install(driverHelper);
-        bindDataSourceProviderType(PooledDataSourceProvider.class);
+        bindDataSourceProvider(new PlayDataSourceProvider());
         bindTransactionFactoryType(JdbcTransactionFactory.class);
         addMapperClass(SampleMapper.class);
         //TODO 1) make mybatis config load from application conf file(i mean database settings dependant on test(must load in-mem db)/prod/dev)

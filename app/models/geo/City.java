@@ -10,7 +10,7 @@ import javax.persistence.*;
 /**
  * @author Mike
  */
-@Entity
+
 @Table(name = "vd_city")
 @SequenceGenerator(name = "city_seq_gen", sequenceName = "city_seq")
 public class City {

@@ -6,7 +6,7 @@ import play.i18n.Lang;
 import javax.persistence.*;
 
 
-@Entity
+
 @Table(name = "vd_restaurants_categories")
 @SequenceGenerator(name = "restaurants_categories_seq_gen", sequenceName = "restaurants_categories_seq")
 public class RestaurantCategory {

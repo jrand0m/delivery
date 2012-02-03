@@ -12,7 +12,6 @@ import javax.persistence.*;
  * @author Mike
  */
 
-@Entity
 @Table(name = "vd_address")
 @SequenceGenerator(name = "address_seq_gen", sequenceName = "address_seq")
 public class Address {

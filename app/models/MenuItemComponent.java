@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class MenuItemComponent extends Model {
+public class MenuItemComponent  {
     public static class FIELDS {
         public static final String ITM_ROOT = "itm_root";
 
