@@ -21,7 +21,7 @@ import java.util.List;
 
 //@Where(clause = "deleted = 0")
 @Table(name = "Orders")
-public class Order extends GenericModel {
+public class Order  {
 
     public static final class FIELDS {
         public static final String DECLINE_MESSAGE = "declineMessage";

@@ -26,7 +26,7 @@ import java.util.List;
  * @author mike
  */
 
-public class Restaurant extends Model {
+public class Restaurant {
 
 
     public static class FIELDS {

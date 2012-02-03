@@ -8,7 +8,7 @@ import play.i18n.Messages;
 
 import javax.persistence.*;
 
-@Entity
+
 @Table(name = "vd_restaurant_workhours")
 @SequenceGenerator(name = "workhours_seq_gen", sequenceName = "workhours_seq")
 public class WorkHours {

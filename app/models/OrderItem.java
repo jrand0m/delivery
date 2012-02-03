@@ -13,7 +13,7 @@ import java.util.Set;
 
 
 //@Where(clause = "deleted = 0")
-public class OrderItem extends Model {
+public class OrderItem  {
 
     public static final class HQL {
         public static final String BY_ORDER_AND_MENU_ITEM = OrderItem.FIELDS.ORDER

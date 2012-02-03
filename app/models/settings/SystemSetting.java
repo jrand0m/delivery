@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-@Entity
+
 @Table(name = "vd_system_settings")
 @SequenceGenerator(name = "system_settings_seq_gen", sequenceName = "system_settings_seq")
 public class SystemSetting {

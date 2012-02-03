@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 /**
  * @author Mike
  */
-public class RestaurantDescription extends Model {
+public class RestaurantDescription {
     public static final class FIELDS {
         public static final String LANG = "lang";
         public static final String DESCRIPTION = "description";

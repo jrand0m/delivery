@@ -8,7 +8,7 @@ import java.util.List;
 
 
 //@Where(clause = "deleted = 0")
-public class MenuItemGroup extends Model {
+public class MenuItemGroup  {
     public static final class FIELDS {
         public static final String MENU_ITEM_GROUP_DELETED = "deleted";
         public static final String MENU_ITEM_GROUP_DESCRIPTION = "description";

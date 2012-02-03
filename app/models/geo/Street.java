@@ -4,7 +4,7 @@ import play.i18n.Lang;
 
 import javax.persistence.*;
 
-@Entity
+
 @Table(name = "vd_street")
 @SequenceGenerator(name = "street_seq_gen", sequenceName = "street_seq")
 public class Street {
@@ -15,7 +15,7 @@ public class Street {
     @GeneratedValue(generator = "street_seq_gen", strategy = GenerationType.SEQUENCE)
     public Long id;
 
-    @Column(name = "city_id", insertable = false)
+    @Column(name = "city_id", insertable = false, updatable=false)
     public Long city_id;
 
     @Column(name = "display")
