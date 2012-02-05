@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static helpers.OrderUtils.convertMoneyToCents;
+
 /**
  * @author Mike
  */
@@ -93,9 +95,10 @@ public class API extends Controller {
         List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
         for (Order order : orders) {
             CaffeJobsList job = new CaffeJobsList();
-            job.id = order.getShortHandId();
+            job.id = order.id;
             job.status = order.orderStatus.toString();
-            job.price = order.getMenuTotal();
+
+            job.price = convertMoneyToCents(order.getMenuTotal());
             job.paymentStatus = order.paymentStatus.toString();
             job.time = order.orderConfirmed.getTime();
             job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
@@ -122,7 +125,7 @@ public class API extends Controller {
         List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
         for (Order order : orders) {
             CaffeJobsList job = new CaffeJobsList();
-            job.id = order.getShortHandId();
+            job.id = order.id;
 
             if (order.orderStatus.equals(OrderStatus.CONFIRMED)
                     && !(order.confirmedCourier_id == (user.id))) {
@@ -131,8 +134,8 @@ public class API extends Controller {
                 job.status = order.orderStatus.toString();
             }
 
-            job.price = order.getMenuTotal();
-            job.customerPrice = order.getGrandTotal();
+            job.price = convertMoneyToCents(order.getMenuTotal());
+            job.customerPrice = convertMoneyToCents(order.getGrandTotal());
             job.paymentStatus = order.paymentStatus.toString();
             job.time = order.updated.getTime();
             job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
@@ -178,7 +181,7 @@ public class API extends Controller {
     }
 
     static private void processPushAsCourier(User user, PushMessage message) {
-        Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
+        Order order = orderService.getById(message.id);
         notFoundIfNull(order);
         Logger.debug("p found order id = %s", order.id);
         switch (OrderStatus.convert(message.status)) {
@@ -205,12 +208,12 @@ public class API extends Controller {
                 Logger.debug("p not found corresponding status ");
                 notFound();
         }
-        order.save();
+        orderService.update(order);
         ok();
     }
 
     private static void processPushAsRestaurant(String deviceId, PushMessage message) {
-        Order order = Order.find(Order.HQL.BY_SHORT_ID, message.id).first();
+        Order order = orderService.getById(message.id);
         notFoundIfNull(order);
         switch (OrderStatus.convert(message.status)) {
             case COOKED:

@@ -1,6 +1,6 @@
 package models.time;
 
-import org.hibernate.annotations.Type;
+
 import org.joda.time.*;
 import org.joda.time.chrono.ISOChronology;
 import play.Logger;
@@ -27,46 +27,32 @@ public class WorkHours {
     public Integer id;
 
     @Column(name = "mon_start")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime mon_start;
     @Column(name = "mon_end")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime mon_end;
     @Column(name = "tue_start")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime tue_start;
     @Column(name = "tue_end")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime tue_end;
     @Column(name = "wed_start")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime wed_start;
     @Column(name = "wed_end")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime wed_end;
     @Column(name = "thu_start")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime thu_start;
     @Column(name = "thu_end")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime thu_end;
     @Column(name = "fri_start")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime fri_start;
     @Column(name = "fri_end")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime fri_end;
     @Column(name = "sat_start")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime sat_start;
     @Column(name = "sat_end")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime sat_end;
     @Column(name = "sun_start")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime sun_start;
     @Column(name = "sun_end")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
     public LocalTime sun_end;
 
     /**

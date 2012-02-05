@@ -8,18 +8,21 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static helpers.OrderUtils.convertMoneyToCents;
+
 public class BasketJSON {
     public BasketJSON(Order o) {
         if (o == null) {
             return;
         }
-        discount = o.getUserDiscount().multiply(new BigDecimal(100).setScale(2, RoundingMode.HALF_EVEN)).intValue();
-        total = o.getGrandTotal();
-        delivery = o.getDeliveryPrice();
+        //TODO update ui
+        discount = convertMoneyToCents(o.getUserDiscount());
+        total = convertMoneyToCents(o.getGrandTotal());
+        delivery = convertMoneyToCents(o.getDeliveryPrice());
         for (OrderItem oi : o.items) {
             items.add(new OrderItemJSON(oi));
         }
-        no = o.getShortHandId();
+        no = o.id;
     }
 
     public String no;

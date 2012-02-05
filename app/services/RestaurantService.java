@@ -3,6 +3,7 @@ package services;
 import models.*;
 import models.time.WorkHours;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -47,4 +48,34 @@ public interface RestaurantService {
      * get it to device service
      */
     void updateDevicePing(String device);
+
+    List<Restaurant> getAllRestaurants();
+
+    List<MenuItemGroup> getAllMenuItemGroups();
+
+    /**
+     *
+     * @param id of restaurant
+     * */
+    List<MenuItem> getAllMenuItemsFor(Integer id);
+
+    MenuItemGroup insertMenuGroup(MenuItemGroup group);
+
+    MenuItemGroup getMenuGroupById(Long id);
+
+    MenuItem insertMenuItem(MenuItem item);
+
+    Restaurant insertRestaurant(Restaurant restaurant);
+
+    void deleteRestaurant(Long id);
+
+    MenuItemComponent insertItemComponent(MenuItemComponent item);
+
+    MenuItemComponent getMenuItemComponentById(Long id);
+
+    void deleteMenuItemComponent(Long id);
+
+    void setNewLogo(Long id, File logo);
+
+    void updateRating(Integer id, Integer average);
 }

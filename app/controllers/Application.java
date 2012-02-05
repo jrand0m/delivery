@@ -21,6 +21,8 @@ import services.*;
 import javax.inject.Inject;
 import java.util.*;
 
+import static helpers.OrderUtils.convertMoneyToCents;
+
 public class Application extends Controller {
 
     // TODO Make more flexible(extract to SystemSetting)
@@ -97,7 +99,7 @@ public class Application extends Controller {
             redirect("Application.order", id);
         }
         if (orderService.isEmptyOrder(order)) {
-            redirect("Application.showMenu", order.restaurant.getId());
+            redirect("Application.showMenu", order.restaurant.id);
         }
 
         City city = orderService.getOrdersCity(order);
@@ -213,7 +215,7 @@ public class Application extends Controller {
         for (OrderItem itm : items) {
             if (!orderService.getRestaurantFromOrderItem(itm).equals(r)) {
                 o.orderStatus = OrderStatus.DECLINED;
-                o.save();
+                orderService.update(o);
                 Logger.error(
                         "Different restaturants in order items. order will be declined. IP: %s, user id: %s ",
                         request.remoteAddress, user.id);
@@ -258,7 +260,7 @@ public class Application extends Controller {
             if (validation.hasErrors()) {
                 params.flash();
                 validation.keep();
-                checkout(o.getShortHandId());
+                checkout(o.id);
             } else {
                 userService.addAddressToUserAddressBook(address, user);
                 userService.update(user);
@@ -291,7 +293,7 @@ public class Application extends Controller {
                 if (validation.hasErrors()) {
                     params.flash();
                     validation.keep();
-                    checkout(o.getShortHandId());
+                    checkout(o.id);
                 }
                 userService.addAddressToUserAddressBook(address, user);
             }
@@ -299,7 +301,7 @@ public class Application extends Controller {
         o.deliveryAddress_id = address.id;
 
         o.orderStatus = OrderStatus.SENT;
-        o.deliveryPrice = o.getDeliveryPrice();
+        o.deliveryPrice = convertMoneyToCents(o.getDeliveryPrice());
 
         orderService.update(o);
         /*try {
@@ -325,7 +327,7 @@ public class Application extends Controller {
               Logger.error("Failed to send notification email! " + e.getMessage(), e);
           }*/
         mailService.sendNewOrderNotification(o);
-        order(o.getShortHandId());
+        order(o.id);
     }
 
     /* ------------ UTIL Pages -------------- */
@@ -529,7 +531,7 @@ public class Application extends Controller {
         o.deleted = false;
         o.orderCreated = new Date();
         o.restaurant = jpaBase;
-        o.create();
+        o = orderService.insertOrder(o);
         Logger.debug(">>> Created new order: %s", o.toString());
         return o;
     }

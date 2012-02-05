@@ -2,10 +2,7 @@ package models;
 
 import play.db.jpa.Model;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +12,8 @@ public class MenuItemComponent  {
         public static final String ITM_ROOT = "itm_root";
 
     }
-
+    @Id
+    public Long id;
     @ManyToOne
     public MenuItem itm_root;
     public String itm_name;

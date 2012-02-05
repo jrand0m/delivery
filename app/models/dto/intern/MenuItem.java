@@ -9,6 +9,8 @@ import models.OrderItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import static helpers.OrderUtils.convertMoneyToCents;
+
 /**
  * @author Mike
  */
@@ -19,7 +21,7 @@ public class MenuItem {
     public MenuItem(OrderItem oi) {
         count = oi.count;
         name = oi.menuItem.name;
-        pricePerItem = oi.menuItem.price;
+        pricePerItem = convertMoneyToCents(oi.menuItem.price);
         if (oi.selectedComponents != null && !oi.selectedComponents.isEmpty()) {
             components = new ArrayList<MenuItem>();
             for (MenuItemComponent mic : oi.selectedComponents) {

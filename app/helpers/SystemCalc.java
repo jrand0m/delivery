@@ -4,6 +4,9 @@
 package helpers;
 
 import models.Order;
+import org.bouncycastle.asn1.isismtt.x509.MonetaryLimit;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -19,10 +22,10 @@ public class SystemCalc {
      * @param order
      * @return delivery price
      */
-    public static Integer getDeliveryPrice(Order order) {
-        int delivery = 1500;
-        if (order.getMenuTotal() > 15000) {
-            delivery = 0;
+    public static Money getDeliveryPrice(Order order) {
+        Money delivery = Money.of(CurrencyUnit.of("UAH"), 15);
+        if (order.getMenuTotal().isGreaterThan(Money.of(CurrencyUnit.of("UAH"),150)) ) {
+            delivery = Money.zero(CurrencyUnit.of("UAH"));
         }
         return delivery;
     }
@@ -33,9 +36,9 @@ public class SystemCalc {
      * @param order
      * @return user discount in 1 - 100%; 0.01 - 1%
      */
-    public static BigDecimal getUserDiscount(Order order) {
-        // FIXME NEED CALCULATION MODEL
-        return new BigDecimal(0.0F).setScale(2, RoundingMode.HALF_EVEN);
+    public static Money getUserDiscount(Order order) {
+        //TODO NEED CALCULATION MODEL
+        return Money.zero(CurrencyUnit.of("UAH"));
     }
 
 }

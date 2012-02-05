@@ -6,18 +6,17 @@ import models.*;
 import models.geo.City;
 import models.settings.SystemSetting;
 import models.time.WorkHours;
-import play.db.jpa.Blob;
-import play.libs.MimeTypes;
+import org.joda.time.LocalDateTime;
 import play.modules.guice.InjectSupport;
 import play.mvc.Controller;
 import play.mvc.With;
 import services.GeoService;
+import services.OrderService;
 import services.RestaurantService;
 import services.SystemService;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +31,9 @@ public class Admin extends Controller {
     private static RestaurantService restaurantService;
     @Inject
     private static SystemService sysService;
+    @Inject
+    private static OrderService orderService;
+
 
     public static void index() {
         render();
@@ -48,31 +50,29 @@ public class Admin extends Controller {
     }
 
     public static void showCategories() {
-        List<MenuItemGroup> categories = MenuItemGroup.findAll();
+        List<MenuItemGroup> categories = restaurantService.getAllMenuItemGroups();
         render(categories);
     }
 
-    public static void showMenuItems(Long id) {
-        List<Restaurant> restaurants = Restaurant.findAll();
+    public static void showMenuItems(Integer id) {
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
         renderArgs.put("restaurants", restaurants);
         if (id == null) {
             id = restaurants.get(0).id;
         }
-        List<MenuItem> items = MenuItem.find("restaurant.id = ?", id).fetch();
+        List<MenuItem> items = restaurantService.getAllMenuItemsFor(id);
         renderArgs.put("items", items);
         render();
     }
 
     public static void showOrders(Long id) {
-        List<Restaurant> restaurants = Restaurant.findAll();
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
         renderArgs.put("restaurants", restaurants);
         if (id == null) {
-            List<Order> orders = Order.find("order by orderCreated desc")
-                    .fetch();
+            List<Order> orders = orderService.getAllOrdersOrderedByCreationDate();
             renderArgs.put("orders", orders);
         } else {
-            List<Order> orders = Order.find(
-                    "restaurant.id = ? order by orderCreated desc", id).fetch();
+            List<Order> orders = orderService.getOrdersOrderedByCreationDateFor(id);
             renderArgs.put("orders", orders);
         }
         render();
@@ -81,9 +81,9 @@ public class Admin extends Controller {
     public static void showRestaurants(Long id) {
         List<Restaurant> restaurants = null;
         if (id == null) {
-            restaurants = Restaurant.findAll();
+            restaurants = restaurantService.getAllRestaurants();
         } else {
-            restaurants = Restaurant.find("city.id = ?", id).fetch();
+            restaurants = geoService.getRestsByCity(id);
         }
         renderArgs.put("restaurants", restaurants);
         renderArgs.put("cities", geoService.getVisibleCities());
@@ -101,7 +101,6 @@ public class Admin extends Controller {
     }
 
     public static void addType(RestaurantCategory cat) {
-        System.out.println("cat >>>> " + cat.id);
         if (cat.categoryDisplayNameUA == null) {
             renderArgs.put("thankmessage", "Please create new one.");
             render();
@@ -113,48 +112,48 @@ public class Admin extends Controller {
     }
 
     public static void addCategory(MenuItemGroup group, Long id) {
-        List<Restaurant> restaurants = Restaurant.findAll();
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
         renderArgs.put("restaurants", restaurants);
         if (id == null) {
             renderArgs.put("message", "Please create new one.");
             render();
         }
 
-        Restaurant r = Restaurant.findById(id);
+        Restaurant r = restaurantService.getById(id);
         group.restaurant = r;
-        group.save();
+        restaurantService.insertMenuGroup(group);
         renderArgs.put("message", "Sucessfuly added : " + group.name);
         render();
     }
 
     public static void editCategory(Long id) {
         notFoundIfNull(id);
-        MenuItemGroup group = MenuItemGroup.findById(id);
-        List<Restaurant> restaurants = Restaurant.findAll();
+        MenuItemGroup group = restaurantService.getMenuGroupById(id);
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
         renderArgs.put("group", group);
         renderArgs.put("restaurants", restaurants);
         renderTemplate("Admin/addCategory.html");
     }
 
     public static void addMenuItem(MenuItem item, Long id, Long groupid) {
-        List<Restaurant> restaurants = Restaurant.findAll();
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
         renderArgs.put("restaurants", restaurants);
-        List<MenuItemGroup> groups = MenuItemGroup.findAll();
+        List<MenuItemGroup> groups = restaurantService.getAllMenuItemGroups();
         renderArgs.put("groups", groups);
         if (item == null || id == null || groupid == null) {
             renderArgs.put("message", "Please create new one.");
             render();
         }
-        item.menuItemCreated = new Date();
-        item.restaurant = Restaurant.findById(id);
-        item.menuItemGroup = MenuItemGroup.findById(groupid);
-        item.create();
+        item.menuItemCreated = new LocalDateTime();
+        item.restaurant = restaurantService.getById(id);
+        item.menuItemGroup = restaurantService.getMenuGroupById(id);
+        restaurantService.insertMenuItem(item);
         renderArgs.put("message", "Created!");
         render();
     }
 
     public static void editMenuItem(Long id) {
-        MenuItem item = MenuItem.findById(id);
+        MenuItem item = restaurantService.getMenuItemById(id);
         renderArgs.put("group", item.menuItemGroup.id);
         renderArgs.put("id", item.restaurant.id);
         renderArgs.put("item", item);
@@ -214,7 +213,7 @@ public class Admin extends Controller {
         }
         workHours = restaurantService.insertWorkHours(workHours);
         restaurantService.setWorkHoursFor(restaurant, workHours);
-        restaurant.save();
+        restaurantService.insertRestaurant(restaurant) ;
         render();
     }
 
@@ -225,7 +224,7 @@ public class Admin extends Controller {
 
     public static void editRestaurant(Long id) {
         notFoundIfNull(id);
-        Restaurant restaurant = Restaurant.findById(id);
+        Restaurant restaurant = restaurantService.getById(id);
         renderArgs.put("restaurant", restaurant);
         renderArgs.put("catid", restaurant.category.id);
         renderArgs.put("cityid", restaurant.city.id);
@@ -244,50 +243,35 @@ public class Admin extends Controller {
 
     public static void deleteRestaurant(Long id) {
         notFoundIfNull(id, "missing argument");
-        Restaurant restaurant = Restaurant.findById(id);
-        notFoundIfNull(restaurant, "restaraunt not found");
-        flash.put(
-                "errormessage",
-                String.format(
-                        "cannot delete restaurant '%s[%s]' because there is some orders assigned",
-                        restaurant.title, restaurant.id));
+        restaurantService.deleteRestaurant(id);
         index();
     }
 
     public static void addComp(Long id, String name, String descr, Integer price) {
-        MenuItem item = MenuItem.findById(id);
+        MenuItem item = restaurantService.getMenuItemById(id);
         MenuItemComponent component = new MenuItemComponent();
         component.itm_name = name;
         component.itm_price = price;
         component.itm_desc = descr;
         component.itm_root = item;
-        if (item.showComponents == false) {
-            item.showComponents = true;
-            item.save();
-        }
-        component.save();
+        restaurantService.insertItemComponent(component);
         editMenuItem(item.id);
 
     }
 
     public static void deleteComponent(Long id) {
-        MenuItemComponent component = MenuItemComponent.findById(id);
-        component.delete();
+        restaurantService.deleteMenuItemComponent(id);
+
     }
 
     public static void uploadLogo(Long id, File logo)
             throws FileNotFoundException {
-        List<Restaurant> restaurants = Restaurant.findAll();
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
         renderArgs.put("restaurants", restaurants);
         if (id == null) {
             render();
         }
-        Restaurant restaurant = Restaurant.findById(id);
-
-        restaurant.logo = new Blob();
-        restaurant.logo.set(new FileInputStream(logo),
-                MimeTypes.getContentType(logo.getName()));
-        restaurant.save();
+        restaurantService.setNewLogo(id, logo);
 
     }
 

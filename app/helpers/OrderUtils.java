@@ -1,6 +1,7 @@
 package helpers;
 
 import controllers.Application;
+import org.joda.money.Money;
 
 
 public class OrderUtils {
@@ -22,6 +23,9 @@ public class OrderUtils {
     public static Long convertToMinutes(long milliseconds) {
         return milliseconds / 1000 / 60;
 
+    }
+    public static Integer convertMoneyToCents(Money m){
+        return m.getAmountMajorInt()*100 + m.getAmountMinorInt();
     }
 
 }

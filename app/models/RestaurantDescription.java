@@ -3,23 +3,27 @@
  */
 package models;
 
-import play.db.jpa.Model;
-
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * @author Mike
  */
+@Table(name = "vd_restaurant_descriptions")
+@SequenceGenerator(name = "restaurant_descriptions_seq_gen", sequenceName = "restaurant_descriptions_seq")
 public class RestaurantDescription {
-    public static final class FIELDS {
-        public static final String LANG = "lang";
-        public static final String DESCRIPTION = "description";
-        public static final String RESTAURANT = "restaurant";
-    }
-
+    @Id
+    @GeneratedValue(generator = "restaurant_descriptions_seq_gen", strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
+    public Integer id;
+    @Column(name = "lang")
     public String lang;
+    @Column(name = "description")
     public String description;
+
+    @Column(name = "restaurant_id", insertable = false, updatable = false, nullable = false)
+    public Integer  restaurantId;
     @ManyToOne
+    @JoinColumn(name = "restaurant_id")
     public Restaurant restaurant;
 
 }
