@@ -8,16 +8,16 @@ import java.util.List;
 public class MenuComponentsJSON {
 
     public MenuComponentsJSON(MenuItemComponent mi) {
-        no = mi.getId();
+        no = mi.id;
         name = mi.name();
         descr = mi.description();
         price = mi.itm_price;
         check = mi.itm_avaliable;
         for (MenuItemComponent i : mi.notCompatible) {
-            comp.add(i.getId());
+            comp.add(i.id);
         }
         for (MenuItemComponent i : mi.required) {
-            req.add(i.getId());
+            req.add(i.id);
         }
     }
 

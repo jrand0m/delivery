@@ -42,4 +42,12 @@ public interface OrderService {
     List<Order> getOrdersForCourier(User user);
 
     List<Order> getOrdersForCourier(User user, Long from);
+
+    List<Order> getAllOrdersOrderedByCreationDate();
+
+    List<Order> getOrdersOrderedByCreationDateFor(Long id);
+
+    Order getById(String id);
+
+    Order insertOrder(Order o);
 }

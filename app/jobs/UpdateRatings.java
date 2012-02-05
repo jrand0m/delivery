@@ -9,15 +9,21 @@ import models.Restaurant;
 import play.Logger;
 import play.jobs.Job;
 import play.jobs.On;
+import play.modules.guice.InjectSupport;
+import services.RestaurantService;
 
+import javax.inject.Inject;
 import java.util.*;
 
 /**
  * @author Mike
  */
 @On("0 0 4 * * ?")
+@InjectSupport
 public class UpdateRatings extends Job {
     private static long MILLISECONDS_IN_DAY = 1000/* ms */ * 60/* s */ * 60/* m */ * 24/* h */;
+    @Inject
+    private static RestaurantService restaurantService;
 
     @Override
     public void doJob() {
@@ -74,8 +80,8 @@ public class UpdateRatings extends Job {
                 } else if (average < 1) {
                     average = 1;
                 }
-                r.raiting = average;
-                r.save();
+                
+                restaurantService.updateRating(r.id,average);
             }
             Logger.info(
                     "UpdateRatings Job: Finished refreshing (total time: %s s)",

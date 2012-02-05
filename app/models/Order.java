@@ -6,6 +6,8 @@ import helpers.SystemCalc;
 import models.geo.Address;
 import models.users.User;
 import org.hibernate.annotations.GenericGenerator;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 import play.db.jpa.GenericModel;
 import play.db.jpa.JPABase;
 import play.libs.Codec;
@@ -19,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 
 
-//@Where(clause = "deleted = 0")
 @Table(name = "Orders")
 public class Order  {
 
@@ -74,37 +75,13 @@ public class Order  {
                         " > ?" + " order by ord." + FIELDS.ORDER_ACCEPTED + " desc ";
     }
 
-    public static Order findByShortId(String shortID) {
-        return Order.find("shortHandId = ? or id like ?", shortID,
-                shortID + "%").first();
-    }
-
-    /*
-      * private Integer getDeliveryCost() { return 20; }
-      *
-      * private Integer getDeliveryPrice() { int cost = getDeliveryCost() -
-      * (getTotalPrice() - getTotalCost());
-      *
-      * return cost < 0 ? 0 : getDeliveryCost(); }
-      *
-      * public Integer getTotalCost() { Integer totalPrice = new Integer(0); for
-      * (OrderItem item : items) { totalPrice += item.orderItemUserPrice == null
-      * ? item.orderItemUserPrice = 0 : item.orderItemUserPrice * item.count; }
-      * return totalPrice; }
-      *
-      * public Integer getTotalPrice() { Integer totalPrice = new Integer(0); for
-      * (OrderItem item : items) {
-      *
-      * totalPrice += item.orderItemUserPrice == null ? item.orderItemUserPrice =
-      * 0 : item.orderItemUserPrice * item.count; } return totalPrice; }
-      */
     /**
      * Message on declined status
      */
     public String declineMessage;
     public boolean deleted = false;
-    @ManyToOne
 
+    @ManyToOne
     public Address deliveryAddress;
     public Long deliveryAddress_id;
     /**
@@ -189,64 +166,54 @@ public class Order  {
     /**
      * calculated delivery price for this order
      */
-    public Integer getDeliveryPrice() {
+    public Money getDeliveryPrice() {
         return SystemCalc.getDeliveryPrice(this);
     }
-
+    /**
+     * @deprecated use getDeliveryPrice().toString
+     * */
     public String getDeliveryPriceString() {
-        int i = getDeliveryPrice();
-        return new BigDecimal(i).setScale(2, RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2, RoundingMode.HALF_EVEN)).toString();
+        return  getDeliveryPrice().toString();
     }
 
     /**
      * Grand total including delivery price and minus calculated user discount
      */
-    public Integer getGrandTotal() {
+    public Money getGrandTotal() {
 
-        Integer menuTotal = getMenuTotal();
-        return menuTotal + getDeliveryPrice() - getUserDiscount().multiply(new BigDecimal(menuTotal).setScale(0)).intValue();
+        Money menuTotal = getMenuTotal();
+        return menuTotal.plus( getDeliveryPrice().minus(getUserDiscount().multipliedBy(menuTotal.getAmount(), RoundingMode.HALF_EVEN)));
     }
-
+     /**
+      * @deprecated use getGrandTotal().toString
+      * */
     public String getGrandTotalString() {
-        int i = getGrandTotal();
-        return new BigDecimal(i).setScale(2, RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2, RoundingMode.HALF_EVEN)).toString();
+
+        return getGrandTotal().toString();
     }
 
     /**
      * Just sum of all items without discount
      */
-    public Integer getMenuTotal() {
-        Integer i = 0;
+    public Money getMenuTotal() {
+        Money i = Money.zero(CurrencyUnit.of("UAH"));
         for (OrderItem item : items) {
-            i += item.totalPriceInclComponents();
+            i = i.plus( item.totalPriceInclComponents());
         }
         return i;
     }
-
+    /*
+    * @deprecated don't use this
+    * */
     public String getMenuTotalString() {
-        int i = getMenuTotal();
-        return new BigDecimal(i).setScale(2, RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2, RoundingMode.HALF_EVEN)).toString();
-    }
-
-    /**
-     * Function for getting short id
-     */
-    public String getShortHandId() {
-        if (id == null) {
-            throw new UnsupportedOperationException(
-                    "Taking shorthand on null id!");
-        }
-        if (shortHandId == null) {
-            shortHandId = Codec.hexSHA1(id).substring(0, 8);
-            save();
-        }
-        return shortHandId;
+         /*getMenuTotal();*/
+        return getMenuTotal().toString();
     }
 
     /**
      * calculated discount for entire order
      */
-    public BigDecimal getUserDiscount() {
+    public Money getUserDiscount() {
         return SystemCalc.getUserDiscount(this);
     }
 
@@ -272,18 +239,6 @@ public class Order  {
             }
         }
         return b.toString();
-    }
-
-    @Override
-    public boolean create() {
-        this.updated = new Date();
-        return super.create();
-    }
-
-    @Override
-    public <T extends JPABase> T save() {
-        this.updated = new Date();
-        return super.save();
     }
 
     public String aproxTime() {
