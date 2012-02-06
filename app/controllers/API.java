@@ -31,39 +31,6 @@ import static helpers.OrderUtils.convertMoneyToCents;
 @InjectSupport
 @With(Secure.class)
 public class API extends Controller {
-    // TODO extract to Order HQL
-    private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
-            + " = ? and " + Order.FIELDS.ORDER_STATUS + " in (?,?,?) ";
-    private static final String JPA_BY_RESTAURANT_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
-            + " = ? and "
-            + Order.FIELDS.ORDER_STATUS
-            + " in (?) and "
-            + Order.FIELDS.ORDER_CONFIRMED + " > ?";
-    private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN = Order.FIELDS.RESTAURANT
-            + "."
-            + Restaurant.FIELDS.RESTAURANT_CITY
-            + " = ? AND "
-            + "(("
-            + Order.FIELDS.ORDER_STATUS
-            + " = ?) "
-            + "OR ("
-            + Order.FIELDS.ORDER_STATUS
-            + " in (?,?,?,?) AND "
-            + Order.FIELDS.CONFIRMED_COURIER + " = ?))";
-    private static final String JPA_BY_CITY_AND_ORDER_STATUS_IN_FROM = Order.FIELDS.RESTAURANT
-            + "."
-            + Restaurant.FIELDS.RESTAURANT_CITY
-            + " = ? AND "
-            + "(("
-            + Order.FIELDS.ORDER_STATUS
-            + " in (?,?)) "
-            + "OR ("
-            + Order.FIELDS.ORDER_STATUS
-            + " in (?,?,?,?) AND "
-            + Order.FIELDS.CONFIRMED_COURIER
-            + " = ?)) "
-            + " and "
-            + Order.FIELDS.UPDATED + " > ?";
     @Inject
     private static RestaurantService restaurantService;
     @Inject
