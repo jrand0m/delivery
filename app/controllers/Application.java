@@ -298,7 +298,7 @@ public class Application extends Controller {
                 userService.addAddressToUserAddressBook(address, user);
             }
         }
-        o.deliveryAddress_id = address.id;
+        o.deliveryAddressId = address.id;
 
         o.orderStatus = OrderStatus.SENT;
         o.deliveryPrice = convertMoneyToCents(o.getDeliveryPrice());
