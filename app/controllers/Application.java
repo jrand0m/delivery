@@ -187,7 +187,7 @@ public class Application extends Controller {
      * street:asd email:asd@cacc.ccom apartment:ds phone:asd oplata:on
      * TODO get orderCity one time(extract to varialble)
      */
-    public static void checkAndSend(String id, Long aid, String name,
+    public static void checkAndSend(Long id, Long aid, String name,
                                     Integer city, String sname, Long streetid, String street,
                                     @Email String email, String app, @Phone String phone,
                                     String oplata, String addinfo) {
@@ -196,7 +196,7 @@ public class Application extends Controller {
             Logger.error("User is null");
         badRequest();
         checkAuthenticity();
-        if (id == null || id.isEmpty()) {
+        if (id == null) {
             Logger.error("Order id is null or empty");
             badRequest();
         }

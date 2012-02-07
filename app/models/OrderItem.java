@@ -1,10 +1,14 @@
 package models;
 
 
+
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import play.db.jpa.Model;
+import play.modules.guice.InjectSupport;
+import services.RestaurantService;
 
+import javax.inject.Inject;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -13,7 +17,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-
+@InjectSupport
 @Table(name = "vd_order_items")
 @SequenceGenerator(name = "order_items_seq_gen", sequenceName = "order_items_seq")
 public class OrderItem  {
@@ -50,11 +54,15 @@ public class OrderItem  {
     @JoinTable(name = "vd_order_items_selected_components")
     public Set<MenuItemComponent> selectedComponents = new HashSet<MenuItemComponent>();
 
+    @Inject
+    @Deprecated
+    private static RestaurantService restaurantService;
+
     public Money totalPriceInclComponents() {
         //Todo extract to calculation service
         Money componentPrice = Money.zero(CurrencyUnit.of("UAH"));
         for (MenuItemComponent mc : selectedComponents) {
-            componentPrice = componentPrice.plus(mc.itm_price);
+            componentPrice = componentPrice.plus(mc.price);
         }
         return  menuItem.price.plus(componentPrice).multipliedBy(count)  ;
     }
@@ -71,10 +79,10 @@ public class OrderItem  {
         this.orderItemPrice = menuItem.price;
         if (component != null) {
             for (Long comp : component) {
-                MenuItemComponent mic = MenuItemComponent.findById(comp);
-                if (mic.itm_root.equals(menuItem)) {
+                MenuItemComponent mic = restaurantService.getMenuItemComponent(comp);
+                if (mic.menuItemId.equals(menuItemId)) {
                     selectedComponents.add(mic);
-                    this.orderItemPrice = this.orderItemPrice.plus( mic.price());
+                    this.orderItemPrice = this.orderItemPrice.plus( mic.price);
                 }
             }
         }

@@ -21,6 +21,8 @@ import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
 
+import static helpers.OrderUtils.convertCentsToMoney;
+
 @With(Secure.class)
 @Check(UserType.VD_ADMIN)
 @InjectSupport
@@ -250,10 +252,10 @@ public class Admin extends Controller {
     public static void addComp(Long id, String name, String descr, Integer price) {
         MenuItem item = restaurantService.getMenuItemById(id);
         MenuItemComponent component = new MenuItemComponent();
-        component.itm_name = name;
-        component.itm_price = price;
-        component.itm_desc = descr;
-        component.itm_root = item;
+        component.name = name;
+        component.price = convertCentsToMoney(price);
+        component.description = descr;
+        component.menuItemId = item.id;
         restaurantService.insertItemComponent(component);
         editMenuItem(item.id);
 

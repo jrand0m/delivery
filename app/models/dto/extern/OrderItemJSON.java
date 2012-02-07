@@ -10,11 +10,10 @@ public class OrderItemJSON {
     public OrderItemJSON(OrderItem oi) {
         price = convertMoneyToCents(oi.totalPriceInclComponents());
         name = oi.name();
-        id = oi.getId();
+        id = oi.id;
         desc = oi.desc();
         count = oi.count;
         components = oi.selectedComponentsNames();
-
     }
 
     /**
