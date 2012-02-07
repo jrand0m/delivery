@@ -33,7 +33,7 @@ public class MenuItem {
     public MenuItem(MenuItemComponent mic) {
         count = 1;
         name = mic.name();
-        pricePerItem = mic.price();
+        pricePerItem = convertMoneyToCents(mic.price());
     }
 
     public Long mi;

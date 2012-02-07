@@ -1,6 +1,7 @@
 package helpers;
 
 import controllers.Application;
+import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
 
@@ -26,6 +27,9 @@ public class OrderUtils {
     }
     public static Integer convertMoneyToCents(Money m){
         return m.getAmountMajorInt()*100 + m.getAmountMinorInt();
+    }
+    public static Money convertCentsToMoney(Integer m){
+        return Money.zero(CurrencyUnit.of("UAH")).plusMinor(m);
     }
 
 }

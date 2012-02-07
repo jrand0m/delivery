@@ -78,4 +78,6 @@ public interface RestaurantService {
     void setNewLogo(Long id, File logo);
 
     void updateRating(Integer id, Integer average);
+
+    MenuItemComponent getMenuItemComponent(Long comp);
 }
