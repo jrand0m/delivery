@@ -30,7 +30,7 @@ public class BasketJSON {
         for (OrderItem oi : service.getItems(o)) {
             items.add(new OrderItemJSON(oi));
         }
-        no = o.id;
+        no = String.valueOf(o.id);
     }
 
     public String no;

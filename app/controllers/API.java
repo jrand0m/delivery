@@ -64,7 +64,7 @@ public class API extends Controller {
         List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
         for (Order order : orders) {
             CaffeJobsList job = new CaffeJobsList();
-            job.id = order.id;
+            job.id = String.valueOf(order.id);
             job.status = order.orderStatus.toString();
 
             job.price = convertMoneyToCents(order.getMenuTotal());
@@ -94,7 +94,7 @@ public class API extends Controller {
         List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
         for (Order order : orders) {
             CaffeJobsList job = new CaffeJobsList();
-            job.id = order.id;
+            job.id = String.valueOf(order.id);
 
             if (order.orderStatus.equals(OrderStatus.CONFIRMED)
                     && !(order.confirmedCourierId == (user.id))) {

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface OrderService {
 
-    Order getOrderBySIDAndOwner(String id, User user);
+    Order getOrderBySIDAndOwner(Long id, User user);
 
     City getOrdersCity(Order order);
 

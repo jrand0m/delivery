@@ -14,35 +14,44 @@ import java.util.Iterator;
 import java.util.Set;
 
 
-//@Where(clause = "deleted = 0")
+@Table(name = "vd_order_items")
+@SequenceGenerator(name = "order_items_seq_gen", sequenceName = "order_items_seq")
 public class OrderItem  {
-
-    public static final class FIELDS {
-        public static final String COUNT = "count";
-        public static final String DELETED = "deleted";
-        public static final String MENUITEM = "menuItem";
-        public static final String ORDER = "order";
-        public static final String ORDER_ITEM_PRICE = "orderItemPrice";
-    }
-
+    @Id
+    @GeneratedValue(generator = "order_items_seq_gen", strategy = GenerationType.SEQUENCE)
+    public Long id;
+    
+    @Column(name = "count")
     public Integer count;
-
+    
+    @Column(name = "deleted")    
     public boolean deleted = false;
+    
+    /**
+     * Archived real price from restaurant including components
+     * (That was calculated in moment, when order was approved).
+     */
+    @Column(name = "total_order_item_price")
+    public Money orderItemPrice;
+
+    @Column(name ="menu_item_id")
+    public Long menuItemId;
     @ManyToOne
+    @JoinColumn(name = "menu_item_id")
     public MenuItem menuItem;
+    
+    @Column(name = "order_id")
+    public Long orderId;
     @ManyToOne
+    @JoinColumn(name = "order_id")
     public Order order;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "SELECTED_ORDERITEMS_COMPONENTS")
+    @JoinTable(name = "vd_order_items_selected_components")
     public Set<MenuItemComponent> selectedComponents = new HashSet<MenuItemComponent>();
-    /**
-     * Archived real price from restaurant including components (That was calculated in moment, when
-     * order was approved).
-     */
-    public Money orderItemPrice;
 
     public Money totalPriceInclComponents() {
+        //Todo extract to calculation service
         Money componentPrice = Money.zero(CurrencyUnit.of("UAH"));
         for (MenuItemComponent mc : selectedComponents) {
             componentPrice = componentPrice.plus(mc.itm_price);
