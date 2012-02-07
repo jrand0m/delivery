@@ -25,7 +25,7 @@ public class CaffeJobsList {
     /**
      * set only if status InProgress
      */
-    public Long timeToFinish;
+    public Integer timeToFinish;
 
     public String paymentStatus;
 

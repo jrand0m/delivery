@@ -4,9 +4,11 @@ import models.OrderItem;
 
 import java.util.ArrayList;
 
+import static helpers.OrderUtils.convertMoneyToCents;
+
 public class OrderItemJSON {
     public OrderItemJSON(OrderItem oi) {
-        price = oi.totalPriceInclComponents();
+        price = convertMoneyToCents(oi.totalPriceInclComponents());
         name = oi.name();
         id = oi.getId();
         desc = oi.desc();

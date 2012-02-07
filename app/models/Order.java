@@ -7,10 +7,14 @@ import models.geo.Address;
 import models.users.User;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
+import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
+import play.modules.guice.InjectSupport;
+import services.OrderService;
 
+import javax.inject.Inject;
 import javax.persistence.*;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ import java.util.List;
 
 @Table(name = "vd_orders")
 @SequenceGenerator(name="orders_seq_gen", sequenceName = "orders_seq")
+@InjectSupport
 public class Order  {
 
     @Id
@@ -90,7 +95,7 @@ public class Order  {
     @Column(name = "order_delivered")
     public LocalDateTime orderDelivered;
     @Column(name = "updated_at")
-    public LocalDateTime updatedAt;
+    public DateTime updatedAt;
     /**
      * is set + time told by client
      */
@@ -134,6 +139,9 @@ public class Order  {
     @JoinColumn(name = "confirmed_courier_id")
     public User confirmedCourier;
 
+    @Inject
+    private static OrderService service;
+
     /**
      * calculated delivery price for this order
      */
@@ -167,8 +175,10 @@ public class Order  {
      * Just sum of all items without discount
      */
     public Money getMenuTotal() {
+        //todo extract to outer method
+        //if (true) throw new UnsupportedOperationException("extract order.menuTotal to service");
         Money i = Money.zero(CurrencyUnit.of("UAH"));
-        for (OrderItem item : items) {
+        for (OrderItem item : service.getItems(this)) {
             i = i.plus( item.totalPriceInclComponents());
         }
         return i;
@@ -192,8 +202,8 @@ public class Order  {
      * is called for index page
      */
     public String oneLineDescription() {
-        StringBuilder b = new StringBuilder();
-        for (Iterator<OrderItem> it = items.iterator(); it.hasNext(); ) {
+        StringBuilder b = new StringBuilder("to be done");
+        /*for (Iterator<OrderItem> it = items.iterator(); it.hasNext(); ) {
             b.append(it.next().menuItem.name);
             if (it.hasNext()) {
                 b.append(", ");
@@ -204,25 +214,20 @@ public class Order  {
                 b.append("...");
                 break;
             }
-        }
+        }*/
         return b.toString();
     }
 
     public String aproxTime() {
         String time = "--";
+        int x = 0;
         switch (orderStatus) {
             case ACCEPTED:
+                x = new Period(orderAccepted.plus(orderPlanedCooked), new LocalDateTime()).getMinutes();
             case COOKED:
             case DELIVERING:
-                long x = orderPlanedDeliveryTime == null ?
-                        0 : orderPlanedDeliveryTime.getTime() - new Date().getTime();
-                x = x / 1000 / 60;
-                if (x > 0) {
-                    return String.valueOf(x);
-                } else {
-                    return "00";
-                }
-
+                x = new Period(orderAccepted.plus(orderPlanedCooked).plus(orderPlanedDeliveryTime), new LocalDateTime()).getMinutes();
+                break;
             case DELIVERED:
             case CONFIRMED:
             case DECLINED:
@@ -230,9 +235,16 @@ public class Order  {
             case SENT:
 
             default:
-                break;
+            return time;
+           
         }
-        return time;
+        
+        if (x > 0) {
+            return String.valueOf(x);
+        } else {
+            return "00";
+        }
+        
 
     }
 
