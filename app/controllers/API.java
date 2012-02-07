@@ -11,6 +11,7 @@ import models.dto.intern.CaffeJobsList;
 import models.dto.intern.MenuItem;
 import models.dto.intern.PushMessage;
 import models.users.User;
+import org.joda.time.*;
 import play.Logger;
 import play.modules.guice.InjectSupport;
 import play.mvc.Controller;
@@ -22,6 +23,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import static helpers.OrderUtils.convertMoneyToCents;
 
@@ -67,11 +69,11 @@ public class API extends Controller {
 
             job.price = convertMoneyToCents(order.getMenuTotal());
             job.paymentStatus = order.paymentStatus.toString();
-            job.time = order.orderConfirmed.getTime();
-            job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
-                    .getTime() - System.currentTimeMillis()
-                    : null;
-            for (OrderItem oi : order.items) {
+            job.time = order.orderConfirmed.toDateTime().toDate().getTime();
+            job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ?  new Period(order.orderAccepted.plus(order.orderPlanedCooked), new LocalDateTime(), PeriodType.minutes())
+                    .toStandardMinutes().getMinutes()
+                    :       null;
+            for (OrderItem oi : orderService.getItems(order)) {
                 job.list.add(new MenuItem(oi));
             }
             jobs.add(job);
@@ -95,7 +97,7 @@ public class API extends Controller {
             job.id = order.id;
 
             if (order.orderStatus.equals(OrderStatus.CONFIRMED)
-                    && !(order.confirmedCourier_id == (user.id))) {
+                    && !(order.confirmedCourierId == (user.id))) {
                 job.status = "ALREADY_CONFIRMED";
             } else {
                 job.status = order.orderStatus.toString();
@@ -104,13 +106,14 @@ public class API extends Controller {
             job.price = convertMoneyToCents(order.getMenuTotal());
             job.customerPrice = convertMoneyToCents(order.getGrandTotal());
             job.paymentStatus = order.paymentStatus.toString();
-            job.time = order.updated.getTime();
-            job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
-                    .getTime() - System.currentTimeMillis()
-                    : null;
+            job.time = order.updatedAt.toDate().getTime();
+            job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ?
+                    new Period(order.orderAccepted.plus(order.orderPlanedCooked), new LocalDateTime(), PeriodType.minutes())
+                            .toStandardMinutes().getMinutes()
+                    :       null;
             if (order.deliveryAddress == null) {
                 Logger.warn("No delivery address for order id %s",
-                        order.shortHandId);
+                        order.id);
                 job.additionalInfo = null;
             } else {
                 job.additionalInfo = order.deliveryAddress.additionalInfo;
@@ -118,9 +121,9 @@ public class API extends Controller {
             job.from = order.restaurant.addressToString();
             job.to = order.deliveryAddress == null ? "none"
                     : order.deliveryAddress.toString();
-            job.timeToDelivered = order.orderPlanedDeliveryTime == null ? 0
-                    : order.orderPlanedDeliveryTime.getTime();
-            for (OrderItem oi : order.items) {
+            job.timeToDelivered =  order.orderStatus.equals(OrderStatus.DELIVERING)||order.orderStatus.equals(OrderStatus.COOKED)? 
+                    order.orderCooked.plus(order.orderPlanedDeliveryTime).toDateTime().toDate().getTime():0;
+            for (OrderItem oi : orderService.getItems(order)) {
                 job.list.add(new MenuItem(oi));
             }
             job.phone = order.orderOwner.phoneNumber;
@@ -155,17 +158,17 @@ public class API extends Controller {
             case ACCEPTED:
             case CONFIRMED:
                 order.orderStatus = OrderStatus.CONFIRMED;
-                order.orderConfirmed = new Date();
-                order.confirmedCourier_id = user.id;
-                order.orderPlanedDeliveryTime = new Date(message.time * 1000 * 60);
+                order.orderConfirmed = new LocalDateTime();
+                order.confirmedCourierId = user.id;
+                order.orderPlanedDeliveryTime = new Period(message.time, PeriodType.minutes());
                 break;
             case DELIVERED:
                 order.orderStatus = OrderStatus.DELIVERED;
-                order.orderDelivered = new Date();
+                order.orderDelivered = new LocalDateTime();
                 break;
             case DECLINED:
                 order.orderStatus = OrderStatus.DECLINED;
-                order.orderClosed = new Date();
+                order.orderClosed = new LocalDateTime();
                 // FIXME see how long message can be
                 order.declineMessage = message.comment; // != null ?
                 // p.comment.substring(0, 250) :
@@ -185,28 +188,25 @@ public class API extends Controller {
         switch (OrderStatus.convert(message.status)) {
             case COOKED:
                 order.orderStatus = OrderStatus.COOKED;
-                order.orderCooked = new Date();
+                order.orderCooked = new LocalDateTime();
                 break;
             case ACCEPTED:
                 order.orderStatus = OrderStatus.ACCEPTED;
-                order.orderAccepted = new Date();
-                order.orderPlanedCooked = new Date(System.currentTimeMillis()
-                        + OrderUtils.convertToMinutes(message.time));
-                order.orderPlanedDeliveryTime = new Date(
+                order.orderAccepted = new LocalDateTime();
+                order.orderPlanedCooked = new Period(message.time, PeriodType.minutes());
+                /*order.orderPlanedDeliveryTime = new Date(
                         order.orderPlanedCooked.getTime()
-                                + order.orderPlanedDeliveryTime.getTime());
+                                + order.orderPlanedDeliveryTime.getTime());*/
                 break;
             case DECLINED:
                 order.orderStatus = OrderStatus.DECLINED;
-                order.orderClosed = new Date();
+                order.orderClosed = new LocalDateTime();
                 // FIXME see how long message can be
                 order.declineMessage = message.comment; // != null ?
-                // p.comment.substring(0, 250) :
-                // "" ;
                 break;
             case DELIVERING:
                 order.orderStatus = OrderStatus.DELIVERING;
-                order.orderTaken = new Date();
+                order.orderTaken = new LocalDateTime();
                 break;
             default:
                 Logger.debug("p not found corresponding status ");

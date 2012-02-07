@@ -10,6 +10,7 @@ import models.geo.Address;
 import models.geo.City;
 import models.geo.Street;
 import models.users.User;
+import org.joda.time.LocalDateTime;
 import play.Logger;
 import play.data.validation.Email;
 import play.data.validation.Phone;
@@ -301,7 +302,7 @@ public class Application extends Controller {
         o.deliveryAddressId = address.id;
 
         o.orderStatus = OrderStatus.SENT;
-        o.deliveryPrice = convertMoneyToCents(o.getDeliveryPrice());
+        o.deliveryPrice = o.getDeliveryPrice();
 
         orderService.update(o);
         /*try {
@@ -405,7 +406,6 @@ public class Application extends Controller {
         notFoundIfNull(order);
         OrderItem oi = new OrderItem(itm, order, component);
         oi = orderService.insertOrderItem(oi);
-        order.items.add(oi);// TODO add recursive save, or add this line to services
         orderService.update(order);
         renderJSON(new BasketJSON(order));
     }
@@ -529,7 +529,7 @@ public class Application extends Controller {
         o.orderStatus = OrderStatus.OPEN;
         o.orderOwner = user;
         o.deleted = false;
-        o.orderCreated = new Date();
+        o.orderCreated = new LocalDateTime();
         o.restaurant = jpaBase;
         o = orderService.insertOrder(o);
         Logger.debug(">>> Created new order: %s", o.toString());
