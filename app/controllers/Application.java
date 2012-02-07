@@ -79,7 +79,7 @@ public class Application extends Controller {
         flash.put("url", request.url);
     }
 
-    public static void order(String id) {
+    public static void order(Long id) {
         notFoundIfNull(id);
         User user = (User) renderArgs.get(RENDER_KEYS.USER);
         notFoundIfNull(user);
@@ -89,7 +89,7 @@ public class Application extends Controller {
         render("/Application/order.html");
     }
 
-    public static void checkout(String id) {
+    public static void checkout(Long id) {
         // FIXME move to locker ?
         notFoundIfNull(id);
         User user = (User) renderArgs.get(RENDER_KEYS.USER);
