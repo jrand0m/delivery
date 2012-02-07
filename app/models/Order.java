@@ -30,7 +30,7 @@ public class Order  {
 
     @Id
     @GeneratedValue(generator = "orders_seq_gen", strategy = GenerationType.SEQUENCE)
-    public String id;
+    public Long id;
 
     /**
      * Message on declined status
@@ -51,11 +51,6 @@ public class Order  {
      */
     @Column(name = "delivery_price")
     public Money deliveryPrice;
-    /**
-     * Restaurant discount saved when order is accepted by user from Restauraunt.discount
-     */
-    @Column(name = "restaurant_discount")
-    public Float restaurantDiscount;
 
     /**
      * Menu total price saved when order is accepted by user
@@ -94,6 +89,12 @@ public class Order  {
      */
     @Column(name = "order_delivered")
     public LocalDateTime orderDelivered;
+    /**
+     * Courier picked up bundle
+     */
+    @Column(name = "order_taken")
+    public LocalDateTime orderTaken;
+
     @Column(name = "updated_at")
     public DateTime updatedAt;
     /**
@@ -111,11 +112,7 @@ public class Order  {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "order_status")
     public OrderStatus orderStatus = OrderStatus.OPEN;
-    /**
-     * Courier picked up bundle
-     */
-    @Column(name = "order_taken")
-    public LocalDateTime orderTaken;
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "payment_status")
     public PaymentStatus paymentStatus = PaymentStatus.NOT_PAID;
@@ -128,6 +125,7 @@ public class Order  {
     @ManyToOne
     @JoinColumn(name = "order_owner_id")
     public User orderOwner;
+
     @Column(name = "restaurant_id")
     public Integer restaurantId;
     @ManyToOne
@@ -140,6 +138,7 @@ public class Order  {
     public User confirmedCourier;
 
     @Inject
+    @Deprecated
     private static OrderService service;
 
     /**

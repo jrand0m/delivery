@@ -456,7 +456,7 @@ public class Application extends Controller {
         Order order = null;
         User user = (User) renderArgs.get(RENDER_KEYS.USER);
         if (user == null) {
-            user = userService.createAnonymousUser(); //TODO userService.createNewAnonymousUser();
+            user = userService.createAnonymousUser();
         }
         Restaurant restaurant = restaurantService.getById(chart);
         notFoundIfNull(restaurant);
