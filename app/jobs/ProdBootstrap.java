@@ -3,7 +3,6 @@
  */
 package jobs;
 
-import org.joda.money.CurrencyUnit;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 

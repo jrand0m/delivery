@@ -54,9 +54,8 @@ public interface RestaurantService {
     List<MenuItemGroup> getAllMenuItemGroups();
 
     /**
-     *
      * @param id of restaurant
-     * */
+     */
     List<MenuItem> getAllMenuItemsFor(Integer id);
 
     MenuItemGroup insertMenuGroup(MenuItemGroup group);

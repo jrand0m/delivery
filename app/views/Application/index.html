@@ -2,16 +2,16 @@
 #{set title:'Home' /}
 #{set 'moreScripts'}
 <script type="text/javascript">
-var cngcty = #{jsAction @Application.changeCity(':id') /};
-var loupd  = #{jsAction @Application.getLastOrders(':top') /};
+    var cngcty = #{jsAction @Application.changeCity(':id') /};
+    var loupd = #{jsAction @Application.getLastOrders(':top') /};
 </script>
 <script type="text/javascript" src="@{'/public/javascripts/cookies.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/mtmpl.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/index.js'}"></script>
 <script type="text/html" id="lotmpl">
-<style>
-div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
-</style>
+    <style>
+        div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
+    </style>
 <div class="zaraz_item"><h2><%=itm.s%></h2><h3><%=itm.f%></h3>
 <p><%=itm.d%></p>
 </div>
@@ -19,101 +19,100 @@ div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
 #{/set}
 #{set 'breadCrumb'}
 
-					<form class="search jNice wrap" action="#">
-						<label for="inpec01">&{'header.findyourrest'}</label>
+<form class="search jNice wrap" action="#">
+<label for="inpec01">&{'header.findyourrest'}</label>
 						<div class="selWrap">
-						<p class="selText"></p>
+<p class="selText"></p>
 						<ul class="selDrop">
-#{list items:cities, as:'city' }
-		<li id ="${city.getId()}" class=" ${city.getId().toString()==session.get(controllers.Application.SESSION_KEYS.CITY_ID)?'selected':''  }" >${city.getLocalizedName()},</li>
-#{/list}
-						</ul>
+    #{list items:cities, as:'city' }
+    <li id ="${city.getId()}" class=" ${city.getId().toString()==session.get(controllers.Application.SESSION_KEYS.CITY_ID)?'selected':''  }" >${city.getLocalizedName()},</li>
+    #{/list}
+</ul>
 						</div>
 						<input type="text" value="" name="you_restraunt" id="inpec01" />
-						<input type="submit" class="submit" name="you_restraunt_submit" value="" />
-					</form>
-#{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
-<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-*{<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>}*
-#{/if}
-#{else}
-<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-*{<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>}*
-#{/else}
+<input type="submit" class="submit" name="you_restraunt_submit" value="" />
+</form >
+    #{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
+    < a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+    *{<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>}*
+    #{/if}
+    #{else}
+    <a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+    *{<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>}*
+    #{/else}
 #{/set}
 
 
 #{list items:restaurants, as:'restaurant' }
-	%{ ntw = restaurant instanceof models.RestaurantNetwork}%
-					<div class="rest_item_prev${restaurant.isOnline()?"":" rest_offline"}${ntw?" rest_network_view":""}">
-						<h1>
-							<b>${restaurant.title}</b><br />
-							<span>${restaurant.addressToString()}</span>
+%{ ntw = restaurant instanceof models.RestaurantNetwork}%
+<div class="rest_item_prev${restaurant.isOnline()?"":" rest_offline"}${ntw?" rest_network_view":""}">
+<h1>
+                            <b>${restaurant.title}</b><br />
+<span>${restaurant.addressToString()}</span>
 							<a>${restaurant.isOnlineAsString()}</a>
 						</h1>
 						<div class="logo">
-							<i></i><img class="logo" src="@{Application.serveLogo(restaurant.id)}" />
-						</div>
+<i></i><img class="logo" src="@{Application.serveLogo(restaurant.id)}" />
+</div>
 						<p class="info">${restaurant.description()}</p>
-						<p class="work_time"><b>Сьогодні </b> ${restaurant.workHoursToday()}
-						<span>
-							Понеділок 10:00 - 20:00<br/>
-							Вівторок 10:00 - 20:00<br/>
-							Середа 10:00 - 20:00<br/>
-							Четвер 10:00 - 20:00<br/>
-							Пятниця 10:00 - 20:00<br/>
-							Субота 10:00 - 20:00<br/>
-							Неділя 10:00 - 20:00<br/>
-						</span>
+						<p class="work_time"><b>Сьогодні </b > ${restaurant.workHoursToday()}
+                                                                                                                                  < span > Понеділок 10:00 - 20:00<br/>
+Вівторок 10:00 - 20:00<br/>
+Середа 10:00 - 20:00<br/>
+Четвер 10:00 - 20:00<br/>
+Пятниця 10:00 - 20:00<br/>
+Субота 10:00 - 20:00<br/>
+Неділя 10:00 - 20:00<br/>
+</span>
 						
 						</p>
-						<p class="dostavka">Доставка <b>15 грн</b><span>&{'common.basket.title'}</span></p>
-						*{<!--<p class="stars">Рейтинг<span class="rate1"></span></p>--> }*
-					%{ if (!ntw) { }%
-						<a class="menu_but" href="@{Application.showMenu(restaurant.id)}" title="&{'common.viewRestMunu'}">&{'common.menu'}</a>
-					</div>
-					%{ } else { }%
-						<a class="menu_but" id="various1" href="#n${restaurant.id}" title="&{'common.viewRestMunu'}">&{'restaurant.network.selectbtn'}</a>
+						<p class="dostavka">Доставка <b>15 грн</b><span>&{'common.basket.title'}</span></p >
+                                                                                                                                     *{<!--<p class="stars">Рейтинг<span class="rate1"></span></p>--> }*
+                                                                                                                                     %{ if (!ntw) { }%
+                                                                                                                                     < a class="menu_but" href="@{Application.showMenu(restaurant.id)}" title="&{'common.viewRestMunu'}">&{'common.menu'}</a>
+					</div >
+                                                                                                                                                                                                                                                                                 %{ } else { }%
+                                                                                                                                                                                                                                                                                 < a class="menu_but" id="various1" href="#n${restaurant.id}" title="&{'common.viewRestMunu'}">&{'restaurant.network.selectbtn'}</a>
 					</div>
 					<div style="display: none;">
-						<div id="n${restaurant.id}" class="fancy_window">
-						#{list items:restaurant.restoraunts, as:'subrest' }
-							<div class="rest_item_prev %{subrest.isOnline()?"":"rest_offline"}%">
-								<h1>
-									${subrest.title}<br />
-									<span>${subrest.addressToString()}</span>
+<div id="n${restaurant.id}" class="fancy_window">
+    #{list items:restaurant.restoraunts, as:'subrest' }
+    <div class="rest_item_prev %{subrest.isOnline()?"":"rest_offline"}%">
+    <h1>
+                                     ${subrest.title}<br />
+    <span>${subrest.addressToString()}</span>
 									<a>${subrest.isOnlineAsString()}</a>
 								</h1>
 								<div class="logo">
-									<i></i><img class="logo" src="@{Application.serveLogo(subrest.id)}" />
-								</div>
+    <i></i><img class="logo" src="@{Application.serveLogo(subrest.id)}" />
+    </div>
 								<p class="info">${subrest.description()}</p>
 								<p class="work_time">${subrest.workHoursToday()}1 :00 - 22:00</p>
 								<p class="dostavka">&{'common.basket.delivery'}</p>
 								<a class="menu_but" href="@{Application.showMenu(subrest.id)}" title="&{'common.viewRestMunu'}">&{'common.menu'}</a>
 							</div>
-						#{/list}
-					%{}}%
+    #{/list}
+%{}}%
 #{/list}
-					<!--<a class="see_all" href="@{Application.showRestaurants()}">&{'common.showAll'}</a>-->
-					<div class="index_bottom">
-						<h2>&{'common.3steps'}</h2>
+<!--<a class="see_all" href="@{Application.showRestaurants()}">&{'common.showAll'}</a>-->
+<div class="index_bottom">
+<h2>&{'common.3steps'}</h2>
 						<div class="staps first">
-							<h3><span>1. </span>&{'common.3steps.1title'}</h3>
+<h3><span>1. </span>&{'common.3steps.1title'}</h3>
 							<p>&{'common.3steps.1body'}</p>
 						</div>
 						<div class="staps">
-							<h3><span>2. </span>&{'common.3steps.2title'}</h3>
+<h3><span>2. </span>&{'common.3steps.2title'}</h3>
 							<p>&{'common.3steps.2body'}</p>
 						</div>
 						<div class="staps">
-							<h3><span>3. </span>&{'common.3steps.3title'}</h3>
+<h3><span>3. </span>&{'common.3steps.3title'}</h3>
 							<p>&{'common.3steps.3body'}</p>
 						</div>
 						<div class="zaraz">
-							<h1>&{'common.noworder'}</h1>
+<h1>&{'common.noworder'}</h1>
 							<div class="zaraz_container">
-							
-							</div>
+
+</div>
 						</div>
 					</div>

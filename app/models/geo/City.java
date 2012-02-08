@@ -25,7 +25,7 @@ public class City {
 
     /**
      * This field is used to store universal alias provided by our geoip-service.
-     * */
+     */
     @Column(name = "city_alias_name")
     public String cityAliasName;
 

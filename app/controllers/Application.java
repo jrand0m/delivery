@@ -10,11 +10,11 @@ import models.geo.Address;
 import models.geo.City;
 import models.geo.Street;
 import models.users.User;
-import org.joda.time.LocalDateTime;
 import play.Logger;
 import play.data.validation.Email;
 import play.data.validation.Phone;
 import play.i18n.Lang;
+import play.modules.guice.InjectSupport;
 import play.mvc.Before;
 import play.mvc.Controller;
 import services.*;
@@ -22,8 +22,7 @@ import services.*;
 import javax.inject.Inject;
 import java.util.*;
 
-import static helpers.OrderUtils.convertMoneyToCents;
-
+@InjectSupport
 public class Application extends Controller {
 
     // TODO Make more flexible(extract to SystemSetting)
@@ -516,24 +515,5 @@ public class Application extends Controller {
 		return igdata.city;
 	}*/
 
-    /**
-     * intended for local use so no 'public' modifier
-     * TODO move to service
-     *
-     * @param jpaBase
-     */
-    private static Order createNewOpenOrder(final User user,
-                                            Restaurant jpaBase) {
-        Logger.debug(">>> Creating new order for user: %s", user);
-        Order o = new Order();
-        o.orderStatus = OrderStatus.OPEN;
-        o.orderOwner = user;
-        o.deleted = false;
-        o.orderCreated = new LocalDateTime();
-        o.restaurant = jpaBase;
-        o = orderService.insertOrder(o);
-        Logger.debug(">>> Created new order: %s", o.toString());
-        return o;
-    }
 
 }

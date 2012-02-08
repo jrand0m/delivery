@@ -15,7 +15,7 @@ public class Street {
     @GeneratedValue(generator = "street_seq_gen", strategy = GenerationType.SEQUENCE)
     public Long id;
 
-    @Column(name = "city_id", insertable = false, updatable=false)
+    @Column(name = "city_id", insertable = false, updatable = false)
     public Long city_id;
 
     @Column(name = "display")
@@ -46,5 +46,6 @@ public class Street {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
+    @Deprecated
     public City city;
 }

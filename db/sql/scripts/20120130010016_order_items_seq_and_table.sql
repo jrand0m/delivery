@@ -12,7 +12,7 @@ CREATE TABLE "vd_order_items" (
     "order_id"         int8 not null,
 
     FOREIGN KEY ( "menu_item_id" ) REFERENCES vd_menu_items ("id"),
-    FOREIGN KEY ( "order_id" ) REFERENCES vd_orders ("id")
+    FOREIGN KEY ( "order_id" ) REFERENCES vd_order ("id")
 );
 
 --//@UNDO

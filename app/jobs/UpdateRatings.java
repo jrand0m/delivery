@@ -3,7 +3,6 @@
  */
 package jobs;
 
-import enumerations.CommentStatus;
 import models.Comment;
 import models.Restaurant;
 import play.Logger;
@@ -13,7 +12,10 @@ import play.modules.guice.InjectSupport;
 import services.RestaurantService;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * @author Mike
@@ -69,8 +71,8 @@ public class UpdateRatings extends Job {
                 } else if (average < 1) {
                     average = 1;
                 }
-                
-                restaurantService.updateRating(r.id,average);
+
+                restaurantService.updateRating(r.id, average);
             }
             Logger.info(
                     "UpdateRatings Job: Finished refreshing (total time: %s s)",

@@ -1,14 +1,11 @@
 package models;
 
-import play.db.jpa.Model;
-
 import javax.persistence.*;
-import java.util.List;
 
 
 @Table(name = "vd_menu_items_groups")
 @SequenceGenerator(name = "menu_items_groups_seq_gen", sequenceName = "menu_items_groups_seq")
-public class MenuItemGroup  {
+public class MenuItemGroup {
     @Id
     @GeneratedValue(generator = "menu_items_groups_seq_gen", strategy = GenerationType.SEQUENCE)
     public Integer id;
@@ -24,6 +21,7 @@ public class MenuItemGroup  {
     public Integer restaurantId;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
+    @Deprecated
     public Restaurant restaurant;
 
     public String anchorName() {

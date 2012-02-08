@@ -18,7 +18,6 @@ import services.SystemService;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Date;
 import java.util.List;
 
 import static helpers.OrderUtils.convertCentsToMoney;
@@ -215,7 +214,7 @@ public class Admin extends Controller {
         }
         workHours = restaurantService.insertWorkHours(workHours);
         restaurantService.setWorkHoursFor(restaurant, workHours);
-        restaurantService.insertRestaurant(restaurant) ;
+        restaurantService.insertRestaurant(restaurant);
         render();
     }
 

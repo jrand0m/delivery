@@ -11,7 +11,6 @@ import models.users.User;
  */
 public interface UserService {
 
-
     User getUserByLogin(String connected);
 
     void addAddressToUserAddressBook(Address address, User user);

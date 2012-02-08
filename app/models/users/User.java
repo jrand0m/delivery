@@ -24,42 +24,42 @@ public class User {
     @Required
     @Max(255)
     @Min(3)
-    @Column(name = "vd_login", nullable = false)
+    @Column(name = "login", nullable = false)
     public String login;
 
     @Email
     @Max(255)
     @Min(3)
-    @Column(name = "vd_email")
+    @Column(name = "email")
     public String email;
 
     @Phone
     @Required
     @Max(255)
-    @Column(name = "vd_phone_number", nullable = false)
+    @Column(name = "phoneNumber", nullable = false)
     public String phoneNumber;
 
     @Required
     @Password
-    @Column(name = "vd_password", nullable = false)
+    @Column(name = "password", nullable = false)
     public String password;
 
     @Required
     @Max(255)
-    @Column(name = "vd_name", nullable = false)
+    @Column(name = "name", nullable = false)
     public String name;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "vd_user_type")
+    @Column(name = "userType")
     public UserType userType;
 
-    @Column(name = "last_login_date", nullable = false)
+    @Column(name = "lastLoginDate", nullable = false)
     public Date lastLoginDate;
 
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "createdDate", nullable = false)
     public Date createdDate;
 
-    @Column(name = "updated_date", nullable = false)
+    @Column(name = "updatedDate", nullable = false)
     public Date updatedDate;
 
     @Column(name = "deleted", nullable = false)

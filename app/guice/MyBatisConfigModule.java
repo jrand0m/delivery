@@ -1,17 +1,11 @@
 package guice;
 
 import com.google.inject.Module;
-import com.google.inject.name.Names;
-import helpers.persistance.dao.samples.SampleMapper;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.guice.MyBatisModule;
-import org.mybatis.guice.datasource.builtin.PooledDataSourceProvider;
-import org.mybatis.guice.datasource.helper.JdbcHelper;
 import play.Logger;
 import play.Play;
-import play.db.DB;
-
-import java.util.Properties;
+import services.mybatis.mappings.*;
 
 public class MyBatisConfigModule extends MyBatisModule {
 
@@ -40,9 +34,21 @@ public class MyBatisConfigModule extends MyBatisModule {
         environmentId(Play.mode.name());
         bindDataSourceProvider(new PlayDataSourceProvider());
         bindTransactionFactoryType(JdbcTransactionFactory.class);
-        addMapperClass(SampleMapper.class);
-        //TODO 1) make mybatis config load from application conf file(i mean database settings dependant on test(must load in-mem db)/prod/dev)
-        //TODO 2) make evolutions work(use mybatis evolutions framework, mb it is cooler!)!
+        addMapperClass(AddressMapper.class);
+        addMapperClass(CityMapper.class);
+        addMapperClass(CommentMapper.class);
+        addMapperClass(MenuItemComponentMapper.class);
+        addMapperClass(MenuItemGroupMapper.class);
+        addMapperClass(MenuItemMapper.class);
+        addMapperClass(OrderItemMapper.class);
+        addMapperClass(OrderMapper.class);
+        addMapperClass(RestaurantCategoryMapper.class);
+        addMapperClass(RestaurantDescriptionMapper.class);
+        addMapperClass(RestaurantMapper.class);
+        addMapperClass(StreetMapper.class);
+        addMapperClass(SystemSettingsMapper.class);
+        addMapperClass(UserMapper.class);
+        addMapperClass(WorkHoursMapper.class);
         Logger.debug("MyBatisConfig finished");
     }
 }
