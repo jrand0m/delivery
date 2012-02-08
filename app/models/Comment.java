@@ -23,7 +23,7 @@ public class Comment {
     @Column(name = "id")
     public Long id;
     
-    @Column(name = "text")
+    @Column(name = "comment_text")
     public String text;
     
     @Column(name = "common_rating")

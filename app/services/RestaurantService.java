@@ -80,4 +80,6 @@ public interface RestaurantService {
     void updateRating(Integer id, Integer average);
 
     MenuItemComponent getMenuItemComponent(Long comp);
+
+    List<Comment> findAllCommentsFromLastMonth();
 }
