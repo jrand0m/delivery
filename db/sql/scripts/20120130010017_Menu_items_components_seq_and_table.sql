@@ -17,7 +17,7 @@ CREATE TABLE "vd_menu_item_components" (
 
     "menu_item_id"     int8 not null,
 
-    FOREIGN KEY ( "menu_item_id" ) REFERENCES vd_menu_items ("id"),
+    FOREIGN KEY ( "menu_item_id" ) REFERENCES vd_menu_items ("id")
 );
 
 --//@UNDO

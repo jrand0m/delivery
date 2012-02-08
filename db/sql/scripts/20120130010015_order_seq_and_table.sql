@@ -17,7 +17,7 @@ CREATE TABLE "vd_order" (
   "order_created"    timestamp,
   "order_delivered"  timestamp,
   "order_taken"      timestamp,
-  "updated_at"       timestamp not null default now,
+  "updated_at"       timestamp not null default now(),
   "order_planed_cooked" interval,
   "order_planed_delivery_time" interval,
   "order_status"    varchar(100) not null default 'OPEN',

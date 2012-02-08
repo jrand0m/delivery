@@ -25,10 +25,12 @@ public class OrderUtils {
         return milliseconds / 1000 / 60;
 
     }
-    public static Integer convertMoneyToCents(Money m){
-        return m.getAmountMajorInt()*100 + m.getAmountMinorInt();
+
+    public static Integer convertMoneyToCents(Money m) {
+        return m.getAmountMajorInt() * 100 + m.getAmountMinorInt();
     }
-    public static Money convertCentsToMoney(Integer m){
+
+    public static Money convertCentsToMoney(Integer m) {
         return Money.zero(CurrencyUnit.of("UAH")).plusMinor(m);
     }
 

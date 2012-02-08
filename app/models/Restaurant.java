@@ -19,7 +19,7 @@ import javax.persistence.*;
 /**
  * @author mike
  */
-@Table(name="vd_restaurant")
+@Table(name = "vd_restaurant")
 @SequenceGenerator(name = "restaurant_seq_gen", sequenceName = "restaurant_seq")
 public class Restaurant {
 
@@ -27,40 +27,46 @@ public class Restaurant {
     public static class FIELDS {
         public static final String RESTAURANT_CITY = "city";
     }
+
     @Id
     @GeneratedValue(generator = "restaurant_seq_gen", strategy = GenerationType.SEQUENCE)
     public Integer id;
 
-    @Column(name = "city_id",insertable = false,updatable = false,nullable = false)
+    @Column(name = "city_id", insertable = false, updatable = false, nullable = false)
     public Long city_id;
     @ManyToOne
     @JoinColumn(name = "city_id")
+    @Deprecated
     public City city;
-    
-    @Column(name = "address_id",insertable = false,updatable = false,nullable = false)
+
+    @Column(name = "address_id", insertable = false, updatable = false, nullable = false)
     public Long address_id;
     @OneToOne
     @JoinColumn(name = "address_id")
+    @Deprecated
     public Address address;
-    
-    @Column(name = "category_id",insertable = false,updatable = false,nullable = false)
+
+    @Column(name = "category_id", insertable = false, updatable = false, nullable = false)
     public Integer category_id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @Deprecated
     public RestaurantCategory category;
 
-    @Column(name = "workhours_id",insertable = false,updatable = false,nullable = false)
+    @Column(name = "workhours_id", insertable = false, updatable = false, nullable = false)
     public Integer workhours_id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workhours_id")
+    @Deprecated
     public WorkHours workhours;
     /**
      * loginable power user id
      */
-    @Column(name = "user_id",insertable = false,updatable = false,nullable = false)
+    @Column(name = "user_id", insertable = false, updatable = false, nullable = false)
     public Long user_id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @Deprecated
     public User restaurantAdminUser;
 
     @Column(name = "title")
@@ -74,7 +80,6 @@ public class Restaurant {
      * logo image , ATTENTION! stores in /attachents/ dir
      */
     public Blob logo;
-
 
 
     /**

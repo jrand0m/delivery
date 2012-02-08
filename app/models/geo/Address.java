@@ -45,11 +45,13 @@ public class Address {
     @Required
     @ManyToOne
     @JoinColumn(name = "city_id")
+    @Deprecated
     public City city;
 
     @Required
     @ManyToOne
     @JoinColumn(name = "street_id")
+    @Deprecated
     public Street street;
 
     @Override

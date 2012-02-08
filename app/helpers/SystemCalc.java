@@ -4,12 +4,8 @@
 package helpers;
 
 import models.Order;
-import org.bouncycastle.asn1.isismtt.x509.MonetaryLimit;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 /**
  * @author Mike
@@ -24,7 +20,7 @@ public class SystemCalc {
      */
     public static Money getDeliveryPrice(Order order) {
         Money delivery = Money.of(CurrencyUnit.of("UAH"), 15);
-        if (order.getMenuTotal().isGreaterThan(Money.of(CurrencyUnit.of("UAH"),150)) ) {
+        if (order.getMenuTotal().isGreaterThan(Money.of(CurrencyUnit.of("UAH"), 150))) {
             delivery = Money.zero(CurrencyUnit.of("UAH"));
         }
         return delivery;

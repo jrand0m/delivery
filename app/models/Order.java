@@ -8,7 +8,6 @@ import models.users.User;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.joda.time.DateTime;
-import org.joda.time.Interval;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import play.modules.guice.InjectSupport;
@@ -17,16 +16,12 @@ import services.OrderService;
 import javax.inject.Inject;
 import javax.persistence.*;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 
 @Table(name = "vd_orders")
-@SequenceGenerator(name="orders_seq_gen", sequenceName = "orders_seq")
+@SequenceGenerator(name = "orders_seq_gen", sequenceName = "orders_seq")
 @InjectSupport
-public class Order  {
+public class Order {
 
     @Id
     @GeneratedValue(generator = "orders_seq_gen", strategy = GenerationType.SEQUENCE)
@@ -44,6 +39,7 @@ public class Order  {
     public Long deliveryAddressId;
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
+    @Deprecated
     public Address deliveryAddress;
     /**
      * Price calculated by application using formula, that should be paid by
@@ -124,17 +120,20 @@ public class Order  {
     public Long orderOwnerId;
     @ManyToOne
     @JoinColumn(name = "order_owner_id")
+    @Deprecated
     public User orderOwner;
 
     @Column(name = "restaurant_id")
     public Integer restaurantId;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
+    @Deprecated
     public Restaurant restaurant;
     @Column(name = "confirmed_courier_id")
     public Long confirmedCourierId;
     @ManyToOne
     @JoinColumn(name = "confirmed_courier_id")
+    @Deprecated
     public User confirmedCourier;
 
     @Inject
@@ -147,11 +146,12 @@ public class Order  {
     public Money getDeliveryPrice() {
         return SystemCalc.getDeliveryPrice(this);
     }
+
     /**
      * @deprecated use getDeliveryPrice().toString
-     * */
+     */
     public String getDeliveryPriceString() {
-        return  getDeliveryPrice().toString();
+        return getDeliveryPrice().toString();
     }
 
     /**
@@ -162,9 +162,10 @@ public class Order  {
         Money menuTotal = getMenuTotal();
         return menuTotal.plus(getDeliveryPrice().minus(getUserDiscount().multipliedBy(menuTotal.getAmount(), RoundingMode.HALF_EVEN)));
     }
+
     /**
-      * @deprecated use getGrandTotal().toString
-      * */
+     * @deprecated use getGrandTotal().toString
+     */
     public String getGrandTotalString() {
 
         return getGrandTotal().toString();
@@ -178,15 +179,16 @@ public class Order  {
         //if (true) throw new UnsupportedOperationException("extract order.menuTotal to service");
         Money i = Money.zero(CurrencyUnit.of("UAH"));
         for (OrderItem item : service.getItems(this)) {
-            i = i.plus( item.totalPriceInclComponents());
+            i = i.plus(item.totalPriceInclComponents());
         }
         return i;
     }
+
     /*
-    * @deprecated don't use this
-    * */
+   * @deprecated don't use this
+   * */
     public String getMenuTotalString() {
-         /*getMenuTotal();*/
+        /*getMenuTotal();*/
         return getMenuTotal().toString();
     }
 
@@ -234,16 +236,16 @@ public class Order  {
             case SENT:
 
             default:
-            return time;
-           
+                return time;
+
         }
-        
+
         if (x > 0) {
             return String.valueOf(x);
         } else {
             return "00";
         }
-        
+
 
     }
 

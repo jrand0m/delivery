@@ -1,15 +1,15 @@
 --//
 insert into "vd_user" (
   "id"          ,
-  "vd_login"        ,
-  "vd_email"       ,
-  "vd_phone_number" ,
-  "vd_password"     ,
-  "vd_name"         ,
-  "vd_user_type"    ,
-  "last_login_date" ,
-  "created_date"    ,
-  "updated_date"    ,
+  "login"        ,
+  "email"       ,
+  "phoneNumber" ,
+  "password"     ,
+  "name"         ,
+  "userType"    ,
+  "lastLoginDate" ,
+  "createdDate"    ,
+  "updatedDate"    ,
   "deleted"
 ) values (
  43,
@@ -26,15 +26,15 @@ insert into "vd_user" (
 
 insert into "vd_user" (
   "id",
-  "vd_login"        ,
-  "vd_email"        ,
-  "vd_phone_number" ,
-  "vd_password"     ,
-  "vd_name"         ,
-  "vd_user_type"    ,
-  "last_login_date" ,
-  "created_date"    ,
-  "updated_date"    ,
+  "login"        ,
+  "email"        ,
+  "phoneNumber" ,
+  "password"     ,
+  "name"         ,
+  "userType"    ,
+  "lastLoginDate" ,
+  "createdDate"    ,
+  "updatedDate"    ,
   "deleted"
 ) values (
  100,
@@ -50,15 +50,15 @@ insert into "vd_user" (
  false );
 insert into "vd_user" (
   "id",
-  "vd_login"        ,
-  "vd_email"        ,
-  "vd_phone_number" ,
-  "vd_password"     ,
-  "vd_name"         ,
-  "vd_user_type"    ,
-  "last_login_date" ,
-  "created_date"    ,
-  "updated_date"    ,
+  "login"        ,
+  "email"        ,
+  "phoneNumber" ,
+  "password"     ,
+  "name"         ,
+  "userType"    ,
+  "lastLoginDate" ,
+  "createdDate"    ,
+  "updatedDate"    ,
   "deleted"
 ) values (
  101,

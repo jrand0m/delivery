@@ -9,28 +9,10 @@ require:
     - org.joda -> joda-money [0.6,)
     - joda-time [2.0,)
     - junit [4.8.1,)
-    - jregex 1.2_01
-    - log4j 1.2.16
+    - log4j [1.2.16,)
     - org.mybatis -> mybatis [3.0.1,)
     - org.mybatis -> mybatis-guice [3.0,)
-    - org.mockito -> mockito-all 1.9.0
-    - com.google.inject -> guice 3.0 # used in tests and DAO
-    - org.jsoup -> jsoup 1.6.1 # used in tests
-    - asm -> asm 3.1
-    - joda-time -> joda-time-hibernate 1.3
+    - org.mockito -> mockito-all [1.9.0,)
+    - org.jsoup -> jsoup [1.6,) # used in tests
+    - asm -> asm [3.1,)
     # fixes java.lang.NoSuchMethodError: org.objectweb.asm.ClassWriter.<init>(I)V
-#NOTE(Mike): not sure if we should use it
-#   - com.google.guava -> guava 11.0
-
-    - org.hibernate -> hibernate-core 3.6.9.Final:
-        force: true
-    - org.hibernate -> hibernate-validator 4.2.0.Final
-
-repositories:
-    - jboss:
-        type: iBiblio
-        root: "https://repository.jboss.org/nexus/content/groups/public"
-        contains:
-            - org.jboss -> *
-            - org.jboss.javaee -> *
-            - org.hibernate -> *

@@ -8,7 +8,7 @@ public class GuiceModule extends GuiceSupport {
 
     @Override
     protected Injector configure() {
-        Injector injector = Guice.createInjector(new ApplicationModule(), new MyBatisConfigModule());
+        Injector injector = Guice.createInjector( new MyBatisConfigModule(), new ApplicationModule());
         return injector;
     }
 

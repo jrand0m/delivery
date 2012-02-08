@@ -3,15 +3,15 @@ package controllers;
 import com.google.gson.Gson;
 import enumerations.OrderStatus;
 import enumerations.UserType;
-import helpers.OrderUtils;
 import models.Order;
 import models.OrderItem;
-import models.Restaurant;
 import models.dto.intern.CaffeJobsList;
 import models.dto.intern.MenuItem;
 import models.dto.intern.PushMessage;
 import models.users.User;
-import org.joda.time.*;
+import org.joda.time.LocalDateTime;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 import play.Logger;
 import play.modules.guice.InjectSupport;
 import play.mvc.Controller;
@@ -21,9 +21,7 @@ import services.RestaurantService;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import static helpers.OrderUtils.convertMoneyToCents;
 
@@ -70,9 +68,9 @@ public class API extends Controller {
             job.price = convertMoneyToCents(order.getMenuTotal());
             job.paymentStatus = order.paymentStatus.toString();
             job.time = order.orderConfirmed.toDateTime().toDate().getTime();
-            job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ?  new Period(order.orderAccepted.plus(order.orderPlanedCooked), new LocalDateTime(), PeriodType.minutes())
+            job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? new Period(order.orderAccepted.plus(order.orderPlanedCooked), new LocalDateTime(), PeriodType.minutes())
                     .toStandardMinutes().getMinutes()
-                    :       null;
+                    : null;
             for (OrderItem oi : orderService.getItems(order)) {
                 job.list.add(new MenuItem(oi));
             }
@@ -110,7 +108,7 @@ public class API extends Controller {
             job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ?
                     new Period(order.orderAccepted.plus(order.orderPlanedCooked), new LocalDateTime(), PeriodType.minutes())
                             .toStandardMinutes().getMinutes()
-                    :       null;
+                    : null;
             if (order.deliveryAddress == null) {
                 Logger.warn("No delivery address for order id %s",
                         order.id);
@@ -121,8 +119,8 @@ public class API extends Controller {
             job.from = order.restaurant.addressToString();
             job.to = order.deliveryAddress == null ? "none"
                     : order.deliveryAddress.toString();
-            job.timeToDelivered =  order.orderStatus.equals(OrderStatus.DELIVERING)||order.orderStatus.equals(OrderStatus.COOKED)? 
-                    order.orderCooked.plus(order.orderPlanedDeliveryTime).toDateTime().toDate().getTime():0;
+            job.timeToDelivered = order.orderStatus.equals(OrderStatus.DELIVERING) || order.orderStatus.equals(OrderStatus.COOKED) ?
+                    order.orderCooked.plus(order.orderPlanedDeliveryTime).toDateTime().toDate().getTime() : 0;
             for (OrderItem oi : orderService.getItems(order)) {
                 job.list.add(new MenuItem(oi));
             }

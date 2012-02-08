@@ -21,9 +21,10 @@ public class RestaurantDescription {
     public String description;
 
     @Column(name = "restaurant_id", insertable = false, updatable = false, nullable = false)
-    public Integer  restaurantId;
+    public Integer restaurantId;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
+    @Deprecated
     public Restaurant restaurant;
 
 }

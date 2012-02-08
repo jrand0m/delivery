@@ -4,12 +4,11 @@ import org.joda.money.Money;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
-import java.util.Date;
 
 
 @Table(name = "vd_menu_items")
 @SequenceGenerator(name = "menu_items_seq_gen", sequenceName = "menu_items_seq")
-public class MenuItem  {
+public class MenuItem {
 
     @Id
     @GeneratedValue(generator = "menu_items_seq_gen", strategy = GenerationType.SEQUENCE)
@@ -33,19 +32,19 @@ public class MenuItem  {
     @Column(name = "price")
     public Money price;
 
-    @Column(name="restaurant_id", nullable = false, updatable = false, insertable = false)
+    @Column(name = "restaurant_id", nullable = false, updatable = false, insertable = false)
     public Integer restaurantId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @Deprecated
     public Restaurant restaurant;
 
-    @Column(name="menu_item_group_id", nullable = false, updatable = false, insertable = false)
+    @Column(name = "menu_item_group_id", nullable = false, updatable = false, insertable = false)
     public Integer menuItemGroupId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_item_group_id")
+    @Deprecated
     public MenuItemGroup menuItemGroup;
-
-
 
 
     public MenuItem() {
