@@ -33,22 +33,11 @@ public class UpdateRatings extends Job {
         /*if (rrtg != null) {
               gapInDays = Long.parseLong(rrtg);
           *///} else {
-        Logger.warn("UpdateRatings Job: couldnot load 'ratingsRefreshTimeGap' system value dafaulting to 30 days");
+        Logger.warn("UpdateRatings Job: couldn't load 'ratingsRefreshTimeGap' system value defaulting to 30 days");
         gapInDays = 30L;
         //}
 
-        List<Comment> comments = Comment.find(
-                "status = ? and (date between ? and ?) ",
-                CommentStatus.APPROVED,
-                new Date(),
-                new Date(System.currentTimeMillis()
-                        - (gapInDays * MILLISECONDS_IN_DAY))).fetch();/*
-																	 * comments
-																	 * for last
-																	 * <
-																	 * getSystem
-																	 * value>
-																	 */
+        List<Comment> comments = restaurantService.findAllCommentsFromLastMonth();
         if (comments != null && !comments.isEmpty()) {
             Logger.info(
                     "UpdateRatings Job: starting to collect ratings for last %s days",
