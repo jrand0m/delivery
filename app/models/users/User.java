@@ -1,6 +1,7 @@
 package models.users;
 
 import enumerations.UserType;
+import org.joda.time.LocalDateTime;
 import play.data.validation.*;
 
 import javax.persistence.*;
@@ -54,13 +55,13 @@ public class User {
     public UserType userType;
 
     @Column(name = "lastLoginDate", nullable = false)
-    public Date lastLoginDate;
+    public LocalDateTime lastLoginDate;
 
     @Column(name = "createdDate", nullable = false)
-    public Date createdDate;
+    public LocalDateTime createdDate;
 
     @Column(name = "updatedDate", nullable = false)
-    public Date updatedDate;
+    public LocalDateTime updatedDate;
 
     @Column(name = "deleted", nullable = false)
     public boolean deleted = false;
@@ -73,7 +74,4 @@ public class User {
     public String landingUrl() {
         return null;
     }
-
-    ;
-
 }

@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import enumerations.UserType;
 import models.geo.Address;
 import models.users.User;
+import org.apache.ibatis.session.TransactionIsolationLevel;
+import org.mybatis.guice.transactional.Transactional;
 import services.UserService;
 import services.mybatis.mappings.UserMapper;
 
@@ -16,6 +18,7 @@ public class UserServiceMyBatisImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
+    @Transactional(isolationLevel = TransactionIsolationLevel.READ_COMMITTED)
     public User getUserByLogin(String connected) {
         return userMapper.selectUserByLogin(connected);
     }
@@ -26,6 +29,7 @@ public class UserServiceMyBatisImpl implements UserService {
     }
 
     @Override
+
     public void update(User user) {
         throw new UnsupportedOperationException();
     }
@@ -36,8 +40,10 @@ public class UserServiceMyBatisImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User insertUser(User user) {
-        throw new UnsupportedOperationException();
+        if (user.id != null) {throw new RuntimeException("when inserting user 'id' field must be null!");}
+        return userMapper.insertUser(user);
     }
 
     @Override
