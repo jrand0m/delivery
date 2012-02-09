@@ -34,3 +34,6 @@
 -- use the migrations and the changelog for all future
 -- database change management.
 
+CREATE USER vdoma_usr WITH PASSWORD '271828183';
+CREATE DATABASE vdoma_db;
+GRANT ALL PRIVILEGES ON DATABASE vdoma_db to vdoma_usr;

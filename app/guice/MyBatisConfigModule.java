@@ -2,10 +2,14 @@ package guice;
 
 import com.google.inject.Module;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
+import org.apache.ibatis.type.TypeHandler;
+import org.joda.time.LocalDateTime;
 import org.mybatis.guice.MyBatisModule;
+import org.mybatis.guice.binder.TypeHandlerBinder;
 import play.Logger;
 import play.Play;
 import services.mybatis.mappings.*;
+import services.mybatis.typehandlers.LocalDateTimeTypeHandler;
 
 public class MyBatisConfigModule extends MyBatisModule {
 
@@ -49,6 +53,7 @@ public class MyBatisConfigModule extends MyBatisModule {
         addMapperClass(SystemSettingsMapper.class);
         addMapperClass(UserMapper.class);
         addMapperClass(WorkHoursMapper.class);
+        handleType(LocalDateTime.class).with(LocalDateTimeTypeHandler.class);
         Logger.debug("MyBatisConfig finished");
     }
 }

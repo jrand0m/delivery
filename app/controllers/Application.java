@@ -167,8 +167,6 @@ public class Application extends Controller {
 
     public static void registerNewUser(User user) {
         Logger.debug(">>> Registering new user %s", user.toString());
-        user.createdDate = new Date();
-        user.lastLoginDate = new Date();
         userService.insertUser(user);
         Logger.debug(">>> TODO: Try converting order history.");
         try {
