@@ -2,10 +2,12 @@ package services.mybatis;
 
 import com.google.inject.Inject;
 import enumerations.UserType;
+import helpers.Rand0m;
 import models.geo.Address;
 import models.users.User;
 import org.apache.ibatis.session.TransactionIsolationLevel;
 import org.mybatis.guice.transactional.Transactional;
+import play.libs.Crypto;
 import services.UserService;
 import services.mybatis.mappings.UserMapper;
 
@@ -53,7 +55,18 @@ public class UserServiceMyBatisImpl implements UserService {
 
     @Override
     public User createAnonymousUser() {
-        throw new UnsupportedOperationException();
+        User u = new User();
+        User found = null;
+        String login = "";
+        do{
+          login = '^' + Rand0m.getDefaultRand0m().nextString();
+          found = userMapper.selectUserByLogin(login);
+        } while (found != null);
+        u.login = login;
+        u.userType = UserType.ANONYMOUS;
+        u.password = Crypto.passwordHash(login);
+
+        return u;
     }
 
     @Override

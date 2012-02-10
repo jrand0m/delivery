@@ -12,7 +12,6 @@ import java.util.Date;
  */
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "vd_user")
 @SequenceGenerator(name = "user_seq_gen", sequenceName = "user_seq")
 public class User {
@@ -25,7 +24,7 @@ public class User {
     @Required
     @Max(255)
     @Min(3)
-    @Column(name = "login", nullable = false)
+    @Column(name = "login", nullable = false, unique = true)
     public String login;
 
     @Email
@@ -37,7 +36,7 @@ public class User {
     @Phone
     @Required
     @Max(255)
-    @Column(name = "phoneNumber", nullable = false)
+    @Column(name = "phoneNumber", nullable = false, unique = true)
     public String phoneNumber;
 
     @Required
@@ -54,7 +53,7 @@ public class User {
     @Column(name = "userType")
     public UserType userType;
 
-    @Column(name = "lastLoginDate", nullable = false)
+    @Column(name = "lastLoginDate")
     public LocalDateTime lastLoginDate;
 
     @Column(name = "createdDate", nullable = false)
