@@ -5,6 +5,7 @@ import models.users.User;
 import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Test;
+import play.libs.Crypto;
 import play.modules.guice.InjectSupport;
 import play.test.UnitTest;
 import services.UserService;
@@ -54,7 +55,6 @@ public class UserServiceTest extends UnitTest {
         newUser = service.insertUser(newUser);
         assertNotNull(newUser);
         assertNotNull(newUser.id);
-
         assertEquals("dummy", newUser.login);
         assertEquals("dummyMail@mailme.not", newUser.email);
         assertEquals("+380636669966", newUser.phoneNumber);
@@ -68,10 +68,27 @@ public class UserServiceTest extends UnitTest {
         assertTrue(dt.equals(newUser.lastLoginDate));
         assertEquals(Boolean.FALSE, newUser.deleted);
     }
+
+    @Test
+    public void createAnanymous_createsAnonUser(){
+        User u =  service.createAnonymousUser();
+        assertNotNull(u);
+        assertNotNull(u.id);
+        assertNotNull(u.login);
+        assertNull(u.email);
+        assertNotNull(u.password);
+        assertEquals(u.login, Crypto.passwordHash(u.login, Crypto.HashType.SHA1 ));
+        assertEquals(u.login, u.phoneNumber);
+        assertFalse(u.deleted);
+        User u2 =
+    }
+
     @Test
     public void insertUser_InsertsFieldsWithDefaultValues(){
         User newUser = new User();
         assertFalse(true);
     }
+
+
 
 }
