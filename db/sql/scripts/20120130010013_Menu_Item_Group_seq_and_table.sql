@@ -1,6 +1,6 @@
  CREATE SEQUENCE "menu_items_groups_seq"
  INCREMENT 1
- START 1;
+ START 10;
 
 
 CREATE TABLE "vd_menu_items_groups" (

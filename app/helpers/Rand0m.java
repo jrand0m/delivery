@@ -33,7 +33,7 @@ public class Rand0m {
         return new String(buf);
     }
 
-    public static Rand0m getDefaultRand0m() {
+    public static Rand0m getDefault() {
         return _;
     }
 }

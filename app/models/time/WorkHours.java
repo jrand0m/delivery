@@ -64,6 +64,29 @@ public class WorkHours {
         updateAll(openfrom, opento);
     }
 
+    public String monAsString(){
+       return  mon_start.toString(TIME_FORMAT) + " - " + mon_end.toString(TIME_FORMAT);
+    }
+
+    public String tueAsString(){
+       return tue_start.toString(TIME_FORMAT) + " - " + tue_end.toString(TIME_FORMAT);
+    }
+    public String wedAsString(){
+       return wed_start.toString(TIME_FORMAT) + " - " + wed_end.toString(TIME_FORMAT);
+    }
+    public String thuAsString(){
+        return thu_start.toString(TIME_FORMAT) + " - " + thu_end.toString(TIME_FORMAT);
+    }
+    public String friAsString(){
+        return fri_start.toString(TIME_FORMAT) + " - " + fri_end.toString(TIME_FORMAT);
+    }
+    public String satAsString(){
+        return sat_start.toString(TIME_FORMAT) + " - " + sat_end.toString(TIME_FORMAT);
+    }
+    public String sunAsString(){
+        return sun_start.toString(TIME_FORMAT) + " - " + sun_end.toString(TIME_FORMAT);
+    }
+
     public String todayAsString() {
         DateTimeZone zone = DateTimeZone.forID("Europe/Kiev");
         Chronology chron = ISOChronology.getInstance(zone);
@@ -71,25 +94,25 @@ public class WorkHours {
         String s = Messages.get("restaurant.workhours.undefined");
         switch (dt.getDayOfWeek()) {
             case DateTimeConstants.MONDAY:
-                s = mon_start.toString(TIME_FORMAT) + " - " + mon_end.toString(TIME_FORMAT);
+                s = monAsString();
                 break;
             case DateTimeConstants.TUESDAY:
-                s = tue_start.toString(TIME_FORMAT) + " - " + tue_end.toString(TIME_FORMAT);
+                s =  tueAsString();
                 break;
             case DateTimeConstants.WEDNESDAY:
-                s = wed_start.toString(TIME_FORMAT) + " - " + wed_end.toString(TIME_FORMAT);
+                s = wedAsString();
                 break;
             case DateTimeConstants.THURSDAY:
-                s = thu_start.toString(TIME_FORMAT) + " - " + thu_end.toString(TIME_FORMAT);
+                s = thuAsString();
                 break;
             case DateTimeConstants.FRIDAY:
-                s = fri_start.toString(TIME_FORMAT) + " - " + fri_end.toString(TIME_FORMAT);
+                s = friAsString();
                 break;
             case DateTimeConstants.SATURDAY:
-                s = sat_start.toString(TIME_FORMAT) + " - " + sat_end.toString(TIME_FORMAT);
+                s = satAsString();
                 break;
             case DateTimeConstants.SUNDAY:
-                s = sun_start.toString(TIME_FORMAT) + " - " + sun_end.toString(TIME_FORMAT);
+                s = sunAsString();
                 break;
         }
         return s;

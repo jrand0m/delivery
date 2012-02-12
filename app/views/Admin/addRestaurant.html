@@ -38,15 +38,15 @@
     <input type="text" name="opento" value="${opento}"/>
 </div>
 <div>
-    <label for="id">City</label>
-    #{select 'cityid', value:restaurant?.city?.id, name:'cityid',  id:'cityid'}
+    <label for="city_id">City</label>
+    #{select 'cityid', value:restaurant?.city?.city_id, name:'cityid',  id:'cityid'}
         #{list items:cities, as:'city'}
-            #{option city.id} ${city.cityNameUA} #{/option}
+            #{option city.city_id} ${city.cityNameUA} #{/option}
         #{/list}
     #{/select}
 </div>
 <div>
-    <label for="id">Type</label>
+    <label for="city_id">Type</label>
     #{select 'catid', value:restaurant?.category?.id, name:'catid',  id:'catid'}
         #{list items:types, as:'type'}
             #{option type.id} ${type.categoryDisplayNameUA} #{/option}

@@ -42,7 +42,7 @@ Order #${order.getShortHandId()}
                     <label for="cinp02">&{'common.reg.city'}</label></th>
                 <td>
                     <input type="text" value="${order.restaurant.city.getLocalizedName()}" id="cinp02" readonly/>
-                    <input type="hidden" name="city" value="${order.restaurant.city.id}" readonly/>
+                    <input type="hidden" name="city" value="${order.restaurant.city.city_id}" readonly/>
                 </td>
             </tr>
             <tr>

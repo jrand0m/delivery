@@ -22,10 +22,10 @@ public class MenuItemComponent {
     @Column(name = "deleted")
     public boolean deleted = false;
 
-    @Column(name = "required_ids")
-    public Long[] required;
+    @Column(name = "requiredIds")
+    public Long[] requiredIds;
 
-    @Column(name = "not_compatible_ids")
+    @Column(name = "notCompatible")
     public Long[] notCompatible;
 
     @Column(name = "menu_item_id")

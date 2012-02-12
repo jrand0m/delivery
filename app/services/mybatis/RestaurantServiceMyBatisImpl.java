@@ -1,16 +1,29 @@
 package services.mybatis;
 
+import com.google.inject.Inject;
 import models.*;
 import models.time.WorkHours;
+import net.spy.memcached.transcoders.IntegerTranscoder;
+import play.Logger;
+import play.i18n.Lang;
+import play.i18n.Messages;
 import services.RestaurantService;
+import services.mybatis.mappings.RestaurantDescriptionMapper;
+import services.mybatis.mappings.RestaurantMapper;
 
 import java.io.File;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: Mike Stetsyshyn
  */
 public class RestaurantServiceMyBatisImpl implements RestaurantService {
+    @Inject
+    private RestaurantMapper restaurantMapper;
+    @Inject
+    private RestaurantDescriptionMapper restaurantDescriptionMapper;
+
+
     @Override
     public Restaurant getById(Long id) {
         throw new UnsupportedOperationException();
@@ -154,5 +167,41 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
     @Override
     public List<Comment> findAllCommentsFromLastMonth() {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Map<Integer, String> getDescriptionsMapFor(List<Restaurant> restaurants) {
+        HashSet<Integer> ids= new HashSet<Integer>(restaurants.size());
+        for (Restaurant r :restaurants){
+            ids.add(r.id);
+        }
+        String lang = Lang.get();
+        List<RestaurantDescription> descriptionList  = restaurantDescriptionMapper.selectDescriptionsFor(lang, ids.toArray(new Integer[ids.size()]));
+        HashMap<Integer, String>  map = new HashMap<Integer, String>(ids.size(), 1.3f);
+        for (RestaurantDescription d : descriptionList ){
+            map.put(d.restaurantId, d.description );
+            ids.remove(d.restaurantId);
+        }
+        if (ids.size()!=0){
+            for (Integer id : ids){
+                Logger.warn("Restaurant with id = %d has no description for lang = %s", id, lang);
+                map.put(id, Messages.get("restaurant.nodescription")) ;
+            }
+        }
+        return map;
+    }
+
+    @Override
+    public Map<Integer, WorkHours> getWorkHoursMap(List<Restaurant> restaurants) {
+        HashSet<Integer> idMap= new HashSet<Integer>(restaurants.size());
+        for (Restaurant r :restaurants){
+            idMap.add(r.workhours_id);
+        }
+        Map<Integer, WorkHours> workHoursList  = restaurantDescriptionMapper.selectWorkHoursFor( idMap.toArray(new Integer[idMap.size()]));
+        Map<Integer, WorkHours> result = new HashMap<Integer, WorkHours>(restaurants.size(), 1.3f);
+        for (Restaurant r : restaurants){
+           result.put(r.id, workHoursList.get(r.workhours_id));
+        }
+        return  result;
     }
 }

@@ -1,13 +1,13 @@
  CREATE SEQUENCE "menu_items_seq"
  INCREMENT 1
- START 1;
+ START 10;
 
 
 CREATE TABLE "vd_menu_items" (
   "id"              int8 NOT NULL DEFAULT nextval('menu_items_seq') PRIMARY KEY,
   "name"            varchar(255) not null,
   "description"     varchar(255) not null,
-  "menu_item_created" timestamp not null default now(),
+  "menuItemCreated" timestamp not null default now(),
   "available"       bool not null default true,
   "currency"        varchar(3)  not null default 'UAH',
   "price"           money,

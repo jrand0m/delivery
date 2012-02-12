@@ -228,7 +228,7 @@ public class Admin extends Controller {
         Restaurant restaurant = restaurantService.getById(id);
         renderArgs.put("restaurant", restaurant);
         renderArgs.put("catid", restaurant.category.id);
-        renderArgs.put("cityid", restaurant.city.id);
+        renderArgs.put("cityid", restaurant.city.city_id);
         // renderArgs.put("openfrom",
         // restaurant.workHours.regularDays.iterator().next().from);
         // renderArgs.put("opento",

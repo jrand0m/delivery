@@ -1,6 +1,6 @@
 CREATE SEQUENCE "restaurant_descriptions_seq"
  INCREMENT 1
- START 1;
+ START 10;
 
 
 CREATE TABLE "vd_restaurant_descriptions" (

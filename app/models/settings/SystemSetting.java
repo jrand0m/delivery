@@ -36,16 +36,16 @@ public class SystemSetting {
     @Column(name = "_stg_value")
     public String stg_value;
     @Required
-    @Column(name = "is_default")
+    @Column(name = "isDefault")
     public boolean isDefault = false;
     /**
      * if null than no date
      */
-    @Column(name = "start_date")
+    @Column(name = "startDate")
     public Date startDate;
     /**
      * if null than no date
      */
-    @Column(name = "end_date")
+    @Column(name = "endDate")
     public Date endDate;
 }

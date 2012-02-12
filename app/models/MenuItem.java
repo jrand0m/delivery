@@ -23,7 +23,7 @@ public class MenuItem {
     @Column(name = "description")
     public String description;
 
-    @Column(name = "menu_item_created")
+    @Column(name = "menuItemCreated")
     public LocalDateTime menuItemCreated;
 
     @Column(name = "available")

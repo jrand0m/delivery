@@ -89,12 +89,12 @@ public class Restaurant {
     @Column(name = "raiting", nullable = false)
     public Integer raiting;
 
-    @Column(name = "device_login", nullable = false)
+    @Column(name = "deviceLogin", nullable = false)
     public String deviceLogin;
-    @Column(name = "device_password", nullable = false)
+    @Column(name = "devicePassword", nullable = false)
     public String devicePassword;
 
-    @Column(name = "last_ping")
+    @Column(name = "lastPing")
     public DateTime lastPing;
     /**
      * XXX should i store it here ? Restaurant setting ?
@@ -102,15 +102,9 @@ public class Restaurant {
     @Column(name = "discount")
     public Integer discount;
 
-    /**
-     * Restaurant Title
-     */
-
-    @Column(name = "two_letters", nullable = false, length = 2)
+    @Column(name = "twoLetters", nullable = false, length = 2)
     public String twoLetters;
 
-    @Column(name = "description")
-    public String description;
 
     public boolean isOnline() {
         Boolean online = (Boolean) Cache.get("isOnline_" + id);
@@ -124,7 +118,7 @@ public class Restaurant {
             if (lastPing != null) {
                 online = System.currentTimeMillis() - lastPing.getMillis() < waitTimeInMiliseconds;
             } else {
-                // FIXME Hardcore workaround on device null;
+                // TODO Hardcore workaround on device null;
                 online = true;
             }
             long waitTimeInMin = (waitTimeInMiliseconds / 1000 / 60) + 1;
@@ -134,28 +128,10 @@ public class Restaurant {
         return online;
     }
 
-    public String description() {
-        /*String lang = Lang.get();
-          for (RestaurantDescription description : descriptions) {
-              if (description.lang.equalsIgnoreCase(lang)) {
-                  return description.description;
-              }
-          }*/
-        if (description == null || description.isEmpty()) {
-            return Messages.get("restaurant.nodescription");
-        } else {
-            return description;
-        }
-    }
-
     public String addressToString() {
         // FIXME Hardcore workaround
         return address != null ? address.toString() : Messages
                 .get("restaurant.noaddress");
-    }
-
-    public String workHoursToday() {
-        return workhours.todayAsString();
     }
 
     public String isOnlineAsString() {

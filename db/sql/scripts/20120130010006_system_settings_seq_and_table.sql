@@ -9,9 +9,9 @@ CREATE TABLE "vd_system_settings" (
   "id"         int4 NOT NULL DEFAULT nextval('system_settings_seq') PRIMARY KEY,
   "_stg_key"   varchar(32) not null,
   "_stg_value" varchar(255) not null,
-  "is_default" bool NOT NULL Default false,
-  "start_date" date,
-  "end_date"   date
+  "isDefault" bool NOT NULL Default false,
+  "startDate" date,
+  "endDate"   date
 )
 --WITH (OIDS=FALSE)
 ;

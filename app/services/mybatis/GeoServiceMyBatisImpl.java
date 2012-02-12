@@ -6,16 +6,25 @@ import models.geo.City;
 import models.geo.Street;
 import play.data.validation.Validation;
 import services.GeoService;
+import services.mybatis.mappings.CityMapper;
+import services.mybatis.mappings.RestaurantMapper;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
  * User: Mike Stetsyshyn
  */
 public class GeoServiceMyBatisImpl implements GeoService {
+
+    @Inject
+    private CityMapper cityMapper;
+    @Inject
+    private RestaurantMapper restaurantMapper;
+
     @Override
     public City getCityByRemoteAddress(String remoteAddress) {
-        throw new UnsupportedOperationException();
+        return getCityById(1l); //TODO make it work
     }
 
     @Override
@@ -25,12 +34,12 @@ public class GeoServiceMyBatisImpl implements GeoService {
 
     @Override
     public List<Restaurant> getIndexPageRestsByCity(Long i) {
-        throw new UnsupportedOperationException();
+        return restaurantMapper.selectByCityIdAndShowOnIndex(i,true);
     }
 
     @Override
     public List<City> getVisibleCities() {
-        throw new UnsupportedOperationException();
+        return cityMapper.selectVisibleCities();
     }
 
     @Override
@@ -40,7 +49,7 @@ public class GeoServiceMyBatisImpl implements GeoService {
 
     @Override
     public City getCityById(Long id) {
-        throw new UnsupportedOperationException();
+        return cityMapper.selectCityById(id);
     }
 
     @Override
