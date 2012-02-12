@@ -18,7 +18,7 @@ public class MenuComponentsJSON {
         for (Long i : mi.notCompatible) {
             comp.add(i);
         }
-        for (Long i : mi.required) {
+        for (Long i : mi.requiredIds) {
             req.add(i);
         }
     }

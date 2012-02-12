@@ -4,7 +4,7 @@
 #{/set}
 #{set 'c__cities'}active#{/set}
 #{form @Admin.addCity() , id:'form', enctype:'multipart/form-data' }
-<input type="hidden" value="${city?.id}" name="city.id"/>
+<input type="hidden" value="${city?.city_id}" name="city.city_id"/>
 <div>
     <label for="city.cityNameUA">city Name UA</label>
     <input type="text" name="city.cityNameUA" value="${city?.cityNameUA}"/>

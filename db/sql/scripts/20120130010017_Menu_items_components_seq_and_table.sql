@@ -1,6 +1,6 @@
 CREATE SEQUENCE "menu_item_component_seq"
  INCREMENT 1
- START 1;
+ START 10;
 
 CREATE TABLE "vd_menu_item_components" (
     "id"                int8 NOT NULL DEFAULT nextval('menu_item_component_seq') PRIMARY KEY,
@@ -12,8 +12,8 @@ CREATE TABLE "vd_menu_item_components" (
 
     "deleted"           bool not null default false,
 
-    "required_ids"      int8 ARRAY,
-    "not_compatible_ids" int8 ARRAY,
+    "requiredIds"      int8 ARRAY,
+    "notCompatibleIds" int8 ARRAY,
 
     "menu_item_id"     int8 not null,
 

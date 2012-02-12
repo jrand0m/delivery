@@ -5,6 +5,7 @@ import models.users.User;
 import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Test;
+import play.Logger;
 import play.libs.Crypto;
 import play.modules.guice.InjectSupport;
 import play.test.UnitTest;
@@ -70,24 +71,51 @@ public class UserServiceTest extends UnitTest {
     }
 
     @Test
-    public void createAnanymous_createsAnonUser(){
+    public void createAnonymous_createsAnonUser(){
         User u =  service.createAnonymousUser();
         assertNotNull(u);
         assertNotNull(u.id);
         assertNotNull(u.login);
-        assertNull(u.email);
+        assertNotNull(u.email);
         assertNotNull(u.password);
-        assertEquals(u.login, Crypto.passwordHash(u.login, Crypto.HashType.SHA1 ));
+        assertEquals(u.password, Crypto.passwordHash(u.login, Crypto.HashType.SHA1 ));
         assertEquals(u.login, u.phoneNumber);
         assertFalse(u.deleted);
-        User u2 =
+        User u2 = service.getUserByLogin(u.login);
+        assertNotNull(u2);
+        assertEquals(u2.userType,UserType.ANONYMOUS);
     }
 
     @Test
     public void insertUser_InsertsFieldsWithDefaultValues(){
         User newUser = new User();
-        assertFalse(true);
+        assertFalse("TODO",true);
     }
+
+    @Test
+    public void touchUser_ChangesLastLoginDate(){
+        User u = service.getUserByLogin("mickey123");
+        assertNotNull(u);
+        LocalDateTime t = u.lastLoginDate;
+        assertNotNull(t);
+        service.touchUser(u.login);
+        u = service.getUserByLogin(u.login);
+        assertNotNull(u);
+        assertTrue(u.lastLoginDate.isAfter(t));
+    }
+
+    @Test
+    public void isUserInRole_ChecksUserInRole(){
+        int matches = 0;
+        for (UserType t : UserType.values()){
+            if (service.isUserInRole("mickey123", t)){
+               matches= matches +1;
+            }
+        }
+        assertEquals(1l,matches);
+
+    }
+
 
 
 

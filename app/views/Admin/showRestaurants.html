@@ -7,7 +7,7 @@
 #{form @Admin.showRestaurants() , id:'form', enctype:'multipart/form-data' }
     #{select 'id', value:1, id:'id'}
         #{list items:cities, as:'city'}
-            #{option city.id} ${city.cityNameUA} #{/option}
+            #{option city.city_id} ${city.cityNameUA} #{/option}
         #{/list}
     #{/select}
 <input type="submit"/>

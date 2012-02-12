@@ -2,14 +2,14 @@
 
 CREATE SEQUENCE "address_seq"
  INCREMENT 1
- START 1;
+ START 10;
 
 
 CREATE TABLE "vd_address" (
   "address_id" int8 NOT NULL DEFAULT nextval('address_seq') PRIMARY KEY,
-  "building_number" varchar(30),
-  "apartments_number" varchar(20),
-  "additional_info" varchar(255),
+  "buildingNumber" varchar(30),
+  "apartmentsNumber" varchar(20),
+  "additionalInfo" varchar(255),
   "deleted" bool NOT NULL Default false,
   "city_id" int4 not null,
   "street_id" int4 not null,

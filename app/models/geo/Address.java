@@ -22,14 +22,14 @@ public class Address {
     public Long id;
 
     @Max(value = 30)
-    @Column(name = "building_number")
+    @Column(name = "buildingNumber")
     public String buildingNumber;
 
     @Max(value = 30)
-    @Column(name = "apartments_number")
+    @Column(name = "apartmentsNumber")
     public String apartmentsNumber;
 
-    @Column(name = "additional_info")
+    @Column(name = "additionalInfo")
     public String additionalInfo;
 
     @Column(name = "deleted", nullable = false)

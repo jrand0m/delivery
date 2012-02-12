@@ -1,20 +1,19 @@
 CREATE SEQUENCE "restaurant_seq"
  INCREMENT 1
- START 1;
+ START 10;
 
 
 CREATE TABLE "vd_restaurant" (
   "id"              int4 NOT NULL DEFAULT nextval('restaurant_seq') PRIMARY KEY,
   "title"           varchar(255)  not null,
   "deleted"         bool not  null default false ,
-  "show_on_index"   bool not  null default false,
+  "showOnIndex"   bool not  null default false,
   "raiting"         integer default 0,
-  "device_login"    varchar(255)  not null,
-  "device_password" varchar(100)  not null,
-  "last_ping"       timestamp     ,
+  "deviceLogin"    varchar(255)  not null,
+  "devicePassword" varchar(100)  not null,
+  "lastPing"       timestamp     ,
   "discount"        integer not null default 10,
   "twoLetters"      varchar(2)    not null default '__',
-  "description"     varchar(255),
   "city_id"         int8 not null,
   "address_id"      int8 not null,
   "category_id"     int4 not null,

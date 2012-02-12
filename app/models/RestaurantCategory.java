@@ -18,13 +18,13 @@ public class RestaurantCategory {
      * on this field applies slugvify
      */
     @Required
-    @Column(name = "category_display_name_en", nullable = false)
+    @Column(name = "categoryDisplayNameEN", nullable = false)
     public String categoryDisplayNameEN;
 
-    @Column(name = "category_display_name_ru")
+    @Column(name = "categoryDisplayNameRU")
     public String categoryDisplayNameRU;
     @Required
-    @Column(name = "category_display_name_ua", nullable = false)
+    @Column(name = "categoryDisplayNameUA", nullable = false)
     public String categoryDisplayNameUA;
 
     public String localizedName() {

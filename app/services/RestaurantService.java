@@ -5,6 +5,7 @@ import models.time.WorkHours;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: Mike Stetsyshyn
@@ -81,4 +82,8 @@ public interface RestaurantService {
     MenuItemComponent getMenuItemComponent(Long comp);
 
     List<Comment> findAllCommentsFromLastMonth();
+
+    Map<Integer,String> getDescriptionsMapFor(List<Restaurant> restaurants);
+
+    Map<Integer,WorkHours> getWorkHoursMap(List<Restaurant> restaurants);
 }

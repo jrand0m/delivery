@@ -6,6 +6,7 @@ import helpers.Rand0m;
 import models.geo.Address;
 import models.users.User;
 import org.apache.ibatis.session.TransactionIsolationLevel;
+import org.joda.time.LocalDateTime;
 import org.mybatis.guice.transactional.Transactional;
 import play.libs.Crypto;
 import services.UserService;
@@ -59,13 +60,17 @@ public class UserServiceMyBatisImpl implements UserService {
         User found = null;
         String login = "";
         do{
-          login = '^' + Rand0m.getDefaultRand0m().nextString();
+          login = '^' + Rand0m.getDefault().nextString();
           found = userMapper.selectUserByLogin(login);
         } while (found != null);
         u.login = login;
         u.userType = UserType.ANONYMOUS;
-        u.password = Crypto.passwordHash(login);
-
+        u.password = Crypto.passwordHash(login, Crypto.HashType.SHA1);
+        u.email=login;
+        u.phoneNumber=login;
+        u.name = login;
+        u.lastLoginDate = new LocalDateTime();
+        u = userMapper.insertUser(u);
         return u;
     }
 
@@ -76,7 +81,7 @@ public class UserServiceMyBatisImpl implements UserService {
 
     @Override
     public void touchUser(String username) {
-        throw new UnsupportedOperationException();
+        userMapper.updateLastLoginTimeFor(username);
     }
 
     @Override
@@ -86,6 +91,6 @@ public class UserServiceMyBatisImpl implements UserService {
 
     @Override
     public boolean isUserInRole(String connected, UserType courier) {
-        throw new UnsupportedOperationException();
+        return courier.equals(userMapper.getUserRoleFor(connected));
     }
 }

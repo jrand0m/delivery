@@ -1,27 +1,27 @@
  CREATE SEQUENCE "orders_seq"
  INCREMENT 1
- START 1;
+ START 10;
 
 CREATE TABLE "vd_order" (
   "id"               int8 NOT NULL DEFAULT nextval('orders_seq') PRIMARY KEY,
   "decline_message"  varchar (255),
   "deleted"          bool not null,
-  "delivery_price_currency" varchar(3)  not null default 'UAH',
-  "delivery_price"   money,
-  "total_menu_price_currency" varchar(3)  not null default 'UAH',
-  "total_menu_price" money,
-  "order_accepted"   timestamp,
-  "order_closed"     timestamp,
-  "order_cooked"     timestamp,
-  "order_confirmed"  timestamp,
-  "order_created"    timestamp,
-  "order_delivered"  timestamp,
-  "order_taken"      timestamp,
-  "updated_at"       timestamp not null default now(),
-  "order_planed_cooked" interval,
-  "order_planed_delivery_time" interval,
-  "order_status"    varchar(100) not null default 'OPEN',
-  "payment_status"  varchar(100) not null default 'NOT_PAID',
+  "deliveryPrice_currency" varchar(3)  not null default 'UAH',
+  "deliveryPrice"   money,
+  "totalMenuPrice_currency" varchar(3)  not null default 'UAH',
+  "totalMenuPrice" money,
+  "orderAccepted"   timestamp,
+  "orderClosed"     timestamp,
+  "orderCooked"     timestamp,
+  "orderConfirmed"  timestamp,
+  "orderCreated"    timestamp,
+  "orderDelivered"  timestamp,
+  "orderTaken"      timestamp,
+  "updatedAt"       timestamp not null default now(),
+  "orderPlaned_cooked" interval,
+  "orderPlaned_delivery_time" interval,
+  "orderStatus"    varchar(100) not null default 'OPEN',
+  "paymentStatus"  varchar(100) not null default 'NOT_PAID',
 
   "delivery_address_id" int8 not null,
   "order_owner_id"  int8 not null,
@@ -36,5 +36,5 @@ CREATE TABLE "vd_order" (
 
 --//@UNDO
 
-DROP TABLE vd_order;
+DROP TABLE vd_order cascade;
 DROP SEQUENCE orders_seq;

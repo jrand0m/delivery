@@ -9,6 +9,7 @@ import models.dto.extern.MenuCompWrapJson;
 import models.geo.Address;
 import models.geo.City;
 import models.geo.Street;
+import models.time.WorkHours;
 import models.users.User;
 import play.Logger;
 import play.data.validation.Email;
@@ -64,18 +65,21 @@ public class Application extends Controller {
 										 * "createOrAddOrderItem", }
 										 */)
     public static void _pre() {
+       Logger.debug("start");
         User user = getCurrentUser();
         renderArgs.put(RENDER_KEYS.USER, user);
         if (!session.contains(SESSION_KEYS.CITY_ID)) {
             Logger.debug("No city defined in cookies");
             City city = geoService.getCityByRemoteAddress(request.remoteAddress);
             if (city != null) {
-                session.put(SESSION_KEYS.CITY_ID, city.id);
+                Logger.debug("Putting city_id = %d to session", city.city_id);
+                session.put(SESSION_KEYS.CITY_ID, city.city_id);
             } else {
                 Logger.warn("No visible city found");
             }
         }
         flash.put("url", request.url);
+        Logger.debug("done");
     }
 
     public static void order(Long id) {
@@ -110,14 +114,21 @@ public class Application extends Controller {
     }
 
     public static void index() {
+        Logger.debug("start");
         String cityId = session.get(SESSION_KEYS.CITY_ID);
+        Logger.debug("Got city_id = %s from session", cityId);
         if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
-            badRequest();
+            badRequest();//redirect to cookie cleaner
         }
         List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
         List<City> cityList = geoService.getVisibleCities();
+        Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
+        Map<Integer,String>descriptions = restaurantService.getDescriptionsMapFor(restaurants);
+        renderArgs.put("descriptions",descriptions);
+        renderArgs.put("workHours", workHours);
         renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
         renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
+        Logger.debug("done");
         render();
     }
 
@@ -238,11 +249,11 @@ public class Application extends Controller {
             if (streetid != null) {
                 str = geoService.getStreetById(streetid);
             }
-            if (str != null && orderService.getOrdersCity(o).id == str.city_id) {
+            if (str != null && orderService.getOrdersCity(o).city_id == str.city_id) {
                 address.street = str;
             } else {
                 Street streetObj = new Street();
-                streetObj.city_id = orderService.getOrdersCity(o).id;
+                streetObj.city_id = orderService.getOrdersCity(o).city_id;
                 streetObj.title_ua = street;
                 streetObj.title_en = street;
                 geoService.insertStreet(streetObj);
@@ -277,7 +288,7 @@ public class Application extends Controller {
                 if (streetid != null) {
                     str = geoService.getStreetById(streetid);
                 }
-                if (str != null && orderService.getOrdersCity(o).id == str.city_id) {
+                if (str != null && orderService.getOrdersCity(o).city_id == str.city_id) {
                     address.street_id = str.id;
                     //address.street = str
                 } else {
@@ -343,7 +354,7 @@ public class Application extends Controller {
     }
 
     public static void changeCity(Long id) {
-        Logger.debug("changing city to id = %s", id);
+        Logger.debug("changing city to city_id = %s", id);
         City city = geoService.getCityById(id);
         String url = flash.get("url");
         if (url == null || url.isEmpty()) {

@@ -4,7 +4,7 @@
 #{form @Admin.addMenuItem() , id:'form', enctype:'multipart/form-data' }
 <input type="hidden" value="${item?.id}" name="item.id"/>
 <div>
-    <label for="id">Restaurant</label>
+    <label for="city_id">Restaurant</label>
     #{select 'id', value:item?.restaurant?.id, name:'id',  id:'id'}
         #{list items:restaurants, as:'restaurant'}
             #{option restaurant.id} ${restaurant.title} #{/option}

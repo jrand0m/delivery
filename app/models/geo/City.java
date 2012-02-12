@@ -18,15 +18,15 @@ public class City {
     @Id
     @Column(name = "city_id")
     @GeneratedValue(generator = "city_seq_gen", strategy = GenerationType.SEQUENCE)
-    public Long id;
+    public Long city_id;
 
-    @Column(name = "city_name_key", nullable = false)
+    @Column(name = "cityNameKey", nullable = false)
     public String cityNameKey;
 
     /**
      * This field is used to store universal alias provided by our geoip-service.
      */
-    @Column(name = "city_alias_name")
+    @Column(name = "cityAliasName")
     public String cityAliasName;
 
     @Column(name = "display")
