@@ -12,4 +12,7 @@ import java.util.List;
 public interface RestaurantMapper {
     @Select("select * from \"vd_restaurant\" rest where rest.\"city_id\" = #{id} and rest.\"showOnIndex\" = #{showOnIndex}")
     List<Restaurant> selectByCityIdAndShowOnIndex(@Param("id") Long i, @Param("showOnIndex") boolean b);
+
+    @Select("select * from \"vd_restaurant\" rest where rest.\"id\" = #{1}")
+    Restaurant selectById(Long id);
 }

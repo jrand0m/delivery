@@ -26,10 +26,13 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
     @Inject
     private RestaurantDescriptionMapper restaurantDescriptionMapper;
 
+    public RestaurantServiceMyBatisImpl(){
+        Logger.debug("RestaurantService:RestaurantServiceMyBatisImpl created!");
+    }
 
     @Override
     public Restaurant getById(Long id) {
-        throw new UnsupportedOperationException();
+        return restaurantMapper.selectById(id);
     }
 
     @Override
@@ -174,15 +177,26 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
 
     @Override
     public Map<Integer, String> getDescriptionsMapFor(List<Restaurant> restaurants) {
+        if (restaurants==null || restaurants.size() == 0){
+            return new HashMap<Integer, String>(0);
+        }
         HashSet<Integer> ids= new HashSet<Integer>(restaurants.size());
         for (Restaurant r :restaurants){
             ids.add(r.id);
         }
         String lang = Lang.get();
         Integer[] array = ids.toArray(new Integer[ids.size()]);
-        debug("ids.array -> %s",array);
+
         debug("lang -> %s",lang);
-        List<RestaurantDescription> descriptionList  = restaurantDescriptionMapper.selectDescriptionsFor(lang, array);
+        StringBuilder arraySQLString = new StringBuilder("{") ; // JDBC has Restriction on IN clause + saving cached prepared statement
+        for (Integer i : array){
+            arraySQLString.append(i);
+            arraySQLString.append(',');
+        }
+        arraySQLString.deleteCharAt(arraySQLString.length()-1);
+        arraySQLString.append('}');
+        debug("ids.array -> %s", arraySQLString.toString());
+        List<RestaurantDescription> descriptionList  = restaurantDescriptionMapper.selectDescriptionsFor(lang, arraySQLString.toString());
         HashMap<Integer, String>  map = new HashMap<Integer, String>(ids.size(), 1.3f);
         for (RestaurantDescription d : descriptionList ){
             map.put(d.restaurantId, d.description );
@@ -199,11 +213,20 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
 
     @Override
     public Map<Integer, WorkHours> getWorkHoursMap(List<Restaurant> restaurants) {
-        HashSet<Integer> idMap= new HashSet<Integer>(restaurants.size());
-        for (Restaurant r :restaurants){
-            idMap.add(r.workhours_id);
+        if (restaurants == null || restaurants.size() == 0){
+            return new HashMap<Integer, WorkHours>(0);
         }
-        Map<Integer, WorkHours> workHoursList  = restaurantDescriptionMapper.selectWorkHoursFor( idMap.toArray(new Integer[idMap.size()]));
+        HashSet<Integer> set= new HashSet<Integer>(restaurants.size());
+        for (Restaurant r :restaurants){
+            set.add(r.workhours_id);
+        }
+        StringBuilder b = new StringBuilder("{");
+        for (Integer i : set){
+            b.append(i);b.append(',');
+        }
+        b.deleteCharAt(b.length()-1);
+        b.append('}');
+        Map<Integer, WorkHours> workHoursList  = restaurantDescriptionMapper.selectWorkHoursFor( b.toString() );
         Map<Integer, WorkHours> result = new HashMap<Integer, WorkHours>(restaurants.size(), 1.3f);
         for (Restaurant r : restaurants){
            result.put(r.id, workHoursList.get(r.workhours_id));

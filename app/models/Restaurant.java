@@ -23,11 +23,6 @@ import javax.persistence.*;
 @SequenceGenerator(name = "restaurant_seq_gen", sequenceName = "restaurant_seq")
 public class Restaurant {
 
-
-    public static class FIELDS {
-        public static final String RESTAURANT_CITY = "city";
-    }
-
     @Id
     @GeneratedValue(generator = "restaurant_seq_gen", strategy = GenerationType.SEQUENCE)
     public Integer id;
