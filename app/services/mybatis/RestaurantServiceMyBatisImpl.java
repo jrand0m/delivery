@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import models.*;
 import models.time.WorkHours;
 import net.spy.memcached.transcoders.IntegerTranscoder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import play.Logger;
 import play.i18n.Lang;
 import play.i18n.Messages;
@@ -13,6 +14,8 @@ import services.mybatis.mappings.RestaurantMapper;
 
 import java.io.File;
 import java.util.*;
+
+import static play.Logger.*;
 
 /**
  * User: Mike Stetsyshyn
@@ -176,7 +179,10 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
             ids.add(r.id);
         }
         String lang = Lang.get();
-        List<RestaurantDescription> descriptionList  = restaurantDescriptionMapper.selectDescriptionsFor(lang, ids.toArray(new Integer[ids.size()]));
+        Integer[] array = ids.toArray(new Integer[ids.size()]);
+        debug("ids.array -> %s",array);
+        debug("lang -> %s",lang);
+        List<RestaurantDescription> descriptionList  = restaurantDescriptionMapper.selectDescriptionsFor(lang, array);
         HashMap<Integer, String>  map = new HashMap<Integer, String>(ids.size(), 1.3f);
         for (RestaurantDescription d : descriptionList ){
             map.put(d.restaurantId, d.description );
@@ -184,7 +190,7 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
         }
         if (ids.size()!=0){
             for (Integer id : ids){
-                Logger.warn("Restaurant with id = %d has no description for lang = %s", id, lang);
+                warn("Restaurant with id = %d has no description for lang = %s", id, lang);
                 map.put(id, Messages.get("restaurant.nodescription")) ;
             }
         }
