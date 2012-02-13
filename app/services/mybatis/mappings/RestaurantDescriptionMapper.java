@@ -14,9 +14,9 @@ import java.util.Map;
  */
 public interface RestaurantDescriptionMapper {
     @Select("SELECT * FROM vd_restaurant_descriptions WHERE lang = #{lang} and restaurant_id = ANY(#{ids}::int4[])")
-    List<RestaurantDescription> selectDescriptionsFor(@Param("lang")String lang,@Param("ids") Integer[] ids);
+    List<RestaurantDescription> selectDescriptionsFor(@Param("lang")String lang,@Param("ids") String ids);
 
     @Select("SELECT * FROM vd_restaurant_workhours WHERE id = ANY(#{1}::int4[])")
     @MapKey("id")
-    Map<Integer,WorkHours> selectWorkHoursFor(Integer[] integers);
+    Map<Integer,WorkHours> selectWorkHoursFor(String integers);
 }
