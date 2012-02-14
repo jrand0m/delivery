@@ -12,6 +12,6 @@ import java.util.ArrayList;
 public class LiveServiceMyBatisImpl implements LiveService {
     @Override
     public ArrayList<LastOrdersJSON> getLastOrdersForCity(City city) {
-        throw new UnsupportedOperationException();
+        return new ArrayList<LastOrdersJSON>(0);
     }
 }

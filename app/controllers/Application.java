@@ -168,8 +168,8 @@ public class Application extends Controller {
         notFoundIfNull(restaurant);
         List<MenuItemGroup> menuItems = restaurantService.getMenuBookFor(id);
         renderArgs.put("restaurant", restaurant);
-        // FIXME Cache for 5 hours or it will die.
-        render(menuItems);
+        renderArgs.put("menuItems", menuItems);
+        render();
     }
 
     public static void newUser() {
@@ -370,6 +370,7 @@ public class Application extends Controller {
         if (session.contains(SESSION_KEYS.CITY_ID)) {
             City city = geoService.getCityById(Long.parseLong(session.get(SESSION_KEYS.CITY_ID)));
             List<Order> recent = null;
+            await(5000);
             o = liveService.getLastOrdersForCity(city);
         } else {
             Logger.debug("No city in sesion, waiting to prevent ddos/dos");

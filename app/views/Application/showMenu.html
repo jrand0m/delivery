@@ -4,7 +4,7 @@ ${restaurant.title} menu list
 #{/set}
 #{set 'breadCrumb' }
 <a class="enter back" href="/">&{'common.back'}</a>
-    #{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
+    #{if ((user != null )&&!enumerations.UserType.ANONYMOUS.equals(user.userType))}
     <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
     *{<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>}*
     #{/if}
@@ -22,11 +22,11 @@ ${restaurant.title} menu list
 <script type="text/javascript" src="@{'/public/javascripts/jquery.mousewheel-3.0.4.pack.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/mtmpl.js'}"></script>
 <script type="text/javascript">
-    var uu = #{jsAction @Application.basket(":chart") /}
-    var cu = #{jsAction @Application.comps() /}
-    var au = #{jsAction @Application.addOrderItem() /}
-    var du = #{jsAction @Application.cngOrderItem() /}
-    var rid = ${restaurant.id};
+    var uu = function() { return #{jsAction @Application.basket(":chart") /}; }();
+    var cu = function() { return #{jsAction @Application.comps() /} ; }();
+    var au = function() { return #{jsAction @Application.addOrderItem() /} ; }();
+    var du = function() { return #{jsAction @Application.cngOrderItem() /} ; }();
+    var rid = ${restaurant.id}+0;
 </script>
 <script type="text/html" id="cmfrtmp">
     <div class="ing_popup" id="ing_popup">
@@ -71,7 +71,7 @@ ${restaurant.title} menu list
             %>
         </td>
         <td><label for="ck<%=d.id%>"><%=d.nm?d.nm:''%></label></td>
-        <td class="price"><%=d.pr?'+'+d.pr+' &{'common.uah'}':''%></td>
+        <td class="price"><%=d.pr?'+'+d.pr+' &{'common.uah'}':''%>
         </td></tr>
 </script>
 <script type="text/html" id="ittmp">
@@ -139,7 +139,7 @@ ${restaurant.title} menu list
 								models.MenuItem itm = grp.items.get(i);
 								boolean odd = i%2!=0;
 							}%
-            <tr onclick="add(${itm.id},${itm.showComponents})" class="${odd == true ? "od" : "even"}">
+            <tr onclick="add(${itm.id}+0,${itm.showComponents})" class="${odd == true ? "od" : "even"}">
                 <th><a id="a${itm.id}" class="ingredient_popup_but" title="&{'common.basket.buttonTitle'}"></a></th>
                 <td>
                     <p>${itm.name}</p>

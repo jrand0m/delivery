@@ -101,7 +101,7 @@ insert into vd_restaurant (
 --//@UNDO
 -- SQL to undo the change goes here.
 
-TRUNCATE TABLE "vd_address";
-TRUNCATE TABLE "vd_restaurants_categories";
-TRUNCATE TABLE "vd_restaurant_workhours";
 TRUNCATE TABLE "vd_restaurant" cascade;
+TRUNCATE TABLE "vd_address" cascade ;
+TRUNCATE TABLE "vd_restaurants_categories" cascade ;
+TRUNCATE TABLE "vd_restaurant_workhours" cascade ;
