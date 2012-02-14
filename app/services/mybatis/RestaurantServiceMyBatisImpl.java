@@ -6,6 +6,7 @@ import models.time.WorkHours;
 import net.spy.memcached.transcoders.IntegerTranscoder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import play.Logger;
+import play.Play;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import services.RestaurantService;
@@ -50,7 +51,8 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
 
     @Override
     public String getLogoPathFor(long id) {
-        throw new UnsupportedOperationException();
+        StoredFile file = restaurantMapper.selectLogoFileFor(id);
+        return Play.configuration.getProperty("attachments.path") +"/"+ file.id + "." + file.fileExt;
     }
 
     @Override

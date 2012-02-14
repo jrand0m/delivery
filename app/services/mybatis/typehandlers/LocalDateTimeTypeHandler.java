@@ -29,16 +29,15 @@ public class LocalDateTimeTypeHandler implements TypeHandler<LocalDateTime> {
 
     @Override
     public LocalDateTime getResult(ResultSet resultSet, String s) throws SQLException {
-        String sd = resultSet.getString(s);
-        DateTimeFormatter format = DateTimeFormat.forPattern(DATE_TIME_PATTERN);
-        LocalDateTime localDateTime =  format.parseDateTime(sd).toLocalDateTime();
-        Logger.debug("Getting col '%s' to %s [%s]", s ,sd, localDateTime.toString() );
+        Date sd = resultSet.getDate(s);
+        LocalDateTime localDateTime =  new LocalDateTime(sd);
         return localDateTime;
     }
 
     @Override
     public LocalDateTime getResult(CallableStatement callableStatement, int i) throws SQLException {
-        DateTimeFormatter format = DateTimeFormat.forPattern(DATE_TIME_PATTERN);
-        return format.parseDateTime(callableStatement.getString(i)).toLocalDateTime();
+        Date sd = callableStatement.getDate(i);
+        LocalDateTime localDateTime =  new LocalDateTime(sd);
+        return localDateTime;
     }
 }

@@ -18,5 +18,9 @@ public class OrderServiceTest extends UnitTest {
     public void getCurrentOrderFor_(){
         assertFalse("TODO", true);
     }
+    @Test
+    public void createNewOpenOrderFor_(){
+        assertFalse("TODO", true);
+    }
 
 }

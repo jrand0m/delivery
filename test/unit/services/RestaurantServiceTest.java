@@ -87,5 +87,9 @@ public class RestaurantServiceTest extends UnitTest {
     public void getMenuBookFor_FillsSowMenuAndItems(){
         assertFalse("TODO", true);
     }
+    @Test
+    public void getLogoPathFor_returns_valid_path(){
+        assertFalse("TODO", true);
+    }
 
 }
