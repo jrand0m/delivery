@@ -3,16 +3,16 @@ package guice;
 import com.google.inject.Module;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.apache.ibatis.type.TypeHandler;
+import org.joda.money.Money;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
+import org.joda.time.Period;
 import org.mybatis.guice.MyBatisModule;
 import org.mybatis.guice.binder.TypeHandlerBinder;
 import play.Logger;
 import play.Play;
 import services.mybatis.mappings.*;
-import services.mybatis.typehandlers.LocalDateTimeTypeHandler;
-import services.mybatis.typehandlers.LocalTimeTypeHandler;
-import services.mybatis.typehandlers.UUIDTypeHandler;
+import services.mybatis.typehandlers.*;
 
 import java.util.UUID;
 
@@ -61,6 +61,8 @@ public class MyBatisConfigModule extends MyBatisModule {
         handleType(LocalDateTime.class).with(LocalDateTimeTypeHandler.class);
         handleType(LocalTime.class).with(LocalTimeTypeHandler.class);
         handleType(UUID.class).with(UUIDTypeHandler.class);
+        handleType(Period.class).with(PeriodTypeHandler.class);
+        handleType(Money.class).with(MoneyTypeHandler.class);
         Logger.debug("MyBatisConfig finished");
     }
 }
