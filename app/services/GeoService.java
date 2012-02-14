@@ -41,4 +41,6 @@ public interface GeoService {
     Address validateAndInsertAddress(Address address, Validation validation);
 
     Address insertAddress(Address address);
+
+    void updateCity(City city);
 }

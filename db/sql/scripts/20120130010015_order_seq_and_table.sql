@@ -23,10 +23,10 @@ CREATE TABLE "vd_order" (
   "orderStatus"    varchar(100) not null default 'OPEN',
   "paymentStatus"  varchar(100) not null default 'NOT_PAID',
 
-  "delivery_address_id" int8 not null,
+  "delivery_address_id" int8,
+  "confirmed_courier_id" int8,
   "order_owner_id"  int8 not null,
   "restaurant_id"   int4 not null,
-  "confirmed_courier_id" int8 not null,
 
   FOREIGN KEY ( "delivery_address_id" ) REFERENCES vd_address ("address_id"),
   FOREIGN KEY ( "order_owner_id" ) REFERENCES vd_user ("id"),

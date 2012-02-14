@@ -17,16 +17,21 @@ import java.sql.SQLException;
 public class PeriodTypeHandler implements TypeHandler<Period> {
     @Override
     public void setParameter(PreparedStatement ps, int i, Period parameter, JdbcType jdbcType) throws SQLException {
-        ps.setString(i, parameter.toString());
+
+        ps.setString(i, parameter==null? null:parameter.toString());
     }
 
     @Override
     public Period getResult(ResultSet rs, String columnName) throws SQLException {
-        return ISOPeriodFormat.standard().parsePeriod(rs.getString(columnName));
+        String s = rs.getString(columnName);
+        if (s == null){return null;}
+        return ISOPeriodFormat.standard().parsePeriod(s);
     }
 
     @Override
     public Period getResult(CallableStatement cs, int columnIndex) throws SQLException {
-        return ISOPeriodFormat.standard().parsePeriod(cs.getString(columnIndex));
+        String s = cs.getString(columnIndex);
+        if (s == null){return null;}
+        return ISOPeriodFormat.standard().parsePeriod(s);
     }
 }

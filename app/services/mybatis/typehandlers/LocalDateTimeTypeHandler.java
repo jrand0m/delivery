@@ -21,7 +21,12 @@ public class LocalDateTimeTypeHandler implements TypeHandler<LocalDateTime> {
 
     @Override
     public void setParameter(PreparedStatement preparedStatement, int i, LocalDateTime localDateTime, JdbcType jdbcType) throws SQLException {
+        if (localDateTime == null){
+            preparedStatement.setNull(i, Types.TIMESTAMP);
+            return;
+        }
         DateTimeFormatter format = DateTimeFormat.forPattern(DATE_TIME_PATTERN);
+
         String formattedString = format.print(localDateTime);
         Logger.debug("Setting col '%d' to %s [%s]", i ,localDateTime.toString(), formattedString );
         preparedStatement.setTimestamp(i, Timestamp.valueOf(formattedString));

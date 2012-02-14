@@ -39,7 +39,7 @@ public class OrderServiceMyBatisImpl implements OrderService {
     }
 
     @Override
-
+    @Transactional
     public Order createNewOpenOrderFor(final User user, final Restaurant restaurant) {
         Order newOrder = new Order();
         newOrder.restaurant_id = restaurant.id;

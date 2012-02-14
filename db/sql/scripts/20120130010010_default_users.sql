@@ -16,7 +16,7 @@ insert into "vd_user" (
  'mickey123',
  'jays.demons@gmail.com',
  '+380630683088',
- 'password31415',
+ 'Dl39PhnIg3Sqs7SUh39pEwFHUwE=', -- sha1 hash on password31415
  'Mickey The Mouse',
  'VD_ADMIN',
  now(),

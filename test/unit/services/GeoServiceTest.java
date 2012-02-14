@@ -59,4 +59,12 @@ public class GeoServiceTest extends UnitTest {
             assertTrue("City not visible id = " + city.city_id ,city.display);
         }
     }
+    @Test
+    public void getAllCities(){
+        assertTrue(false);
+    }
+    @Test
+    public void updateCity(){
+        assertTrue(false);
+    }
 }

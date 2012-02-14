@@ -416,7 +416,8 @@ public class Application extends Controller {
         OrderItem oi = new OrderItem(itm, order, component);
         oi = orderService.insertOrderItem(oi);
         orderService.update(order);
-        renderJSON(new BasketJSON(order));
+        BasketJSON json = basketService.getBasketAsJSON(order);
+        renderJSON(json);
     }
 
     public static void cngOrderItem(Long id, Integer count) {
@@ -466,6 +467,7 @@ public class Application extends Controller {
         User user = (User) renderArgs.get(RENDER_KEYS.USER);
         if (user == null) {
             user = userService.createAnonymousUser();
+            session.put("username", user.login);
         }
         Restaurant restaurant = restaurantService.getById(chart);
         notFoundIfNull(restaurant);
