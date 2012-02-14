@@ -307,7 +307,7 @@ public class Application extends Controller {
                 userService.addAddressToUserAddressBook(address, user);
             }
         }
-        o.deliveryAddressId = address.id;
+        o.delivery_address_id = address.id;
 
         o.orderStatus = OrderStatus.SENT;
         o.deliveryPrice = o.getDeliveryPrice();

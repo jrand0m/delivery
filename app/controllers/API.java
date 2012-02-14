@@ -95,7 +95,7 @@ public class API extends Controller {
             job.id = String.valueOf(order.id);
 
             if (order.orderStatus.equals(OrderStatus.CONFIRMED)
-                    && !(order.confirmedCourierId == (user.id))) {
+                    && !(order.confirmed_courier_id == (user.id))) {
                 job.status = "ALREADY_CONFIRMED";
             } else {
                 job.status = order.orderStatus.toString();
@@ -157,7 +157,7 @@ public class API extends Controller {
             case CONFIRMED:
                 order.orderStatus = OrderStatus.CONFIRMED;
                 order.orderConfirmed = new LocalDateTime();
-                order.confirmedCourierId = user.id;
+                order.confirmed_courier_id = user.id;
                 order.orderPlanedDeliveryTime = new Period(message.time, PeriodType.minutes());
                 break;
             case DELIVERED:

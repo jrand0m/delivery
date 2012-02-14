@@ -91,5 +91,9 @@ public class RestaurantServiceTest extends UnitTest {
     public void getLogoPathFor_returns_valid_path(){
         assertFalse("TODO", true);
     }
+    @Test
+    public void createNewOpenOrderFor_createsNewOrderAndReturnsIt(){
+        assertFalse("TODO", true);
+    }
 
 }

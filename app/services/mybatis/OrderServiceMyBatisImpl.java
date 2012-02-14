@@ -1,10 +1,13 @@
 package services.mybatis;
 
+import enumerations.OrderStatus;
 import models.Order;
 import models.OrderItem;
 import models.Restaurant;
 import models.geo.City;
 import models.users.User;
+import org.joda.time.LocalDateTime;
+import org.mybatis.guice.transactional.Transactional;
 import play.modules.guice.InjectSupport;
 import services.OrderService;
 import services.mybatis.mappings.OrderMapper;
@@ -36,8 +39,14 @@ public class OrderServiceMyBatisImpl implements OrderService {
     }
 
     @Override
-    public Order createNewOpenOrderFor(User user, Restaurant restaurant) {
-        throw new UnsupportedOperationException();
+
+    public Order createNewOpenOrderFor(final User user, final Restaurant restaurant) {
+        Order newOrder = new Order();
+        newOrder.restaurant_id = restaurant.id;
+        newOrder.order_owner_id = user.id;
+        newOrder.orderStatus = OrderStatus.OPEN;
+        newOrder.orderCreated = new LocalDateTime();
+        return orderMapper.insertOrder(newOrder);
     }
 
     @Override
@@ -72,7 +81,8 @@ public class OrderServiceMyBatisImpl implements OrderService {
 
     @Override
     public List<OrderItem> getItems(Order o) {
-        throw new UnsupportedOperationException();
+
+        return orderMapper.selectOrderItems(o.id);
     }
 
     @Override

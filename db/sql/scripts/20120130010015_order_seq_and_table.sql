@@ -4,7 +4,7 @@
 
 CREATE TABLE "vd_order" (
   "id"               int8 NOT NULL DEFAULT nextval('orders_seq') PRIMARY KEY,
-  "decline_message"  varchar (255),
+  "declineMessage"  varchar (255),
   "deleted"          bool not null,
   "deliveryPrice_currency" varchar(3)  not null default 'UAH',
   "deliveryPrice"   money,
@@ -18,8 +18,8 @@ CREATE TABLE "vd_order" (
   "orderDelivered"  timestamp,
   "orderTaken"      timestamp,
   "updatedAt"       timestamp not null default now(),
-  "orderPlaned_cooked" interval,
-  "orderPlaned_delivery_time" interval,
+  "orderPlanedCooked" interval,
+  "orderPlanedDeliveryTime" interval,
   "orderStatus"    varchar(100) not null default 'OPEN',
   "paymentStatus"  varchar(100) not null default 'NOT_PAID',
 

@@ -10,6 +10,7 @@ import org.joda.money.Money;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
+import play.Logger;
 import play.modules.guice.InjectSupport;
 import services.OrderService;
 
@@ -30,13 +31,13 @@ public class Order {
     /**
      * Message on declined status
      */
-    @Column(name = "decline_message")
+    @Column(name = "declineMessage")
     public String declineMessage;
     @Column(name = "deleted")
     public boolean deleted = false;
 
     @Column(name = "delivery_address_id", nullable = false, updatable = false, insertable = false)
-    public Long deliveryAddressId;
+    public Long delivery_address_id;
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
     @Deprecated
@@ -45,50 +46,50 @@ public class Order {
      * Price calculated by application using formula, that should be paid by
      * user. value in coins
      */
-    @Column(name = "delivery_price")
+    @Column(name = "deliveryPrice")
     public Money deliveryPrice;
 
     /**
      * Menu total price saved when order is accepted by user
      */
-    @Column(name = "total_menu_price")
+    @Column(name = "totalMenuPrice")
     public Money totalMenuPrice;
 
 
     /**
      * Time and date of order is accepted
      */
-    @Column(name = "order_accepted")
+    @Column(name = "orderAccepted")
     public LocalDateTime orderAccepted;
     /**
      * User order close date/time
      */
-    @Column(name = "order_closed")
+    @Column(name = "orderClosed")
     public LocalDateTime orderClosed;
     /**
      * Order cooked
      */
-    @Column(name = "order_cooked")
+    @Column(name = "orderCooked")
     public LocalDateTime orderCooked;
     /**
      * confirmed to be valid
      */
-    @Column(name = "order_confirmed")
+    @Column(name = "orderConfirmed")
     public LocalDateTime orderConfirmed;
     /**
      * Order Created
      */
-    @Column(name = "order_created")
+    @Column(name = "orderCreated")
     public LocalDateTime orderCreated;
     /**
      * Courier delivered order;
      */
-    @Column(name = "order_delivered")
+    @Column(name = "orderDelivered")
     public LocalDateTime orderDelivered;
     /**
      * Courier picked up bundle
      */
-    @Column(name = "order_taken")
+    @Column(name = "orderTaken")
     public LocalDateTime orderTaken;
 
     @Column(name = "updated_at")
@@ -96,41 +97,41 @@ public class Order {
     /**
      * is set + time told by client
      */
-    @Column(name = "order_planed_cooked")
+    @Column(name = "orderPlanedCooked")
     public Period orderPlanedCooked;
 
     /**
      * Estimated time of delivery to restaurant
      */
-    @Column(name = "order_planed_delivery_time")
+    @Column(name = "orderPlanedDeliveryTime")
     public Period orderPlanedDeliveryTime;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "order_status")
+    @Column(name = "orderStatus")
     public OrderStatus orderStatus = OrderStatus.OPEN;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "payment_status")
+    @Column(name = "paymentStatus")
     public PaymentStatus paymentStatus = PaymentStatus.NOT_PAID;
 
     /**
      * User who made this order
      */
     @Column(name = "order_owner_id")
-    public Long orderOwnerId;
+    public Long order_owner_id;
     @ManyToOne
     @JoinColumn(name = "order_owner_id")
     @Deprecated
     public User orderOwner;
 
     @Column(name = "restaurant_id")
-    public Integer restaurantId;
+    public Integer restaurant_id;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @Deprecated
     public Restaurant restaurant;
     @Column(name = "confirmed_courier_id")
-    public Long confirmedCourierId;
+    public Long confirmed_courier_id;
     @ManyToOne
     @JoinColumn(name = "confirmed_courier_id")
     @Deprecated
@@ -144,6 +145,8 @@ public class Order {
      * calculated delivery price for this order
      */
     public Money getDeliveryPrice() {
+        Logger.debug("<- Called!");
+
         return SystemCalc.getDeliveryPrice(this);
     }
 
@@ -151,14 +154,16 @@ public class Order {
      * @deprecated use getDeliveryPrice().toString
      */
     public String getDeliveryPriceString() {
+        Logger.debug("<- Called!");
         return getDeliveryPrice().toString();
     }
 
     /**
      * Grand total including delivery price and minus calculated user discount
+     *
      */
     public Money getGrandTotal() {
-
+        Logger.debug("<- Called!");
         Money menuTotal = getMenuTotal();
         return menuTotal.plus(getDeliveryPrice().minus(getUserDiscount().multipliedBy(menuTotal.getAmount(), RoundingMode.HALF_EVEN)));
     }
@@ -167,7 +172,7 @@ public class Order {
      * @deprecated use getGrandTotal().toString
      */
     public String getGrandTotalString() {
-
+        Logger.debug("<- Called!");
         return getGrandTotal().toString();
     }
 
@@ -175,6 +180,7 @@ public class Order {
      * Just sum of all items without discount
      */
     public Money getMenuTotal() {
+        Logger.debug("<- Called!");
         //todo extract to outer method
         //if (true) throw new UnsupportedOperationException("extract order.menuTotal to service");
         Money i = Money.zero(CurrencyUnit.of("UAH"));
@@ -189,6 +195,7 @@ public class Order {
    * */
     public String getMenuTotalString() {
         /*getMenuTotal();*/
+        Logger.debug("<- Called!");
         return getMenuTotal().toString();
     }
 
@@ -196,6 +203,7 @@ public class Order {
      * calculated discount for entire order
      */
     public Money getUserDiscount() {
+        Logger.debug("<- Called!");
         return SystemCalc.getUserDiscount(this);
     }
 
@@ -203,6 +211,7 @@ public class Order {
      * is called for index page
      */
     public String oneLineDescription() {
+        Logger.debug("<- Called!");
         StringBuilder b = new StringBuilder("to be done");
         /*for (Iterator<OrderItem> it = items.iterator(); it.hasNext(); ) {
             b.append(it.next().menuItem.name);
@@ -220,6 +229,7 @@ public class Order {
     }
 
     public String aproxTime() {
+        Logger.debug("<- Called!");
         String time = "--";
         int x = 0;
         switch (orderStatus) {
@@ -250,6 +260,7 @@ public class Order {
     }
 
     public String textStatus() {
+        Logger.debug("<- Called!");
         switch (orderStatus) {
             case ACCEPTED:
                 return "ресторан прийняв завмовлення";
