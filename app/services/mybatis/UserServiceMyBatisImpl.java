@@ -8,9 +8,12 @@ import models.users.User;
 import org.apache.ibatis.session.TransactionIsolationLevel;
 import org.joda.time.LocalDateTime;
 import org.mybatis.guice.transactional.Transactional;
+import play.Logger;
 import play.libs.Crypto;
 import services.UserService;
 import services.mybatis.mappings.UserMapper;
+
+import java.util.List;
 
 /**
  * User: Mike Stetsyshyn
@@ -76,7 +79,11 @@ public class UserServiceMyBatisImpl implements UserService {
 
     @Override
     public boolean verifyCredentials(String username, String pwd) {
-        throw new UnsupportedOperationException();
+       Logger.debug("Logging in user |%s| with pwd |%s| [%s]", username, pwd, Crypto.passwordHash(pwd, Crypto.HashType.SHA1)) ;
+       int r = userMapper.userCount(username, Crypto.passwordHash(pwd, Crypto.HashType.SHA1));
+       Logger.debug("returned %s ", r );
+       Logger.fatal("NO LOGIN CHECK ACTUALLY IS DONE!");
+       return  r==0;
     }
 
     @Override

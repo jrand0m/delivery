@@ -11,25 +11,8 @@ import java.util.List;
 
 import static helpers.OrderUtils.convertMoneyToCents;
 
-@InjectSupport
-public class BasketJSON {
-    @Inject
-    private static OrderService service;
 
-    public BasketJSON(Order o) {
-        if (o == null) {
-            return;
-        }
-        //TODO
-        discount = convertMoneyToCents(o.getUserDiscount());
-        total = convertMoneyToCents(o.getGrandTotal());
-        delivery = convertMoneyToCents(o.getDeliveryPrice());
-        //todo move construction of this object to basket service
-        for (OrderItem oi : service.getItems(o)) {
-            items.add(new OrderItemJSON(oi));
-        }
-        no = String.valueOf(o.id);
-    }
+public class BasketJSON {
 
     public String no;
     /**

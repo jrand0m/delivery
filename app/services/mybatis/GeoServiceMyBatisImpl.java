@@ -59,12 +59,12 @@ public class GeoServiceMyBatisImpl implements GeoService {
 
     @Override
     public City insertCity(City city) {
-        throw new UnsupportedOperationException();
+        return cityMapper.insertCity(city);
     }
 
     @Override
     public List<City> getAllCities() {
-        throw new UnsupportedOperationException();
+        return cityMapper.getAllCities();
     }
 
     @Override
@@ -90,5 +90,10 @@ public class GeoServiceMyBatisImpl implements GeoService {
     @Override
     public Address insertAddress(Address address) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void updateCity(City city) {
+        cityMapper.updateCity(city);
     }
 }

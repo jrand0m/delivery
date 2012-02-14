@@ -10,7 +10,7 @@ import play.test.UnitTest;
  */
 public class BasketServiceTest extends UnitTest{
     @Test
-    public void _(){
+    public void getBasketAsJSON_(){
         assertFalse("TODO", true);
     }
 }

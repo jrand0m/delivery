@@ -91,6 +91,11 @@ public class UserServiceTest extends UnitTest {
         User newUser = new User();
         assertFalse("TODO",true);
     }
+    @Test
+    public void verifyCredentials_verifies_credentials(){
+        User newUser = new User();
+        assertFalse("TODO",true);
+    }
 
     @Test
     public void touchUser_ChangesLastLoginDate(){

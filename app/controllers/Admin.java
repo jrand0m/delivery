@@ -26,6 +26,7 @@ import static helpers.OrderUtils.convertCentsToMoney;
 @Check(UserType.VD_ADMIN)
 @InjectSupport
 public class Admin extends Controller {
+
     @Inject
     private static GeoService geoService;
     @Inject
@@ -112,16 +113,14 @@ public class Admin extends Controller {
         render();
     }
 
-    public static void addCategory(MenuItemGroup group, Long id) {
+    public static void addCategory(MenuItemGroup group, Integer id) {
         List<Restaurant> restaurants = restaurantService.getAllRestaurants();
         renderArgs.put("restaurants", restaurants);
         if (id == null) {
             renderArgs.put("message", "Please create new one.");
             render();
         }
-
-        Restaurant r = restaurantService.getById(id);
-        group.restaurant = r;
+        group.restaurant_Id = id;
         restaurantService.insertMenuGroup(group);
         renderArgs.put("message", "Sucessfuly added : " + group.name);
         render();
@@ -136,7 +135,7 @@ public class Admin extends Controller {
         renderTemplate("Admin/addCategory.html");
     }
 
-    public static void addMenuItem(MenuItem item, Long id, Long groupid) {
+    public static void addMenuItem(MenuItem item, Integer id, Integer groupid) {
         List<Restaurant> restaurants = restaurantService.getAllRestaurants();
         renderArgs.put("restaurants", restaurants);
         List<MenuItemGroup> groups = restaurantService.getAllMenuItemGroups();
@@ -146,8 +145,8 @@ public class Admin extends Controller {
             render();
         }
         item.menuItemCreated = new LocalDateTime();
-        item.restaurant = restaurantService.getById(id);
-        item.menuItemGroup = restaurantService.getMenuGroupById(id);
+        item.restaurantId = id;
+        item.menuItemGroupId = groupid;
         restaurantService.insertMenuItem(item);
         renderArgs.put("message", "Created!");
         render();
@@ -155,17 +154,21 @@ public class Admin extends Controller {
 
     public static void editMenuItem(Long id) {
         MenuItem item = restaurantService.getMenuItemById(id);
-        renderArgs.put("group", item.menuItemGroup.id);
-        renderArgs.put("id", item.restaurant.id);
+        renderArgs.put("group", item.menuItemGroupId);
+        renderArgs.put("id", item.restaurantId);
         renderArgs.put("item", item);
         render("Admin/addMenuItem.html");
     }
 
     public static void addCity(City city) {
-        if (city.cityNameKey == null) {
+        if (city == null || city.cityNameKey == null) {
             render();
         }
-        geoService.insertCity(city);
+        if (city.city_id !=null){
+            geoService.updateCity(city);
+        } else {
+            geoService.insertCity(city);
+        }
         render();
     }
 
@@ -185,7 +188,7 @@ public class Admin extends Controller {
         renderTemplate("Admin/addType.html");
     }
 
-    public static void addRestaurant(Restaurant restaurant, Long catid,
+    public static void addRestaurant(Restaurant restaurant, Integer catid,
                                      Long cityid, String openfrom, String opento, String barmanlogin,
                                      String barmanpwd) {
 
@@ -197,15 +200,13 @@ public class Admin extends Controller {
             renderArgs.put("errormessage", "no cityid");
             render();
         }
-        City city = geoService.getCityById(cityid);
         // notFoundIfNull(city);
-        RestaurantCategory type = restaurantService.getRestaurantCategoryById(catid);
 
         restaurant.deviceLogin = barmanlogin.trim();
         restaurant.devicePassword = barmanpwd.trim();
 
-        restaurant.city = city;
-        restaurant.category = type;
+        restaurant.city_id = cityid;
+        restaurant.category_id = catid;
         WorkHours workHours = restaurantService.getWorkHours(restaurant);
         if (workHours == null) {
             workHours = new WorkHours(openfrom, opento);

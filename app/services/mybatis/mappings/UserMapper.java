@@ -2,8 +2,12 @@ package services.mybatis.mappings;
 
 import enumerations.UserType;
 import models.users.User;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.mapping.StatementType;
+
+import java.util.List;
 
 /**
  * User: Mike Stetsyshyn
@@ -22,4 +26,7 @@ public interface UserMapper {
 
     @Update("update vd_user set \"lastLoginDate\" = now() where login = #{1} ")
     void updateLastLoginTimeFor(String login);
+
+    @Select("select count(login) as value from vd_user where login = #{1} and password = #{2}")
+    int userCount(String username, String pwd);
 }

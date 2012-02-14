@@ -11,7 +11,7 @@
     </tr>
 #{list items:cities, as:'city'}
     <tr>
-        <td>${city.cityNameUA}</td>
+        <td>&{city.cityNameKey} (${city.cityNameKey})</td>
         <td>${city.display}</td>
         <td><a href="@{Admin.editCity(city.city_id)}">edit</a></td>
     </tr>
