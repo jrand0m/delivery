@@ -5,14 +5,21 @@ import models.OrderItem;
 import models.Restaurant;
 import models.geo.City;
 import models.users.User;
+import play.modules.guice.InjectSupport;
 import services.OrderService;
+import services.mybatis.mappings.OrderMapper;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
  * User: Mike Stetsyshyn
  */
+@InjectSupport
 public class OrderServiceMyBatisImpl implements OrderService {
+    @Inject
+    private OrderMapper orderMapper;
+
     @Override
     public Order getOrderBySIDAndOwner(Long id, User user) {
         throw new UnsupportedOperationException();
@@ -25,7 +32,7 @@ public class OrderServiceMyBatisImpl implements OrderService {
 
     @Override
     public Order getCurrentOrderFor(User user, Restaurant restaurant) {
-        throw new UnsupportedOperationException();
+        return orderMapper.getOpenOrderForUserAndRestaurant(user.id, restaurant.id);
     }
 
     @Override

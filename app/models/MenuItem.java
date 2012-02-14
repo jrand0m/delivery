@@ -28,6 +28,8 @@ public class MenuItem {
 
     @Column(name = "available")
     public boolean available = false;
+    // filled dynamicaly via sql
+    public boolean showComponents = false;
 
     @Column(name = "price")
     public Money price;

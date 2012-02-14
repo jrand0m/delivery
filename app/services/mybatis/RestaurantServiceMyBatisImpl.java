@@ -37,7 +37,15 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
 
     @Override
     public List<MenuItemGroup> getMenuBookFor(Long id) {
-        throw new UnsupportedOperationException();
+
+        List<MenuItemGroup> groups = restaurantMapper.getMenuGroupsFor(id);
+        
+        for (MenuItemGroup grp : groups){
+            List<MenuItem> itemz =   restaurantMapper.getMenuItemsFromGroup(grp.id);
+            grp.items = itemz;
+        }
+
+        return groups;
     }
 
     @Override
@@ -187,7 +195,6 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
         String lang = Lang.get();
         Integer[] array = ids.toArray(new Integer[ids.size()]);
 
-        debug("lang -> %s",lang);
         StringBuilder arraySQLString = new StringBuilder("{") ; // JDBC has Restriction on IN clause + saving cached prepared statement
         for (Integer i : array){
             arraySQLString.append(i);
@@ -195,7 +202,6 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
         }
         arraySQLString.deleteCharAt(arraySQLString.length()-1);
         arraySQLString.append('}');
-        debug("ids.array -> %s", arraySQLString.toString());
         List<RestaurantDescription> descriptionList  = restaurantDescriptionMapper.selectDescriptionsFor(lang, arraySQLString.toString());
         HashMap<Integer, String>  map = new HashMap<Integer, String>(ids.size(), 1.3f);
         for (RestaurantDescription d : descriptionList ){
