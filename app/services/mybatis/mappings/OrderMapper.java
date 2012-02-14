@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface OrderMapper {
 
-    @Select("select * from vd_order where order_owner_id = #{1} and restaurant_id = #{2} and orderStatus = 'OPEN'" )
+    @Select("select * from vd_order o  where o.\"orderStatus\" = 'OPEN' and  o.\"order_owner_id\" = #{1} and o.\"restaurant_id\" = #{2}" )
     Order getOpenOrderForUserAndRestaurant(Long userId, Integer restaurantId);
 }

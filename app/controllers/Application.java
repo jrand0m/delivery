@@ -478,20 +478,11 @@ public class Application extends Controller {
     }
 
     public static void serveLogo(long id) {
-
-
-        /*notFoundIfNull(restaurant);
-          InputStream is;
-          if (restaurant.logo.exists()) {
-              response.setContentTypeIfNotSet(restaurant.logo.type());
-              is = restaurant.logo.get();
-          } else {
-              is = new FileInputStream(Play.applicationPath
-                      + "/public/images/no_image.jpg");
-          }*/
-        //renderBinary(is);
         String url = restaurantService.getLogoPathFor(id);
-        redirect(url);
+        if (url == null){
+            redirectToStatic("/public/images/no_image.jpg");
+        }
+        redirectToStatic(url);
     }
 
     /* ----------- private -------------- */

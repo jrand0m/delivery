@@ -12,6 +12,9 @@ import play.Play;
 import services.mybatis.mappings.*;
 import services.mybatis.typehandlers.LocalDateTimeTypeHandler;
 import services.mybatis.typehandlers.LocalTimeTypeHandler;
+import services.mybatis.typehandlers.UUIDTypeHandler;
+
+import java.util.UUID;
 
 public class MyBatisConfigModule extends MyBatisModule {
 
@@ -57,6 +60,7 @@ public class MyBatisConfigModule extends MyBatisModule {
         addMapperClass(WorkHoursMapper.class);
         handleType(LocalDateTime.class).with(LocalDateTimeTypeHandler.class);
         handleType(LocalTime.class).with(LocalTimeTypeHandler.class);
+        handleType(UUID.class).with(UUIDTypeHandler.class);
         Logger.debug("MyBatisConfig finished");
     }
 }
