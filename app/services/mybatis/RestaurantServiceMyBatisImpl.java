@@ -10,6 +10,8 @@ import play.Play;
 import play.i18n.Lang;
 import play.i18n.Messages;
 import services.RestaurantService;
+import services.mybatis.mappings.MenuItemGroupMapper;
+import services.mybatis.mappings.RestaurantCategoryMapper;
 import services.mybatis.mappings.RestaurantDescriptionMapper;
 import services.mybatis.mappings.RestaurantMapper;
 
@@ -26,6 +28,10 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
     private RestaurantMapper restaurantMapper;
     @Inject
     private RestaurantDescriptionMapper restaurantDescriptionMapper;
+    @Inject
+    private RestaurantCategoryMapper categoryMapper;
+    @Inject
+    private MenuItemGroupMapper itemGroupMapper;
 
     public RestaurantServiceMyBatisImpl(){
         Logger.debug("RestaurantService:RestaurantServiceMyBatisImpl created!");
@@ -67,7 +73,7 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
 
     @Override
     public List<RestaurantCategory> getAllCategories() {
-        throw new UnsupportedOperationException();
+        return categoryMapper.selectAllCategories();
     }
 
     @Override
@@ -112,12 +118,12 @@ public class RestaurantServiceMyBatisImpl implements RestaurantService {
 
     @Override
     public List<Restaurant> getAllRestaurants() {
-        throw new UnsupportedOperationException();
+        return  restaurantMapper.selectAllRestaurants();
     }
 
     @Override
     public List<MenuItemGroup> getAllMenuItemGroups() {
-        throw new UnsupportedOperationException();
+        return itemGroupMapper.selectAllMenuItemGroups();
     }
 
     @Override

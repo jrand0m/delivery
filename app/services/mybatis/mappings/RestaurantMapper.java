@@ -27,4 +27,7 @@ public interface RestaurantMapper {
 
     @Select("select * from vd_attachments attach join vd_restaurant rest on rest.logo_id = attach.id where rest.id = #{1}")
     StoredFile selectLogoFileFor(long id);
+
+    @Select("select * from vd_restaurant")
+    List<Restaurant> selectAllRestaurants();
 }

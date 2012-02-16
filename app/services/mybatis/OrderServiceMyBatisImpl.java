@@ -46,6 +46,7 @@ public class OrderServiceMyBatisImpl implements OrderService {
         newOrder.order_owner_id = user.id;
         newOrder.orderStatus = OrderStatus.OPEN;
         newOrder.orderCreated = new LocalDateTime();
+        //todo close all opened orders for this user-restaurant pair
         return orderMapper.insertOrder(newOrder);
     }
 

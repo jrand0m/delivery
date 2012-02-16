@@ -27,7 +27,7 @@ public class OrderUtils {
     }
 
     public static Integer convertMoneyToCents(Money m) {
-        return m.getAmountMajorInt() * 100 + m.getAmountMinorInt();
+        return m.getAmountMinorInt();
     }
 
     public static Money convertCentsToMoney(Integer m) {

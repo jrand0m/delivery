@@ -21,6 +21,9 @@ public interface OrderService {
 
     Order getCurrentOrderFor(User user, Restaurant restaurant);
 
+    /**
+     * Must close all open orders before creating new one
+     * */
     Order createNewOpenOrderFor(User user, Restaurant restaurant);
 
     void deleteOrderItem(OrderItem itm);
@@ -50,4 +53,5 @@ public interface OrderService {
     Order getById(String id);
 
     Order insertOrder(Order o);
+
 }

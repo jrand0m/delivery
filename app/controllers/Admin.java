@@ -88,7 +88,7 @@ public class Admin extends Controller {
             restaurants = geoService.getRestsByCity(id);
         }
         renderArgs.put("restaurants", restaurants);
-        renderArgs.put("cities", geoService.getVisibleCities());
+        renderArgs.put("cities", geoService.getAllCities());
         render();
     }
 

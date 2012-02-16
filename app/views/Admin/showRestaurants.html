@@ -7,7 +7,7 @@
 #{form @Admin.showRestaurants() , id:'form', enctype:'multipart/form-data' }
     #{select 'id', value:1, id:'id'}
         #{list items:cities, as:'city'}
-            #{option city.city_id} ${city.cityNameUA} #{/option}
+            #{option city.city_id}${play.i18n.Messages.get(city.cityNameKey)}#{/option}
         #{/list}
     #{/select}
 <input type="submit"/>
@@ -32,11 +32,11 @@
         <td>${rest.twoLetters}</td>
         <td>${rest.showOnIndex}</td>
         <td><img src="@{Application.serveLogo(rest.id)}" style="height:30px"/></td>
-        <td>${rest.description}</td>
-        <td>${rest.category.categoryDisplayNameUA}</td>
-        <td>${rest.workHoursToday()}</td>
+        <td>TODO:ADD descrtptiopn here</td>
+        <td>TODO:add category</td>
+        <td>${rest.workhours_id}</td>
         <td>${rest.addressToString()}</td>
-        <td>${rest.device?.lastPing?.since()}</td>
+        <td>${rest.lastPing.toString()}</td>
     </tr>
 #{/list}
 </table>
