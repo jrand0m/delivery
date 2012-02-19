@@ -28,7 +28,6 @@ public class UserLog extends Model {
 		public static final String USERLOG_DATE = "date";
 		public static final String USERLOG_INFO = "info";
 	}
-	@Column(name="loggedby")
     @ManyToOne
 	public EndUser user;
 	@Enumerated(value = EnumType.STRING)

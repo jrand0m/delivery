@@ -45,7 +45,6 @@ public class UserSetting extends Model {
 	 * if null than no date
 	 * */
 	public Date endDate;
-	@Column(name="owner")
     @ManyToOne
 	public EndUser user;
 }
