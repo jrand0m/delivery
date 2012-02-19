@@ -5,10 +5,7 @@ package models.logging;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import enumerations.LogActionType;
 import enumerations.LogLevel;
@@ -30,7 +27,7 @@ public class RestaurantLog extends Model {
 		public static final String RESTAURANTLOG_DATE = "date";
 		public static final String RESTAURANTLOG_INFO = "info";
 	}
-
+    @ManyToOne
 	public Restaurant restaurant;
 	@Enumerated(value = EnumType.STRING)
 	public LogActionType actionType;
