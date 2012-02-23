@@ -156,6 +156,7 @@ public class Admin extends Controller {
 	}
 	public static void editMenuItem(Long id){
 		MenuItem item = MenuItem.findById(id);
+
 		renderArgs.put("group", item.menuItemGroup.id);
 		renderArgs.put("id", item.restaurant.id);
 		renderArgs.put("item", item);

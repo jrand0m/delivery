@@ -6,7 +6,7 @@
 #{form @Admin.showMenuItems() , id:'form', enctype:'multipart/form-data' } 
 #{select 'id', value:1, id:'id'}
 #{list items:restaurants, as:'restaurant'}
-#{option restaurant.id} ${restaurant.title} #{/option}
+#{option restaurant.id} ${restaurant.title} (${restaurant.id}) #{/option}
 #{/list}
 #{/select}
 <input type="submit" />
@@ -15,9 +15,9 @@
 <table border="1">
 <tr> <th>Group</th> <th>Name</th> <th>price</th> <th>Description</th> <th>showComponents</th> <th>components</th> <th>menuItemCreated</th> <th>Actions</th> </tr>
 #{list items:items, as:'item'}
-<tr><td>${item.menuItemGroup.name}</td>
+<tr><td>${item.menuItemGroup.name}(${item.id})</td>
 <td>${item.name}</td>
-<td>${(item.price/100).formatCurrency('UAH').raw()}</td><td>${item.description}</td> <td>${item.showComponents}</td><td>${item.components.size()}</td><td>${item.menuItemCreated.format('dd MMMM yyyy')}</td> <td><a href="@{Admin.editMenuItem(item.id)}">edit</a></td>
+<td>${(item.price == null? "PRICE IS NULL!": item.price /100)}</td><td>${item.description}</td> <td>${item.showComponents}</td><td>${item.components.size()}</td><td>${item.menuItemCreated.format('dd MMMM yyyy')}</td> <td><a href="@{Admin.editMenuItem(item.id)}">edit</a></td>
 </tr>
 #{/list}
 </table>
