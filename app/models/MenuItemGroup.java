@@ -30,6 +30,7 @@ public class MenuItemGroup extends Model {
 	@ManyToOne
 	public Restaurant restaurant;
 	@OneToMany(mappedBy = MenuItem.FIELDS.MENU_ITEM_GROUP)
+    @Where(clause = "deleted = 'f' ")
 	public List<MenuItem> items;
 	public String description;
 	public String name;

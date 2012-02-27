@@ -28,7 +28,7 @@
 #{list items:restaurants, as:'rest'}
 <tr>
     <td><a href="@{Admin.editRestaurant(rest.id)}">edit</a></td>
-    <td>${rest.title} (${restaurant.id})</td>
+    <td>${rest.title} (${rest.id})</td>
     <td>${rest.twoLetters}</td>
     <td>${rest.showOnIndex}</td>
     <td><img src="@{Application.serveLogo(rest.id)}" style="height:30px"/></td>

@@ -128,6 +128,7 @@ public class Restaurant extends Model {
 	 * */
 	public Double discount;
 	@OneToMany(mappedBy = "restaurant")
+    @Where(clause = "deleted = 'f' ")
 	public List<MenuItemGroup> menuBook = new ArrayList<MenuItemGroup>();
 	/**
 	 * Restaurant Title
