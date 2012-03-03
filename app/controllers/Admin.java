@@ -93,6 +93,7 @@ public class Admin extends Controller {
 
 	public static void showUsers() {
 
+        render();
 	}
 
 	public static void showSettings() {
@@ -122,8 +123,8 @@ public class Admin extends Controller {
 		}
 
 		Restaurant r = Restaurant.findById(id);
-		group.restaurant = r;
-		group.save();
+		group.restaurant = r;//do something
+		group.save();        //
 		renderArgs.put("message", "Sucessfuly added : " + group.name);
 		render();
 	}
