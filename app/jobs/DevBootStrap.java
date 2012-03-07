@@ -12,9 +12,9 @@ import play.vfs.VirtualFile;
 public class DevBootStrap extends Job {
 	@Override
 	public void doJob() {
-		if (Play.mode.isDev()) {
+		if (Play.mode.isDev() && !"test".equals(Play.mode.name())) {
 
-			if (EndUser.count() > 0) {
+		/*	if (EndUser.count() > 0) {
 				Logger.warn("Database not empty, skiping fixture load");
 
 			} else {
@@ -29,7 +29,7 @@ public class DevBootStrap extends Job {
 					e.printStackTrace();
 					Logger.warn("Fixtures load failed: ", e);
 				}
-			}
+			}*/
 		}
 
 	}
