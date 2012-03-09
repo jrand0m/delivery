@@ -325,5 +325,11 @@ public class Admin extends Controller {
 		restaurant.save();
 		
 	}
+    public static void showLastPing(){
+        List<Restaurant> allRestaurants = Restaurant.find("deleted = ? order by showOnIndex asc", false).fetch();
+        renderArgs.put("restaurants",allRestaurants );
+        render();
+
+    }
 
 }

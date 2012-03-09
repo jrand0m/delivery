@@ -107,6 +107,7 @@ public class API extends Controller {
 			job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? order.orderPlanedCooked
 					.getTime() - System.currentTimeMillis()
 					: null;
+            job.customerName = order.orderOwner.usr_name;
 			for (OrderItem oi : order.items) {
 				job.list.add(new MenuItem(oi));
 			}
@@ -134,7 +135,7 @@ public class API extends Controller {
 					OrderStatus.COOKED, user).fetch();
 		}
 
-		Logger.info("Found %d orders", orders.size());
+		Logger.info("Found %d orders as courier %s", orders.size(), user.login);
 		List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
 		for (Order order : orders) {
 			CaffeJobsList job = new CaffeJobsList();

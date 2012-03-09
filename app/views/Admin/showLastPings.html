@@ -1,0 +1,12 @@
+#{extends 'main-admin.html' /}
+#{set 'c__lastPing'}active#{/set}
+<table border="1">
+    <tr> <th>id</th> <th>name</th> <th>is on index</th> <th>last ping</th> </tr>
+#{list items:restaurants, as:'restaurant'}
+    <tr><td>${restaurant.id}</td>
+        <td>${restaurant.title}</td>
+        <td>${restaurant.showOnIndex}</td>
+        <td>${restaurant.device.lastPing?.since()}</td>
+    </tr>
+#{/list}
+</table>

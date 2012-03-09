@@ -38,4 +38,5 @@ public class CaffeJobsList {
 	public String phone;
 	public String additionalInfo;
 	public Integer customerPrice;
+    public String customerName;
 }

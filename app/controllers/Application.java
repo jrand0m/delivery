@@ -136,30 +136,23 @@ public class Application extends Controller {
 		render("/Application/prepareOrder.html");
 	}
 
-	public static void index() {
-		List<Restaurant> restaurants = (List<Restaurant>) Cache
-				.get(CACHE_KEYS.INDEX_PAGE_RESTAURANTS
-						+ session.get(SESSION_KEYS.CITY_ID));
-		if (restaurants == null) {
-			String cityId = session.get(SESSION_KEYS.CITY_ID);
-			// TODO decide whether to cache city
-			City city = City.getCityByIdSafely(cityId);
-			restaurants = Restaurant.find(
-					Restaurant.HQL.BY_CITY_AND_SHOW_ON_INDEX, city, true)
-					.fetch(4);
-			Cache.set(CACHE_KEYS.INDEX_PAGE_RESTAURANTS + cityId, restaurants,
-					"2h");
-		}
-		List<City> cityList = (List<City>) Cache
-				.get(CACHE_KEYS.AVALIABLE_CITIES);
-		if (cityList == null) {
-			cityList = City.find(City.HQL.BY_DISPLAY, true).fetch();
-			Cache.set(CACHE_KEYS.AVALIABLE_CITIES, cityList, "8h");
-		}
-		renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
-		renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
-		render();
-	}
+    public static void index() {
+        String cityId = session.get(SESSION_KEYS.CITY_ID);
+        // TODO decide whether to cache city
+        City city = City.getCityByIdSafely(cityId);
+        List<Restaurant> restaurants = Restaurant.find(
+                Restaurant.HQL.BY_CITY_AND_SHOW_ON_INDEX, city, true)
+                .fetch(4);
+        List<City> cityList = (List<City>) Cache
+                .get(CACHE_KEYS.AVALIABLE_CITIES);
+        if (cityList == null) {
+            cityList = City.find(City.HQL.BY_DISPLAY, true).fetch();
+            Cache.set(CACHE_KEYS.AVALIABLE_CITIES, cityList, "8h");
+        }
+        renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
+        renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
+        render();
+    }
 
 	private static EndUser getCurrentUser() {
 		EndUser user = null;
