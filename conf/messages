@@ -97,4 +97,5 @@ secure.username=Ім'я користувача \:
 street.notacceptable=не вірна вулиця
 validation.email=не вірний формат адресу електронної пошти
 validation.phone=нефірний формат телефону
-validation.required=поле не може бути пустим
+validation.required=поле не може бути пустим
+common.basket.delivery=Доставка
