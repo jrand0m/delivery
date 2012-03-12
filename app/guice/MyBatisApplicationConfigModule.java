@@ -11,7 +11,7 @@ import services.mybatis.*;
  *
  * @author mike
  */
-public class ApplicationModule extends AbstractModule {
+public class MyBatisApplicationConfigModule extends AbstractModule {
 
     @Override
     protected void configure() {
