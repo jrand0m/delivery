@@ -67,7 +67,7 @@ div.rest_item_prev div.logo{height: 110px; position: relative; width: 210px; pad
 div.rest_item_prev div.logo i{display: inline-block; height: 100%; vertical-align: middle;}
 div.rest_item_prev div.logo img.logo{vertical-align: middle; max-width: 210px; max-height: 110px}
 div.rest_item_prev p{padding-left: 27px; padding-right: 10px; margin-left: 10px; font-size: 13px; margin-bottom: 5px; line-height: 20px;}
-div.rest_item_prev p.info{ line-height: 22px; overflow: hidden;padding-left:0px;}
+div.rest_item_prev p.info{ line-height: 22px; overflow: hidden;padding-left:0px;min-height: 44px;}
 div.rest_item_prev p.work_time{background: url(/public/images/clock-select.png) no-repeat left center transparent;}
 div.rest_item_prev p.work_time:hover{position:relative;}
 div.rest_item_prev p.work_time:hover span{cursor:help;-moz-transition:all 200ms ease-in-out 0s; opacity:0.9; top:-150px;display:block; padding:5px; position:absolute; background:#464444; border:1px solid #333; color:#fff;font-size:11px;}
