@@ -30,6 +30,15 @@ public class UUIDTypeHandler implements TypeHandler<UUID> {
     }
 
     @Override
+    public UUID getResult(ResultSet resultSet, int i) throws SQLException {
+        String read  = resultSet.getString(i);
+        UUID uuid = UUID.fromString(read);
+        Logger.debug("Read UUID %s, converted ->  ", read, uuid
+                .toString());
+        return uuid;
+    }
+
+    @Override
     public UUID getResult(CallableStatement cs, int columnIndex) throws SQLException {
         String read  = cs.getString(columnIndex);
         UUID uuid = UUID.fromString(read);

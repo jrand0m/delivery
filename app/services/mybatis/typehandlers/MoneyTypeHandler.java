@@ -34,6 +34,15 @@ public class MoneyTypeHandler implements TypeHandler<Money> {
     }
 
     @Override
+    public Money getResult(ResultSet resultSet, int i) throws SQLException {
+        String s = resultSet.getString(i);
+        if (s == null){
+            return null;
+        }
+        return  Money.parse("UAH " + s.substring(1));
+    }
+
+    @Override
     public Money getResult(CallableStatement cs, int columnIndex) throws SQLException {
         String s = cs.getString(columnIndex);
         if (s == null){

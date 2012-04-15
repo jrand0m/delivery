@@ -1,6 +1,9 @@
 package guice;
 
 import com.google.inject.AbstractModule;
+import services.*;
+import services.ebean.*;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,6 +15,13 @@ import com.google.inject.AbstractModule;
 public class eBeanApplicationConfigurationModule extends AbstractModule{
     @Override
     protected void configure() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        bind(BasketService.class).to(BasketServiceEbeanImpl.class);
+        bind(GeoService.class).to(GeoServiceEbeanImpl.class);
+        bind(LiveService.class).to(LiveServiceEbeanImpl.class);
+        bind(MailService.class).to(MailServiceEbeanImpl.class);
+        bind(OrderService.class).to(OrderServiceEbeanImpl.class);
+        bind(RestaurantService.class).to(RestaurantServiceEbeanImpl.class);
+        bind(SystemService.class).to(SystemServiceEbeanImpl.class);
+        bind(UserService.class).to(UserServiceEbeanImpl.class);
     }
 }

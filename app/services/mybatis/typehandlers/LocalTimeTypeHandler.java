@@ -24,6 +24,13 @@ public class LocalTimeTypeHandler implements TypeHandler<LocalTime> {
     }
 
     @Override
+    public LocalTime getResult(ResultSet resultSet, int i) throws SQLException {
+        Time time = resultSet.getTime(i);
+        return new LocalTime( time.getHours(), time.getMinutes(),  time.getSeconds());
+
+    }
+
+    @Override
     @SuppressWarnings("deprecated")
     public LocalTime getResult(CallableStatement cs, int columnIndex) throws SQLException {
         Time time = cs.getTime(columnIndex);

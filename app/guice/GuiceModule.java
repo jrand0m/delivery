@@ -10,8 +10,8 @@ public class GuiceModule extends GuiceSupport {
     @Override
     protected Injector configure() {
         Module[] applicationConfiguration =
-                { new MyBatisConfigModule(), new MyBatisApplicationConfigModule()};
-        //      { eBeanApplicationConfigurationModule()};
+        //    { new MyBatisConfigModule(), new MyBatisApplicationConfigModule()};
+              { new eBeanApplicationConfigurationModule()};
 
         Injector injector = Guice.createInjector( applicationConfiguration );
         return injector;

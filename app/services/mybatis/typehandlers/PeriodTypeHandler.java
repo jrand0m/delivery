@@ -29,6 +29,13 @@ public class PeriodTypeHandler implements TypeHandler<Period> {
     }
 
     @Override
+    public Period getResult(ResultSet resultSet, int i) throws SQLException {
+        String s = resultSet.getString(i);
+        if (s == null){return null;}
+        return ISOPeriodFormat.standard().parsePeriod(s);
+    }
+
+    @Override
     public Period getResult(CallableStatement cs, int columnIndex) throws SQLException {
         String s = cs.getString(columnIndex);
         if (s == null){return null;}

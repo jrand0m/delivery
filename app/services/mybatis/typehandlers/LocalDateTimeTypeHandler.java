@@ -40,6 +40,13 @@ public class LocalDateTimeTypeHandler implements TypeHandler<LocalDateTime> {
     }
 
     @Override
+    public LocalDateTime getResult(ResultSet resultSet, int i) throws SQLException {
+        Date sd = resultSet.getDate(i);
+        LocalDateTime localDateTime =  new LocalDateTime(sd);
+        return localDateTime;
+    }
+
+    @Override
     public LocalDateTime getResult(CallableStatement callableStatement, int i) throws SQLException {
         Date sd = callableStatement.getDate(i);
         LocalDateTime localDateTime =  new LocalDateTime(sd);
