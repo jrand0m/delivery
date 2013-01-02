@@ -6,47 +6,46 @@
 <a href="">add new address</a>
 
 #{form @Locker.addAddress() , id:'newAddress' }
-<label for="address.street">Street</label> <input name="address.street" type="text"/><br/>
-<label for="address.apartmentsNumber">App No</label> <input name="address.apartmentsNumber" type="text"/><br/>
-<label for="address.buldingNuber">Building No</label> <input name="address.buldingNuber" type="text"/><br/>
-<label for="address.additionalInfo">Additional Info</label> <input name="address.additionalInfo" type="text"/><br/>
-<input type="submit"/>
+  <label for="address.street">Street</label> <input name="address.street" type="text" /><br/>
+  <label for="address.appartamentsNumber">App No</label> <input name="address.appartamentsNumber" type="text" /><br/>
+  <label for="address.buldingNuber">Building No</label> <input name="address.buldingNuber" type="text" /><br/>
+  <label for="address.additionalInfo">Additional Info</label> <input name="address.additionalInfo" type="text" /><br/>
+  <input type="submit" />
 #{/form}
 #{if addressList}
 <ol>
-    #{list items:addressList, as:'address' }
-        <li>
-            <p>
-                street:              ${address.street}            <br>
-                apartmentsNumber: ${address.appartamentsNumber}<br>
-                buldingNuber:        ${address.buldingNuber}      <br>
-                additionalInfo:        ${address.additionalInfo}    <br>
-                <a href="@@{Locker.editAddress(address.id)}">edit</a><a href="@@{Locker.deleteAddress(address.id)}">delete</a>
-            </p>
-        </li>
-    #{/list}
+ #{list items:addressList, as:'address' }
+     <li>
+     <p>
+    street:  			${address.street}            <br>
+    appartamentsNumber: ${address.appartamentsNumber}<br>
+	buldingNuber:		${address.buldingNuber}      <br>
+	additionalInfo:    	${address.additionalInfo}    <br>
+	<a href="@@{Locker.editAddress(address.id)}">edit</a><a href="@@{Locker.deleteAddress(address.id)}">delete</a>
+     </p>
+     </li>
+ #{/list}
 </ol>
 #{/if}
 #{else}
-Address book is empty...
+	Address book is empty...
 #{/else}
 <H4>Your order history:</H4>
 #{if orderList}
 <ol>
-    #{list items:orderList, as:'order' }
-        <li>
-            <p>
-                restaurant:            ${order.getRestaurant()?.name}            <br>
-                orderStatus:        ${order.orderStatus}            <br>
-                orderDate:            ${order.orderDate}            <br>
-                Total                ${order.getGrandTotal()}            <br>
-                deliveryAddress:    ${order.deliveryAddress?.street},  ${order.deliveryAddress?.buldingNuber}
-                /${order.deliveryAddress?.appartamentsNumber}        <br>
-            </p>
-        </li>
-    #{/list}
+ #{list items:orderList, as:'order' }
+     <li>
+     <p>
+     restaurant:            ${order.getRestaurant()?.name}            <br>
+     orderStatus:		${order.orderStatus}            <br>
+     orderDate:			${order.orderDate}            <br>
+     Total				${order.getGrandTotal()}            <br>
+     deliveryAddress:	${order.deliveryAddress?.street},  ${order.deliveryAddress?.buldingNuber}/${order.deliveryAddress?.appartamentsNumber}        <br>
+     </p>
+     </li>
+ #{/list}
 </ol>
 #{/if}
 #{else}
-No orders yet, <a href="@@{Application.index()}">Make Order</a>!
+	No orders yet, <a href="@@{Application.index()}">Make Order</a>!
 #{/else}

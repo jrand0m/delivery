@@ -1,14 +1,13 @@
 #{extends 'main-admin.html' /}
 <form action="@{Admin.uploadLogo()}" method="POST" enctype="multipart/form-data">
-    <input type="file" id="logo" name="logo"/>
-
+    <input type="file" id="logo" name="logo" />
     <div>
-        <label for="city_id">Restaurant</label>
-    #{select 'id', value:restaurant?.id, name:'id',  id:'id'}
-        #{list items:restaurants, as:'restaurant'}
-            #{option restaurant.id} ${restaurant.title} #{/option}
-        #{/list}
-    #{/select}
-    </div>
-    <input type="submit" value="Send it..."/>
+<label for="id">Restaurant</label>
+#{select 'id', value:restaurant?.id, name:'id',  id:'id'}
+#{list items:restaurants, as:'restaurant'}
+#{option restaurant.id} ${restaurant.title} #{/option}
+#{/list}
+#{/select}
+</div>
+    <input type="submit" value="Send it..." />
 </form>

@@ -1,54 +1,48 @@
 #{extends 'main.html' /}
 #{set title:'New User' /}
 #{form @Application.registerNewUser() , id:'user' }
-    #{set 'moreScripts'}
-    <script type="text/javascript" src="@{'/public/javascripts/inputs_and_labels.js'}"></script>
-    #{/set}
-    #{set 'breadCrumb' }
-    <a class="enter back" href="/">&{'common.gohome'}</a>
-        #{if controllers.Security.isConnected()}
-        <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-        <a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
-
-        #{/if}
-        #{else}
-        <a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-        #{/else}
-    #{/set}
+#{set 'moreScripts'}
+	<script type="text/javascript" src="@{'/public/javascripts/inputs_and_labels.js'}"></script>
+#{/set}
+#{set 'breadCrumb' }
+<a class="enter back" href="/">&{'common.gohome'}</a>
+#{if controllers.Security.isConnected()}
+		<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+		<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>
+		
+	#{/if}
+	#{else}
+		<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+	#{/else}
+#{/set}
 <div id="login">
-    <h1>&{'reg.title'}</h1>
-
-    <div class="linner">
-        <p class="tl">
-            <label for="user.login">&{'reg.login'}</label>
-            <input name="user.login" id="user.login" type="text"/>
-        </p>
-
-        <p class="tl">
-            <label for="user.password">&{'reg.password'}</label>
-            <input name="user.password" id="user.password" type="password"/>
-        </p>
-
-        <p class="tl">
-            <label for="user.name">&{'reg.name'}</label>
-            <input name="user.name" id="user.name" type="text"/>
-        </p>
-
-        <p class="tl">
-            <label for="user.surname">&{'reg.surname'}</label>
-            <input name="user.surname" id="user.surname" type="text"/>
-        </p>
-
-        <p class="tl">
-            <label for="user.phoneNumber">&{'reg.phone'}</label>
-            <input name="user.phoneNumber" id="user.phoneNumber" type="text"/>
-        </p>
-
-        <p class="tl">
-            <label for="user.email">&{'reg.email'}</label>
-            <input name="user.email" id="user.email" type="text"/>
-        </p>
-        <input type="submit" value="&{'reg.reg'}"/>
-    </div>
+	<h1>&{'reg.title'}</h1>
+	<div class="linner">
+		<p class="tl">
+			<label for="user.login">&{'reg.login'}</label>
+			<input name="user.login" id="user.login" type="text" />
+		</p>
+		<p class="tl">
+			<label for="user.password">&{'reg.password'}</label>
+			<input name="user.password" id="user.password" type="password" />
+		</p>
+		<p class="tl">
+			<label for="user.name">&{'reg.name'}</label>
+			<input name="user.name" id="user.name" type="text" />
+		</p>
+		<p class="tl">
+			<label for="user.surname">&{'reg.surname'}</label>
+			<input name="user.surname" id="user.surname" type="text" />
+		</p>
+		<p class="tl">
+			<label for="user.phoneNumber">&{'reg.phone'}</label>
+			<input name="user.phoneNumber" id="user.phoneNumber" type="text" />
+		</p>
+		<p class="tl">
+			<label for="user.email">&{'reg.email'}</label>
+			<input name="user.email" id="user.email" type="text" />
+		</p>
+		<input type="submit" value="&{'reg.reg'}" />
+	</div>
 </div>
 #{/form}

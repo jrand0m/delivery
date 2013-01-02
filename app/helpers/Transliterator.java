@@ -84,9 +84,9 @@ public class Transliterator {
     }
 
     public static synchronized String transliterate(String string) {
-        if (string == null) {
-            return "null";
-        }
+    	if (string == null) {
+    		return "null";
+    	}
         StringBuilder transliteratedString = new StringBuilder();
         for (int i = 0; i < string.length(); i++) {
             Character ch = string.charAt(i);

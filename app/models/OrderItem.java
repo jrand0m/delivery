@@ -1,122 +1,120 @@
 package models;
 
 
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
-import play.modules.guice.InjectSupport;
-import services.RestaurantService;
-
-import javax.inject.Inject;
-import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-@InjectSupport
-@Table(name = "vd_order_items")
-@SequenceGenerator(name = "order_items_seq_gen", sequenceName = "order_items_seq")
-public class OrderItem {
-    @Id
-    @GeneratedValue(generator = "order_items_seq_gen", strategy = GenerationType.SEQUENCE)
-    public Long id;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
-    @Column(name = "count")
-    public Integer count;
+import org.hibernate.annotations.Where;
 
-    @Column(name = "deleted")
-    public boolean deleted = false;
+import play.Logger;
+import play.db.jpa.Model;
 
-    /**
-     * Archived real price from restaurant including components
-     * (That was calculated in moment, when order was approved).
-     */
-    @Column(name = "total_order_item_price")
-    public Money orderItemPrice;
+@Entity
+//@Where(clause = "deleted = 0")
+public class OrderItem extends Model {
 
-    @Column(name = "menu_item_id")
-    public Long menuItemId;
-    @ManyToOne
-    @JoinColumn(name = "menu_item_id")
-    @Deprecated
-    public MenuItem menuItem;
+	public static final class HQL {
+		public static final String BY_ORDER_AND_MENU_ITEM = OrderItem.FIELDS.ORDER
+				+ " = ? and " + OrderItem.FIELDS.MENUITEM + " =? ";
+	}
 
-    @Column(name = "order_id")
-    public Long orderId;
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    @Deprecated
-    public Order order;
+	public static final class FIELDS {
+		public static final String COUNT = "count";
+		public static final String DELETED = "deleted";
+		public static final String MENUITEM = "menuItem";
+		public static final String ORDER = "order";
+		public static final String ORDER_ITEM_PRICE = "orderItemPrice";	}
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "vd_order_items_selected_components")
-    public Set<MenuItemComponent> selectedComponents = new HashSet<MenuItemComponent>();
+	public Integer count;
 
-    @Inject
-    @Deprecated
-    private static RestaurantService restaurantService;
+	public boolean deleted = false;
+	@ManyToOne
+	public MenuItem menuItem;
+	@ManyToOne
+	public Order order;
 
-    public Money totalPriceInclComponents() {
-        //Todo extract to calculation service
-        Money componentPrice = Money.zero(CurrencyUnit.of("UAH"));
-        for (MenuItemComponent mc : selectedComponents) {
-            componentPrice = componentPrice.plus(mc.price);
-        }
-        return menuItem.price.plus(componentPrice).multipliedBy(count);
-    }
+	@ManyToMany(fetch = FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "SELECTED_ORDERITEMS_COMPONENTS")
+	public Set<MenuItemComponent> selectedComponents = new HashSet<MenuItemComponent>();
+	/**
+	 * Archived real price from restaurant including components (That was calculated in moment, when
+	 * order was approved).
+	 * */
+	public Integer orderItemPrice;
 
-    public OrderItem() {
+	public Integer totalPriceInclComponents(){
+		Integer componentPrice = 0;
+		for (MenuItemComponent mc:selectedComponents){
+			componentPrice += mc.itm_price;
+		}
+		return count * (menuItem.price + componentPrice);  
+	}
+	public OrderItem() {
 
-    }
+	}
 
-    public OrderItem(MenuItem menuItem, Order order, Long[] component) {
-        // TODO [Mike] (add calculations of a price here )
-        this.menuItem = menuItem;
-        this.order = order;
-        this.count = 1;
-        this.orderItemPrice = menuItem.price;
-        if (component != null) {
-            for (Long comp : component) {
-                MenuItemComponent mic = restaurantService.getMenuItemComponent(comp);
-                if (mic.menuItemId.equals(menuItemId)) {
-                    selectedComponents.add(mic);
-                    this.orderItemPrice = this.orderItemPrice.plus(mic.price);
-                }
-            }
-        }
-    }
+	public OrderItem(Integer count, /* Integer orderItemUserPrice, */
+			Integer orderItemPrice, Order orderId, MenuItem menuitem) {
+		this.menuItem = menuitem;
+		this.count = count;
+		this.orderItemPrice = orderItemPrice;
+		this.order = orderId;
+		this.deleted = false;
+	}
 
-    public String name() {
-        return menuItem.name();
-    }
-
-    public String desc() {
-        StringBuilder s = new StringBuilder(menuItem.description());
-        if (!selectedComponents.isEmpty()) {
-            s.append(" (");
-            for (Iterator<MenuItemComponent> i = selectedComponents.iterator(); i.hasNext(); ) {
-                s.append(i.next().name());
-                s.append(", ");
-            }
-            s.delete(s.length() - 2, s.length());
-            s.append(") ");
-        }
-        return s.toString();
-    }
-
-    /**
-     * @deprecated use orderItemField
-     */
-    public String priceString() {
-
-        return orderItemPrice.toString();
-    }
-
-    public ArrayList<String> selectedComponentsNames() {
-        ArrayList<String> names = new ArrayList<String>();
-        for (MenuItemComponent comp : selectedComponents) {
-            names.add(comp.name());
-        }
-        return names;
-    }
+	public OrderItem(MenuItem menuItem, Order order, Long[] component) {
+		// TODO [Mike] (add calculations of a price here )
+		this.menuItem = menuItem;
+		this.order = order;
+		this.count = 1;
+		this.orderItemPrice = menuItem.price;
+		if (component != null){
+			for (Long comp: component){
+				MenuItemComponent mic = MenuItemComponent.findById(comp);
+				if (mic.itm_root.equals(menuItem)){
+					selectedComponents.add(mic);
+					this.orderItemPrice = this.orderItemPrice + mic.price();
+				}
+			}
+		}
+	}
+	public String name() {
+		return menuItem.name();
+	}
+	public String desc() {
+		String s = menuItem.description();
+		if (!selectedComponents.isEmpty()){
+			s += " (";
+			for (Iterator<MenuItemComponent> i = selectedComponents.iterator(); i.hasNext(); ){
+				s += i.next().name();
+				if (i.hasNext()){
+					s+= ", ";
+				}
+			}
+			s+= ") ";
+		}
+		return s;
+	}
+	public String priceString(){
+		String string = new BigDecimal(orderItemPrice).setScale(2,RoundingMode.HALF_EVEN).divide(new BigDecimal(100).setScale(2,RoundingMode.HALF_EVEN)).toString();
+		return string;
+	}
+	public ArrayList<String> selectedComponentsNames() {
+		ArrayList<String> names = new ArrayList<String>();
+		for (MenuItemComponent comp :selectedComponents){
+			names.add(comp.name());
+		}
+		return names;
+	}
 }

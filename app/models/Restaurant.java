@@ -4,22 +4,47 @@
  */
 package models;
 
+import helpers.PropertyVault;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import models.device.RestaurantDevice;
 import models.geo.Address;
 import models.geo.City;
-import models.time.WorkHours;
-import models.users.User;
-import org.joda.time.DateTime;
-import play.Logger;
-import play.cache.Cache;
-import play.db.jpa.Blob;
-import play.i18n.Messages;
+import models.settings.SystemSetting;
+import models.users.EndUser;
+import models.users.RestaurantUser;
 
-import javax.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.Where;
+
+import play.cache.Cache;
+import play.data.validation.Max;
+import play.data.validation.Min;
+import play.data.validation.Phone;
+import play.db.jpa.Blob;
+import play.db.jpa.Model;
+import play.i18n.Lang;
+import play.i18n.Messages;
+import play.libs.Codec;
 
 /**
+ * 
  * @author mike
+ * 
  */
-<<<<<<< HEAD
 @Entity
 public class Restaurant extends Model {
 	public static class FIELDS {
@@ -174,121 +199,5 @@ public class Restaurant extends Model {
 	public void setTwoLetters(String ltrs) {
 			twoLetters = ltrs;
 	}
-=======
-@Table(name = "vd_restaurant")
-@SequenceGenerator(name = "restaurant_seq_gen", sequenceName = "restaurant_seq")
-public class Restaurant {
-
-    @Id
-    @GeneratedValue(generator = "restaurant_seq_gen", strategy = GenerationType.SEQUENCE)
-    public Integer id;
-
-    @Column(name = "city_id", insertable = false, updatable = false, nullable = false)
-    public Long city_id;
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    @Deprecated
-    public City city;
-
-    @Column(name = "address_id", insertable = false, updatable = false, nullable = false)
-    public Long address_id;
-    @OneToOne
-    @JoinColumn(name = "address_id")
-    @Deprecated
-    public Address address;
-
-    @Column(name = "category_id", insertable = false, updatable = false, nullable = false)
-    public Integer category_id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    @Deprecated
-    public RestaurantCategory category;
-
-    @Column(name = "workhours_id", insertable = false, updatable = false, nullable = false)
-    public Integer workhours_id;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workhours_id")
-    @Deprecated
-    public WorkHours workhours;
-    /**
-     * loginable power user id
-     */
-    @Column(name = "user_id", insertable = false, updatable = false, nullable = false)
-    public Long user_id;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    @Deprecated
-    public User restaurantAdminUser;
-
-    @Column(name = "title")
-    public String title;
-    @Column(name = "deleted", nullable = false)
-    public boolean deleted = false;
-    @Column(name = "show_on_index", nullable = false)
-    public boolean showOnIndex = false;
-
-    /**
-     * logo image , ATTENTION! stores in /attachents/ dir
-     */
-    public Blob logo;
-
-
-    /**
-     * Updates by job at 4 o'clock every day based on approved comments for past
-     * 30 days
-     */
-    @Column(name = "raiting", nullable = false)
-    public Integer raiting;
-
-    @Column(name = "deviceLogin", nullable = false)
-    public String deviceLogin;
-    @Column(name = "devicePassword", nullable = false)
-    public String devicePassword;
-
-    @Column(name = "lastPing")
-    public DateTime lastPing;
-    /**
-     * XXX should i store it here ? Restaurant setting ?
-     */
-    @Column(name = "discount")
-    public Integer discount;
-
-    @Column(name = "twoLetters", nullable = false, length = 2)
-    public String twoLetters;
-
-
-    public boolean isOnline() {
-        Boolean online = (Boolean) Cache.get("isOnline_" + id);
-        if (online == null) {
-            long waitTimeInMiliseconds = 300000;
-            Logger.debug("//TODO:get from system properties >>> %s", waitTimeInMiliseconds);
-
-            /* Long.parseLong(PropertyVault
-                       .getSystemValueFor("pingTime"));*/
-
-            if (lastPing != null) {
-                online = System.currentTimeMillis() - lastPing.getMillis() < waitTimeInMiliseconds;
-            } else {
-                // TODO Hardcore workaround on device null;
-                online = true;
-            }
-            long waitTimeInMin = (waitTimeInMiliseconds / 1000 / 60) + 1;
-
-            Cache.set("isOnline_" + id, online, waitTimeInMin + "mn");
-        }
-        return online;
-    }
-
-    public String addressToString() {
-        // FIXME Hardcore workaround
-        return address != null ? address.toString() : Messages
-                .get("restaurant.noaddress");
-    }
-
-    public String isOnlineAsString() {
-        return isOnline() ? Messages.get("restaurant.online") : Messages
-                .get("restaurant.offline");
-    }
->>>>>>> master
 
 }

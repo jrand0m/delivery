@@ -91,11 +91,7 @@ var rndr = function(c){
 		itmz.push(tmpl("dtmp",{d:ei}));		
 	};
 	obj["tb"] = "";
-<<<<<<< HEAD
 	for (var i = 0; i < itmz.length +(itmz.length%2?1:0); i=i+2){
-=======
-	for (var i = 0; i < (itmz.length +(itmz.length%2?1:0))/2; i=i+2){
->>>>>>> master
 		var le = itmz[i];
 		var re = itmz[i+1];
 		if (!re) re = tmpl("dtmp",{d:{}});

@@ -1,126 +1,115 @@
 #{extends 'main-restaurant-admin.html' /}
 #{set 'title'}
-${user.usr_name} administration page
+    ${user.usr_name} administration page
 #{/set}
 #{set 'moreScripts'}
-<script type="text/javascript" src="http://www.highcharts.com/js/testing-stock-exporting.js"></script>
-<script type="text/javascript" src="@{RestaurantAdmin.getSummaryChartData()}"></script>
-<script type="text/javascript">
-    jQuery(function () {
-        // Create the chart
-        window.chart = new Highcharts.StockChart({
-            chart:{
-                renderTo:'incomeChart'
-            },
-            /*
-            rangeSelector: {
-                selected: 1
-            },
-
+	<script type="text/javascript" src="http://www.highcharts.com/js/testing-stock-exporting.js"></script>
+	<script type="text/javascript" src="@{RestaurantAdmin.getSummaryChartData()}"></script>
+	<script type="text/javascript" >
+jQuery(function() {
+    // Create the chart    
+    window.chart = new Highcharts.StockChart({
+        chart: {
+            renderTo: 'incomeChart'
+        },
+        /*
+        rangeSelector: {
+            selected: 1
+        },
+        
+        title: {
+            text: 'USD to EUR exchange rate'
+        },*/
+        
+        xAxis: {
+            maxZoom: 14 * 24 * 3600000 // fourteen days
+        },
+        yAxis: {
             title: {
-                text: 'USD to EUR exchange rate'
-            },*/
-
-            xAxis:{
-                maxZoom:14 * 24 * 3600000 // fourteen days
-            },
-            yAxis:{
-                title:{
-                    text:'Exchange rate'
-                }
-            },
-
-            series:[
-                {
-                    name:'USD to EUR',
-                    data:incomeChartData
-                }
-            ]
-        });
+                text: 'Exchange rate'
+            }
+        },
+        
+        series: [{
+            name: 'USD to EUR',
+            data: incomeChartData
+        }]
     });
+});
 </script>
 #{/set}
-<div id="left_cont">
-    <div class="top_left_cont">
-        <H1>Загальний підсумок</H1>
+			<div id="left_cont">
+				<div class="top_left_cont">
+					<H1>Загальний підсумок</H1>
+					<div class="inner_div">
+						&{'restaurant.admin.summary.textline', ordersCount, todaysRevenue, totalRevenue }
+					</div>
+				</div>
+				<div class="top_left_cont">
+					<H1>Графік прибутку</H1>
+					<div class="inner_div">
+						<div id="incomeChart"></div>
+					</div>
+				</div>
+				<div class="left_left_cont">
+					<h1>&{'restaurant.admin.summary.lastorders'}</h1>
+					<div class="inner_div">
+						#{if lastOrders}
+						<ul>
+							#{list items:lastOrders, as:'order'}
+							<li>fuu</li>
+							#{/list}
+						</ul>
+						#{/if}
+						#{else}
+							&{'restaurant.admin.summary.noorders'}
+						#{/else}
+					</div>
+				</div>
+				<div class="right_left_cont">
+					<h1>Останні залишені коментарі</h1>
+					<div class="inner_div">
+						#{if lastComments}
+						<ul>
+							#{list items:lastComments, as:'comment'}
+							<li>fuu</li>
+							#{/list}
+						</ul>
+						#{/if}
+						#{else}
+							&{'restaurant.admin.summary.nocomments'}
+						#{/else}
+					</div>
+				</div>
+			</div>
+			<div id="right_cont">
+				<div class="right_block">
+					<h1>&nbsp;</h1>
+					<div class="inner_div">
+						<p><p>номер договору :
+№ 123123123</p>
+<p>дійсний з:
+дд-ММ-РРРР 
+до:
+дд-ММ-РРРР</p>
 
-        <div class="inner_div">
-        &{'restaurant.admin.summary.textline', ordersCount, todaysRevenue, totalRevenue }
-        </div>
-    </div>
-    <div class="top_left_cont">
-        <H1>Графік прибутку</H1>
+<p>Відсоток: 10%</p>
 
-        <div class="inner_div">
-            <div id="incomeChart"></div>
-        </div>
-    </div>
-    <div class="left_left_cont">
-        <h1>&{'restaurant.admin.summary.lastorders'}</h1>
+<p>Модель розрахунку:
+Взаємний розрахунок в кінці місяця.</p>
 
-        <div class="inner_div">
-        #{if lastOrders}
-            <ul>
-                #{list items:lastOrders, as:'order'}
-                    <li>fuu</li>
-                #{/list}
-            </ul>
-        #{/if}
-        #{else}
-        &{'restaurant.admin.summary.noorders'}
-        #{/else}
-        </div>
-    </div>
-    <div class="right_left_cont">
-        <h1>Останні залишені коментарі</h1>
+<p>Модель доставки:
+Самовивіз, кур'єрами "Вдома.ком.юа"</p>
 
-        <div class="inner_div">
-        #{if lastComments}
-            <ul>
-                #{list items:lastComments, as:'comment'}
-                    <li>fuu</li>
-                #{/list}
-            </ul>
-        #{/if}
-        #{else}
-        &{'restaurant.admin.summary.nocomments'}
-        #{/else}
-        </div>
-    </div>
-</div>
-<div id="right_cont">
-    <div class="right_block">
-        <h1>&nbsp;</h1>
-
-        <div class="inner_div">
-            <p>
-
-            <p>номер договору :
-                № 123123123</p>
-
-            <p>дійсний з:
-                дд-ММ-РРРР
-                до:
-                дд-ММ-РРРР</p>
-
-            <p>Відсоток: 10%</p>
-
-            <p>Модель розрахунку:
-                Взаємний розрахунок в кінці місяця.</p>
-
-            <p>Модель доставки:
-                Самовивіз, кур'єрами "Вдома.ком.юа"</p>
-
-            <p>закріплені пристрої:
-                - КЕП-хххх(Київ, вул. фівфівфівфів 123)
-                - КЕП-хххх(Львів, вул. фівфівфів 123)</p></p>
-        </div>
-    </div>
-    <div class="right_block">
-        <h1>&nbsp;</h1>
-
-        <div class="inner_div">
-            <p>&nbsp;</p>
-        </div>
-    </div>
-</div>
+<p>закріплені пристрої:
+- КЕП-хххх(Київ, вул. фівфівфівфів 123)
+- КЕП-хххх(Львів, вул. фівфівфів 123)</p></p>
+					</div>
+				</div>
+				<div class="right_block">
+					<h1>&nbsp;</h1>
+					<div class="inner_div">
+						<p>&nbsp;</p>
+					</div>
+				</div>
+			</div>

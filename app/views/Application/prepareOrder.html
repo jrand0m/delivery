@@ -1,26 +1,26 @@
 #{extends 'main.html' /}
 
 #{set 'title'}
-Order #${order.getShortHandId()}
+    Order #${order.getShortHandId()}
 #{/set}
 #{set 'moreScripts'}
 <script type="text/javascript" src="@{'/public/javascripts/jquery-ui-1.8.16.custom.min.js'}"></script>
 <!--<script type="text/javascript" src="@{'/public/javascripts/jquery.tipsy.js'}"></script>-->
 #{/set}
 #{set 'moreStyles'}
-<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/tipsy.css'}" media="screen"/>
-<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/jquery-ui-1.8.16.custom.css'}" media="screen"/>
+ <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/tipsy.css'}" media="screen" />
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/jquery-ui-1.8.16.custom.css'}" media="screen" />
 #{/set}
 #{set 'breadCrumb' }
-<a class="enter back" href="@{Application.showMenu(order.restaurant.id)}">&{'common.back'}</a>
-    #{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
-    <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-    *{<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>}*
-    #{/if}
-    #{else}
-    <a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-    *{<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>}*
-    #{/else}
+<a class="enter back" href="@{Application.showMenu(order.restaurant.id)}" >&{'common.back'}</a>
+#{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
+<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+*{<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>}*
+#{/if}
+#{else}
+<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+*{<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>}*
+#{/else}
 #{/set}
 <div class="left_cont">
 	<div class="checkout">
@@ -130,8 +130,8 @@ Order #${order.getShortHandId()}
 	</div>
 </div>
 <script type="text/javascript">
-    /*var streets = [
-    #{list items:streets, as:'street'}
+/*var streets = [
+#{list items:streets, as:'street'}
 {
   "id" : "${street.id}",
   "text":"${street.name()}"

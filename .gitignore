@@ -80,10 +80,5 @@ logs/*
 *.iml
 *.ipr
 *.iws
-<<<<<<< HEAD
 1.2.x
 test-result/
-=======
-test-result/
-
->>>>>>> master

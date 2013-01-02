@@ -1,58 +1,55 @@
 package models;
 
-import org.joda.money.Money;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Table(name = "vd_menu_item_components")
-@SequenceGenerator(name = "menu_item_component_seq_gen", sequenceName = "menu_item_component_seq")
-public class MenuItemComponent {
+import play.db.jpa.Model;
+@Entity
+public class MenuItemComponent extends Model {
+	public static class FIELDS {
+		public static final String ITM_ROOT = "itm_root";
+		
+	}
+	
+	@ManyToOne
+	public MenuItem itm_root;
+	public String itm_name;
+	public String itm_desc;
+	public Integer itm_price;
+	public boolean itm_avaliable = false;
+	@ManyToMany
+	@JoinTable(name = "REQUIRED_MAP")
+	public List<MenuItemComponent> required = new ArrayList<MenuItemComponent>();
+	@ManyToMany
+	@JoinTable(name = "NOT_COMPATIBLE_MAP")
+	public List<MenuItemComponent> notCompatible = new ArrayList<MenuItemComponent>();
+	@ManyToMany(fetch = FetchType.LAZY)
+	public Set<OrderItem> usedIn;
+	// TODO add internationalization
+	public String name() {
+		return itm_name;
+	}
 
-    @Id
-    @GeneratedValue(generator = "menu_item_component_seq_gen", strategy = GenerationType.SEQUENCE)
-    public Long id;
-
-    @Column(name = "name")
-    public String name;
-    @Column(name = "description")
-    public String description;
-    @Column(name = "price")
-    public Money price;
-
-    @Column(name = "deleted")
-    public boolean deleted = false;
-
-    @Column(name = "requiredIds")
-    public Long[] requiredIds;
-
-    @Column(name = "notCompatible")
-    public Long[] notCompatible;
-
-    @Column(name = "menu_item_id")
-    public Long menuItemId;
-    @ManyToOne
-    @JoinColumn(name = "menu_item_id")
-    @Deprecated
-    public MenuItem menuItem;
-
-
-    // TODO add internationalization
-    public String name() {
-        return name;
-    }
-
-    // TODO add internationalization
-    public String description() {
-        return description;
-    }
-
-    public Money price() {
-        return price;
-    }
-
-    @Override
-    public String toString() {
-
-        return name + " " + price;
-    }
+	// TODO add internationalization
+	public String description() {
+		return itm_desc;
+	}
+	
+	public Integer price(){
+		return itm_price;
+	}
+	@Override
+	public String toString() {
+		
+		return itm_name + " " + itm_price;
+	}
 }

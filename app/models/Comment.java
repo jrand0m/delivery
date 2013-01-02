@@ -1,58 +1,55 @@
 /**
- *
+ * 
  */
 package models;
 
-import enumerations.CommentStatus;
-import org.joda.time.LocalDateTime;
+import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import play.db.jpa.Model;
+import enumerations.CommentStatus;
 
 /**
  * @author Mike user can comment once per order(avoid spam)
  */
-@Table(name = "vd_comments")
-@SequenceGenerator(name = "comments_seq_gen", sequenceName = "comments_seq")
-public class Comment {
+@Entity
+public class Comment extends Model {
+	public static final class FIELDS {
+		public static final String COMMENT_ORDER = "order";
+		public static final String COMMENT_RESTAURANT = "restaurant";
+		public static final String COMMENT_TEXT = "text";
+		public static final String COMMENT_COMMON_RATING = "commonRating";
+		public static final String COMMENT_DATE = "date";
+		public static final String COMMENT_STATUS = "status";
+		public static final String COMMENT_SHOW_AS_ANONYMOUS = "showAsAnonymous";
+	}
+	public static final class HQL {
 
+		public static final String BY_RESTAURANT_ORDERBY_DATE_DESC = FIELDS.COMMENT_RESTAURANT+ " =? order by "+FIELDS.COMMENT_DATE+" desc";
+		
+	}
 
-    @Id
-    @GeneratedValue(generator = "comments_seq_gen", strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
-    public Long id;
+	/**
+	 * allow only registered users !
+	 * */
+	@OneToOne
+	public Order order;
+	@ManyToOne
+	public Restaurant restaurant;
 
-    @Column(name = "comment_text")
-    public String text;
-
-    @Column(name = "common_rating")
-    public Integer commonRating;
-
-    @Column(name = "commented_at")
-    public LocalDateTime commentedAt;
-
-    @Column(name = "status")
-    @Enumerated(value = EnumType.STRING)
-    public CommentStatus status = CommentStatus.NOT_REVIEWED;
-    /**
-     * Based on user prefs set default, and ask if to hide his name;
-     */
-    @Column(name = "show_as_anonymous")
-    public boolean showAsAnonymous;
-
-    /**
-     * allow only registered users !
-     */
-    @Column(name = "order_id", nullable = false, insertable = false, updatable = false)
-    public Long orderId;
-    @OneToOne
-    @JoinColumn(name = "order_id")
-    @Deprecated
-    public Order order;
-    @Column(name = "restaurant_id", nullable = false, insertable = false, updatable = false)
-    public Integer restaurantId;
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    @Deprecated
-    public Restaurant restaurant;
+	public String text;
+	public Integer commonRating;
+	public Date date;
+	@Enumerated(value = EnumType.STRING)
+	public CommentStatus status = CommentStatus.NOT_REVIEWED;
+	/**
+	 * Based on user prefs set default, and ask if to hide his name;
+	 * */
+	public boolean showAsAnonymous;
 
 }
