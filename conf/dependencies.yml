@@ -1,8 +1,18 @@
 # Application dependencies
 
 require:
-    - play -> play [1.2.3,)
-    - play -> messages 1.1.1
-    - postgresql -> postgresql 8.4-702.jdbc4
-    - play -> log4play 0.5
-    - play -> betterlogs 1.0
+    - play -> play [1.2,)
+    - play -> messages [1.1.1,)
+    - play -> guice 1.1
+    - play -> betterlogs [1.0,)
+    - play -> ebean 1.0.6
+    - org.joda -> joda-money [0.6,)
+    - joda-time [2.0,)
+    - junit [4.8.1,)
+    - log4j [1.2.16,)
+    - org.mybatis -> mybatis [3.0.1,)
+    - org.mybatis -> mybatis-guice [3.0,)
+    - org.mockito -> mockito-all [1.9.0,)
+    - org.jsoup -> jsoup [1.6,) # used in tests
+    - asm -> asm [3.1,)
+    # fixes java.lang.NoSuchMethodError: org.objectweb.asm.ClassWriter.<init>(I)V
