@@ -2,21 +2,21 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 # Home page
-GET     /                                       Application.index
-GET		/index.php								Application.index
-*		/order/index.php						Application.order
-*		/order/checkout.php						Application.checkout
-*		/order/checkAndSend.php					Application.checkAndSend
-*		/order/add.php							Application.addOrderItem
-*		/order/cng.php							Application.cngOrderItem
-*		/order/list.php							Application.basket
-*		/show/restaurants.php					Application.showRestaurants
-*		/show/menu.php							Application.showMenu
-*		/show/last.php							Application.getLastOrders
-*		/show/comp.php							Application.comps
-*		/change/lang.php						Application.changeLang
-*		/change/city.php						Application.changeCity
-*		/serve/logo.php							Application.serveLogo
+GET     /                                       controllers.Application.index()
+GET     /index.php                              controllers.Application.index()
+GET     /order/index.php                        controllers.Application.order()
+GET     /order/checkout.php                     controllers.Application.checkout()
+GET     /order/checkAndSend.php                 controllers.Application.checkAndSend()
+GET     /order/add.php                          controllers.Application.addOrderItem()
+GET     /order/cng.php                          controllers.Application.cngOrderItem()
+GET     /order/list.php                         controllers.Application.basket()
+GET     /show/restaurants.php                   controllers.Application.showRestaurants()
+GET     /show/menu.php                          controllers.Application.showMenu()
+GET     /show/last.php                          controllers.Application.getLastOrders()
+GET     /show/comp.php                          controllers.Application.comps()
+GET     /change/lang.php                        controllers.Application.changeLang()
+GET     /change/city.php                        controllers.Application.changeCity()
+GET     /serve/logo.php                         controllers.Application.serveLogo()
 
 # Add these as soon as registration will be possible :)
 # newUser()
@@ -24,37 +24,36 @@ GET		/index.php								Application.index
 
 
 # Map static resources from the /app/public folder to the /public path
-GET     /public/                                staticDir:public
-GET     /img/                                	staticDir:/public/images/
+GET     /public/*file                           controllers.Assets.at(path="/public", file)
+GET     /img/*file                              controllers.Assets.at(path="/public/images", file)
 #favicon requests
-GET     /favicon.ico                            staticFile:/public/images/favicon.ico
+#GET     /favicon.ico                           staticFile:/public/images/favicon.ico
 
-# Catch all
 
 ##############################
 ######## Security ############
 ##############################
 
-GET			/login.php			Secure.login
-POST        /login.php          Secure.authenticate
-GET         /logout.php         Secure.logout
-GET         /about.php       	Static.about
-GET         /rules.php       	Static.rules
-GET         /forRestaurants.php Static.forRestaurants
-GET         /contacts.php       Static.contacts
+GET         /login.php                          controllers.Secure.login()
+POST        /login.php                          controllers.Secure.authenticate(username: java.lang.String, password: java.lang.String, remember: Boolean)
+GET         /logout.php                         controllers.Secure.logout()
+GET         /about.php                          controllers.Static.about()
+GET         /rules.php                          controllers.Static.rules()
+GET         /forRestaurants.php                 controllers.Static.forRestaurants()
+GET         /contacts.php                       controllers.Static.contacts()
 
 ##############################
 ########/Security ############
 ##############################
-POST		/api/a									Secure.authenticate
-*			/api/{action}							API.{action}
-* 			/power/edit/{action}					Admin.{action}
-*			/caffe/admn/{action}					RestaurantAdmin.{action}
-* 			/client/r								Client.restaurant
-* 			/client/c								Client.courier
+#POST       /api/a                                  Secure.authenticate()
+#GET            /api/{action}                           API.{action}
+#GET            /power/edit/{action}                    Admin.{action}
+#GET            /caffe/admn/{action}                    RestaurantAdmin.{action}
+#GET            /client/r                               Client.restaurant
+#GET            /client/c                               Client.courier
 
 ##############################
 ######## Modules #############
 ##############################
 
-#*     /     									module:messages
+#*     /                                        module:messages

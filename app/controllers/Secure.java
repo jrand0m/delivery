@@ -11,6 +11,7 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import annotations.AllowAnonymous;
 import annotations.Check;
+import play.mvc.Result;
 
 public class Secure extends Controller {
 
@@ -110,13 +111,13 @@ public class Secure extends Controller {
 
 	// ~~~ Utils
 
-	static void redirectToOriginalURL() throws Throwable {
+	static Result redirectToOriginalURL() throws Throwable {
 		Security.invoke("onAuthenticated");
-		String url = flash.get("url");
+		String url = flash("url");
 		if (url == null) {
 			url = "/";
 		}
-		redirect(url);
+        return redirect(url);
 	}
 
 }
