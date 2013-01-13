@@ -3,15 +3,19 @@
  */
 package controllers;
 
+import helpers.Cypher;
 import models.users.User;
+import play.api.libs.Crypto;
+import play.data.validation.Constraints;
 import play.data.validation.Required;
-import play.libs.Crypto;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Http;
 import annotations.AllowAnonymous;
 import annotations.Check;
 import play.mvc.Result;
+import views.html.*;
+import views.html.Secure.login;
 
 public class Secure extends Controller {
 
@@ -51,33 +55,25 @@ public class Secure extends Controller {
 
 	// ~~~ Login
 
-	public static void login() throws Throwable {
-		Http.Cookie remember = request.cookies.get("rememberme");
-		if (remember != null && remember.value.indexOf("-") > 0) {
-			String sign = remember.value.substring(0,
-					remember.value.indexOf("-"));
-			String username = remember.value.substring(remember.value
-					.indexOf("-") + 1);
-			if (Crypto.sign(username).equals(sign)) {
-				session.put("username", username);
-				redirectToOriginalURL();
-			}
-		}
-		flash.keep("url");
-		if (request.isAjax()){
+	public static Result login() throws Throwable {
+		//todo implement remember me functionlity
+		//flash("url",flash("url")); //todo saving redirect url -
+		/*todo make this fuck respond to json via post requests
+		if (request().ajax()){
 			renderArgs.put("result", "false");
-			render("Secure/login.json");
-		}
+			return ok(login.);
+		}*/
 		
-		render();
+		return ok(login.render("blad"));
 	}
 
-	public static void authenticate(@Required String username, String password,
+	public static Result authenticate(/*Required (Param)*/
+                                    String username, String password,
 			boolean remember) throws Throwable {
 		// Check tokens
 		Boolean allowed = false;
 
-		allowed = (Boolean) Security.invoke("authenticate", username, password);
+		allowed = Security.authenticate( username, password);
 
 		if (validation.hasErrors() || !allowed) {
 			flash.keep("url");
@@ -86,10 +82,11 @@ public class Secure extends Controller {
 			login();
 		}
 		// Mark user as connected
-		session.put("username", username);
+		session("username", username);
 		// Remember if needed
+
 		if (remember) {
-			response.setCookie("rememberme", Crypto.sign(username) + "-"
+			response().setCookie("rememberme", Cypher.sign(username) + "-"
 					+ username, "30d");
 		}
 		if (request.isAjax()){
@@ -100,13 +97,13 @@ public class Secure extends Controller {
 		redirectToOriginalURL();
 	}
 
-	public static void logout() throws Throwable {
+	public static Result logout() throws Throwable {
 		Security.invoke("onDisconnect");
-		session.clear();
-		response.removeCookie("rememberme");
+		session().clear();
 		Security.invoke("onDisconnected");
-		flash.success("secure.logout");
-		login();
+		//todo what the fuck is this ? flash.success("secure.logout");
+
+        return Application.index(); //login();
 	}
 
 	// ~~~ Utils
