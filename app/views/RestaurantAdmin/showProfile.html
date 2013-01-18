@@ -1,80 +1,86 @@
 #{extends 'main-restaurant-admin.html' /}
 #{set 'title'}
-    ${login} administration page
+${login} administration page
 #{/set}
-			<div id="left_cont">
-				<div class="top_left_cont">
-					<H1>Увага!</H1>
-					<div class="inner_div">
-						<p> 
-						<ul>
-							<li>Украънська мова э обовязковою для заповнення</li>
-							<li>Уразі не заповнення профайлу іншою мовою користувачу буде показаний профайл українською</li>
-							<li>Ми ндаємо переклад на англійську мову безкоштовно тільки для першого заповнення профайлу</li>
-						</ul>
-						</p>
-					</div>
-				</div>
-				<div class="left_left_cont">
-					<h1>left_left_cont</h1>
-					<div class="inner_div">
-					<form action="@{RestaurantAdmin.editProfile}">
-						<div class="common_for_internal_use">
-							<label>Контактний телефон:</label> 	<input></input>
-							<label>Контактна персона:</label> 	<input></input>
-						</div>
-						<div class="common_public">
-							<label>хзхз</label> 	<input></input>
-							<label>Логотип</label> 	<input></input>
-						</div>
-						<div class="tabed_view">
-							<div class="tab_ua">
-								<p>
-									<label>Назва:</label> <input></input>
-									<label>аддреса:</label> <input></input>
-									<label>Короткий опис:</label> <input></input>
-									<label>хзхз:</label> <input></input>
-								</p>
-							</div>
-							<div class="tab_ru">
-								<p>									
-								    <label>Назва:</label> <input></input>
-									<label>аддреса:</label> <input></input>
-									<label>Короткий опис:</label> <input></input>
-									<label>хзхз:</label> <input></input>
-								</p>
-							</div>
-							<div class="tab_en">
-								<p>
-									<label>Назва:</label> <input></input>
-									<label>аддреса:</label> <input></input>
-									<label>Короткий опис:</label> <input></input>
-									<label>хзхз:</label> <input></input>
-								</p>
-							</div>
-						</div>
-					</form>
-					</div>
-				</div>
-				<div class="right_left_cont">
-					<h1>right_left_cont</h1>
-					<div class="inner_div">
-						<p>x</p>
-						<p>x</p>
-					</div>
-				</div>
-			</div>
-			<div id="right_cont">
-				<div class="right_block">
-					<h1>right_block</h1>
-					<div class="inner_div">
-						<p>x</p>
-					</div>
-				</div>
-				<div class="right_block">
-					<h1>right_block</h1>
-					<div class="inner_div">
-						<p>x</p>
-					</div>
-				</div>
-			</div>
+<div id="left_cont">
+    <div class="top_left_cont">
+        <H1>Увага!</H1>
+
+        <div class="inner_div">
+            <p>
+            <ul>
+                <li>Украънська мова э обовязковою для заповнення</li>
+                <li>Уразі не заповнення профайлу іншою мовою користувачу буде показаний профайл українською</li>
+                <li>Ми ндаємо переклад на англійську мову безкоштовно тільки для першого заповнення профайлу</li>
+            </ul>
+            </p>
+        </div>
+    </div>
+    <div class="left_left_cont">
+        <h1>left_left_cont</h1>
+
+        <div class="inner_div">
+            <form action="@{RestaurantAdmin.editProfile}">
+                <div class="common_for_internal_use">
+                    <label>Контактний телефон:</label> <input></input>
+                    <label>Контактна персона:</label> <input></input>
+                </div>
+                <div class="common_public">
+                    <label>хзхз</label> <input></input>
+                    <label>Логотип</label> <input></input>
+                </div>
+                <div class="tabed_view">
+                    <div class="tab_ua">
+                        <p>
+                            <label>Назва:</label> <input></input>
+                            <label>аддреса:</label> <input></input>
+                            <label>Короткий опис:</label> <input></input>
+                            <label>хзхз:</label> <input></input>
+                        </p>
+                    </div>
+                    <div class="tab_ru">
+                        <p>
+                            <label>Назва:</label> <input></input>
+                            <label>аддреса:</label> <input></input>
+                            <label>Короткий опис:</label> <input></input>
+                            <label>хзхз:</label> <input></input>
+                        </p>
+                    </div>
+                    <div class="tab_en">
+                        <p>
+                            <label>Назва:</label> <input></input>
+                            <label>аддреса:</label> <input></input>
+                            <label>Короткий опис:</label> <input></input>
+                            <label>хзхз:</label> <input></input>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="right_left_cont">
+        <h1>right_left_cont</h1>
+
+        <div class="inner_div">
+            <p>x</p>
+
+            <p>x</p>
+        </div>
+    </div>
+</div>
+<div id="right_cont">
+    <div class="right_block">
+        <h1>right_block</h1>
+
+        <div class="inner_div">
+            <p>x</p>
+        </div>
+    </div>
+    <div class="right_block">
+        <h1>right_block</h1>
+
+        <div class="inner_div">
+            <p>x</p>
+        </div>
+    </div>
+</div>

@@ -1,77 +1,86 @@
 #{extends 'main-admin.html' /}
 #{set 'c__itmCat'}active#{/set}
 <div style="color:red;background-color:silver;">${message}</div>
-#{form @Admin.addMenuItem() , id:'form', enctype:'multipart/form-data' } 
-<input type="hidden" value="${item?.id}" name="item.id" /> 
+#{form @Admin.addMenuItem() , id:'form', enctype:'multipart/form-data' }
+<input type="hidden" value="${item?.id}" name="item.id"/>
 <div>
+<<<<<<< HEAD
 <label for="id">Restaurant</label>
 #{select 'id', value:item?.restaurant?.id, name:'id',  id:'id'}
 #{list items:restaurants, as:'restaurant'}
 #{option restaurant.id} ${restaurant.title} (${restaurant.id}) #{/option}
 #{/list}
 #{/select}
+=======
+    <label for="city_id">Restaurant</label>
+    #{select 'id', value:item?.restaurant?.id, name:'id',  id:'id'}
+        #{list items:restaurants, as:'restaurant'}
+            #{option restaurant.id} ${restaurant.title} #{/option}
+        #{/list}
+    #{/select}
+>>>>>>> master
 </div>
 <div>
-<label for="groupid">Group</label>
-#{select 'groupid', value:item?.menuItemGroup?.id, name:'groupid',  id:'groupid'}
-#{list items:groups, as:'group'}
-#{option group.id} ${group.name} #{/option}
-#{/list}
-#{/select}
+    <label for="groupid">Group</label>
+    #{select 'groupid', value:item?.menuItemGroup?.id, name:'groupid',  id:'groupid'}
+        #{list items:groups, as:'group'}
+            #{option group.id} ${group.name} #{/option}
+        #{/list}
+    #{/select}
 </div>
 <div>
-<label for="item.name">name</label>
-<input type="text" name="item.name" value="${item?.name}" />
+    <label for="item.name">name</label>
+    <input type="text" name="item.name" value="${item?.name}"/>
 </div>
 <div>
-<label for="item.description">description</label>
-<input type="text" name="item.description" value="${item?.description}" />
+    <label for="item.description">description</label>
+    <input type="text" name="item.description" value="${item?.description}"/>
 </div>
 <div>
-<label for="item.price">Price (в   копейках)</label>
-<input type="text" name="item.price" value="${item?.price}" />
+    <label for="item.price">Price (в копейках)</label>
+    <input type="text" name="item.price" value="${item?.price}"/>
 </div>
 <div>
-<label for="item.showComponents">есть компонеты ?</label>
-<input type="checkbox" name="item.showComponents" value="true" />
+    <label for="item.showComponents">есть компонеты ?</label>
+    <input type="checkbox" name="item.showComponents" value="true"/>
 </div>
-<input type="submit" />
+<input type="submit"/>
 #{/form}
 #{if item}
 
 
-#{form @Admin.addComp() , id:'form', enctype:'multipart/form-data' } 
-<input type="hidden" value="${item?.id}" name="id" /> 
-<div>
-<label for="name">name</label>
-<input type="text" name="name" value="" />
-</div>
-<div>
-<label for="price">price (in coins)</label>
-<input type="text" name="price" value="" />
-</div>
-<div>
-<label for="descr">descr</label>
-<input type="text" name="descr" value="" />
-</div>
-<input type="submit" />
-#{/form}
+    #{form @Admin.addComp() , id:'form', enctype:'multipart/form-data' }
+    <input type="hidden" value="${item?.id}" name="id"/>
+    <div>
+        <label for="name">name</label>
+        <input type="text" name="name" value=""/>
+    </div>
+    <div>
+        <label for="price">price (in coins)</label>
+        <input type="text" name="price" value=""/>
+    </div>
+    <div>
+        <label for="descr">descr</label>
+        <input type="text" name="descr" value=""/>
+    </div>
+    <input type="submit"/>
+    #{/form}
 <table border="1">
-<tr> 
+    <tr>
 
-    <th>Name</th> 
-    <th>Description</th>
-    <th>Price in coins</th>
-    <th>Actions</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price in coins</th>
+        <th>Actions</th>
 
-</tr>
-#{list items:item.components, as:'comp'}
-<tr>
-    <td>${comp.itm_name}</td>
-    <td>${comp.itm_desc}</td>
-    <td>${comp.itm_price}</td>
-    <td><a href="@{Admin.deleteComponent(comp.id)}">delete</a></td>
-</tr>
-#{/list}
+    </tr>
+    #{list items:item.components, as:'comp'}
+        <tr>
+            <td>${comp.itm_name}</td>
+            <td>${comp.itm_desc}</td>
+            <td>${comp.itm_price}</td>
+            <td><a href="@{Admin.deleteComponent(comp.id)}">delete</a></td>
+        </tr>
+    #{/list}
 </table>
 #{/if}

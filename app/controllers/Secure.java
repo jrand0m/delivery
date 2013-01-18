@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package controllers;
 
@@ -7,10 +7,14 @@ import helpers.Cypher;
 import models.users.User;
 import play.api.libs.Crypto;
 import play.data.validation.Constraints;
+import annotations.Check;
+import enumerations.UserType;
+
 import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Http;
+
 import annotations.AllowAnonymous;
 import annotations.Check;
 import play.mvc.Result;
@@ -19,42 +23,39 @@ import views.html.Secure.login;
 
 public class Secure extends Controller {
 
-	@Before(unless = { "login", "authenticate", "logout" })
-	static void checkAccess() throws Throwable {
-		boolean allowAnon = getActionAnnotation(AllowAnonymous.class) != null;
+    @Before(unless = {"login", "authenticate", "logout"})
+    static void checkAccess() throws Throwable {
+        // Authent
+        if (!session.contains("username")) {
+            flash.put("url", "GET".equals(request.method) ? request.url : "/"); // seems
+            login();
+        }
+        // Checks
+        Check check = getActionAnnotation(Check.class);
+        if (check != null) {
+            check(check);
+        }
+        check = getControllerInheritedAnnotation(Check.class);
+        if (check != null) {
+            check(check);
+        }
+    }
 
-		// Authent
-		if (!session.contains("username") && !allowAnon) {
-			flash.put("url", "GET".equals(request.method) ? request.url : "/"); // seems
-			login();
-		}
-		// Checks
-		Check check = getActionAnnotation(Check.class);
-		if (check != null) {
-			check(check);
-		}
-		check = getControllerInheritedAnnotation(Check.class);
-		if (check != null) {
-			check(check);
-		}
-	}
+    private static void check(Check check) throws Throwable {
+        boolean hasProfile = false;
+        Enum<UserType> lastclazz = null;
+        for (Enum<UserType> clazz : check.value()) {
+            if (hasProfile = (Boolean) Security.invoke("check", clazz)) {
+                return;
+            }
+            lastclazz = clazz;
+        }
+        if (!hasProfile) {
+            Security.invoke("onCheckFailed", lastclazz);
+        }
+    }
 
-	private static void check(Check check) throws Throwable {
-		boolean hasProfile = false;
-		Class<? extends User> lastclazz = null;
-		for (Class<? extends User> clazz : check.value()) {
-			if (hasProfile = (Boolean) Security.invoke("check", clazz)){
-				return;
-			}
-			lastclazz = clazz;
-		}
-		if (!hasProfile) {
-			Security.invoke("onCheckFailed", lastclazz);
-		}
-	}
-
-	// ~~~ Login
-
+    // ~~~ Login
 	public static Result login() throws Throwable {
 		//todo implement remember me functionlity
 		//flash("url",flash("url")); //todo saving redirect url -
@@ -94,7 +95,7 @@ public class Secure extends Controller {
 			renderArgs.put("role", User.find(User.HQL.BY_LOGIN, username).first().getClass().getSimpleName());
 			render("Secure/login.json");
 		}
-		redirectToOriginalURL();
+		return redirectToOriginalURL();
 	}
 
 	public static Result logout() throws Throwable {
@@ -103,11 +104,10 @@ public class Secure extends Controller {
 		Security.invoke("onDisconnected");
 		//todo what the fuck is this ? flash.success("secure.logout");
 
-        return Application.index(); //login();
+        return Application.index();
 	}
 
-	// ~~~ Utils
-
+    // ~~~ Utils
 	static Result redirectToOriginalURL() throws Throwable {
 		Security.invoke("onAuthenticated");
 		String url = flash("url");
@@ -116,5 +116,4 @@ public class Secure extends Controller {
 		}
         return redirect(url);
 	}
-
 }

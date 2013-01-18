@@ -1,68 +1,257 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<title>Vdoma admin Panel</title>
-	<style>
-* { padding:0; margin:0; outline:0; }
-body {
-	font-family: Verdana, Arial, sans-serif;
-	font-size:12px;
-	line-height:20px;
-	color:#666;
-	background:#eeefef;
-}
-.left { float:left; display:inline; }
-.right { float:right; display:inline; }
-a { color:#364f86; text-decoration: none; cursor:pointer; }
-a:hover { color:#000; }
-.orange { color:#d96a02; }
-.red { color:#be4856; }
-.shell { width:980px; margin:0 auto; }
-h1, h2, h3, h4, h5 { font-family: "Trebuchet MS", Arial, sans-serif; padding-bottom:8px; }
-h1 { font-size:18px; line-height:22px; }
-h2 { font-size:17px; line-height:21px; }
-h3 { font-size:16px; line-height:20px; }
-h4 { font-size:15px; line-height:19px; }
-h5 { font-size:14px; line-height:18px; }
-h6 { font-size:12px; line-height:16px; padding-bottom:5px; }
-#header { background:#364f86; height:82px; }
-#header h1{ float:left; white-space:nowrap; padding-top:8px; font-size:25px; line-height:35px; color:#fff;}
-#header a{ color:#fff }
-#header a:hover{ color:#a1adc7; }
-#header #head { height:43px; overflow:hidden; }
-#header .right { color:#fff; white-space:nowrap; font-size:10px; }
-#header .right p{ padding-top:12px;}
-#header .right a strong{ text-decoration: underline; }
-#navigation { height:31px; }
-#navigation ul{ list-style-type: none; padding-top:8px; font-size:11px; }
-#navigation ul li{ float:left; display:inline; margin-right:5px;}
-#navigation ul li a,
-#navigation ul li a span { float:left; display:inline; height:31px; padding:0 0 0 8px; background:url(data:image/gif;base64,R0lGODlh0AA/AMQAAO7v775IVjZPhoSTsurr7TpTiHBMcjlPhbtIV6ZJXsvR255KYc7T3EROgcHH1UlgkaRJX5xKYsPJ1gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAADQAD8AQAX/oCAcRoQEaKqubOu+cCzPdG3feM4ikXGIuqBwSCwaj8ikcslsOp/QqHTqFBUGDgJgy+16v+CweEwum8/otHrN/hIcg4KoTa/b7/i8fs/v+/+AgYKDhIWGgQtUiouMVImNkJGSk5SVlpeYmZpJEoeen6CHnaGkpaanqKmqq6ytrnwHCZuztE0JB7W5uru8vb6/wMHCw8TFxsfIycrLzC0FDK/R0oAMBdPX2Nna29zd3t/g4eLj5OXm5+jp6mACDRDN8IoQDQIG8feKBif4/FD7/QADChxIsKDBgwgTKlzIsKHDhxAjSpxIsaLFi41EaNzIsaPHjyBDihxJsqTJkyhTNqpc+UDBupeeFDwQMACmTU8DtNzcOUgnz59AgwodSrSo0aNIkypdyrSp06dQo0qdSrWq1VAhAAA7) no-repeat 0 0; }
-#navigation ul li a span { padding:0 8px 0 0; background-position:right 0; }
-#navigation ul li a { color:#ddadab; line-height:29px;}
-#navigation ul li a.active { font-weight: bold;}
-#navigation ul li a:hover,
-#navigation ul li a.active { background-position:0 bottom; color:#887e42; }
-#navigation ul li a:hover span,
-#navigation ul li a.active span{ background-position:right bottom; }
-#help-nav { font-size:10px; line-height:15px; height:15px; padding-bottom:20px;}
-#content { padding:10px 0 20px 0;}
-#content p{ padding-bottom:15px;}
-#content ol,
-#content ul{ padding: 0 0 15px 25px;}
-#content li{ padding-bottom:3px; }
-#content a { text-decoration: underline;}
-#content a:hover { text-decoration: none;}
-#footer { text-align: center; font-size:11px; padding:10px 0 0 0; color:#666; background:url(data:image/gif;base64,R0lGODlhAQCeANUAAO7v7+3u7tLU1dPV1uzt7evs7NTW19XX2NHT1NTW1urr69fZ2tPV1dbY2dja29XW1+Dh4tze3+nq6tvc3ejp6d3f3+Hi49/g4dnb3NbY2Onq6+Pl5ejq6tjZ2tTV1uDi4unr69fY2ebn6OLj5N7g4Ofo6dna2+fo6N/h4drb3OXn5+Lk5NXX1+fp6d7f4OPk5eHj4+rr7Obo6Nrc3OTm5ubn59ze3uXm5uTl5uPk5OTl5dzd3trc3eXm5+vs7dvd3iH5BAAAAAAALAAAAAABAJ4AQAZyQIRgYDiETD+SBXfSFAgBgBQgYAwemc4sAsmpKApodJoQVAceA+vQWDgwE1vl8hltbqKWRFHwicdTUwhCZgxDAwMJCQYGDwcHGQ1tbm8pPBM7ERUuFygQFjArLzo0PTUyJRQcEiAKMQVPBH8BtICBt4FBADs=) repeat-x 0 0; height:148px; }
-#footer a{ color:#333; }
-.message { width:630px; height:50px; background-repeat:no-repeat; background-position:0 0; text-align: center; margin:0 auto 15px auto; font-size:13px;}
-.message p{ padding-top:14px;}
-.error-message { background-image:url(data:image/gif;base64,R0lGODlhdgIyAMQAAOjVzuLIuujc1eLIu+fa0+fb1Ofb0+7v7+jc1Ovl4ujUzd/BsOLHueHFtuzq6Orj3uPJvOjd1+PKvefUzODDtOje2ObRx+bRyOri3ezq6ebQx+HHueHFtQAAAAAAAAAAACH5BAAAAAAALAAAAAB2AjIAQAX/4CFmTyWcaKqubOu+cCzPdG3feK7vfO//iIJQaCgaCMikcok0GodQhPRHrb6kQSjReWR6lc+odUyuPDKigyAAaLvf8Lh8Tq/b7/i8fs/v+/+AgYKDhIWGh4iJiouMjYoBJ2yOk5SVlpeYmZqbnJ2en5uQa6CkpaanqKmqq6yti6KSrrKztLW2t7i5n7C6vb6/wMHCw52QIgkLDQwBzM3Oz9DR0tPU1dbX2Nna29zd3t/g4eLj5M0D5+jp6uvs7OXv8Nvt8/Tt8ff4DA0LCSIPDRaICRxIsKDBg7UuNMAwCqHDhxAjSpy4hxfFixgzatxYyyLHjyBDihxpyCPJkyhT/6r8CCkCAwUrY8qcSTOYAgYRDiSgAEHDhJpAgwodqmmCBggU+jUkyrSp06eDTEKdSrXqVKlWs2rdqhIr169gw070Kras2bPAyKJdy7atKrVu48qdawku3bt48wayq7ev379w+AIeTHguJAcLJMAszLhxXAUSFjg4toDDBnyYM2vezLmz58/x6okWDbo0t9Go7Zle/WwDB34iECt2TLt2WciSXS62zbu31ZsRlvoeTpyp4OLIk4c8rry587GRnkufrpE59evYfVnPzr27rO3ew4svBX68+fOYyqNfz/5R9Pbw419SL7++/Tv07+vf3yY////y+QfggOsJSOCB4hmI4F+C2SnI4IPSOQjhhMlJSOGFvkGCQQMXYOiheQphoBNPFvz04YnTTWABUv2k4UAJZMQo44w01mjjjTjWmMUQTnzhIxcGaCEEFjkWeYUUQhYApI8/FqEFAkZGqYIZk4kQAgA7); color:#973729; }
-.thank-message { background-image:url(data:image/gif;base64,R0lGODlhdgIyANUAANnnzbzUstPg0b/Wtc7dy8/dzNDezb7VtL3Vs8/ezL7WtO7v79Lfz9Hezr7WtdPg0L3VtNLf0LzVs7zUs+Dn39HfztHfz9fmy+fr59zl27XQrM/hxK7LpdblyrPOqrvTsbbQrcHXt9zl2q7LptDhxNbh07rTsdbh1NjmzLrTsOjr6NXh09Xh0sDXtgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAB2AjIAQAb/wIVQlTkJjsikcslsOp/QqHRKrVqv2Kx2y+16u49wJMIoly2WSqXBbhje8HdiTk8U7ng8Yc/v+/9/eYJ1dHFxbQ1qaGZlY2FhX5GSk5RWJxkqQgsCAQCen6ChoqOkpaanqKmqq6ytrq+wsbKztLW2t7i5uru8vb67AUedv8TFxsfIycrLzM3Oz9DMwZzR1dbX2Nna29zd3rzTw9/j5OXm5+jp6tDh6+7v8PHy8/TOwUIUHBomAf3+/wADChxIsKDBgwgTKlzIsKHDhxAjSpxIsWKACRMkSEDAsSMCCBAOiBwpUoHJkw5SDljJsqXLlzBjykyZ8uRJkiNBeuyoEaPF/59AgwpdaEIDBwpCMmjYUK+p06dQo0o1RwKECGpTs2rdyrWrV1btvoodS7asWXNhz6pdy7at21tp38qdS7eu2mArPlywy7ev37/yUHxgsYCChwEbOgBezLix42UdNgzwgBTr48uYM2umFXez58+gPXcOTbq06bqjT6tezdpr6tawY8uO93q27du4t9XOzbu372O7fwsfTlxW8OLIkysPdXy58+e+g2EYEWIv9OvYeV8IMQIDPn0phoofT768+fPo0//EqHEnR5A4R9o0SVOm/fv4WdJ0MF9B/AM6udfTBOoVaCB5KRiF1AIYcNCCddlFKCFr23WXF4QTZqghaIKxYMXZhiCGeFlzIpZoIlsknqjiiq4Jw+KLMJaVYow01vjOjDbmqOM4OO7o44/W9AjkkEQmI2SRSCYJjItKNukkMkc+KeWUqERJ5ZVYemJlllw+uWWXYCL5ZZhk/jhmmWjaeGaabL64ZptwmvhmnHRuGIwIIJBQ555DViVCYYclxuegMUY22YJCYJBBCZU06uijkEYq6aSUPvrIGIwwgIYaiBgCByFzCJIHIKSWyoeoeICagKdvIKKIBZk68kiltNb6aAkZeCdEEAA7); color:#3d8b26; }
-</style>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>Vdoma admin Panel</title>
+    <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="utf-8"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            outline: 0;
+        }
+
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 12px;
+            line-height: 20px;
+            color: #666;
+            background: #eeefef;
+        }
+
+        .left {
+            float: left;
+            display: inline;
+        }
+
+        .right {
+            float: right;
+            display: inline;
+        }
+
+        a {
+            color: #364f86;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a:hover {
+            color: #000;
+        }
+
+        .orange {
+            color: #d96a02;
+        }
+
+        .red {
+            color: #be4856;
+        }
+
+        .shell {
+            width: 980px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            padding-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 18px;
+            line-height: 22px;
+        }
+
+        h2 {
+            font-size: 17px;
+            line-height: 21px;
+        }
+
+        h3 {
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        h4 {
+            font-size: 15px;
+            line-height: 19px;
+        }
+
+        h5 {
+            font-size: 14px;
+            line-height: 18px;
+        }
+
+        h6 {
+            font-size: 12px;
+            line-height: 16px;
+            padding-bottom: 5px;
+        }
+
+        #header {
+            background: #364f86;
+            height: 82px;
+        }
+
+        #header h1 {
+            float: left;
+            white-space: nowrap;
+            padding-top: 8px;
+            font-size: 25px;
+            line-height: 35px;
+            color: #fff;
+        }
+
+        #header a {
+            color: #fff
+        }
+
+        #header a:hover {
+            color: #a1adc7;
+        }
+
+        #header #head {
+            height: 43px;
+            overflow: hidden;
+        }
+
+        #header .right {
+            color: #fff;
+            white-space: nowrap;
+            font-size: 10px;
+        }
+
+        #header .right p {
+            padding-top: 12px;
+        }
+
+        #header .right a strong {
+            text-decoration: underline;
+        }
+
+        #navigation {
+            height: 31px;
+        }
+
+        #navigation ul {
+            list-style-type: none;
+            padding-top: 8px;
+            font-size: 11px;
+        }
+
+        #navigation ul li {
+            float: left;
+            display: inline;
+            margin-right: 5px;
+        }
+
+        #navigation ul li a,
+        #navigation ul li a span {
+            float: left;
+            display: inline;
+            height: 31px;
+            padding: 0 0 0 8px;
+            background: url(data:image/gif;base64,R0lGODlh0AA/AMQAAO7v775IVjZPhoSTsurr7TpTiHBMcjlPhbtIV6ZJXsvR255KYc7T3EROgcHH1UlgkaRJX5xKYsPJ1gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAADQAD8AQAX/oCAcRoQEaKqubOu+cCzPdG3feM4ikXGIuqBwSCwaj8ikcslsOp/QqHTqFBUGDgJgy+16v+CweEwum8/otHrN/hIcg4KoTa/b7/i8fs/v+/+AgYKDhIWGgQtUiouMVImNkJGSk5SVlpeYmZpJEoeen6CHnaGkpaanqKmqq6ytrnwHCZuztE0JB7W5uru8vb6/wMHCw8TFxsfIycrLzC0FDK/R0oAMBdPX2Nna29zd3t/g4eLj5OXm5+jp6mACDRDN8IoQDQIG8feKBif4/FD7/QADChxIsKDBgwgTKlzIsKHDhxAjSpxIsaLFi41EaNzIsaPHjyBDihxJsqTJkyhTNqpc+UDBupeeFDwQMACmTU8DtNzcOUgnz59AgwodSrSo0aNIkypdyrSp06dQo0qdSrWq1VAhAAA7) no-repeat 0 0;
+        }
+
+        #navigation ul li a span {
+            padding: 0 8px 0 0;
+            background-position: right 0;
+        }
+
+        #navigation ul li a {
+            color: #ddadab;
+            line-height: 29px;
+        }
+
+        #navigation ul li a.active {
+            font-weight: bold;
+        }
+
+        #navigation ul li a:hover,
+        #navigation ul li a.active {
+            background-position: 0 bottom;
+            color: #887e42;
+        }
+
+        #navigation ul li a:hover span,
+        #navigation ul li a.active span {
+            background-position: right bottom;
+        }
+
+        #help-nav {
+            font-size: 10px;
+            line-height: 15px;
+            height: 15px;
+            padding-bottom: 20px;
+        }
+
+        #content {
+            padding: 10px 0 20px 0;
+        }
+
+        #content p {
+            padding-bottom: 15px;
+        }
+
+        #content ol,
+        #content ul {
+            padding: 0 0 15px 25px;
+        }
+
+        #content li {
+            padding-bottom: 3px;
+        }
+
+        #content a {
+            text-decoration: underline;
+        }
+
+        #content a:hover {
+            text-decoration: none;
+        }
+
+        #footer {
+            text-align: center;
+            font-size: 11px;
+            padding: 10px 0 0 0;
+            color: #666;
+            background: url(data:image/gif;base64,R0lGODlhAQCeANUAAO7v7+3u7tLU1dPV1uzt7evs7NTW19XX2NHT1NTW1urr69fZ2tPV1dbY2dja29XW1+Dh4tze3+nq6tvc3ejp6d3f3+Hi49/g4dnb3NbY2Onq6+Pl5ejq6tjZ2tTV1uDi4unr69fY2ebn6OLj5N7g4Ofo6dna2+fo6N/h4drb3OXn5+Lk5NXX1+fp6d7f4OPk5eHj4+rr7Obo6Nrc3OTm5ubn59ze3uXm5uTl5uPk5OTl5dzd3trc3eXm5+vs7dvd3iH5BAAAAAAALAAAAAABAJ4AQAZyQIRgYDiETD+SBXfSFAgBgBQgYAwemc4sAsmpKApodJoQVAceA+vQWDgwE1vl8hltbqKWRFHwicdTUwhCZgxDAwMJCQYGDwcHGQ1tbm8pPBM7ERUuFygQFjArLzo0PTUyJRQcEiAKMQVPBH8BtICBt4FBADs=) repeat-x 0 0;
+            height: 148px;
+        }
+
+        #footer a {
+            color: #333;
+        }
+
+        .message {
+            width: 630px;
+            height: 50px;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            text-align: center;
+            margin: 0 auto 15px auto;
+            font-size: 13px;
+        }
+
+        .message p {
+            padding-top: 14px;
+        }
+
+        .error-message {
+            background-image: url(data:image/gif;base64,R0lGODlhdgIyAMQAAOjVzuLIuujc1eLIu+fa0+fb1Ofb0+7v7+jc1Ovl4ujUzd/BsOLHueHFtuzq6Orj3uPJvOjd1+PKvefUzODDtOje2ObRx+bRyOri3ezq6ebQx+HHueHFtQAAAAAAAAAAACH5BAAAAAAALAAAAAB2AjIAQAX/4CFmTyWcaKqubOu+cCzPdG3feK7vfO//iIJQaCgaCMikcok0GodQhPRHrb6kQSjReWR6lc+odUyuPDKigyAAaLvf8Lh8Tq/b7/i8fs/v+/+AgYKDhIWGh4iJiouMjYoBJ2yOk5SVlpeYmZqbnJ2en5uQa6CkpaanqKmqq6yti6KSrrKztLW2t7i5n7C6vb6/wMHCw52QIgkLDQwBzM3Oz9DR0tPU1dbX2Nna29zd3t/g4eLj5M0D5+jp6uvs7OXv8Nvt8/Tt8ff4DA0LCSIPDRaICRxIsKDBg7UuNMAwCqHDhxAjSpy4hxfFixgzatxYyyLHjyBDihxpyCPJkyhT/6r8CCkCAwUrY8qcSTOYAgYRDiSgAEHDhJpAgwodqmmCBggU+jUkyrSp06eDTEKdSrXqVKlWs2rdqhIr169gw070Kras2bPAyKJdy7atKrVu48qdawku3bt48wayq7ev379w+AIeTHguJAcLJMAszLhxXAUSFjg4toDDBnyYM2vezLmz58/x6okWDbo0t9Go7Zle/WwDB34iECt2TLt2WciSXS62zbu31ZsRlvoeTpyp4OLIk4c8rry587GRnkufrpE59evYfVnPzr27rO3ew4svBX68+fOYyqNfz/5R9Pbw419SL7++/Tv07+vf3yY////y+QfggOsJSOCB4hmI4F+C2SnI4IPSOQjhhMlJSOGFvkGCQQMXYOiheQphoBNPFvz04YnTTWABUv2k4UAJZMQo44w01mjjjTjWmMUQTnzhIxcGaCEEFjkWeYUUQhYApI8/FqEFAkZGqYIZk4kQAgA7);
+            color: #973729;
+        }
+
+        .thank-message {
+            background-image: url(data:image/gif;base64,R0lGODlhdgIyANUAANnnzbzUstPg0b/Wtc7dy8/dzNDezb7VtL3Vs8/ezL7WtO7v79Lfz9Hezr7WtdPg0L3VtNLf0LzVs7zUs+Dn39HfztHfz9fmy+fr59zl27XQrM/hxK7LpdblyrPOqrvTsbbQrcHXt9zl2q7LptDhxNbh07rTsdbh1NjmzLrTsOjr6NXh09Xh0sDXtgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAB2AjIAQAb/wIVQlTkJjsikcslsOp/QqHRKrVqv2Kx2y+16u49wJMIoly2WSqXBbhje8HdiTk8U7ng8Yc/v+/9/eYJ1dHFxbQ1qaGZlY2FhX5GSk5RWJxkqQgsCAQCen6ChoqOkpaanqKmqq6ytrq+wsbKztLW2t7i5uru8vb67AUedv8TFxsfIycrLzM3Oz9DMwZzR1dbX2Nna29zd3rzTw9/j5OXm5+jp6tDh6+7v8PHy8/TOwUIUHBomAf3+/wADChxIsKDBgwgTKlzIsKHDhxAjSpxIsWKACRMkSEDAsSMCCBAOiBwpUoHJkw5SDljJsqXLlzBjykyZ8uRJkiNBeuyoEaPF/59AgwpdaEIDBwpCMmjYUK+p06dQo0o1RwKECGpTs2rdyrWrV1btvoodS7asWXNhz6pdy7at21tp38qdS7eu2mArPlywy7ev37/yUHxgsYCChwEbOgBezLix42UdNgzwgBTr48uYM2umFXez58+gPXcOTbq06bqjT6tezdpr6tawY8uO93q27du4t9XOzbu372O7fwsfTlxW8OLIkysPdXy58+e+g2EYEWIv9OvYeV8IMQIDPn0phoofT768+fPo0//EqHEnR5A4R9o0SVOm/fv4WdJ0MF9B/AM6udfTBOoVaCB5KRiF1AIYcNCCddlFKCFr23WXF4QTZqghaIKxYMXZhiCGeFlzIpZoIlsknqjiiq4Jw+KLMJaVYow01vjOjDbmqOM4OO7o44/W9AjkkEQmI2SRSCYJjItKNukkMkc+KeWUqERJ5ZVYemJlllw+uWWXYCL5ZZhk/jhmmWjaeGaabL64ZptwmvhmnHRuGIwIIJBQ555DViVCYYclxuegMUY22YJCYJBBCZU06uijkEYq6aSUPvrIGIwwgIYaiBgCByFzCJIHIKSWyoeoeICagKdvIKKIBZk68kiltNb6aAkZeCdEEAA7);
+            color: #3d8b26;
+        }
+    </style>
 </head>
 <body>
+<<<<<<< HEAD
 	<div id="header">
 		<div class="shell">
 			<div id="head">
@@ -101,9 +290,50 @@ h6 { font-size:12px; line-height:16px; padding-bottom:5px; }
 		#{/if }
 		#{doLayout /}
 	</div>
+=======
+<div id="header">
+    <div class="shell">
+        <div id="head">
+            <h1><a href="#">Fuck Yeah!</a></h1>
+
+            <div class="right">
+                <p>
+                    Welcome <a href="#"><strong>$ {user.login}</strong></a> |
+                    <a href="@{Secure.logout}">Logout</a>
+                </p>
+            </div>
+        </div>
+        <div id="navigation">
+            <ul>
+                <li><a href="@{Admin.showCities}" class="#{get 'c__cities' /}"><span>Cities</span></a></li>
+                <li><a href="@{Admin.showTypes}" class="#{get 'c__types'/}"><span>Restaurant Types</span></a></li>
+                <li><a href="@{Admin.showRestaurants}" class="#{get 'c__rest'/}"><span>Restaurants</span></a></li>
+                <li><a href="@{Admin.showCategories}" class="#{get 'c__itmCat'/}"><span>Menu Item Categories</span></a>
+                </li>
+                <li><a href="@{Admin.showMenuItems}" class="#{get 'c__items'/}"><span>Menu Items</span></a></li>
+                <li><a href="@{Admin.showOrders}" class="#{get 'c__orders'/}"><span>Orders</span></a></li>
+                <li><a href="@{Admin.showUsers}" class="#{get 'c__users'/}"><span>Users</span></a></li>
+                <li><a href="@{Admin.showSettings}" class="#{get 'c__settings'/}"><span>System Settings</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="content" class="shell">
+    <div id="help-nav">
+    #{get 'navHelp' /}
+    </div>
+#{if thankmessage}
+    <div class="thank-message">${thankmessage}</div>
+#{/if}
+#{if errormessage}
+    <div class="error-message">${errormessage}</div>
+#{/if }
+#{doLayout /}
+</div>
+>>>>>>> master
 </div>
 <div id="footer">
-	<p>&copy;vdoma.com.ua</p>
+    <p>&copy;vdoma.com.ua</p>
 </div>
 </body>
 </html>

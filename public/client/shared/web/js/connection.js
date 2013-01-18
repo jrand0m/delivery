@@ -85,5 +85,5 @@ $.extend(_, {
 				if(onSuccess)onSuccess();
 			}
 		});
-	},
+	}
 });

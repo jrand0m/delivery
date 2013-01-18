@@ -1,83 +1,76 @@
-/**
- * 
- */
 package models.users;
 
+import enumerations.UserType;
+import org.joda.time.LocalDateTime;
+import play.data.validation.*;
+
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Where;
-
-import play.data.validation.Email;
-import play.data.validation.Password;
-import play.data.validation.Phone;
-import play.data.validation.Required;
-import play.db.jpa.Model;
 
 /**
  * @author Mike
- * 
  */
+
 @Entity
-//@Where(clause = "deleted = 0")
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="Uzer")
-public abstract class User extends Model {
+@Table(name = "vd_user")
+@SequenceGenerator(name = "user_seq_gen", sequenceName = "user_seq")
+public class User {
 
-	public static final class HQL {
-		public static final String BY_LOGIN = User.FIELDS.LOGIN + " = ?";
-		public static final String BY_LOGIN_OR_EMAIL = User.FIELDS.LOGIN
-				+ " = ? or " + User.FIELDS.EMAIL + " = ?";
-	}
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(generator = "user_seq_gen", strategy = GenerationType.SEQUENCE)
+    public Long id;
 
-	public static final class FIELDS {
-		public static final String ADDRESS_BOOK = "addressBook";
-		public static final String ORDER_BOOK = "orderBook";
-		public static final String DELETED = "deleted";
-		public static final String EMAIL = "email";
-		public static final String JOIN_DATE = "joinDate";
-		public static final String LOGIN = "login";
-		public static final String LAST_LOGIN_DATE = "lastLoginDate";
-		public static final String NAME = "usr_name";
-		public static final String PASSWORD = "password";
-		public static final String PHONENUMBER = "phoneNumber";
-		public static final String SURNAME = "usr_surname";
-		public static final String USERS_TATUS = "userStatus";
-	}
+    @Required
+    @Max(255)
+    @Min(3)
+    @Column(name = "login", nullable = false, unique = true)
+    public String login;
 
-	public boolean deleted = false;
-	@Email
-	public String email;
-	public Date joinDate;
-	public Date lastLoginDate;
-	@Required
-	public String login;
-	@Required
-	public String usr_name;
-	public String usr_surname;
-	@Password
-	public String password;
-	@Phone
-	@Required
-	public String phoneNumber;
+    @Email
+    @Max(255)
+    @Min(3)
+    @Column(name = "email")
+    public String email;
 
-	/**
-     * 
+    @Phone
+    @Required
+    @Max(255)
+    @Column(name = "phoneNumber", nullable = false, unique = true)
+    public String phoneNumber;
+
+    @Required
+    @Password
+    @Column(name = "password", nullable = false)
+    public String password;
+
+    @Required
+    @Max(255)
+    @Column(name = "name", nullable = false)
+    public String name;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "userType")
+    public UserType userType;
+
+    @Column(name = "lastLoginDate")
+    public LocalDateTime lastLoginDate;
+
+    @Column(name = "createdDate", nullable = false)
+    public LocalDateTime createdDate;
+
+    @Column(name = "updatedDate", nullable = false)
+    public LocalDateTime updatedDate;
+
+    @Column(name = "deleted", nullable = false)
+    public boolean deleted = false;
+
+    /**
+     * url that will be redirected to after login;
+     *
+     * @return relative url or null if no such preference
      */
-	public User() {
-		super();
-	}
-
-	/**
-	 * url that will be redirected to after login;
-	 * @return relative url or null if no such preference
-	 * */
-	abstract public String landingUrl();
-
+    public String landingUrl() {
+        return null;
+    }
 }

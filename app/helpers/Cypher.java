@@ -1,10 +1,7 @@
 package helpers;
 
 import play.Play;
-import play.utils.;
-
 import javax.crypto.Mac;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -23,9 +20,9 @@ public class Cypher {
             String key = Play.application().configuration().getString("application.secret");
             cypher.init(new SecretKeySpec(key.getBytes(),"HmacSHA1"));
         } catch (InvalidKeyException e) {
-            throw new PlayException("Problems with keys","Missing application key or something else",e);
+            throw new RuntimeException("Problems with keys: Missing application key or something else", e);
         } catch (NoSuchAlgorithmException e) {
-            throw new PlayException("Problems with keys","Missing application key or something else",e);
+            throw new RuntimeException("Problems with keys: Missing application key or something else",e);
         }
     }
 }
