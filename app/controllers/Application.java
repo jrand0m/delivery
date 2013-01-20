@@ -86,12 +86,12 @@ public class Application extends Controller {
 		EndUser user = getCurrentUser();
 		renderArgs.put(RENDER_KEYS.USER, user);
 		if (!session.contains(SESSION_KEYS.CITY_ID)) {
-			Logger.debug("No city defined in cookies");
-			City city = City.find("display = ?", true).first();
-			session.put(SESSION_KEYS.CITY_ID, city.id /*
-													 * Application.guessCity(request
-													 * .remoteAddress).getId()
-													 */);
+			//Logger.debug("No city defined in cookies");
+			//City city = City.find("display = ?", true).first();
+			//session.put(SESSION_KEYS.CITY_ID, city.id /*
+			//										 * Application.guessCity(request
+			//										 * .remoteAddress).getId()
+			//										 */);
 		}
 		flash.put("url", request.url);
 	}
