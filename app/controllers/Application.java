@@ -18,6 +18,7 @@ import play.i18n.Lang;
 import play.modules.guice.InjectSupport;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.Result;
 import services.*;
 
 import javax.inject.Inject;
@@ -82,7 +83,7 @@ public class Application extends Controller {
         Logger.debug("done");
     }
 
-    public static void order(Long id) {
+    public static Result order(Long id) {
         notFoundIfNull(id);
         User user = (User) renderArgs.get(RENDER_KEYS.USER);
         notFoundIfNull(user);
@@ -90,9 +91,10 @@ public class Application extends Controller {
         notFoundIfNull(order);
         renderArgs.put("order", order);
         render("/Application/order.html");
+        return TODO;
     }
 
-    public static void checkout(Long id) {
+    public static Result checkout(Long id) {
         // FIXME move to locker ?
         notFoundIfNull(id);
         User user = (User) renderArgs.get(RENDER_KEYS.USER);
@@ -111,9 +113,10 @@ public class Application extends Controller {
         renderArgs.put("streets", streets);
         renderArgs.put("order", order);
         render("/Application/prepareOrder.html");
+        return TODO;
     }
 
-    public static void index() {
+    public static Result index() {
         Logger.debug("start");
         String cityId = session.get(SESSION_KEYS.CITY_ID);
         Logger.debug("Got city_id = %s from session", cityId);
@@ -130,6 +133,7 @@ public class Application extends Controller {
         renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
         Logger.debug("done");
         render();
+        return TODO;
     }
 
     private static User getCurrentUser() {
@@ -140,7 +144,7 @@ public class Application extends Controller {
         return user;
     }
 
-    public static void showRestaurants() {
+    public static Result showRestaurants() {
         List<City> cityList = geoService.getVisibleCities();
         String cityId = session.get(SESSION_KEYS.CITY_ID);
         if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
@@ -160,9 +164,10 @@ public class Application extends Controller {
         renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
         renderArgs.put(RENDER_KEYS.SHOW_MENU_RESTAURANTS, restaurants);
         render();
+        return TODO;
     }
 
-    public static void showMenu(Long id) {
+    public static Result showMenu(Long id) {
         notFoundIfNull(id);
         Restaurant restaurant = restaurantService.getById(id);
         notFoundIfNull(restaurant);
@@ -170,13 +175,15 @@ public class Application extends Controller {
         renderArgs.put("restaurant", restaurant);
         renderArgs.put("menuItems", menuItems);
         render();
+        return TODO;
     }
 
-    public static void newUser() {
+    public static Result newUser() {
         render();
+        return TODO;
     }
 
-    public static void registerNewUser(User user) {
+    public static Result registerNewUser(User user) {
         Logger.debug(">>> Registering new user %s", user.toString());
         userService.insertUser(user);
         Logger.debug(">>> TODO: Try converting order history.");
@@ -187,7 +194,7 @@ public class Application extends Controller {
             error();
         }
 
-        index();
+        return index();
     }
 
     /**
@@ -195,7 +202,7 @@ public class Application extends Controller {
      * street:asd email:asd@cacc.ccom apartment:ds phone:asd oplata:on
      * TODO get orderCity one time(extract to varialble)
      */
-    public static void checkAndSend(Long id, Long aid, String name,
+    public static Result checkAndSend(Long id, Long aid, String name,
                                     Integer city, String sname, Long streetid, String street,
                                     @Email String email, String app, @Phone String phone,
                                     String oplata, String addinfo) {
@@ -336,7 +343,7 @@ public class Application extends Controller {
               Logger.error("Failed to send notification email! " + e.getMessage(), e);
           }*/
         mailService.sendNewOrderNotification(o);
-        order(o.id);
+        return order(o.id);
     }
 
     /* ------------ UTIL Pages -------------- */
@@ -344,16 +351,17 @@ public class Application extends Controller {
     /**
      * Change Language
      */
-    public static void changeLang(String lang) {
+    public static Result changeLang(String lang) {
         Lang.change(lang);
         String url = flash.get("url");
         if (url == null || url.isEmpty()) {
             url = "/";
         }
         redirect(url);
+        return TODO;
     }
 
-    public static void changeCity(Long id) {
+    public static Result changeCity(Long id) {
         Logger.debug("changing city to city_id = %s", id);
         City city = geoService.getCityById(id);
         String url = flash.get("url");
@@ -361,11 +369,12 @@ public class Application extends Controller {
             url = "/";
         }
         redirect(url);
+        return TODO;
     }
 
     /* ------------ AJAX ---------------- */
 
-    public static void getLastOrders(boolean top) {
+    public static Result getLastOrders(boolean top) {
         ArrayList<LastOrdersJSON> o = new ArrayList<LastOrdersJSON>();
         if (session.contains(SESSION_KEYS.CITY_ID)) {
             City city = geoService.getCityById(Long.parseLong(session.get(SESSION_KEYS.CITY_ID)));
@@ -377,9 +386,10 @@ public class Application extends Controller {
             await(20000);
         }
         renderJSON(o);
+        return TODO;
     }
 
-    public static void comps(final Long id) {
+    public static Result comps(final Long id) {
         notFoundIfNull(id);
         await(1000);
         /*MenuItem mi = MenuItem.findById(id);
@@ -397,9 +407,10 @@ public class Application extends Controller {
           wrap.items = asJsons; */
         MenuCompWrapJson wrap = basketService.getComponentsForMenuItem(id)/*.wrapInJson()*/;
         renderJSON(wrap);
+        return TODO;
     }
 
-    public static void addOrderItem(Long id, Long... component) {
+    public static Result addOrderItem(Long id, String comps /*Long... component*/) {
         if (!Security.isConnected() || id == null) {
             await(15000);
             notFound("Order not found");
@@ -413,14 +424,21 @@ public class Application extends Controller {
         // TODO add safe caching
         Order order = orderService.getCurrentOrderFor(user, itm.restaurant);
         notFoundIfNull(order);
+        notFoundIfNull(comps);
+        String c[] = comps.split(",");
+        Long component[] = new Long[c.length];
+        for (int i = 0 ; i<c.length; i++){
+            component[i] = Long.valueOf(c[i]);
+        }
         OrderItem oi = new OrderItem(itm, order, component);
         oi = orderService.insertOrderItem(oi);
         orderService.update(order);
         BasketJSON json = basketService.getBasketAsJSON(order);
         renderJSON(json);
+        return TODO;
     }
 
-    public static void cngOrderItem(Long id, Integer count) {
+    public static Result cngOrderItem(Long id, Integer count) {
         if (!Security.isConnected() || id == null || count == null) {
             await(15000);
             notFound("Order not found");
@@ -440,9 +458,10 @@ public class Application extends Controller {
             renderJSON(json);
         }
         notFound();
+        return TODO;
     }
 
-    public static void basket(Long chart) {
+    public static Result basket(Long chart) {
         /*
            * FIXME best place to create new user when user reaches place with
            * basket create token basket checks if the user is logged in and if it
@@ -477,14 +496,16 @@ public class Application extends Controller {
         }
         BasketJSON json = basketService.getBasketAsJSON(order);
         renderJSON(json);
+        return TODO;
     }
 
-    public static void serveLogo(long id) {
+    public static Result serveLogo(long id) {
         String url = restaurantService.getLogoPathFor(id);
         if (url == null){
             redirectToStatic("/public/images/no_image.jpg");
         }
         redirectToStatic(url);
+        return TODO;
     }
 
     /* ----------- private -------------- */
