@@ -1,14 +1,6 @@
 #{extends 'main-admin.html' /}
 #{set 'c__orders'}active#{/set}
-<<<<<<< HEAD
-#{form @Admin.showOrders() , id:'form', enctype:'multipart/form-data' } 
-#{select 'id', value:1, id:'id'}
-#{list items:restaurants, as:'restaurant'}
-#{option restaurant.id} ${restaurant.title}(${restaurant.id}) #{/option}
-#{/list}
-#{/select}
-<input type="submit" />
-=======
+
 #{form @Admin.showOrders() , id:'form', enctype:'multipart/form-data' }
     #{select 'id', value:1, id:'id'}
         #{list items:restaurants, as:'restaurant'}
@@ -16,7 +8,6 @@
         #{/list}
     #{/select}
 <input type="submit"/>
->>>>>>> master
 #{/form}
 
 

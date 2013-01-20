@@ -251,46 +251,6 @@
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-	<div id="header">
-		<div class="shell">
-			<div id="head">
-				<h1><a href="#">Fuck Yeah!</a></h1>
-				<div class="right">
-					<p>
-						Welcome <a href="#"><strong>$ {user.login}</strong></a> | 
-						<a href="@{Secure.logout}">Logout</a>
-					</p>
-				</div>
-			</div>
-			<div id="navigation">
-				<ul>
-				    <li><a href="@{Admin.showCities}"		class="#{get 'c__cities' /}"	><span>Cities</span></a></li>
-				    <li><a href="@{Admin.showTypes}"		class="#{get 'c__types'/}"	><span>Restaurant Types</span></a></li>
-				    <li><a href="@{Admin.showRestaurants}" 	class="#{get 'c__rest'/}"	><span>Restaurants</span></a></li>
-				    <li><a href="@{Admin.showCategories}"	class="#{get 'c__itmCat'/}"	><span>Menu Item Categories</span></a></li>
-				    <li><a href="@{Admin.showMenuItems}"	class="#{get 'c__items'/}"	><span>Menu Items</span></a></li>
-				    <li><a href="@{Admin.showOrders}"		class="#{get 'c__orders'/}"	><span>Orders</span></a></li>
-				    <li><a href="@{Admin.showUsers}"		class="#{get 'c__users'/}"	><span>Users</span></a></li>
-				    <li><a href="@{Admin.showSettings}"		class="#{get 'c__settings'/}"	><span>System Settings</span></a></li>
-				    <li><a href="@{Admin.showLastPing}"		class="#{get 'c__lastPing'/}"	><span>Last pings</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div id="content" class="shell">
-		<div id="help-nav">
-			#{get 'navHelp' /}
-		</div>
-		#{if thankmessage}
-		<div class="thank-message">${thankmessage}</div>
-		#{/if}
-		#{if errormessage}
-		<div class="error-message">${errormessage}</div>
-		#{/if }
-		#{doLayout /}
-	</div>
-=======
 <div id="header">
     <div class="shell">
         <div id="head">
@@ -330,7 +290,6 @@
 #{/if }
 #{doLayout /}
 </div>
->>>>>>> master
 </div>
 <div id="footer">
     <p>&copy;vdoma.com.ua</p>

@@ -1,22 +1,27 @@
 package controllers;
 
 import play.mvc.Controller;
+import play.mvc.Result;
 
 public class Static extends Controller {
 
-    public static void about() {
-        render();
+    public static Result about() {
+        //render();
+        return TODO;
     }
 
-    public static void rules() {
-        render();
+    public static Result rules() {
+        //render();
+        return TODO;
     }
 
-    public static void forRestaurants() {
-        render();
+    public static Result forRestaurants() {
+        //render();
+        return TODO;
     }
 
-    public static void contacts() {
-        render();
+    public static Result contacts() {
+        //render();
+        return TODO;
     }
 }

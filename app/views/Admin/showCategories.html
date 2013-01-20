@@ -11,17 +11,11 @@
         <th>Actions</th>
     </tr>
 #{list items:categories, as:'cat'}
-<<<<<<< HEAD
-<tr>
-<td>${cat.restaurant.title}(${cat.restaurant.id})</td><td>${cat.name}</td><td>${cat.description}</td> <td><a href="@{Admin.editCategory(cat.id)}">edit</a></td>
-</tr>
-=======
     <tr>
         <td>${cat.restaurant.title}</td>
         <td>${cat.name}</td>
         <td>${cat.description}</td>
         <td><a href="@{Admin.editCategory(cat.id)}">edit</a></td>
     </tr>
->>>>>>> master
 #{/list}
 </table>

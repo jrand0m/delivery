@@ -29,17 +29,6 @@ public class CaffeJobsList {
 
     public String paymentStatus;
 
-<<<<<<< HEAD
-	public Integer price;
-	public List<MenuItem> list = new ArrayList<MenuItem>();
-	public String from;
-	public String to;
-	public long timeToDelivered;
-	public String phone;
-	public String additionalInfo;
-	public Integer customerPrice;
-    public String customerName;
-=======
     public Integer price;
     public List<MenuItem> list = new ArrayList<MenuItem>();
     public String from;
@@ -48,5 +37,5 @@ public class CaffeJobsList {
     public String phone;
     public String additionalInfo;
     public Integer customerPrice;
->>>>>>> master
+
 }

@@ -26,20 +26,6 @@
         <th>Last Ping</th>
     </tr>
 #{list items:restaurants, as:'rest'}
-<<<<<<< HEAD
-<tr>
-    <td><a href="@{Admin.editRestaurant(rest.id)}">edit</a></td>
-    <td>${rest.title} (${rest.id})</td>
-    <td>${rest.twoLetters}</td>
-    <td>${rest.showOnIndex}</td>
-    <td><img src="@{Application.serveLogo(rest.id)}" style="height:30px"/></td>
-    <td>${rest.desc}</td>
-    <td>${rest.category.categoryDisplayNameUA}</td>
-    <td>${rest.workHoursToday()}</td>
-    <td>${rest.addressToString()}</td>
-    <td>${rest.device?.lastPing?.since()}</td>
-</tr>
-=======
     <tr>
         <td><a href="@{Admin.editRestaurant(rest.id)}">edit</a></td>
         <td>${rest.title}</td>
@@ -52,6 +38,5 @@
         <td>${rest.addressToString()}</td>
         <td>${rest.lastPing.toString()}</td>
     </tr>
->>>>>>> master
 #{/list}
 </table>
