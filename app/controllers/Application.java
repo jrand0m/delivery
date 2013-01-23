@@ -12,19 +12,13 @@ import models.geo.Street;
 import models.time.WorkHours;
 import models.users.User;
 import play.Logger;
-import play.data.validation.Email;
-import play.data.validation.Phone;
 import play.i18n.Lang;
-import play.modules.guice.InjectSupport;
-import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.*;
-
 import javax.inject.Inject;
 import java.util.*;
 
-@InjectSupport
 public class Application extends Controller {
 
     // TODO Make more flexible(extract to SystemSetting)
@@ -204,7 +198,7 @@ public class Application extends Controller {
      */
     public static Result checkAndSend(Long id, Long aid, String name,
                                     Integer city, String sname, Long streetid, String street,
-                                    @Email String email, String app, @Phone String phone,
+                                    String email, String app, String phone,
                                     String oplata, String addinfo) {
         User user = (User) renderArgs.get(RENDER_KEYS.USER);
         if (user == null)

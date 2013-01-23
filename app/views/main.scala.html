@@ -1,38 +1,38 @@
+@(title: String, moreScripts: Html = Html(""), moreStyles: Html = Html(""))(content: Html)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>vdoma.com.ua - Кухня улюблених закладів в тебе вдома.</title>
+        <title>@title vdoma.com.ua - Кухня улюблених закладів в тебе вдома.</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		
 		<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<!--<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>-->
-        <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/style.css'}" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/demos.css'}?b38"/>
-		<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/jquery.fancybox-1.3.4.css'}" media="screen" />
-		
-        #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/ico" href="@{'/public/images/favicon.ico'}">
-        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="@{'/public/javascripts/jquery-ui.custom.min.js'}?v=1.8"></script>
-		<script type="text/javascript" src="@{'/public/javascripts/jquery.mousewheel-3.0.4.pack.js'}"></script>
-        #{get 'moreScripts' /}
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.at("/public","stylesheets/style.css")' charset="utf-8" />
+		<link rel="stylesheet" type="text/css" media="screen" href='@routes.Assets.at("/public","stylesheets/demos.css")?b38'/>
+		<link rel="stylesheet" type="text/css" href='@routes.Assets.at("/public","stylesheets/jquery.fancybox-1.3.4.css")' media="screen" />
+        @moreStyles
+        <link rel="shortcut icon" type="image/ico" href='@routes.Assets.at("/public","images/favicon.ico")'>
+        <script src='@routes.Assets.at("/public","javascripts/jquery-1.6.4.min.js")' type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src='@routes.Assets.at("/public","javascripts/jquery-ui.custom.min.js")?v=1.8'></script>
+		<script type="text/javascript" src='@routes.Assets.at("/public","javascripts/jquery.mousewheel-3.0.4.pack.js")'></script>
+        @moreScripts
     </head>
     <body>
     	<div id="wrapper">
 			<div id="wrapper_inner">
 				<div id="header">
 					<div class="header_top">
-						<a href="@{Application.index()}" class="logo"><img alt="На головну!" title="На головну!" src="@{'/public/images/logo.png'}" width="79" /></a>
+						<a href="@routes.Application.index()" class="logo"><img alt="На головну!" title="На головну!" src='@routes.Assets.at("/public","images/logo.png")' width="79" /></a>
 						<h1>&{'common.slogan'}</h1>
-						<img class="h1" src="@{'/public/images/h1.png'}" />
-						<img id="slogan" src="@{'/public/images/slogan.png'}" />
+						<img class="h1" src='@routes.Assets.at("/public","images/h1.png")' />
+						<img id="slogan" src='@routes.Assets.at("/public","images/slogan.png")' />
 						<div class="right_links">
 							<ul class="lang">
-								<li class="${"uk".equals(lang)?"active":""}"><a href="@{Application.changeLang("uk")}">українською</a></li>
-								<li class="${"ru".equals(lang)?"active":""}"><a href="@{Application.changeLang("ru")}">русский</a></li>
-								<li class="${"en".equals(lang)?"active":""}"><a href="@{Application.changeLang("en")}">in english</a></li>
+								<li class="${"uk".equals(lang)?"active":""}"><a href='@routes.Application.changeLang("uk")'>українською</a></li>
+								<li class="${"ru".equals(lang)?"active":""}"><a href='@routes.Application.changeLang("ru")'>русский</a></li>
+								<li class="${"en".equals(lang)?"active":""}"><a href='@routes.Application.changeLang("en")'>in english</a></li>
 							</ul>
 							
 						</div>
@@ -48,7 +48,7 @@
 				</div>
 				<div id="content">
 					<div class="main_cont">
-						#{doLayout /}
+						@content
 					</div>
 				</div>
 				<div class="empty_block">
@@ -73,9 +73,9 @@
 						</td>
 						<td class="social_icons">
 							<!--<p>Ми у соціальних мережах:</p>-->
-							<a title="Вконтакте" href="http://vkontakte.ru/vdoma_com_ua"><img alt="vk" src="@{'/public/images/vk.png'}" /></a>
-							<a title="Фейсбук" href="http://www.facebook.com/groups/272545222759382/"><img alt="fb" src="@{'/public/images/fb.png'}" /></a>
-							<a title="Твіттер" href="http://twitter.com/#!/vdoma_com_ua/"><img alt="tw" src="@{'/public/images/tw.png'}" /></a>
+							<a title="Вконтакте" href="http://vkontakte.ru/vdoma_com_ua"><img alt="vk" src='@routes.Assets.at("/public","images/vk.png")' /></a>
+							<a title="Фейсбук" href="http://www.facebook.com/groups/272545222759382/"><img alt="fb" src='@routes.Assets.at("/public","images/fb.png")' /></a>
+							<a title="Твіттер" href="http://twitter.com/#!/vdoma_com_ua/"><img alt="tw" src='@routes.Assets.at("/public","images/tw.png")' /></a>
 						</td>
 					</tr>
 				</table>

@@ -1,6 +1,5 @@
 package controllers;
 
-import com.google.gson.Gson;
 import enumerations.OrderStatus;
 import enumerations.UserType;
 import models.Order;
@@ -13,7 +12,6 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import play.Logger;
-import play.modules.guice.InjectSupport;
 import play.mvc.Controller;
 import play.mvc.With;
 import services.OrderService;
@@ -28,8 +26,8 @@ import static helpers.OrderUtils.convertMoneyToCents;
 /**
  * @author Mike
  */
-@InjectSupport
-@With(Secure.class)
+
+//TODO: @With(Secure.class)
 public class API extends Controller {
     @Inject
     private static RestaurantService restaurantService;
