@@ -3,18 +3,13 @@
  */
 package controllers;
 
-import enumerations.UserType;
-import models.users.User;
 import org.json.JSONException;
 import play.Logger;
-import play.Play;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.UserService;
 
 import javax.inject.Inject;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import org.json.JSONObject;
 /**
  * @author Mike
