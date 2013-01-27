@@ -9,8 +9,10 @@ object ApplicationBuild extends Build {
 
     val appDependencies = Seq(
       // Add your project dependencies here,
+      "postgresql" % "postgresql" % "9.1-901.jdbc4",
       "com.typesafe" % "play-plugins-guice" % "2.0.3",
-      "org.joda" % "joda-money" % "0.7",
+      "org.joda" % "joda-money" % "0.7"
+      withSources(),
       "joda-time" % "joda-time" % "2.1"
 
     )

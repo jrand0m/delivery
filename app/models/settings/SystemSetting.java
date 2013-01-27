@@ -1,12 +1,14 @@
 package models.settings;
 
+import play.db.ebean.Model;
+
 import javax.persistence.*;
 import java.util.Date;
 
-
+@Entity
 @Table(name = "vd_system_settings")
 @SequenceGenerator(name = "system_settings_seq_gen", sequenceName = "system_settings_seq")
-public class SystemSetting {
+public class SystemSetting extends Model {
 
     public static final class KEYS {
         public static final String DEFAULT_CITY_ID = "defaultCityId";

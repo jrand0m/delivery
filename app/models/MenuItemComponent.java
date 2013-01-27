@@ -1,12 +1,15 @@
 package models;
 
+import com.avaje.ebean.annotation.EmbeddedColumns;
 import org.joda.money.Money;
+import play.db.ebean.Model;
 
 import javax.persistence.*;
 
+@Entity
 @Table(name = "vd_menu_item_components")
 @SequenceGenerator(name = "menu_item_component_seq_gen", sequenceName = "menu_item_component_seq")
-public class MenuItemComponent {
+public class MenuItemComponent extends Model {
 
     @Id
     @GeneratedValue(generator = "menu_item_component_seq_gen", strategy = GenerationType.SEQUENCE)
@@ -16,17 +19,18 @@ public class MenuItemComponent {
     public String name;
     @Column(name = "description")
     public String description;
-    @Column(name = "price")
+
+    @EmbeddedColumns(columns="currency=price_currency, cents=price")
     public Money price;
 
     @Column(name = "deleted")
     public boolean deleted = false;
 
     @Column(name = "requiredIds")
-    public Long[] requiredIds;
+    public long[] requiredIds;
 
     @Column(name = "notCompatible")
-    public Long[] notCompatible;
+    public long[] notCompatible;
 
     @Column(name = "menu_item_id")
     public Long menuItemId;

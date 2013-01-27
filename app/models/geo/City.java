@@ -3,6 +3,7 @@
  */
 package models.geo;
 
+import play.db.ebean.Model;
 import play.i18n.Messages;
 
 import javax.persistence.*;
@@ -10,10 +11,10 @@ import javax.persistence.*;
 /**
  * @author Mike
  */
-
+@Entity
 @Table(name = "vd_city")
 @SequenceGenerator(name = "city_seq_gen", sequenceName = "city_seq")
-public class City {
+public class City extends Model {
 
     @Id
     @Column(name = "city_id")

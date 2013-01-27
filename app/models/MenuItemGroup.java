@@ -1,12 +1,15 @@
 package models;
 
+import play.db.ebean.Model;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Table(name = "vd_menu_items_groups")
 @SequenceGenerator(name = "menu_items_groups_seq_gen", sequenceName = "menu_items_groups_seq")
-public class MenuItemGroup {
+public class MenuItemGroup extends Model {
     @Id
     @GeneratedValue(generator = "menu_items_groups_seq_gen", strategy = GenerationType.SEQUENCE)
     public Integer id;

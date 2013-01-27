@@ -3,14 +3,17 @@
  */
 package models;
 
+import play.db.ebean.Model;
+
 import javax.persistence.*;
 
 /**
  * @author Mike
  */
+@Entity
 @Table(name = "vd_restaurant_descriptions")
 @SequenceGenerator(name = "restaurant_descriptions_seq_gen", sequenceName = "restaurant_descriptions_seq")
-public class RestaurantDescription {
+public class RestaurantDescription extends Model {
     @Id
     @GeneratedValue(generator = "restaurant_descriptions_seq_gen", strategy = GenerationType.SEQUENCE)
     @Column(name = "id")

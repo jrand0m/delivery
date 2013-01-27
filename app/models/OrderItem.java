@@ -2,6 +2,7 @@ package models;
 
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
+import play.db.ebean.Model;
 import services.RestaurantService;
 
 import javax.inject.Inject;
@@ -11,10 +12,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-
+@Entity
 @Table(name = "vd_order_items")
 @SequenceGenerator(name = "order_items_seq_gen", sequenceName = "order_items_seq")
-public class OrderItem {
+public class OrderItem extends Model {
     @Id
     @GeneratedValue(generator = "order_items_seq_gen", strategy = GenerationType.SEQUENCE)
     public Long id;

@@ -3,15 +3,17 @@
  */
 package models.geo;
 
+import play.db.ebean.Model;
+
 import javax.persistence.*;
 
 /**
  * @author Mike
  */
-
+@Entity
 @Table(name = "vd_address")
 @SequenceGenerator(name = "address_seq_gen", sequenceName = "address_seq")
-public class Address {
+public class Address extends Model {
 
     @Id
     @Column(name = "address_id")

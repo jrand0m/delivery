@@ -1,12 +1,13 @@
 package models;
 
+import com.avaje.ebean.annotation.EmbeddedColumns;
 import org.joda.money.Money;
 import org.joda.time.LocalDateTime;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
 
-
+@Entity
 @Table(name = "vd_menu_items")
 @SequenceGenerator(name = "menu_items_seq_gen", sequenceName = "menu_items_seq")
 public class MenuItem extends Model {
@@ -32,7 +33,7 @@ public class MenuItem extends Model {
     // filled dynamicaly via sql
     public boolean showComponents = false;
 
-    @Column(name = "price")
+    @EmbeddedColumns( columns = "currency=price_currency, cents=price")
     public Money price;
 
     @Column(name = "restaurant_id", nullable = false, updatable = false, insertable = false)

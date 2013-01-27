@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.annotation.EmbeddedColumns;
 import enumerations.OrderStatus;
 import enumerations.PaymentStatus;
 import helpers.SystemCalc;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
 import javax.persistence.*;
 import java.math.RoundingMode;
 
-
+@Entity
 @Table(name = "vd_orders")
 @SequenceGenerator(name = "orders_seq_gen", sequenceName = "orders_seq")
 public class Order extends Model {
@@ -45,13 +46,13 @@ public class Order extends Model {
      * Price calculated by application using formula, that should be paid by
      * user. value in coins
      */
-    @Column(name = "deliveryPrice")
+    @EmbeddedColumns(columns="currency=deliveryPrice_currency, cents=deliveryPrice")
     public Money deliveryPrice;
 
     /**
      * Menu total price saved when order is accepted by user
      */
-    @Column(name = "totalMenuPrice")
+    @EmbeddedColumns(columns="currency=totalMenuPrice_currency, cents=totalMenuPrice")
     public Money totalMenuPrice;
 
 

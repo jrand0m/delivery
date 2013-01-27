@@ -5,15 +5,17 @@ package models;
 
 import enumerations.CommentStatus;
 import org.joda.time.LocalDateTime;
+import play.db.ebean.Model;
 
 import javax.persistence.*;
 
 /**
  * @author Mike user can comment once per order(avoid spam)
  */
+@Entity
 @Table(name = "vd_comments")
 @SequenceGenerator(name = "comments_seq_gen", sequenceName = "comments_seq")
-public class Comment {
+public class Comment extends Model {
 
 
     @Id

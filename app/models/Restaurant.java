@@ -18,7 +18,7 @@ import javax.persistence.*;
 /**
  * @author mike
  */
-
+@Entity
 @Table(name = "vd_restaurant")
 @SequenceGenerator(name = "restaurant_seq_gen", sequenceName = "restaurant_seq")
 public class Restaurant extends Model {
@@ -73,6 +73,7 @@ public class Restaurant extends Model {
 
     /**
      * logo image , ATTENTION! stores in /attachents/ dir
+     * Stored file entity ?
      */
     //TODO: public Blob logo;
 
