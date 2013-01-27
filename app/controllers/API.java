@@ -2,20 +2,27 @@ package controllers;
 
 import enumerations.OrderStatus;
 import enumerations.UserType;
+import models.MenuItemComponent;
 import models.Order;
 import models.OrderItem;
 import models.dto.intern.CaffeJobsList;
 import models.dto.intern.MenuItem;
 import models.dto.intern.PushMessage;
 import models.users.User;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import play.Logger;
+import play.libs.Json;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
-import play.mvc.With;
+import play.mvc.Result;
 import services.OrderService;
 import services.RestaurantService;
+import services.UserService;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -33,21 +40,23 @@ public class API extends Controller {
     private static RestaurantService restaurantService;
     @Inject
     private static OrderService orderService;
+    @Inject
+    private static UserService userService;
 
-    public static void g(Long from) {
+    public static Result g(Long from) {
 
-        if (session.contains("_id")) {
-            processGetAsRestaurant(session.get("_id"), from);
+        if (session().containsKey("_id")) {
+            processGetAsRestaurant(session("_id"), from);
         }
-        User user = (User) renderArgs.get("user");
+        User user = userService.getUserByLogin(session("user"));
 
         if (UserType.COURIER.equals(user.userType)) {
-            processGet(user, from);
+            return processGet(user, from);
         }
-        notFound();
+        return notFound();
     }
 
-    private static void processGetAsRestaurant(String device, Long from) {
+    private static Result processGetAsRestaurant(String device, Long from) {
 
         List<Order> orders;
         if (from != null) {
@@ -56,29 +65,45 @@ public class API extends Controller {
             orders = restaurantService.getLastOrdersForDevice(device);
         }
 
-        Logger.info("Found %d orders for agent %s", orders.size(), Security.connected());
-        List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
+        Logger.info(String.format("Found %d orders for agent %s", orders.size(),""));
+        ArrayNode jobs = Json.newObject().putArray("array");
         for (Order order : orders) {
-            CaffeJobsList job = new CaffeJobsList();
-            job.id = String.valueOf(order.id);
-            job.status = order.orderStatus.toString();
-
-            job.price = convertMoneyToCents(order.getMenuTotal());
-            job.paymentStatus = order.paymentStatus.toString();
-            job.time = order.orderConfirmed.toDateTime().toDate().getTime();
-            job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ? new Period(order.orderAccepted.plus(order.orderPlanedCooked), new LocalDateTime(), PeriodType.minutes())
+            ObjectNode job = Json.newObject();
+            job.put("id", String.valueOf(order.id));
+            job.put("status" , order.orderStatus.toString());
+            job.put("price" , convertMoneyToCents(order.getMenuTotal()));
+            job.put("paymentStatus",  order.paymentStatus.toString());
+            job.put("time", order.orderConfirmed.toDateTime().toDate().getTime());
+            job.put("timeToFinish", order.orderStatus == OrderStatus.ACCEPTED ? new Period(order.orderAccepted.plus(order.orderPlanedCooked), new LocalDateTime(), PeriodType.minutes())
                     .toStandardMinutes().getMinutes()
-                    : null;
+                    : null);
+            ArrayNode list = job.putArray("list");
             for (OrderItem oi : orderService.getItems(order)) {
-                job.list.add(new MenuItem(oi));
+                ObjectNode item = Json.newObject();
+                item.put("count",oi.count );
+                item.put("name", oi.menuItem.name);
+                item.put("pricePerItem", convertMoneyToCents(oi.menuItem.price));
+                if (oi.selectedComponents != null && !oi.selectedComponents.isEmpty()) {
+
+                    ArrayNode components = item.putArray("components");
+                    for (MenuItemComponent mic : oi.selectedComponents) {
+                        ObjectNode component= Json.newObject();
+                        component.put("count", 1);
+                        component.put("name", mic.name());
+                        component.put("pricePerItem", convertMoneyToCents(mic.price()));
+                        components.add(component);
+                    }
+
+                }
+                list.add(item);
             }
             jobs.add(job);
         }
         restaurantService.updateDevicePing(device);
-        renderJSON(jobs);
+        return ok(jobs);
     }
 
-    static private void processGet(User user, Long from) {
+    static private Result processGet(User user, Long from) {
         List<Order> orders;
         if (from != null) {
             orders = orderService.getOrdersForCourier(user, from);
@@ -86,7 +111,7 @@ public class API extends Controller {
             orders = orderService.getOrdersForCourier(user);
         }
 
-        Logger.info("Found %d orders", orders.size());
+        Logger.info(String.format("Found %d orders", orders.size()));
         List<CaffeJobsList> jobs = new ArrayList<CaffeJobsList>(orders.size());
         for (Order order : orders) {
             CaffeJobsList job = new CaffeJobsList();
@@ -108,8 +133,8 @@ public class API extends Controller {
                             .toStandardMinutes().getMinutes()
                     : null;
             if (order.deliveryAddress == null) {
-                Logger.warn("No delivery address for order id %s",
-                        order.id);
+                Logger.warn(String.format("No delivery address for order id %s",
+                        order.id));
                 job.additionalInfo = null;
             } else {
                 job.additionalInfo = order.deliveryAddress.additionalInfo;
@@ -125,31 +150,33 @@ public class API extends Controller {
             job.phone = order.orderOwner.phoneNumber;
             jobs.add(job);
         }
-        renderJSON(jobs);
+        return ok(Json.toJson(jobs));
     }
 
-    public static void p(String message) {
-        notFoundIfNull(message);
-        Logger.debug("p in message = %s", message);
-        Gson g = new Gson();
-        PushMessage p = g.fromJson(message, PushMessage.class);
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result p() {
+        JsonNode message = request().body().asJson();
+
+        Logger.debug(String.format("p in message = %s", Json.stringify(message)));
+        PushMessage p = Json.fromJson(message, PushMessage.class);
         if (p.id == null || p.id.length() < 8) {
-            notFound();
+            return notFound();
         }
-        User user = (User) renderArgs.get("user");
-        if (session.contains("_id")) {
-            processPushAsRestaurant(session.get("_id"), p);
+        User user = (User) userService.getUserByLogin(session("login"));
+        if (session().containsKey("_id")) {
+            return processPushAsRestaurant(session("_id"), p);
         }
         if (UserType.COURIER.equals(user.userType)) {
-            processPushAsCourier(user, p);
+            return processPushAsCourier(user, p);
         }
-        error();
+        return notFound();
     }
 
-    static private void processPushAsCourier(User user, PushMessage message) {
+    static private Result processPushAsCourier(User user, PushMessage message) {
         Order order = orderService.getById(message.id);
-        notFoundIfNull(order);
-        Logger.debug("p found order id = %s", order.id);
+        if (order == null ) return notFound();
+        Logger.debug(String.format("p found order id = %s", order.id));
         switch (OrderStatus.convert(message.status)) {
             case ACCEPTED:
             case CONFIRMED:
@@ -172,15 +199,15 @@ public class API extends Controller {
                 break;
             default:
                 Logger.debug("p not found corresponding status ");
-                notFound();
+                return notFound();
         }
         orderService.update(order);
-        ok();
+        return ok();
     }
 
-    private static void processPushAsRestaurant(String deviceId, PushMessage message) {
+    private static Result processPushAsRestaurant(String deviceId, PushMessage message) {
         Order order = orderService.getById(message.id);
-        notFoundIfNull(order);
+        if(order == null ) return notFound();
         switch (OrderStatus.convert(message.status)) {
             case COOKED:
                 order.orderStatus = OrderStatus.COOKED;
@@ -206,10 +233,10 @@ public class API extends Controller {
                 break;
             default:
                 Logger.debug("p not found corresponding status ");
-                notFound();
+                return notFound();
         }
         orderService.update(order);
         restaurantService.updateDevicePing(deviceId);
-        ok();
+        return ok();
     }
 }

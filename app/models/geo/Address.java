@@ -3,9 +3,6 @@
  */
 package models.geo;
 
-import play.data.validation.Max;
-import play.data.validation.Required;
-
 import javax.persistence.*;
 
 /**
@@ -21,11 +18,11 @@ public class Address {
     @GeneratedValue(generator = "address_seq_gen", strategy = GenerationType.SEQUENCE)
     public Long id;
 
-    @Max(value = 30)
+    //TODO:@Max(value = 30)
     @Column(name = "buildingNumber")
     public String buildingNumber;
 
-    @Max(value = 30)
+    //TODO:@Max(value = 30)
     @Column(name = "apartmentsNumber")
     public String apartmentsNumber;
 
@@ -42,13 +39,13 @@ public class Address {
     public Long street_id;
 
 
-    @Required
+    //TODO:@Required
     @ManyToOne
     @JoinColumn(name = "city_id")
     @Deprecated
     public City city;
 
-    @Required
+    //TODO:@Required
     @ManyToOne
     @JoinColumn(name = "street_id")
     @Deprecated

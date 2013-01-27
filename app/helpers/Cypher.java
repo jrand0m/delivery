@@ -24,5 +24,6 @@ public class Cypher {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Problems with keys: Missing application key or something else",e);
         }
+        return "TODO Cypher";
     }
 }

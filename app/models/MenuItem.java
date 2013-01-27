@@ -2,13 +2,14 @@ package models;
 
 import org.joda.money.Money;
 import org.joda.time.LocalDateTime;
+import play.db.ebean.Model;
 
 import javax.persistence.*;
 
 
 @Table(name = "vd_menu_items")
 @SequenceGenerator(name = "menu_items_seq_gen", sequenceName = "menu_items_seq")
-public class MenuItem {
+public class MenuItem extends Model {
 
     @Id
     @GeneratedValue(generator = "menu_items_seq_gen", strategy = GenerationType.SEQUENCE)

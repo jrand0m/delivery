@@ -1,6 +1,6 @@
 package models;
 
-import play.data.validation.Required;
+import play.Play;
 import play.i18n.Lang;
 
 import javax.persistence.*;
@@ -17,18 +17,18 @@ public class RestaurantCategory {
     /**
      * on this field applies slugvify
      */
-    @Required
+    //TODO: @Required
     @Column(name = "categoryDisplayNameEN", nullable = false)
     public String categoryDisplayNameEN;
 
     @Column(name = "categoryDisplayNameRU")
     public String categoryDisplayNameRU;
-    @Required
+    //TODO: @Required
     @Column(name = "categoryDisplayNameUA", nullable = false)
     public String categoryDisplayNameUA;
 
     public String localizedName() {
-        String lang = Lang.get();
+        String lang = "ua"; //TODO: how to get current lang?
         if ("ua".equals(lang)) {
             return categoryDisplayNameUA;
         } else if ("en".equals(lang)) {

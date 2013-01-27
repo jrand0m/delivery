@@ -1,9 +1,5 @@
 package models.settings;
 
-import play.data.validation.Max;
-import play.data.validation.Min;
-import play.data.validation.Required;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -26,16 +22,16 @@ public class SystemSetting {
     @Column(name = "id", nullable = false)
     public Integer id;
 
-    @Required
-    @Min(3)
-    @Max(32)
+    //TODO:@Required
+    //TODO:@Min(3)
+    //TODO:@Max(32)
     @Column(name = "_stg_key")
     public String stg_key;
-    @Required
-    @Min(1)
+    //TODO:@Required
+    //TODO:@Min(1)
     @Column(name = "_stg_value")
     public String stg_value;
-    @Required
+    //TODO:@Required
     @Column(name = "isDefault")
     public boolean isDefault = false;
     /**

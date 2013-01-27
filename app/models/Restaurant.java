@@ -11,9 +11,8 @@ import models.users.User;
 import org.joda.time.DateTime;
 import play.Logger;
 import play.cache.Cache;
-import play.db.jpa.Blob;
+import play.db.ebean.Model;
 import play.i18n.Messages;
-
 import javax.persistence.*;
 
 /**
@@ -22,7 +21,7 @@ import javax.persistence.*;
 
 @Table(name = "vd_restaurant")
 @SequenceGenerator(name = "restaurant_seq_gen", sequenceName = "restaurant_seq")
-public class Restaurant {
+public class Restaurant extends Model {
 
     @Id
     @GeneratedValue(generator = "restaurant_seq_gen", strategy = GenerationType.SEQUENCE)
@@ -75,7 +74,7 @@ public class Restaurant {
     /**
      * logo image , ATTENTION! stores in /attachents/ dir
      */
-    public Blob logo;
+    //TODO: public Blob logo;
 
 
     /**
@@ -105,21 +104,22 @@ public class Restaurant {
     public boolean isOnline() {
         Boolean online = (Boolean) Cache.get("isOnline_" + id);
         if (online == null) {
-            long waitTimeInMiliseconds = 300000;
-            Logger.debug("//TODO:get from system properties >>> %s", waitTimeInMiliseconds);
-
+            int waitTimeInMillisecond = 300000;
+            if (Logger.isDebugEnabled()){
+                Logger.debug(String.format("//TODO:get from system properties >>> %s", waitTimeInMillisecond));
+            }
             /* Long.parseLong(PropertyVault
                        .getSystemValueFor("pingTime"));*/
 
             if (lastPing != null) {
-                online = System.currentTimeMillis() - lastPing.getMillis() < waitTimeInMiliseconds;
+                online = System.currentTimeMillis() - lastPing.getMillis() < waitTimeInMillisecond;
             } else {
                 // TODO Hardcore workaround on device null;
                 online = true;
             }
-            long waitTimeInMin = (waitTimeInMiliseconds / 1000 / 60) + 1;
+            int waitTimeInSeconds = (waitTimeInMillisecond / 1000 ) + 1;
 
-            Cache.set("isOnline_" + id, online, waitTimeInMin + "mn");
+            Cache.set("isOnline_" + id, online, waitTimeInSeconds);
         }
         return online;
     }

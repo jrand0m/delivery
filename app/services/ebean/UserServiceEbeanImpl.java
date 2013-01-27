@@ -49,7 +49,7 @@ public class UserServiceEbeanImpl implements UserService{
     }
 
     @Override
-    public boolean verifyCredentials(String username, String pwd) {
+    public Long verifyCredentials(String username, String pwd) {
         throw new UnsupportedOperationException("Implement Me");
     }
 

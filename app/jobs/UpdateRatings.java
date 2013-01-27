@@ -6,9 +6,6 @@ package jobs;
 import models.Comment;
 import models.Restaurant;
 import play.Logger;
-import play.jobs.Job;
-import play.jobs.On;
-import play.modules.guice.InjectSupport;
 import services.RestaurantService;
 
 import javax.inject.Inject;
@@ -20,14 +17,13 @@ import java.util.List;
 /**
  * @author Mike
  */
-@On("0 0 4 * * ?")
-@InjectSupport
-public class UpdateRatings extends Job {
+//todo: via akka @On("0 0 4 * * ?")
+public class UpdateRatings {
     private static long MILLISECONDS_IN_DAY = 1000/* ms */ * 60/* s */ * 60/* m */ * 24/* h */;
     @Inject
     private static RestaurantService restaurantService;
 
-    @Override
+    //@Override
     public void doJob() {
         //String rrtg = PropertyVault.getSystemValueFor("ratingsRefreshTimeGap");
 
@@ -41,9 +37,9 @@ public class UpdateRatings extends Job {
 
         List<Comment> comments = restaurantService.findAllCommentsFromLastMonth();
         if (comments != null && !comments.isEmpty()) {
-            Logger.info(
+            Logger.info(String.format(
                     "UpdateRatings Job: starting to collect ratings for last %s days",
-                    gapInDays);
+                    gapInDays));
             Long startTime = System.currentTimeMillis();
             LinkedHashMap<Restaurant, ArrayList<Integer>> map = new LinkedHashMap<Restaurant, ArrayList<Integer>>();
             for (Comment comment : comments) {
@@ -54,9 +50,9 @@ public class UpdateRatings extends Job {
                 ArrayList<Integer> list = map.get(rest);
                 list.add(comment.commonRating);
             }
-            Logger.info(
+            Logger.info(String.format(
                     "UpdateRatings Job: Collecting finished in %s s. Starting refresh...",
-                    (System.currentTimeMillis() - startTime) / 1000F);
+                    (System.currentTimeMillis() - startTime) / 1000F));
             Iterator<Restaurant> iterator = map.keySet().iterator();
             while (iterator.hasNext()) {
                 Restaurant r = iterator.next();
@@ -74,9 +70,9 @@ public class UpdateRatings extends Job {
 
                 restaurantService.updateRating(r.id, average);
             }
-            Logger.info(
+            Logger.info(String.format(
                     "UpdateRatings Job: Finished refreshing (total time: %s s)",
-                    (System.currentTimeMillis() - startTime) / 1000F);
+                    (System.currentTimeMillis() - startTime) / 1000F));
         } else {
             Logger.warn("UpdateRatings Job: No data to process!");
         }

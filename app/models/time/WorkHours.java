@@ -4,14 +4,15 @@ package models.time;
 import org.joda.time.*;
 import org.joda.time.chrono.ISOChronology;
 import play.Logger;
+import play.db.ebean.Model;
 import play.i18n.Messages;
 
 import javax.persistence.*;
 
-
+@Entity
 @Table(name = "vd_restaurant_workhours")
 @SequenceGenerator(name = "workhours_seq_gen", sequenceName = "workhours_seq")
-public class WorkHours {
+public class WorkHours extends Model {
     public static final int DEFAULT_FROM_HOUR = 8;
     public static final int DEFAULT_FROM_MINUTES = 30;
     public static final int DEFAULT_TO_HOUR = 22;
@@ -128,15 +129,15 @@ public class WorkHours {
                 int oM = Integer.parseInt(t[1]);
                 fTime = new LocalTime(oH, oM);
             } catch (NumberFormatException fex) {
-                Logger.warn("Failed to read number for 'from' field ",
-                        fex.getMessage());
+                Logger.warn(String.format("Failed to read number for 'from' field ",
+                        fex.getMessage()));
                 fTime = DEFAULT_FROM;
             }
 
         } else {
-            Logger.warn(
+            Logger.warn(String.format(
                     "Failed to read number for 'from' field defaulting to %d:%d",
-                    DEFAULT_FROM_HOUR, DEFAULT_FROM_MINUTES);
+                    DEFAULT_FROM_HOUR, DEFAULT_FROM_MINUTES));
             fTime = DEFAULT_FROM;
         }
         mon_start = fTime;
@@ -155,15 +156,15 @@ public class WorkHours {
                 int oM = Integer.parseInt(t[1]);
                 tTime = new LocalTime(oH, oM);
             } catch (NumberFormatException fex) {
-                Logger.warn("Failed to read number for 'to' field ",
-                        fex.getMessage());
+                Logger.warn(String.format("Failed to read number for 'to' field ",
+                        fex.getMessage()));
                 tTime = DEFAULT_TO;
             }
 
         } else {
-            Logger.warn(
+            Logger.warn(String.format(
                     "Failed to read number for 'to' field defaulting to %d:%d",
-                    DEFAULT_TO_HOUR, DEFAULT_TO_MINUTES);
+                    DEFAULT_TO_HOUR, DEFAULT_TO_MINUTES));
             tTime = DEFAULT_TO;
         }
         mon_end = tTime;

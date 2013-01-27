@@ -2,10 +2,8 @@ package models.users;
 
 import enumerations.UserType;
 import org.joda.time.LocalDateTime;
-import play.data.validation.*;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * @author Mike
@@ -21,31 +19,31 @@ public class User {
     @GeneratedValue(generator = "user_seq_gen", strategy = GenerationType.SEQUENCE)
     public Long id;
 
-    @Required
-    @Max(255)
-    @Min(3)
+    //todo:@Required
+    //todo:@Max(255)
+    //todo:@Min(3)
     @Column(name = "login", nullable = false, unique = true)
     public String login;
 
-    @Email
-    @Max(255)
-    @Min(3)
+    //todo:@Email
+    //todo:@Max(255)
+    //todo:@Min(3)
     @Column(name = "email")
     public String email;
 
-    @Phone
-    @Required
-    @Max(255)
+    //todo:@Phone
+    //todo:@Required
+    //todo:@Max(255)
     @Column(name = "phoneNumber", nullable = false, unique = true)
     public String phoneNumber;
 
-    @Required
-    @Password
+    //todo:@Required
+    //todo:@Password
     @Column(name = "password", nullable = false)
     public String password;
 
-    @Required
-    @Max(255)
+    //todo:@Required
+    //todo:@Max(255)
     @Column(name = "name", nullable = false)
     public String name;
 

@@ -25,7 +25,7 @@ public interface UserService {
 
     User createAnonymousUser();
 
-    boolean verifyCredentials(String username, String pwd);
+    Long verifyCredentials(String username, String pwd);
 
     void touchUser(String username);
 

@@ -34,9 +34,9 @@ GET     /img/*file                              controllers.Assets.at(path="/pub
 ######## Security ############
 ##############################
 
-GET         /login.php                          controllers.Secure.login()
-POST        /login.php                          controllers.Secure.authenticate(username: String, password: String, remember: Boolean)
-GET         /logout.php                         controllers.Secure.logout()
+GET         /login.php                          controllers.Security.login()
+POST        /login.php                          controllers.Security.authenticate(username: String, password: String, remember: Boolean)
+GET         /logout.php                         controllers.Security.logout()
 GET         /about.php                          controllers.Static.about()
 GET         /rules.php                          controllers.Static.rules()
 GET         /forRestaurants.php                 controllers.Static.forRestaurants()

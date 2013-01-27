@@ -1,15 +1,7 @@
 package models.dto.extern;
 
-import models.Order;
-import models.OrderItem;
-import play.modules.guice.InjectSupport;
-import services.OrderService;
-
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-
-import static helpers.OrderUtils.convertMoneyToCents;
 
 
 public class BasketJSON {

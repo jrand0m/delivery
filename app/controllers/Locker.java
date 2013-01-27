@@ -1,16 +1,9 @@
 package controllers;
 
-import annotations.Check;
-import enumerations.UserType;
 import models.Order;
 import models.geo.Address;
-import models.users.User;
-import play.Logger;
-import play.modules.guice.InjectSupport;
-import play.mvc.Before;
 import play.mvc.Controller;
-import play.mvc.Router;
-import play.mvc.With;
+import play.mvc.Result;
 import services.GeoService;
 import services.UserService;
 
@@ -21,9 +14,7 @@ import javax.inject.Inject;
  *
  * @author mike
  */
-@With(Secure.class)
-@Check(UserType.REGISTERED)
-@InjectSupport
+//todo: @With(Secure.class)@Check(UserType.REGISTERED)
 public class Locker extends Controller {
     @Inject
     private static GeoService geoService;
@@ -36,53 +27,53 @@ public class Locker extends Controller {
 
     }
 
-    @Before
-    public static void __prepare() {
-        Logger.debug(">>> Accesing locker %s ? %s", Security.connected(),
-                session.getId());
-        if (!Security.isConnected()) {
-            Logger.debug(">>> Anonymous locker -> redirecting to basket()");
-            notFound();
+    //TODO:@Before
+//    public static Result __prepare() {
+//        Logger.debug(">>> Accesing locker %s ? %s", Security.connected(),
+//                session.getId());
+//        if (!Security.isConnected()) {
+//            Logger.debug(">>> Anonymous locker -> redirecting to basket()");
+//            notFound();
+//
+//        }
+//        String userName = Security.connected();
+//        User user = userService.getUserByLogin(userName);
+//        if (user == null) {
+//            Logger.debug(">>> locker -> user is null -> forbidden");
+//            forbidden();
+//        }
+//        renderArgs.put(RENDER_KEYS.USER, user);
+//    }
 
-        }
-        String userName = Security.connected();
-        User user = userService.getUserByLogin(userName);
-        if (user == null) {
-            Logger.debug(">>> locker -> user is null -> forbidden");
-            forbidden();
-        }
-        renderArgs.put(RENDER_KEYS.USER, user);
-    }
-
-    public static void index() {
+    public static Result index() {
         // FIXME move to locker
         Order order = null;
-        renderArgs.put("order", order);
-        render("/Locker/cabinetLastOrders.html");
+        //renderArgs.put("order", order);
+        return TODO;//render("/Locker/cabinetLastOrders.html");
     }
 
-    public static void cabinetProfile() {
+    public static Result cabinetProfile() {
         // FIXME move to locker
         Order order = null;
-        renderArgs.put("order", order);
-        render("/Locker/cabinetProfile.html");
+        //renderArgs.put("order", order);
+        return TODO; //render("/Locker/cabinetProfile.html");
     }
 
 
-    public static void addAddress(Address address) {
+    public static Result addAddress(Address address) {
 
         if (address == null) {
-            redirect(Router.getFullUrl("Locker.index"));
+            return TODO;//return redirect(controllers.routes.Locker.index());
         }
 
         geoService.insertAddress(address);
-        User user = (User) renderArgs.get(RENDER_KEYS.USER);
-        userService.addAddressToUserAddressBook(address, user);
+        //todo: User user = (User) renderArgs.get(RENDER_KEYS.USER);
+        // todo: userService.addAddressToUserAddressBook(address, user);
         // TODO in future do it asynchronously!
-        todo();
+        return TODO;
     }
 
-    public static void editAddress(Address address) {
+    public static Result editAddress(Address address) {
 
         if (address.id == null) {
             badRequest();
@@ -96,17 +87,17 @@ public class Locker extends Controller {
               // address.id, modifiedBy, modifiedOn)
               address.save();
           }*/
-        todo();
+        return TODO;
     }
 
-    public static void deleteAddress(Long id) {
+    public static Result deleteAddress(Long id) {
         if (id != null) {
             /*// TODO add logging
                UserAddress address = geoService.get
                address.deleted = true;
                address.save();*/
         }
-        todo();
+        return TODO;
     }
 
 }

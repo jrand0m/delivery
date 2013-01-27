@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import play.Logger;
-import play.modules.guice.InjectSupport;
+import play.db.ebean.Model;
 import services.OrderService;
 
 import javax.inject.Inject;
@@ -21,8 +21,7 @@ import java.math.RoundingMode;
 
 @Table(name = "vd_orders")
 @SequenceGenerator(name = "orders_seq_gen", sequenceName = "orders_seq")
-@InjectSupport
-public class Order {
+public class Order extends Model {
 
     @Id
     @GeneratedValue(generator = "orders_seq_gen", strategy = GenerationType.SEQUENCE)

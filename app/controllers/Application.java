@@ -51,142 +51,142 @@ public class Application extends Controller {
         public static final String CITY_ID = "city";
     }
 
-    @Before(unless = {"getLastOrders", "serveLogo", "loadFix", "comps",
-            "changeCity", "changeLang"}/*
+    //todo:@Before(unless = {"getLastOrders", "serveLogo", "loadFix", "comps","changeCity", "changeLang"}
+                                         /*
 										 * unless =
 										 * {"getCurrentUser","guessCity"
 										 * ,"deleteOrRemOrderItem"
 										 * ,"createNewOpenOrder",
 										 * "createOrAddOrderItem", }
-										 */)
+										 */
     public static void _pre() {
-       Logger.debug("start");
-        User user = getCurrentUser();
-        renderArgs.put(RENDER_KEYS.USER, user);
-        if (!session.contains(SESSION_KEYS.CITY_ID)) {
-            Logger.debug("No city defined in cookies");
-            City city = geoService.getCityByRemoteAddress(request.remoteAddress);
-            if (city != null) {
-                Logger.debug("Putting city_id = %d to session", city.city_id);
-                session.put(SESSION_KEYS.CITY_ID, city.city_id);
-            } else {
-                Logger.warn("No visible city found");
-            }
-        }
-        flash.put("url", request.url);
-        Logger.debug("done");
+//       Logger.debug("start");
+//        User user = getCurrentUser();
+//        renderArgs.put(RENDER_KEYS.USER, user);
+//        if (!session.contains(SESSION_KEYS.CITY_ID)) {
+//            Logger.debug("No city defined in cookies");
+//            City city = geoService.getCityByRemoteAddress(request.remoteAddress);
+//            if (city != null) {
+//                Logger.debug("Putting city_id = %d to session", city.city_id);
+//                session.put(SESSION_KEYS.CITY_ID, city.city_id);
+//            } else {
+//                Logger.warn("No visible city found");
+//            }
+//        }
+//        flash.put("url", request.url);
+//        Logger.debug("done");
     }
 
     public static Result order(Long id) {
-        notFoundIfNull(id);
-        User user = (User) renderArgs.get(RENDER_KEYS.USER);
-        notFoundIfNull(user);
-        Order order = orderService.getOrderBySIDAndOwner(id, user);
-        notFoundIfNull(order);
-        renderArgs.put("order", order);
-        render("/Application/order.html");
+//        notFoundIfNull(id);
+//        User user = (User) renderArgs.get(RENDER_KEYS.USER);
+//        notFoundIfNull(user);
+//        Order order = orderService.getOrderBySIDAndOwner(id, user);
+//        notFoundIfNull(order);
+//        renderArgs.put("order", order);
+//        render("/Application/order.html");
         return TODO;
     }
 
     public static Result checkout(Long id) {
-        // FIXME move to locker ?
-        notFoundIfNull(id);
-        User user = (User) renderArgs.get(RENDER_KEYS.USER);
-        notFoundIfNull(user);
-        Order order = orderService.getOrderBySIDAndOwner(id, user);
-        notFoundIfNull(order);
-        if (order.orderStatus != OrderStatus.OPEN) {
-            redirect("Application.order", id);
-        }
-        if (orderService.isEmptyOrder(order)) {
-            redirect("Application.showMenu", order.restaurant.id);
-        }
-
-        City city = orderService.getOrdersCity(order);
-        List<Street> streets = geoService.getStreetsOf(city);
-        renderArgs.put("streets", streets);
-        renderArgs.put("order", order);
-        render("/Application/prepareOrder.html");
+//        // FIXME move to locker ?
+//        notFoundIfNull(id);
+//        User user = (User) renderArgs.get(RENDER_KEYS.USER);
+//        notFoundIfNull(user);
+//        Order order = orderService.getOrderBySIDAndOwner(id, user);
+//        notFoundIfNull(order);
+//        if (order.orderStatus != OrderStatus.OPEN) {
+//            redirect("Application.order", id);
+//        }
+//        if (orderService.isEmptyOrder(order)) {
+//            redirect("Application.showMenu", order.restaurant.id);
+//        }
+//
+//        City city = orderService.getOrdersCity(order);
+//        List<Street> streets = geoService.getStreetsOf(city);
+//        renderArgs.put("streets", streets);
+//        renderArgs.put("order", order);
+//        render("/Application/prepareOrder.html");
         return TODO;
     }
 
     public static Result index() {
-        Logger.debug("start");
-        String cityId = session.get(SESSION_KEYS.CITY_ID);
-        Logger.debug("Got city_id = %s from session", cityId);
-        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
-            badRequest();//redirect to cookie cleaner
-        }
-        List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
-        List<City> cityList = geoService.getVisibleCities();
-        Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
-        Map<Integer,String>descriptions = restaurantService.getDescriptionsMapFor(restaurants);
-        renderArgs.put("descriptions",descriptions);
-        renderArgs.put("workHours", workHours);
-        renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
-        renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
-        Logger.debug("done");
-        render();
+//        Logger.debug("start");
+//        String cityId = session.get(SESSION_KEYS.CITY_ID);
+//        Logger.debug("Got city_id = %s from session", cityId);
+//        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
+//            badRequest();//redirect to cookie cleaner
+//        }
+//        List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
+//        List<City> cityList = geoService.getVisibleCities();
+//        Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
+//        Map<Integer,String>descriptions = restaurantService.getDescriptionsMapFor(restaurants);
+//        renderArgs.put("descriptions",descriptions);
+//        renderArgs.put("workHours", workHours);
+//        renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
+//        renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
+//        Logger.debug("done");
+//        render();
         return TODO;
     }
 
     private static User getCurrentUser() {
         User user = null;
-        if (Security.isConnected()) {
-            user = userService.getUserByLogin(Security.connected());
-        }
+//        if (Security.isConnected()) {
+//            user = userService.getUserByLogin(Security.connected());
+//        }
         return user;
     }
 
     public static Result showRestaurants() {
-        List<City> cityList = geoService.getVisibleCities();
-        String cityId = session.get(SESSION_KEYS.CITY_ID);
-        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
-            badRequest();
-        }
-
-        List<Restaurant> restaurants = geoService.getRestsByCity(Long.parseLong(cityId));
-        // categories
-        Set<RestaurantCategory> categories = new HashSet<RestaurantCategory>();
-        for (Restaurant rest : restaurants) {
-            RestaurantCategory category = rest.category;//XXX ??? must be deep get !
-            if (category != null) {
-                categories.add(category);
-            }
-        }
-        renderArgs.put(RENDER_KEYS.RESTAURANTS_CATEGORIES, categories);
-        renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
-        renderArgs.put(RENDER_KEYS.SHOW_MENU_RESTAURANTS, restaurants);
-        render();
+//        List<City> cityList = geoService.getVisibleCities();
+//        String cityId = session.get(SESSION_KEYS.CITY_ID);
+//        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
+//            badRequest();
+//        }
+//
+//        List<Restaurant> restaurants = geoService.getRestsByCity(Long.parseLong(cityId));
+//        // categories
+//        Set<RestaurantCategory> categories = new HashSet<RestaurantCategory>();
+//        for (Restaurant rest : restaurants) {
+//            RestaurantCategory category = rest.category;//XXX ??? must be deep get !
+//            if (category != null) {
+//                categories.add(category);
+//            }
+//        }
+//        renderArgs.put(RENDER_KEYS.RESTAURANTS_CATEGORIES, categories);
+//        renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
+//        renderArgs.put(RENDER_KEYS.SHOW_MENU_RESTAURANTS, restaurants);
+//        render();
         return TODO;
     }
 
     public static Result showMenu(Long id) {
-        notFoundIfNull(id);
-        Restaurant restaurant = restaurantService.getById(id);
-        notFoundIfNull(restaurant);
-        List<MenuItemGroup> menuItems = restaurantService.getMenuBookFor(id);
-        renderArgs.put("restaurant", restaurant);
-        renderArgs.put("menuItems", menuItems);
-        render();
+//        notFoundIfNull(id);
+//        Restaurant restaurant = restaurantService.getById(id);
+//        notFoundIfNull(restaurant);
+//        List<MenuItemGroup> menuItems = restaurantService.getMenuBookFor(id);
+//        renderArgs.put("restaurant", restaurant);
+//        renderArgs.put("menuItems", menuItems);
+//        render();
         return TODO;
     }
 
     public static Result newUser() {
-        render();
+//        render();
         return TODO;
     }
 
     public static Result registerNewUser(User user) {
-        Logger.debug(">>> Registering new user %s", user.toString());
-        userService.insertUser(user);
-        Logger.debug(">>> TODO: Try converting order history.");
-        try {
-            Secure.authenticate(user.login, user.password, false);
-        } catch (Throwable e) {
-            Logger.error(e, "Failed to login in App.registerNewUser()");
-            error();
-        }
+//        Logger.debug(">>> Registering new user %s", user.toString());
+//        userService.insertUser(user);
+//        Logger.debug(">>> TODO: Try converting order history.");
+//        try {
+//            Secure.authenticate(user.login, user.password, false);
+//        } catch (Throwable e) {
+//            Logger.error(e, "Failed to login in App.registerNewUser()");
+//            error();
+//        }
 
         return index();
     }
@@ -200,144 +200,145 @@ public class Application extends Controller {
                                     Integer city, String sname, Long streetid, String street,
                                     String email, String app, String phone,
                                     String oplata, String addinfo) {
-        User user = (User) renderArgs.get(RENDER_KEYS.USER);
-        if (user == null)
-            Logger.error("User is null");
-        badRequest();
-        checkAuthenticity();
-        if (id == null) {
-            Logger.error("Order id is null or empty");
-            badRequest();
-        }
-
-        Order o = orderService.getOrderBySIDAndOwner(id, user);
-        if (o == null) {
-            Logger.error("No such order for current owner");
-            badRequest();
-        }
-        // TODO 'FROZEN' STATUS
-        if (!o.orderStatus.equals(OrderStatus.OPEN)) {
-            Logger.error("Bad order state");
-            badRequest();
-        }
-        Restaurant r = restaurantService.getByOrder(o);
-        List<OrderItem> items = orderService.getItems(o);
-        for (OrderItem itm : items) {
-            if (!orderService.getRestaurantFromOrderItem(itm).equals(r)) {
-                o.orderStatus = OrderStatus.DECLINED;
-                orderService.update(o);
-                Logger.error(
-                        "Different restaturants in order items. order will be declined. IP: %s, user id: %s ",
-                        request.remoteAddress, user.id);
-                error("Consistency error, root node mismatch. Order declined");
-            }
-        }
-        Address address = null;
-        if (userService.isUserInRole(user, UserType.ANONYMOUS)) {
-            if (user.name.isEmpty()) {
-                user.name = name;
-                if (!validation.valid(user.name).ok) {
-                    validation.addError("name", "name.required");
-                }
-            }
-            if (user.phoneNumber == null || !user.phoneNumber.isEmpty()) {
-                user.phoneNumber = phone;
-                validation.required(phone);
-            }
-
-            address = new Address();
-            Street str = null;
-            if (streetid != null) {
-                str = geoService.getStreetById(streetid);
-            }
-            if (str != null && orderService.getOrdersCity(o).city_id == str.city_id) {
-                address.street = str;
-            } else {
-                Street streetObj = new Street();
-                streetObj.city_id = orderService.getOrdersCity(o).city_id;
-                streetObj.title_ua = street;
-                streetObj.title_en = street;
-                geoService.insertStreet(streetObj);
-                address.street = streetObj;
-                // validation.addError("address.street",
-                // "street.notacceptable");
-            }
-            address.apartmentsNumber = app;
-            address.buildingNumber = "???";//TODO add later
-            address.additionalInfo = addinfo;
-            // TODO do proper validation
-            address = geoService.validateAndInsertAddress(address, validation);
-            if (validation.hasErrors()) {
-                params.flash();
-                validation.keep();
-                checkout(o.id);
-            } else {
-                userService.addAddressToUserAddressBook(address, user);
-                userService.update(user);
-            }
-
-        } else {
-            if (aid != null) {
-                address = geoService.getAddressById(aid);
-                if (!userService.addressIsAssociatedWithUser(address, user)) {
-                    address = null;
-                }
-            }
-            if (address == null) {
-                address = new Address();
-                Street str = null;
-                if (streetid != null) {
-                    str = geoService.getStreetById(streetid);
-                }
-                if (str != null && orderService.getOrdersCity(o).city_id == str.city_id) {
-                    address.street_id = str.id;
-                    //address.street = str
-                } else {
-                    validation.addError("address.street",
-                            "street.notacceptable");
-                }
-                address.apartmentsNumber = app;
-                address.buildingNumber = "???";
-                address.additionalInfo = addinfo;
-                geoService.validateAndInsertAddress(address, validation);
-                if (validation.hasErrors()) {
-                    params.flash();
-                    validation.keep();
-                    checkout(o.id);
-                }
-                userService.addAddressToUserAddressBook(address, user);
-            }
-        }
-        o.delivery_address_id = address.id;
-
-        o.orderStatus = OrderStatus.SENT;
-        o.deliveryPrice = o.getDeliveryPrice();
-
-        orderService.update(o);
-        /*try {
-              SimpleEmail simpleEmail = new SimpleEmail();
-              simpleEmail.setFrom("no-reply <robot@vdoma.com.ua>");
-              simpleEmail.addTo("380964831310@sms.kyivstar.net");
-              simpleEmail.addTo("380673864501@sms.kyivstar.net");
-              simpleEmail.setSubject(Transliterator
-                      .transliterate(o.restaurant.title));
-              simpleEmail.setMsg("tel:"
-                      + (phone == null ? "-" : Transliterator.transliterate(phone))
-                      + ";price:"
-                      + (new BigDecimal(o.getGrandTotal()).setScale(2,
-                              RoundingMode.HALF_EVEN).divide(new BigDecimal(100)
-                              .setScale(2, RoundingMode.HALF_EVEN))) + ";to:"
-                      + Transliterator
-                      .transliterate(street) +"," +
-                      Transliterator
-                      .transliterate(app)
-                      );
-              Mail.send(simpleEmail);
-          } catch (Exception e) {
-              Logger.error("Failed to send notification email! " + e.getMessage(), e);
-          }*/
-        mailService.sendNewOrderNotification(o);
-        return order(o.id);
+//        User user = (User) renderArgs.get(RENDER_KEYS.USER);
+//        if (user == null)
+//            Logger.error("User is null");
+//        badRequest();
+//        checkAuthenticity();
+//        if (id == null) {
+//            Logger.error("Order id is null or empty");
+//            badRequest();
+//        }
+//
+//        Order o = orderService.getOrderBySIDAndOwner(id, user);
+//        if (o == null) {
+//            Logger.error("No such order for current owner");
+//            badRequest();
+//        }
+//        // TODO 'FROZEN' STATUS
+//        if (!o.orderStatus.equals(OrderStatus.OPEN)) {
+//            Logger.error("Bad order state");
+//            badRequest();
+//        }
+//        Restaurant r = restaurantService.getByOrder(o);
+//        List<OrderItem> items = orderService.getItems(o);
+//        for (OrderItem itm : items) {
+//            if (!orderService.getRestaurantFromOrderItem(itm).equals(r)) {
+//                o.orderStatus = OrderStatus.DECLINED;
+//                orderService.update(o);
+//                Logger.error(
+//                        "Different restaturants in order items. order will be declined. IP: %s, user id: %s ",
+//                        request.remoteAddress, user.id);
+//                error("Consistency error, root node mismatch. Order declined");
+//            }
+//        }
+//        Address address = null;
+//        if (userService.isUserInRole(user, UserType.ANONYMOUS)) {
+//            if (user.name.isEmpty()) {
+//                user.name = name;
+//                if (!validation.valid(user.name).ok) {
+//                    validation.addError("name", "name.required");
+//                }
+//            }
+//            if (user.phoneNumber == null || !user.phoneNumber.isEmpty()) {
+//                user.phoneNumber = phone;
+//                validation.required(phone);
+//            }
+//
+//            address = new Address();
+//            Street str = null;
+//            if (streetid != null) {
+//                str = geoService.getStreetById(streetid);
+//            }
+//            if (str != null && orderService.getOrdersCity(o).city_id == str.city_id) {
+//                address.street = str;
+//            } else {
+//                Street streetObj = new Street();
+//                streetObj.city_id = orderService.getOrdersCity(o).city_id;
+//                streetObj.title_ua = street;
+//                streetObj.title_en = street;
+//                geoService.insertStreet(streetObj);
+//                address.street = streetObj;
+//                // validation.addError("address.street",
+//                // "street.notacceptable");
+//            }
+//            address.apartmentsNumber = app;
+//            address.buildingNumber = "???";//TODO add later
+//            address.additionalInfo = addinfo;
+//            // TODO do proper validation
+//            address = geoService.validateAndInsertAddress(address, validation);
+//            if (validation.hasErrors()) {
+//                params.flash();
+//                validation.keep();
+//                checkout(o.id);
+//            } else {
+//                userService.addAddressToUserAddressBook(address, user);
+//                userService.update(user);
+//            }
+//
+//        } else {
+//            if (aid != null) {
+//                address = geoService.getAddressById(aid);
+//                if (!userService.addressIsAssociatedWithUser(address, user)) {
+//                    address = null;
+//                }
+//            }
+//            if (address == null) {
+//                address = new Address();
+//                Street str = null;
+//                if (streetid != null) {
+//                    str = geoService.getStreetById(streetid);
+//                }
+//                if (str != null && orderService.getOrdersCity(o).city_id == str.city_id) {
+//                    address.street_id = str.id;
+//                    //address.street = str
+//                } else {
+//                    validation.addError("address.street",
+//                            "street.notacceptable");
+//                }
+//                address.apartmentsNumber = app;
+//                address.buildingNumber = "???";
+//                address.additionalInfo = addinfo;
+//                geoService.validateAndInsertAddress(address, validation);
+//                if (validation.hasErrors()) {
+//                    params.flash();
+//                    validation.keep();
+//                    checkout(o.id);
+//                }
+//                userService.addAddressToUserAddressBook(address, user);
+//            }
+//        }
+//        o.delivery_address_id = address.id;
+//
+//        o.orderStatus = OrderStatus.SENT;
+//        o.deliveryPrice = o.getDeliveryPrice();
+//
+//        orderService.update(o);
+//        /*try {
+//              SimpleEmail simpleEmail = new SimpleEmail();
+//              simpleEmail.setFrom("no-reply <robot@vdoma.com.ua>");
+//              simpleEmail.addTo("380964831310@sms.kyivstar.net");
+//              simpleEmail.addTo("380673864501@sms.kyivstar.net");
+//              simpleEmail.setSubject(Transliterator
+//                      .transliterate(o.restaurant.title));
+//              simpleEmail.setMsg("tel:"
+//                      + (phone == null ? "-" : Transliterator.transliterate(phone))
+//                      + ";price:"
+//                      + (new BigDecimal(o.getGrandTotal()).setScale(2,
+//                              RoundingMode.HALF_EVEN).divide(new BigDecimal(100)
+//                              .setScale(2, RoundingMode.HALF_EVEN))) + ";to:"
+//                      + Transliterator
+//                      .transliterate(street) +"," +
+//                      Transliterator
+//                      .transliterate(app)
+//                      );
+//              Mail.send(simpleEmail);
+//          } catch (Exception e) {
+//              Logger.error("Failed to send notification email! " + e.getMessage(), e);
+//          }*/
+//        mailService.sendNewOrderNotification(o);
+//        return order(o.id);
+           return TODO;
     }
 
     /* ------------ UTIL Pages -------------- */
@@ -346,112 +347,112 @@ public class Application extends Controller {
      * Change Language
      */
     public static Result changeLang(String lang) {
-        Lang.change(lang);
-        String url = flash.get("url");
-        if (url == null || url.isEmpty()) {
-            url = "/";
-        }
-        redirect(url);
+//        Lang.change(lang);
+//        String url = flash.get("url");
+//        if (url == null || url.isEmpty()) {
+//            url = "/";
+//        }
+//        redirect(url);
         return TODO;
     }
 
     public static Result changeCity(Long id) {
-        Logger.debug("changing city to city_id = %s", id);
-        City city = geoService.getCityById(id);
-        String url = flash.get("url");
-        if (url == null || url.isEmpty()) {
-            url = "/";
-        }
-        redirect(url);
+//        Logger.debug("changing city to city_id = %s", id);
+//        City city = geoService.getCityById(id);
+//        String url = flash.get("url");
+//        if (url == null || url.isEmpty()) {
+//            url = "/";
+//        }
+//        redirect(url);
         return TODO;
     }
 
     /* ------------ AJAX ---------------- */
 
     public static Result getLastOrders(boolean top) {
-        ArrayList<LastOrdersJSON> o = new ArrayList<LastOrdersJSON>();
-        if (session.contains(SESSION_KEYS.CITY_ID)) {
-            City city = geoService.getCityById(Long.parseLong(session.get(SESSION_KEYS.CITY_ID)));
-            List<Order> recent = null;
-            await(5000);
-            o = liveService.getLastOrdersForCity(city);
-        } else {
-            Logger.debug("No city in sesion, waiting to prevent ddos/dos");
-            await(20000);
-        }
-        renderJSON(o);
+//        ArrayList<LastOrdersJSON> o = new ArrayList<LastOrdersJSON>();
+//        if (session.contains(SESSION_KEYS.CITY_ID)) {
+//            City city = geoService.getCityById(Long.parseLong(session.get(SESSION_KEYS.CITY_ID)));
+//            List<Order> recent = null;
+//            await(5000);
+//            o = liveService.getLastOrdersForCity(city);
+//        } else {
+//            Logger.debug("No city in sesion, waiting to prevent ddos/dos");
+//            await(20000);
+//        }
+//        renderJSON(o);
         return TODO;
     }
 
     public static Result comps(final Long id) {
-        notFoundIfNull(id);
-        await(1000);
-        /*MenuItem mi = MenuItem.findById(id);
-          List<MenuItemComponent> comps = MenuItemComponent.find(
-                  MenuItemComponent.FIELDS.ITM_ROOT + "= ?", mi).fetch();
-          List<MenuComponentsJSON> asJsons = new ArrayList<MenuComponentsJSON>();
-          for (MenuItemComponent i : comps) {
-              asJsons.add(new MenuComponentsJSON(i));
-          }
-          MenuCompWrapJson wrap = new MenuCompWrapJson();
-          wrap.no = id.toString();
-          wrap.dc = mi.description();
-          wrap.nm = mi.name();
-          wrap.pc = mi.price;
-          wrap.items = asJsons; */
-        MenuCompWrapJson wrap = basketService.getComponentsForMenuItem(id)/*.wrapInJson()*/;
-        renderJSON(wrap);
+//        notFoundIfNull(id);
+//        await(1000);
+//        /*MenuItem mi = MenuItem.findById(id);
+//          List<MenuItemComponent> comps = MenuItemComponent.find(
+//                  MenuItemComponent.FIELDS.ITM_ROOT + "= ?", mi).fetch();
+//          List<MenuComponentsJSON> asJsons = new ArrayList<MenuComponentsJSON>();
+//          for (MenuItemComponent i : comps) {
+//              asJsons.add(new MenuComponentsJSON(i));
+//          }
+//          MenuCompWrapJson wrap = new MenuCompWrapJson();
+//          wrap.no = id.toString();
+//          wrap.dc = mi.description();
+//          wrap.nm = mi.name();
+//          wrap.pc = mi.price;
+//          wrap.items = asJsons; */
+//        MenuCompWrapJson wrap = basketService.getComponentsForMenuItem(id)/*.wrapInJson()*/;
+//        renderJSON(wrap);
         return TODO;
     }
 
     public static Result addOrderItem(Long id, String comps /*Long... component*/) {
-        if (!Security.isConnected() || id == null) {
-            await(15000);
-            notFound("Order not found");
-        }
-        MenuItem itm = restaurantService.getMenuItemById(id);
-        // FIXME problems if we dynamicly delete order and user will refresh
-        // page. add to js basket failure to refresh by updateurl
-        notFoundIfNull(itm);
-        User user = (User) renderArgs.get(RENDER_KEYS.USER);
-        notFoundIfNull(user);
-        // TODO add safe caching
-        Order order = orderService.getCurrentOrderFor(user, itm.restaurant);
-        notFoundIfNull(order);
-        notFoundIfNull(comps);
-        String c[] = comps.split(",");
-        Long component[] = new Long[c.length];
-        for (int i = 0 ; i<c.length; i++){
-            component[i] = Long.valueOf(c[i]);
-        }
-        OrderItem oi = new OrderItem(itm, order, component);
-        oi = orderService.insertOrderItem(oi);
-        orderService.update(order);
-        BasketJSON json = basketService.getBasketAsJSON(order);
-        renderJSON(json);
+//        if (!Security.isConnected() || id == null) {
+//            await(15000);
+//            notFound("Order not found");
+//        }
+//        MenuItem itm = restaurantService.getMenuItemById(id);
+//        // FIXME problems if we dynamicly delete order and user will refresh
+//        // page. add to js basket failure to refresh by updateurl
+//        notFoundIfNull(itm);
+//        User user = (User) renderArgs.get(RENDER_KEYS.USER);
+//        notFoundIfNull(user);
+//        // TODO add safe caching
+//        Order order = orderService.getCurrentOrderFor(user, itm.restaurant);
+//        notFoundIfNull(order);
+//        notFoundIfNull(comps);
+//        String c[] = comps.split(",");
+//        Long component[] = new Long[c.length];
+//        for (int i = 0 ; i<c.length; i++){
+//            component[i] = Long.valueOf(c[i]);
+//        }
+//        OrderItem oi = new OrderItem(itm, order, component);
+//        oi = orderService.insertOrderItem(oi);
+//        orderService.update(order);
+//        BasketJSON json = basketService.getBasketAsJSON(order);
+//        renderJSON(json);
         return TODO;
     }
 
     public static Result cngOrderItem(Long id, Integer count) {
-        if (!Security.isConnected() || id == null || count == null) {
-            await(15000);
-            notFound("Order not found");
-        }
-        User user = (User) renderArgs.get(RENDER_KEYS.USER);
-        notFoundIfNull(user);
-        OrderItem itm = orderService.getOrderItemByIdAndOwner(id, user);
-        notFoundIfNull(itm);
-        if (itm.order.orderStatus == OrderStatus.OPEN) {
-            if (count < 1) {
-                orderService.deleteOrderItem(itm);
-            } else {
-                itm.count = count;
-                orderService.updateOrderItem(itm);
-            }
-            BasketJSON json = basketService.getBasketAsJSON(itm.order);
-            renderJSON(json);
-        }
-        notFound();
+//        if (!Security.isConnected() || id == null || count == null) {
+//            await(15000);
+//            notFound("Order not found");
+//        }
+//        User user = (User) renderArgs.get(RENDER_KEYS.USER);
+//        notFoundIfNull(user);
+//        OrderItem itm = orderService.getOrderItemByIdAndOwner(id, user);
+//        notFoundIfNull(itm);
+//        if (itm.order.orderStatus == OrderStatus.OPEN) {
+//            if (count < 1) {
+//                orderService.deleteOrderItem(itm);
+//            } else {
+//                itm.count = count;
+//                orderService.updateOrderItem(itm);
+//            }
+//            BasketJSON json = basketService.getBasketAsJSON(itm.order);
+//            renderJSON(json);
+//        }
+//        notFound();
         return TODO;
     }
 
@@ -475,30 +476,30 @@ public class Application extends Controller {
            * last login date > 1 year(or other period, mb 3 month) which have
            * associated orders in above sent state
            */
-        notFoundIfNull(chart);
-        Order order = null;
-        User user = (User) renderArgs.get(RENDER_KEYS.USER);
-        if (user == null) {
-            user = userService.createAnonymousUser();
-            session.put("username", user.login);
-        }
-        Restaurant restaurant = restaurantService.getById(chart);
-        notFoundIfNull(restaurant);
-        order = orderService.getCurrentOrderFor(user, restaurant);
-        if (order == null) {
-            order = orderService.createNewOpenOrderFor(user, restaurant);
-        }
-        BasketJSON json = basketService.getBasketAsJSON(order);
-        renderJSON(json);
+//        notFoundIfNull(chart);
+//        Order order = null;
+//        User user = (User) renderArgs.get(RENDER_KEYS.USER);
+//        if (user == null) {
+//            user = userService.createAnonymousUser();
+//            session.put("username", user.login);
+//        }
+//        Restaurant restaurant = restaurantService.getById(chart);
+//        notFoundIfNull(restaurant);
+//        order = orderService.getCurrentOrderFor(user, restaurant);
+//        if (order == null) {
+//            order = orderService.createNewOpenOrderFor(user, restaurant);
+//        }
+//        BasketJSON json = basketService.getBasketAsJSON(order);
+//        renderJSON(json);
         return TODO;
     }
 
     public static Result serveLogo(long id) {
-        String url = restaurantService.getLogoPathFor(id);
-        if (url == null){
-            redirectToStatic("/public/images/no_image.jpg");
-        }
-        redirectToStatic(url);
+//        String url = restaurantService.getLogoPathFor(id);
+//        if (url == null){
+//            redirectToStatic("/public/images/no_image.jpg");
+//        }
+//        redirectToStatic(url);
         return TODO;
     }
 

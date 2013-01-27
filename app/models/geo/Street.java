@@ -1,13 +1,13 @@
 package models.geo;
 
-import play.i18n.Lang;
+import play.db.ebean.Model;
 
 import javax.persistence.*;
 
-
+@Entity
 @Table(name = "vd_street")
 @SequenceGenerator(name = "street_seq_gen", sequenceName = "street_seq")
-public class Street {
+public class Street extends Model {
 
 
     @Id
@@ -31,13 +31,14 @@ public class Street {
     public String title_ru;
 
     public String name() {
-        return Lang.get().equals("en") ? title_en : title_ua;
+        //todo: internationalization
+        return  title_ua;
     }
 
     @Override
     public String toString() {
 
-        return Lang.get().equals("ua") ? title_ua : title_en;
+        return name();
     }
 
 

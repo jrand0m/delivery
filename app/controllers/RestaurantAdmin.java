@@ -1,7 +1,7 @@
 package controllers;
 
-import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.Result;
 import play.mvc.With;
 
 import java.text.SimpleDateFormat;
@@ -9,21 +9,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@With(Secure.class)
-//@Check(UserRoles.RESTAURANT_ADMIN)
+//todo: @With(Secure.class)//@Check(UserRoles.RESTAURANT_ADMIN)
 public class RestaurantAdmin extends Controller {
 
-    @Before
-    public static void _prepare() {
+    //TODO:@Before
+    public static Result _prepare() {
 /*		String login = Security.connected();
 		RestaurantAdministration user = RestaurantAdministration.find(User.HQL.BY_LOGIN, login).first();
 		notFoundIfNull(user);
 		renderArgs.put("user", user);
 		renderArgs.put("login", login);*/
+        return TODO;
     }
 
 
-    public static void summary() {
+    public static Result summary() {
         /*List<Order> lastOrders = null;
           List<Comment> lastComments = null;
           Restaurant restaurant = ((RestaurantAdministration)renderArgs.get("user")).restaurant;
@@ -42,42 +42,42 @@ public class RestaurantAdmin extends Controller {
           renderArgs.put("todaysRevenue", todaysRevenue.toString());
           renderArgs.put("lastComments", lastComments);
           renderArgs.put("lastOrders", lastOrders);*/
-        render();
+        return TODO;
     }
 
-    public static void showMenu() {
-        render();
+    public static Result showMenu() {
+        return TODO;
     }
 
-    public static void showReports() {
-        render();
+    public static Result showReports() {
+        return TODO;
     }
 
-    public static void showProfile() {
-        render();
+    public static Result showProfile() {
+        return TODO;
     }
 
     /*---- PROFILE API ---- */
-    public static void editProfile() {
-
+    public static Result editProfile() {
+              return TODO;
     }
 
     /*------ PROFIE API END ------*/
-    public static void showEvents() {
-        render();
+    public static Result showEvents() {
+        return TODO;
     }
 
-    public static void showInvoices() {
-        render();
+    public static Result showInvoices() {
+        return TODO;
     }
 
-    public static void showShop() {
-        render();
+    public static Result showShop() {
+        return TODO;
     }
 
 
     /*UTIL METHODS*/
-    public static void getSummaryChartData() {
+    public static Result getSummaryChartData() {
 
         List<ChartDataHolder> chartData = new ArrayList<ChartDataHolder>(); /*
 		List<Order> orders = Order.find(Order.HQL.BY_RESTAURANT_AND_STATUS, ((RestaurantAdministration)renderArgs.get("user")).restaurant, OrderStatus.DELIVERED).fetch();
@@ -85,7 +85,7 @@ public class RestaurantAdmin extends Controller {
 			ChartDataHolder holder = new ChartDataHolder(order.orderCooked, String.valueOf(order.totalMenuPrice - (order.totalMenuPrice* order.restaurantDiscount)));
 			chartData.add(holder);
 		}*/
-        renderTemplate("RestaurantAdmin/summaryChartData.js", chartData);
+        return TODO;//renderTemplate("RestaurantAdmin/summaryChartData.js", chartData);
     }
 
     /*helper classes */
