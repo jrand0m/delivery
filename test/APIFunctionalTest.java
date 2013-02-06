@@ -1,21 +1,21 @@
 import org.junit.Test;
 
-import play.mvc.Http.Response;
-import play.test.FunctionalTest;
-import play.test.UnitTest;
+import static org.junit.Assert.assertTrue;
 
 
-public class APIFunctionalTest extends FunctionalTest {
+public class APIFunctionalTest {
 	
 	@Test
     public void testUnloginedUserGetApiAccess() {
 //        Response response = GET("/api/g");
 //        assertStatus(403, response);
+        assertTrue("TODO", false);
     }
 	@Test
 	public void testUnloginedUserPutApiAccess() {
 //		Response response = GET("/api/p");
 //		assertStatus(403, response);
+        assertTrue("TODO", false);
 	}
 
 }

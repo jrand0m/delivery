@@ -11,7 +11,7 @@ import static org.junit.Assert.assertFalse;
  */
 public class MailServiceTest{
     @Test
-    public void _(){
+    public void todo_test(){
         assertFalse("TODO", true);
     }
     

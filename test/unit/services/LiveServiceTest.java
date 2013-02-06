@@ -1,7 +1,6 @@
 package unit.services;
 
 import org.junit.Test;
-import play.test.UnitTest;
 
 import static org.junit.Assert.assertFalse;
 
@@ -13,7 +12,7 @@ import static org.junit.Assert.assertFalse;
 public class LiveServiceTest{
 
     @Test
-    public void _(){
+    public void todo_tests(){
         assertFalse("TODO", true);
     }
 }

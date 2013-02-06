@@ -1,12 +1,8 @@
 package unit.services;
 
-import com.google.common.collect.Lists;
 import models.Restaurant;
 import models.time.WorkHours;
 import org.junit.Test;
-import play.Logger;
-import play.modules.guice.InjectSupport;
-import play.test.UnitTest;
 import services.RestaurantService;
 
 import javax.inject.Inject;
@@ -14,27 +10,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.*;
+
 /**
  * User: Mike Stetsyshyn
  * Date: 2/11/12
  * Time: 2:43 PM
  */
-@InjectSupport
-public class RestaurantServiceTest extends UnitTest {
+public class RestaurantServiceTest {
 
     @Inject
-    private static RestaurantService service;
+    private RestaurantService service;
 
 
     @Test
-    public void getWorkHoursMap_returnsFilledMaps(){
+    public void getWorkHoursMap_returnsFilledMaps() {
         Restaurant rest = service.getById(1l);
         assertNotNull(rest);
         List<Restaurant> list = new ArrayList<Restaurant>(1);
         list.add(rest);
-        Map<Integer,WorkHours> map= service.getWorkHoursMap(list);
+        Map<Integer, WorkHours> map = service.getWorkHoursMap(list);
         assertTrue(map.keySet().size() == 1);
-        for (Integer i :map.keySet()){
+        for (Integer i : map.keySet()) {
             WorkHours wh = map.get(i);
             assertNotNull(wh);
             assertNotNull(wh.id);
@@ -57,12 +54,12 @@ public class RestaurantServiceTest extends UnitTest {
     }
 
     @Test
-    public void getDescriptionsMapFor_returnsFilledMaps(){
+    public void getDescriptionsMapFor_returnsFilledMaps() {
         assertFalse("TODO", true);
     }
 
     @Test
-    public void selectById_returnsRestaurant(){
+    public void selectById_returnsRestaurant() {
         Restaurant rest = service.getById(1l);
         assertNotNull(rest);
         assertNotNull(rest.address_id);
@@ -84,15 +81,17 @@ public class RestaurantServiceTest extends UnitTest {
     }
 
     @Test
-    public void getMenuBookFor_FillsSowMenuAndItems(){
+    public void getMenuBookFor_FillsSowMenuAndItems() {
         assertFalse("TODO", true);
     }
+
     @Test
-    public void getLogoPathFor_returns_valid_path(){
+    public void getLogoPathFor_returns_valid_path() {
         assertFalse("TODO", true);
     }
+
     @Test
-    public void createNewOpenOrderFor_createsNewOrderAndReturnsIt(){
+    public void createNewOpenOrderFor_createsNewOrderAndReturnsIt() {
         assertFalse("TODO", true);
     }
 

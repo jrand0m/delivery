@@ -5,23 +5,25 @@ import models.Restaurant;
 import models.dto.extern.BasketJSON;
 import models.users.User;
 import org.junit.Test;
-import play.modules.guice.InjectSupport;
 import services.BasketService;
 import services.OrderService;
 
 import javax.inject.Inject;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 /**
  * User: Mike Stetsyshyn
  * Date: 2/11/12
  * Time: 2:40 PM
  */
-@InjectSupport
-public class BasketServiceTest extends UnitTest{
+public class BasketServiceTest{
     @Inject
-    private static BasketService service;
+    private BasketService service;
     @Inject
-    private static OrderService orderService;
+    private OrderService orderService;
     @Test
     public void getBasketAsJSON_(){
         User u = new User();
@@ -36,7 +38,7 @@ public class BasketServiceTest extends UnitTest{
         assertNotNull(j);
         assertNotNull(j.items);
         assertNotNull(j.delivery);
-        assertEquals(new Integer(1500), j.delivery);
+        assertThat( j.delivery, equalTo(new Integer(1500)));
         assertNotNull(j.no);
         assertNotNull(j.total);
 

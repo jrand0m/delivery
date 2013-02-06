@@ -8,7 +8,6 @@ public class GuiceModule  {
 
     protected Injector configure() {
         Module[] applicationConfiguration =
-        //    { new MyBatisConfigModule(), new MyBatisApplicationConfigModule()};
               { new eBeanApplicationConfigurationModule()};
 
         Injector injector = Guice.createInjector( applicationConfiguration );
