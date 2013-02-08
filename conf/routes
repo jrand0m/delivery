@@ -14,7 +14,7 @@ GET     /show/restaurants.php                   controllers.Application.showRest
 GET     /show/menu.php                          controllers.Application.showMenu(id: Long)
 GET     /show/last.php                          controllers.Application.getLastOrders(top: Boolean)
 GET     /show/comp.php                          controllers.Application.comps(id: Long)
-GET     /change/lang.php                        controllers.Application.changeLang(lang: String)
+GET     /change/lang.php                        controllers.Application.changeLng(lang: String)
 GET     /change/city.php                        controllers.Application.changeCity(id: Long)
 GET     /serve/logo.php                         controllers.Application.serveLogo(id: Long)
 

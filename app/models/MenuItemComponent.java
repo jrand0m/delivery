@@ -5,6 +5,7 @@ import org.joda.money.Money;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "vd_menu_item_components")
@@ -27,10 +28,10 @@ public class MenuItemComponent extends Model {
     public boolean deleted = false;
 
     @Column(name = "requiredIds")
-    public long[] requiredIds;
+    public ArrayList<Long> requiredIds;
 
     @Column(name = "notCompatible")
-    public long[] notCompatible;
+    public ArrayList<Long> notCompatible;
 
     @Column(name = "menu_item_id")
     public Long menuItemId;

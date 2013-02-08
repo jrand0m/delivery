@@ -11,7 +11,12 @@ import models.users.User;
  */
 public interface UserService {
 
-    User getUserByLogin(String connected);
+    /**
+     * Finds user by specified login
+     * @param login - login name(phone number)
+     * @return user if found and todo: make it return an object in any case!
+     * */
+    User getUserByLogin(String login);
 
     void addAddressToUserAddressBook(Address address, User user);
 

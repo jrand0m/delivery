@@ -1,5 +1,6 @@
 package unit.services;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -9,6 +10,7 @@ import static org.junit.Assert.assertFalse;
  * Date: 2/11/12
  * Time: 2:42 PM
  */
+@Ignore
 public class LiveServiceTest{
 
     @Test

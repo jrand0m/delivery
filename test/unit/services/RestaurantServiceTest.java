@@ -2,6 +2,7 @@ package unit.services;
 
 import models.Restaurant;
 import models.time.WorkHours;
+import org.junit.Ignore;
 import org.junit.Test;
 import services.RestaurantService;
 
@@ -17,6 +18,7 @@ import static org.junit.Assert.*;
  * Date: 2/11/12
  * Time: 2:43 PM
  */
+@Ignore
 public class RestaurantServiceTest {
 
     @Inject

@@ -4,6 +4,7 @@ import models.Order;
 import models.Restaurant;
 import models.dto.extern.BasketJSON;
 import models.users.User;
+import org.junit.Ignore;
 import org.junit.Test;
 import services.BasketService;
 import services.OrderService;
@@ -19,6 +20,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
  * Date: 2/11/12
  * Time: 2:40 PM
  */
+@Ignore
 public class BasketServiceTest{
     @Inject
     private BasketService service;

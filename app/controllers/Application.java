@@ -51,7 +51,7 @@ public class Application extends Controller {
         public static final String CITY_ID = "city";
     }
 
-    //todo:@Before(unless = {"getLastOrders", "serveLogo", "loadFix", "comps","changeCity", "changeLang"}
+    //todo:@Before(unless = {"getLastOrders", "serveLogo", "loadFix", "comps","changeCity", "changeLng"}
                                          /*
 										 * unless =
 										 * {"getCurrentUser","guessCity"
@@ -346,7 +346,7 @@ public class Application extends Controller {
     /**
      * Change Language
      */
-    public static Result changeLang(String lang) {
+    public static Result changeLng(String lang) {
 //        Lang.change(lang);
 //        String url = flash.get("url");
 //        if (url == null || url.isEmpty()) {

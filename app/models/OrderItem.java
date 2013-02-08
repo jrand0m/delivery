@@ -5,7 +5,6 @@ import org.joda.money.Money;
 import play.db.ebean.Model;
 import services.RestaurantService;
 
-import javax.inject.Inject;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -51,10 +50,6 @@ public class OrderItem extends Model {
     @JoinTable(name = "vd_order_items_selected_components")
     public Set<MenuItemComponent> selectedComponents = new HashSet<MenuItemComponent>();
 
-    @Inject
-    @Deprecated
-    private static RestaurantService restaurantService;
-
     public Money totalPriceInclComponents() {
         //Todo extract to calculation service
         Money componentPrice = Money.zero(CurrencyUnit.of("UAH"));
@@ -68,7 +63,7 @@ public class OrderItem extends Model {
 
     }
 
-    public OrderItem(MenuItem menuItem, Order order, Long[] component) {
+    public OrderItem(MenuItem menuItem, Order order, Long[] component, RestaurantService restaurantService) {
         // TODO [Mike] (add calculations of a price here )
         this.menuItem = menuItem;
         this.order = order;

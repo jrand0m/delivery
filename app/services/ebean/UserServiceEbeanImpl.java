@@ -1,5 +1,6 @@
 package services.ebean;
 
+import com.avaje.ebean.Ebean;
 import enumerations.UserType;
 import models.geo.Address;
 import models.users.User;
@@ -13,9 +14,10 @@ import services.UserService;
  * To change this template use File | Settings | File Templates.
  */
 public class UserServiceEbeanImpl implements UserService{
+
     @Override
-    public User getUserByLogin(String connected) {
-        throw new UnsupportedOperationException("Implement Me");
+    public User getUserByLogin(String identifier) {
+        return Ebean.find(User.class).where().eq("phoneNumber",identifier).findUnique();
     }
 
     @Override

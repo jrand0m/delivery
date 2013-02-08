@@ -13,9 +13,7 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import play.Logger;
 import play.db.ebean.Model;
-import services.OrderService;
 
-import javax.inject.Inject;
 import javax.persistence.*;
 import java.math.RoundingMode;
 
@@ -46,13 +44,13 @@ public class Order extends Model {
      * Price calculated by application using formula, that should be paid by
      * user. value in coins
      */
-    @EmbeddedColumns(columns="currency=deliveryPrice_currency, cents=deliveryPrice")
+    @EmbeddedColumns(columns = "currency=deliveryPrice_currency, cents=deliveryPrice")
     public Money deliveryPrice;
 
     /**
      * Menu total price saved when order is accepted by user
      */
-    @EmbeddedColumns(columns="currency=totalMenuPrice_currency, cents=totalMenuPrice")
+    @EmbeddedColumns(columns = "currency=totalMenuPrice_currency, cents=totalMenuPrice")
     public Money totalMenuPrice;
 
 
@@ -137,11 +135,6 @@ public class Order extends Model {
     @Deprecated
     public User confirmedCourier;
 
-    //TODO: extract functions to separate helper class!
-    @Inject
-    @Deprecated
-    private static OrderService service;
-
     /**
      * calculated delivery price for this order
      */
@@ -161,7 +154,6 @@ public class Order extends Model {
 
     /**
      * Grand total including delivery price and minus calculated user discount
-     *
      */
     public Money getGrandTotal() {
         Logger.debug("<- Called!");
@@ -185,10 +177,11 @@ public class Order extends Model {
         //todo extract to outer method
         //if (true) throw new UnsupportedOperationException("extract order.menuTotal to service");
         Money i = Money.zero(CurrencyUnit.of("UAH"));
-        for (OrderItem item : service.getItems(this)) {
-            i = i.plus(item.totalPriceInclComponents());
-        }
-        return i;
+        //for (OrderItem item : service.getAll(this)) {
+        //    i = i.plus(item.totalPriceInclComponents());
+        //}
+        //return i;
+        throw new UnsupportedOperationException("TODO: implement get all subsequent order items");
     }
 
     /*
