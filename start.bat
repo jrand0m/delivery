@@ -1,1 +1,1 @@
-play run
+play ~run
