@@ -3,11 +3,11 @@
 - Install [postgres 9.x](http://www.postgresql.org/download/)
 - Install [play 2.1.x](http://www.playframework.com/download)
 - Enter postgresql:
-> psql -P localhost
+`psql -P localhost`
 - Create database:
-> CREATE USER vdoma_usr WITH PASSWORD '271828183';<br/>
-> CREATE DATABASE vdoma_db;<br/>
-> GRANT ALL PRIVILEGES ON DATABASE vdoma_db to vdoma_usr;<br/>
+`CREATE USER vdoma_usr WITH PASSWORD '271828183';`<br/>
+`CREATE DATABASE vdoma_db;`<br/>
+`GRANT ALL PRIVILEGES ON DATABASE vdoma_db to vdoma_usr;`<br/>
 
 - Run play:
 > `$ play ~run`
@@ -27,9 +27,9 @@ Yup, it's not mysql
 
 ###Cleaning database without droping database
 Drop `public` schema and then recreate it
-> DROP SCHEMA public CASCADE;<br/>
-> CREATE SCHEMA public AUTHORIZATION bob;<br/>
-> GRANT ALL ON SCHEMA public TO bob;<br/>
+> `DROP SCHEMA public CASCADE;`<br/>
+> `CREATE SCHEMA public AUTHORIZATION bob;`<br/>
+> `GRANT ALL ON SCHEMA public TO bob;`<br/>
 
 #Troubleshooting
 
@@ -38,8 +38,8 @@ Drop `public` schema and then recreate it
 ### org.postgresql.util.PSQLException: ERROR: relation "play_evolutions" does not exist
 Most probably you have forgot to create `public` schema or grant permissions for your user to write-access it.
 ####Fix
-> CREATE SCHEMA public AUTHORIZATION vdoma_usr;
+> `CREATE SCHEMA public AUTHORIZATION vdoma_usr;`
 
 or
-> GRANT ALL ON SCHEMA public TO vdoma_usr;
+> `GRANT ALL ON SCHEMA public TO vdoma_usr;`
 
