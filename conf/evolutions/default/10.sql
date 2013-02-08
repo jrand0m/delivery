@@ -1,17 +1,17 @@
 --//
 # --- !Ups
-insert into "vd_user" (
-  "id"          ,
-  "login"        ,
-  "email"       ,
-  "phoneNumber" ,
-  "password"     ,
-  "name"         ,
-  "userType"    ,
-  "lastLoginDate" ,
-  "createdDate"    ,
-  "updatedDate"    ,
-  "deleted"
+insert into vd_user (
+  id          ,
+  login        ,
+  email       ,
+  phoneNumber ,
+  password     ,
+  name         ,
+  userType    ,
+  lastLoginDate ,
+  createdDate    ,
+  updatedDate    ,
+  deleted
 ) values (
  43,
  'mickey123',
@@ -25,23 +25,23 @@ insert into "vd_user" (
  now(),
  false );
 
-insert into "vd_user" (
-  "id",
-  "login"        ,
-  "email"        ,
-  "phoneNumber" ,
-  "password"     ,
-  "name"         ,
-  "userType"    ,
-  "lastLoginDate" ,
-  "createdDate"    ,
-  "updatedDate"    ,
-  "deleted"
+insert into vd_user (
+  id,
+  login        ,
+  email        ,
+  phoneNumber ,
+  password     ,
+  name         ,
+  userType    ,
+  lastLoginDate ,
+  createdDate    ,
+  updatedDate    ,
+  deleted
 ) values (
  100,
  'cc01',
  'Chornobyl@vdoma.com.ua',
- '+380630683088',
+ '+380630683087',
  'cc01',
  'Default Chornobyl Courier',
  'COURIER',
@@ -49,23 +49,23 @@ insert into "vd_user" (
  now(),
  now(),
  false );
-insert into "vd_user" (
-  "id",
-  "login"        ,
-  "email"        ,
-  "phoneNumber" ,
-  "password"     ,
-  "name"         ,
-  "userType"    ,
-  "lastLoginDate" ,
-  "createdDate"    ,
-  "updatedDate"    ,
-  "deleted"
+insert into vd_user (
+  id,
+  login        ,
+  email        ,
+  phoneNumber ,
+  password     ,
+  name         ,
+  userType    ,
+  lastLoginDate ,
+  createdDate    ,
+  updatedDate    ,
+  deleted
 ) values (
  101,
  'rc01',
  'office@vdoma.com.ua',
- '+380630683088',
+ '+380630683086',
  'rc01',
  'Default Chornobyl Restaurant holder',
  'RESTAURANT',

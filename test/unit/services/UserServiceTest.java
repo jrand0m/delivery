@@ -8,13 +8,14 @@ import models.users.User;
 import org.joda.time.LocalDateTime;
 import org.junit.Ignore;
 import org.junit.Test;
-import play.Logger;
 import services.UserService;
 
 import javax.inject.Inject;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
+import static play.test.Helpers.fakeApplication;
+import static play.test.Helpers.running;
 
 /**
  * User: Mike Stetsyshyn
@@ -26,26 +27,31 @@ public class UserServiceTest {
 
     @Test
     public void injectsUserServiceTest() {
-        assertNotNull("Fucking fuck doesnt work", service);
-
+        assertNotNull("Service did not instanate", service);
     }
-    @Ignore
+
     @Test
     public void getUserByLogin_ReturnsFullUserInstanceTest() {
-        User user = service.getUserByLogin("mickey123");
-        assertNotNull(user);
-        assertThat(user.id, equalTo(new Long(43)));
-        assertThat(user.login, equalTo("mickey123"));
-        assertThat(user.email, equalTo("jays.demons@gmail.com"));
-        assertThat(user.phoneNumber, equalTo("+380630683088"));
-        assertThat(user.password, equalTo(Crypto.passwordHash("password31415")));
-        assertThat(user.name, equalTo("Mickey The Mouse"));
-        assertThat(user.userType, equalTo(UserType.VD_ADMIN));
-        assertNotNull(user.createdDate);
-        assertNotNull(user.updatedDate);
-        assertNotNull(user.lastLoginDate);
-        assertFalse(user.deleted);
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                User user = service.getUserByLogin("+380630683088");
+                assertNotNull("User must not be null",user);
+                assertThat("User Id must be set",user.id, equalTo(new Long(43)));
+                assertThat("User login must be set",user.login, equalTo("mickey123"));
+                assertThat("user email must be set",user.email, equalTo("jays.demons@gmail.com"));
+                assertThat("user phoneNumber Must be set", user.phoneNumber, equalTo("+380630683088"));
+                assertThat("user passWord mst be set", user.password, equalTo(Crypto.passwordHash("password31415")));
+                assertThat("user name must be set", user.name, equalTo("Mickey The Mouse"));
+                assertThat(user.userType, equalTo(UserType.VD_ADMIN));
+                assertNotNull(user.createdDate);
+                assertNotNull(user.updatedDate);
+                assertNotNull(user.lastLoginDate);
+                assertFalse(user.deleted);
+            }
+        });
+
     }
+
     @Ignore
     @Test
     public void insertUser_CreatesRecordAndReturnsInsertedInstanceTest() {
@@ -62,7 +68,7 @@ public class UserServiceTest {
         newUser.lastLoginDate = dt;
         newUser.deleted = false;
         newUser = service.insertUser(newUser);
-        assertNotNull("message?"+service,newUser);
+        assertNotNull("message?" + service, newUser);
         assertNotNull(newUser.id);
         assertThat("dummy", equalTo(newUser.login));
         assertThat("dummyMail@mailme.not", equalTo(newUser.email));
