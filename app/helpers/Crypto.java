@@ -2,6 +2,7 @@ package helpers;
 
 import org.apache.commons.codec.binary.Base64;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -13,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
  * To change this template use File | Settings | File Templates.
  */
 public class Crypto {
+    private static Charset UTF_8 = Charset.forName("UTF-8");
     public static String passwordHash(String password) {
         MessageDigest md = null;
         try {
@@ -21,7 +23,10 @@ public class Crypto {
         catch(NoSuchAlgorithmException e) {
             throw new RuntimeException("Cannot find SHA-1 alg!!!!",e);
         }
-        return new String (Base64.encodeBase64(md.digest(password.getBytes())));
+        byte[] passwordBytes = password.getBytes(UTF_8);
+        byte[] digest = md.digest(passwordBytes);
+        byte[] bytes = Base64.encodeBase64(digest);
+        return new String (bytes);
     }
 
 }

@@ -24,6 +24,13 @@ public interface UserService {
 
     boolean addressIsAssociatedWithUser(Address address, User user);
 
+
+    /**
+     * Inserts user in to DB, encrypts password, sets created date
+     * and update date, defaults all vital fields.
+     * @user User to insert
+     * @return saved copy with at least ID field set.
+     * */
     User insertUser(User user);
 
     boolean isUserInRole(User user, UserType anonymous);

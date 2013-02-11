@@ -1,5 +1,6 @@
 package unit.services;
 
+import com.avaje.ebean.Ebean;
 import com.google.inject.Guice;
 import enumerations.UserType;
 import guice.eBeanApplicationConfigurationModule;
@@ -13,6 +14,10 @@ import services.UserService;
 import javax.inject.Inject;
 
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.*;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
@@ -35,10 +40,10 @@ public class UserServiceTest {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 User user = service.getUserByLogin("+380630683088");
-                assertNotNull("User must not be null",user);
-                assertThat("User Id must be set",user.id, equalTo(new Long(43)));
-                assertThat("User login must be set",user.login, equalTo("mickey123"));
-                assertThat("user email must be set",user.email, equalTo("jays.demons@gmail.com"));
+                assertNotNull("User must not be null", user);
+                assertThat("User Id must be set", user.id, equalTo(new Long(43)));
+                assertThat("User login must be set", user.login, equalTo("mickey123"));
+                assertThat("user email must be set", user.email, equalTo("jays.demons@gmail.com"));
                 assertThat("user phoneNumber Must be set", user.phoneNumber, equalTo("+380630683088"));
                 assertThat("user passWord mst be set", user.password, equalTo(Crypto.passwordHash("password31415")));
                 assertThat("user name must be set", user.name, equalTo("Mickey The Mouse"));
@@ -52,53 +57,65 @@ public class UserServiceTest {
 
     }
 
-    @Ignore
     @Test
     public void insertUser_CreatesRecordAndReturnsInsertedInstanceTest() {
-        LocalDateTime dt = new LocalDateTime();
-        User newUser = new User();
-        newUser.login = "dummy";
-        newUser.email = "dummyMail@mailme.not";
-        newUser.phoneNumber = "+380636669966";
-        newUser.password = "blah";
-        newUser.name = "Dummy The Dumb";
-        newUser.userType = UserType.ANONYMOUS;
-        newUser.createdDate = dt;
-        newUser.updatedDate = dt;
-        newUser.lastLoginDate = dt;
-        newUser.deleted = false;
-        newUser = service.insertUser(newUser);
-        assertNotNull("message?" + service, newUser);
-        assertNotNull(newUser.id);
-        assertThat("dummy", equalTo(newUser.login));
-        assertThat("dummyMail@mailme.not", equalTo(newUser.email));
-        assertThat("+380636669966", equalTo(newUser.phoneNumber));
-        assertThat("blah", equalTo(newUser.password));
-        assertThat("Dummy The Dumb", equalTo(newUser.name));
-        assertThat(UserType.ANONYMOUS, equalTo(newUser.userType));
-        assertNotNull(newUser.createdDate);
-        assertFalse("Create date should be set by db", dt.equals(newUser.createdDate));
-        assertNotNull(newUser.updatedDate);
-        assertFalse("Update date should be set by db", dt.equals(newUser.updatedDate));
-        //assertThat(dt,newUser.lastLoginDate);
-        assertThat(Boolean.FALSE, equalTo(newUser.deleted));
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                Ebean.beginTransaction();
+                try {
+                    LocalDateTime dt = new LocalDateTime();
+                    User newUser = new User();
+                    newUser.login = "dummy";
+                    newUser.email = "dummyMail@mailme.not";
+                    newUser.phoneNumber = "+380636669966";
+                    newUser.password = "blah";
+                    newUser.name = "Dummy The Dumb";
+                    newUser.userType = UserType.ANONYMOUS;
+                    newUser.createdDate = dt;
+                    newUser.updatedDate = dt;
+                    newUser.lastLoginDate = dt;
+                    newUser.deleted = false;
+                    newUser = service.insertUser(newUser);
+                    assertNotNull(newUser.id);
+                    newUser = service.getUserByLogin("+380636669966");
+                    assertNotNull("must return inserted user", newUser);
+                    assertThat(newUser.login, equalTo("dummy"));
+                    assertThat(newUser.email, equalTo("dummyMail@mailme.not"));
+                    assertThat(newUser.phoneNumber, equalTo("+380636669966"));
+                    assertThat("password must be encrypted", newUser.password, equalTo(Crypto.passwordHash("blah")));
+                    assertThat(newUser.name, equalTo("Dummy The Dumb"));
+                    assertThat("Default user type must retain", UserType.ANONYMOUS, equalTo(newUser.userType));
+                    assertThat("Create date should be set by db", newUser.createdDate, not(equalTo(dt)));
+                    assertThat("Update date should be set by db", newUser.updatedDate, not(equalTo(dt)));
+                    assertThat("Last login must be null for new user ",newUser.lastLoginDate, nullValue(LocalDateTime.class));
+                    assertThat(Boolean.FALSE, equalTo(newUser.deleted));
+                } finally {
+                    Ebean.rollbackTransaction();
+
+                }
+            }
+        });
+
     }
 
-    @Ignore
     @Test
     public void createAnonymous_createsAnonUser() {
-        User u = service.createAnonymousUser();
-        assertNotNull(u);
-        assertNotNull(u.id);
-        assertNotNull(u.login);
-        assertNotNull(u.email);
-        assertNotNull(u.password);
-        assertThat(u.password, equalTo(Crypto.passwordHash(u.login)));
-        assertThat(u.phoneNumber, equalTo(u.login));
-        assertFalse(u.deleted);
-        User u2 = service.getUserByLogin(u.login);
-        assertNotNull(u2);
-        assertThat(u2.userType, equalTo(UserType.ANONYMOUS));
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+                User u = service.createAnonymousUser();
+                assertNotNull(u);
+                assertThat("Anon user must have an id ", u.id, allOf(notNullValue(Long.class)));
+                assertThat("login is not null and is not empty", u.login, allOf(notNullValue(String.class), not(equalTo(""))));
+                assertThat("email is empty but not null", u.email, equalTo(""));
+                assertThat("Default password for anon is its generated name", u.password, equalTo(Crypto.passwordHash(u.login)));
+                assertThat("Default phone number for anon is its name", u.phoneNumber, equalTo(u.login));
+                assertThat("Anon user must be saved as active user", u.deleted, equalTo(Boolean.FALSE));
+                User u2 = service.getUserByLogin(u.login);
+                assertThat("User must be accessible by login or phoneNumber", u2, notNullValue(User.class));
+                assertThat("USer must be saved as anonymous", u2.userType, equalTo(UserType.ANONYMOUS));
+            }
+        });
     }
 
     @Ignore

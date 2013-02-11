@@ -23,7 +23,7 @@ import javax.inject.Inject;
  */
 
 public class Security extends Controller {
-    public static String USER_ID_SESSION_KEY = "uid";
+    public static String USER_ID_SESSION_KEY = "u";
     @Inject
     static UserService userService;
 
@@ -36,7 +36,7 @@ public class Security extends Controller {
         response().setContentType("application/json");
         ObjectNode response = Json.newObject();
         long id = userService.verifyCredentials(username, password);
-
+        request().username()
         if (userService.verifyCredentials(username, password) > 0) {
             Logger.trace("Login Succeed.");
             session(USER_ID_SESSION_KEY, username);

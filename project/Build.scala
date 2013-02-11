@@ -1,5 +1,4 @@
 import sbt._
-import Keys._
 import play.Project._
 
 object ApplicationBuild extends Build {
@@ -14,6 +13,7 @@ object ApplicationBuild extends Build {
     "org.joda" % "joda-money" % "0.7"
       withSources(),
     "joda-time" % "joda-time" % "2.1",
+    "org.apache.commons" % "commons-lang3" % "3.1",
     javaCore,
     javaJdbc,
     javaEbean

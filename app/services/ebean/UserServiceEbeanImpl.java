@@ -2,9 +2,15 @@ package services.ebean;
 
 import com.avaje.ebean.Ebean;
 import enumerations.UserType;
+import helpers.Crypto;
 import models.geo.Address;
 import models.users.User;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.LocalDateTime;
 import services.UserService;
+
+import java.util.HashSet;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,7 +20,7 @@ import services.UserService;
  * To change this template use File | Settings | File Templates.
  */
 public class UserServiceEbeanImpl implements UserService{
-
+    static private String ANON_PREF="Anonymous_";
     @Override
     public User getUserByLogin(String identifier) {
         return Ebean.find(User.class).where().eq("phoneNumber",identifier).findUnique();
@@ -37,7 +43,16 @@ public class UserServiceEbeanImpl implements UserService{
 
     @Override
     public User insertUser(User user) {
-        throw new UnsupportedOperationException("Implement Me");
+        user.password = StringUtils.defaultString(Crypto.passwordHash(user.password));
+        user.createdDate = null; // this field will be set by db
+        user.updatedDate = new LocalDateTime(); // this field will be set by db
+        user.lastLoginDate = null; //for new user there is no login date until login
+        Ebean.save(user);
+        Ebean.update(user, new HashSet<String>(){{
+            add("createdDate");
+            add("updatedDate");
+        }});
+        return user;
     }
 
     @Override
@@ -47,7 +62,15 @@ public class UserServiceEbeanImpl implements UserService{
 
     @Override
     public User createAnonymousUser() {
-        throw new UnsupportedOperationException("Implement Me");
+        User anon = new User();
+        anon.login = ANON_PREF + RandomStringUtils.randomAlphanumeric(10);
+        anon.email = StringUtils.EMPTY;
+        anon.password = anon.login; // todo:do i need this ?  maybe use empty string
+        anon.name = anon.login;
+        anon.phoneNumber = anon.login;
+        anon.userType = UserType.ANONYMOUS;
+
+        return insertUser(anon);
     }
 
     @Override

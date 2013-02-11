@@ -6,22 +6,18 @@ import play.mvc.Result;
 public class Static extends Controller {
 
     public static Result about() {
-        //render();
-        return TODO;
+        return ok(views.html.Static.about.render());
     }
 
     public static Result rules() {
-        //render();
-        return TODO;
+        return ok(views.html.Static.rules.render());
     }
 
     public static Result forRestaurants() {
-        //render();
-        return TODO;
+        return ok(views.html.Static.forRestaurants.render());
     }
 
     public static Result contacts() {
-        //render();
-        return TODO;
+        return ok(views.html.Static.contacts.render());
     }
 }

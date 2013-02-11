@@ -54,10 +54,10 @@ public class User {
     @Column(name = "lastLoginDate")
     public LocalDateTime lastLoginDate;
 
-    @Column(name = "createdDate", nullable = false)
+    @Column(name = "createdDate", insertable = false, updatable = false)
     public LocalDateTime createdDate;
 
-    @Column(name = "updatedDate", nullable = false)
+    @Column(name = "updatedDate")
     public LocalDateTime updatedDate;
 
     @Column(name = "deleted", nullable = false)

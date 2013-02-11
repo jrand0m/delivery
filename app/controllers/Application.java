@@ -111,6 +111,8 @@ public class Application extends Controller {
     }
 
     public static Result index() {
+//        List<City> cityList = geoService.getVisibleCities();
+
 //        Logger.debug("start");
 //        String cityId = session.get(SESSION_KEYS.CITY_ID);
 //        Logger.debug("Got city_id = %s from session", cityId);
@@ -118,7 +120,7 @@ public class Application extends Controller {
 //            badRequest();//redirect to cookie cleaner
 //        }
 //        List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
-//        List<City> cityList = geoService.getVisibleCities();
+
 //        Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
 //        Map<Integer,String>descriptions = restaurantService.getDescriptionsMapFor(restaurants);
 //        renderArgs.put("descriptions",descriptions);
