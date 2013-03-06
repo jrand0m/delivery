@@ -1,8 +1,10 @@
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import controllers.Security;
 import guice.eBeanApplicationConfigurationModule;
 import play.Application;
 import play.GlobalSettings;
+import services.UserService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,6 +20,7 @@ public class Global extends GlobalSettings {
     public void onStart(Application application) {
         super.onStart(application);
         injector = createInjector();
+        Security.AbstractAuthenticator.setInjector( injector);  //todo this is hack
     }
 
     private static Injector createInjector() {

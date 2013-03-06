@@ -2,7 +2,9 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 # Home page
+
 GET     /                                       controllers.Application.index()
+
 GET     /index.php                              controllers.Application.index()
 GET     /order/index.php                        controllers.Application.order(id :Long)
 GET     /order/checkout.php                     controllers.Application.checkout(id :Long)
@@ -37,6 +39,11 @@ GET     /img/*file                              controllers.Assets.at(path="/pub
 GET         /login.php                          controllers.Security.login()
 POST        /login.php                          controllers.Security.authenticate(username: String, password: String, remember: Boolean)
 GET         /logout.php                         controllers.Security.logout()
+
+##############################
+####### Static ###############
+##############################
+
 GET         /about.php                          controllers.Static.about()
 GET         /rules.php                          controllers.Static.rules()
 GET         /forRestaurants.php                 controllers.Static.forRestaurants()
@@ -52,8 +59,3 @@ GET         /contacts.php                       controllers.Static.contacts()
 #GET            /client/r                               Client.restaurant
 #GET            /client/c                               Client.courier
 
-##############################
-######## Modules #############
-##############################
-
-#*     /                                        module:messages

@@ -15,10 +15,15 @@ import play.Logger;
 import play.i18n.Lang;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.With;
 import services.*;
+import views.html.Application.index;
+
 import javax.inject.Inject;
 import java.util.*;
+import static controllers.Security.*;
 
+@Authenticated(LoggedInOrCreateAnonymous.class)
 public class Application extends Controller {
 
     // TODO Make more flexible(extract to SystemSetting)
@@ -111,25 +116,20 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-//        List<City> cityList = geoService.getVisibleCities();
 
-//        Logger.debug("start");
-//        String cityId = session.get(SESSION_KEYS.CITY_ID);
-//        Logger.debug("Got city_id = %s from session", cityId);
-//        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
-//            badRequest();//redirect to cookie cleaner
-//        }
-//        List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
+        Logger.debug("start");
+        String cityId = session(SESSION_KEYS.CITY_ID);
+        Logger.debug(String.format("Got city_id = %s from session", cityId));
+        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
+            return badRequest();//todo redirect to cookie cleaner
+        }
+        List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
 
-//        Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
-//        Map<Integer,String>descriptions = restaurantService.getDescriptionsMapFor(restaurants);
-//        renderArgs.put("descriptions",descriptions);
-//        renderArgs.put("workHours", workHours);
-//        renderArgs.put(RENDER_KEYS.INDEX_RESTAURANTS, restaurants);
-//        renderArgs.put(RENDER_KEYS.AVALIABLE_CITIES, cityList);
-//        Logger.debug("done");
-//        render();
-        return TODO;
+        Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
+        Map<Integer,String>descriptions = restaurantService.getDescriptionsMapFor(restaurants);
+
+        Logger.debug("done");
+        return ok(index.render(restaurants,descriptions,workHours));
     }
 
     private static User getCurrentUser() {
