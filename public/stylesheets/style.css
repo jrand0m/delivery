@@ -118,17 +118,17 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off d
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.rating {background: url(/public/images/star--arrow.png) no-repeat left center transparent; padding-left: 27px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.work_time {background: url(/public/images/clock-select.png) no-repeat left center transparent; padding-left: 27px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.dostavka {background: url(/public/images/car-red.png) no-repeat left center transparent; padding-left: 27px; }
-div#login {width: 220px; display: table; margin: 0 auto; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
-div#login h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#login {width: 220px; display: table; }
+div#login h1{position: relative; line-height: 20px; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#login form{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
 div#login div.linner{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
-div#login input[type="text"], div#login input[type="password"]{font-family: 'Open Sans Condensed',Sans-Serif; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;}
+div#login input[type="text"], div#login input[type="password"]{font-family: 'Roboto',Sans-Serif; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; border: 1px solid #b3b3b3;}
 div#login input[type="text"]{margin-bottom: 2px;}
 div#login p.tl label{float: left; cursor: text; margin-bottom: -22px; margin-left: 10px; position: relative; top: 13px; z-index: 2;}
 div#login p.error{text-align: center; color: red; font-size: 14px; text-decoration: blink;}
 div#login p#remember-field{margin-bottom: -10px;}
-div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; height: 31px; margin-top: -15px; width: 73px;}
-div#login div input[type="submit"]{margin: 10px 0;background: #fff; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Open Sans Condensed',Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
+div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px;float: left; font-family: 'Roboto',Sans-Serif; padding:5px ;margin-top: 15px; width: 191px;}
+div#login div input[type="submit"]{margin: 10px 0;background: #fff; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Roboto',Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 665px; float: left; margin-bottom: 15px;margin-left:10px;border-radius:3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(/public/images/main.png);box-shadow:0px 1px 3px #666; line-height: 34px; font-size: 17px; font-weight: normal; height: 34px; padding: 3px 10px; border-radius:3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 span{font-size: 13px; margin-left: 7px;}
@@ -347,7 +347,7 @@ div#wrapper div#wrapper_inner div#content div.static_right{position: relative; z
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses, div#wrapper div#wrapper_inner div#header div.header_top div.right_links, div#wrapper div#wrapper_inner div#header div.header_bottom a.enter, div#wrapper div#wrapper_inner div#header div.header_bottom form{visibility: hidden;}
 
 ul.breadcrump-links{position:absolute; right:0; top: 0}
-ul.breadcrump-links li {float: left; margin:15px 23px; font: normal 16px Lobster;}
+ul.breadcrump-links li {float: left; margin:13px 19px; font: normal 18px Lobster; text-shadow: 0 -1px #474747;}
 ul.breadcrump-links li a{color: #fff; text-decoration:none;}
 ul.breadcrump-links li a:hover{text-shadow:0 0 3px #fff}
 
