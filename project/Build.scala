@@ -1,10 +1,11 @@
 import sbt._
 import play.Project._
+import com.typesafe.config._
 
 object ApplicationBuild extends Build {
 
   val appName = "vdoma"
-  val appVersion = "1.0-SNAPSHOT"
+  val appVersion = scala.util.Properties.envOrElse("appVersion", "999.0-SNAPSHOT" )
 
   val appDependencies = Seq(
     // Add your project dependencies here,

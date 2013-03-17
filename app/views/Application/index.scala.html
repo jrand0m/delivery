@@ -1,5 +1,4 @@
 @(restaurants: List[Restaurant], descriptions: Map[Integer, String], workHours: Map[Integer, time.WorkHours])
-@main(title = "Home")
 @moreScripts = {
     <script type="text/javascript">
             var cngcty = function () {return
@@ -26,8 +25,7 @@
                     {{itm.d}} </p>
         </div>
     </script>
-}
-@breadCrumb = {
+}@breadCrumb = {
     <form class="search jNice wrap" action="#">
         <label for="inpec01"> @Messages.apply("header.findyourrest") </label>
         <div class="selWrap">
@@ -48,10 +46,7 @@
     *{<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>}*
     #{/else}*@
 }
-
-@content = {
-
-
+@main(title = "Home")(moreScripts)(moreStyles = Html(""))(breadCrumb){
     @for(restaurant <- restaurants) {
         <div class="rest_item_prev  @if(!restaurant.isOnline()) {
             rest_offline
