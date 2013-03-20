@@ -22,6 +22,125 @@ import javax.persistence.*;
 @Table(name = "vd_restaurant")
 @SequenceGenerator(name = "restaurant_seq_gen", sequenceName = "restaurant_seq")
 public class Restaurant extends Model {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Long getCity_id() {
+        return city_id;
+    }
+
+    public void setCity_id(Long city_id) {
+        this.city_id = city_id;
+    }
+
+    public Long getAddress_id() {
+        return address_id;
+    }
+
+    public void setAddress_id(Long address_id) {
+        this.address_id = address_id;
+    }
+
+    public Integer getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(Integer category_id) {
+        this.category_id = category_id;
+    }
+
+    public Integer getWorkhours_id() {
+        return workhours_id;
+    }
+
+    public void setWorkhours_id(Integer workhours_id) {
+        this.workhours_id = workhours_id;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public boolean isShowOnIndex() {
+        return showOnIndex;
+    }
+
+    public void setShowOnIndex(boolean showOnIndex) {
+        this.showOnIndex = showOnIndex;
+    }
+
+    public Integer getRaiting() {
+        return raiting;
+    }
+
+    public void setRaiting(Integer raiting) {
+        this.raiting = raiting;
+    }
+
+    public String getDeviceLogin() {
+        return deviceLogin;
+    }
+
+    public void setDeviceLogin(String deviceLogin) {
+        this.deviceLogin = deviceLogin;
+    }
+
+    public String getDevicePassword() {
+        return devicePassword;
+    }
+
+    public void setDevicePassword(String devicePassword) {
+        this.devicePassword = devicePassword;
+    }
+
+    public DateTime getLastPing() {
+        return lastPing;
+    }
+
+    public void setLastPing(DateTime lastPing) {
+        this.lastPing = lastPing;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public String getTwoLetters() {
+        return twoLetters;
+    }
+
+    public void setTwoLetters(String twoLetters) {
+        this.twoLetters = twoLetters;
+    }
 
     @Id
     @GeneratedValue(generator = "restaurant_seq_gen", strategy = GenerationType.SEQUENCE)

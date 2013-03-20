@@ -29,28 +29,19 @@ public class Application extends Controller {
     // TODO Make more flexible(extract to SystemSetting)
     public static final Integer MAX_ITEM_COUNT_PER_ORDER = 64;
     @Inject
-    private static GeoService geoService;
+    private GeoService geoService;
     @Inject
-    private static OrderService orderService;
+    private OrderService orderService;
     @Inject
-    private static RestaurantService restaurantService;
+    private RestaurantService restaurantService;
     @Inject
-    private static LiveService liveService;
+    private LiveService liveService;
     @Inject
-    private static BasketService basketService;
+    private BasketService basketService;
     @Inject
-    private static MailService mailService;
+    private MailService mailService;
     @Inject
-    private static UserService userService;
-
-
-    public static class RENDER_KEYS {
-        public static final String USER = "user";
-        public static final String INDEX_RESTAURANTS = "restaurants";
-        public static final String AVALIABLE_CITIES = "cities";
-        public static final String SHOW_MENU_RESTAURANTS = "restaurants";
-        public static final String RESTAURANTS_CATEGORIES = "categories";
-    }
+    private UserService userService;
 
     public static class SESSION_KEYS {
         public static final String CITY_ID = "city";
@@ -115,20 +106,24 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public static Result index() {
+    public Result index() {
 
-        Logger.debug("start");
         String cityId = session(SESSION_KEYS.CITY_ID);
-        Logger.debug(String.format("Got city_id = %s from session", cityId));
-        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
-            return badRequest();//todo redirect to cookie cleaner
+        if (Logger.isDebugEnabled()) {
+            Logger.debug(String.format("Restaurant service is initialized with -> %s", restaurantService));
+            Logger.debug(String.format("Geo service is initialized with -> %s", geoService));
+            Logger.debug(String.format("Got city_id = %s from session", cityId));
         }
-        List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
+        List<Restaurant> restaurants ;
+        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
 
+            restaurants = new ArrayList<Restaurant>(0);
+            // return badRequest();//todo redirect to cookie cleaner
+        }else{
+            restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
+        }
         Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
         Map<Integer,String>descriptions = restaurantService.getDescriptionsMapFor(restaurants);
-
-        Logger.debug("done");
         return ok(index.render(restaurants,descriptions,workHours));
     }
 
@@ -179,7 +174,7 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public static Result registerNewUser(User user) {
+    public Result registerNewUser(User user) {
 //        Logger.debug(">>> Registering new user %s", user.toString());
 //        userService.insertUser(user);
 //        Logger.debug(">>> TODO: Try converting order history.");

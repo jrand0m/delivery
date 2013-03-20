@@ -1,10 +1,12 @@
 package services.ebean;
 
+import com.avaje.ebean.Ebean;
 import models.*;
 import models.time.WorkHours;
 import services.RestaurantService;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +60,7 @@ public class RestaurantServiceEbeanImpl implements RestaurantService {
 
     @Override
     public WorkHours getWorkHours(Restaurant restaurant) {
+
         throw new UnsupportedOperationException("Implement Me");
     }
 
@@ -168,7 +171,12 @@ public class RestaurantServiceEbeanImpl implements RestaurantService {
 
     @Override
     public Map<Integer, WorkHours> getWorkHoursMap(List<Restaurant> restaurants) {
+        Map<Integer,WorkHours> result = new HashMap<Integer, WorkHours>(restaurants.size());
 
-        throw new UnsupportedOperationException("Implement Me");
+        for (Restaurant restaurant: restaurants){
+            WorkHours wh = Ebean.find(WorkHours.class).where().eq("id", restaurant.getWorkhours_id()).findUnique() ;
+            result.put(restaurant.getId(), wh);
+        }
+        return result;
     }
 }

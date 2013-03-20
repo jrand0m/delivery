@@ -12,7 +12,7 @@ import services.ebean.*;
  * Time: 2:44 PM
  * To change this template use File | Settings | File Templates.
  */
-public class eBeanApplicationConfigurationModule extends AbstractModule{
+public class ServicesConfigurationModule extends AbstractModule{
     @Override
     protected void configure() {
         bind(BasketService.class).to(BasketServiceEbeanImpl.class);

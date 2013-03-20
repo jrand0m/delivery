@@ -1,10 +1,10 @@
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import controllers.Security;
-import guice.eBeanApplicationConfigurationModule;
+import guice.ServicesConfigurationModule;
 import play.Application;
 import play.GlobalSettings;
-import services.UserService;
+import play.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,15 +20,18 @@ public class Global extends GlobalSettings {
     public void onStart(Application application) {
         super.onStart(application);
         injector = createInjector();
-        Security.AbstractAuthenticator.setInjector( injector);  //todo this is hack
+        Security.AbstractAuthenticator.setInjector( injector);  //todo this is a hack
     }
 
     private static Injector createInjector() {
-        return Guice.createInjector(new eBeanApplicationConfigurationModule());
+        return Guice.createInjector(new ServicesConfigurationModule());
     }
 
     @Override
     public <A> A getControllerInstance(Class<A> aClass) throws Exception {
+        if (Logger.isDebugEnabled()){
+            Logger.debug(String.format("Injector is ready -> %s", injector));
+        }
         return injector.getInstance(aClass);
     }
 }

@@ -1,8 +1,9 @@
 package unit.services;
 
+import com.google.inject.Guice;
+import guice.ServicesConfigurationModule;
 import models.Restaurant;
 import models.time.WorkHours;
-import org.junit.Ignore;
 import org.junit.Test;
 import services.RestaurantService;
 
@@ -12,47 +13,53 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static play.test.Helpers.fakeApplication;
+import static play.test.Helpers.running;
 
 /**
  * User: Mike Stetsyshyn
  * Date: 2/11/12
  * Time: 2:43 PM
  */
-@Ignore
 public class RestaurantServiceTest {
 
     @Inject
-    private RestaurantService service;
-
+    private RestaurantService service = Guice.createInjector(new ServicesConfigurationModule()).getInstance(RestaurantService.class);
 
     @Test
     public void getWorkHoursMap_returnsFilledMaps() {
-        Restaurant rest = service.getById(1l);
-        assertNotNull(rest);
-        List<Restaurant> list = new ArrayList<Restaurant>(1);
-        list.add(rest);
-        Map<Integer, WorkHours> map = service.getWorkHoursMap(list);
-        assertTrue(map.keySet().size() == 1);
-        for (Integer i : map.keySet()) {
-            WorkHours wh = map.get(i);
-            assertNotNull(wh);
-            assertNotNull(wh.id);
-            assertNotNull(wh.mon_end);
-            assertNotNull(wh.mon_start);
-            assertNotNull(wh.tue_end);
-            assertNotNull(wh.tue_start);
-            assertNotNull(wh.wed_end);
-            assertNotNull(wh.wed_start);
-            assertNotNull(wh.thu_end);
-            assertNotNull(wh.thu_start);
-            assertNotNull(wh.fri_end);
-            assertNotNull(wh.fri_start);
-            assertNotNull(wh.sat_end);
-            assertNotNull(wh.sat_start);
-            assertNotNull(wh.sun_end);
-            assertNotNull(wh.sun_start);
-            //TODO check data for id 1
-        }
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+                Restaurant rest = mock(Restaurant.class);
+                when(rest.getWorkhours_id()).thenReturn(1);//todo get real id from db
+                List<Restaurant> list = new ArrayList<Restaurant>(1);
+                list.add(rest);
+                Map<Integer, WorkHours> map = service.getWorkHoursMap(list);
+                assertTrue(map.keySet().size() == 1);
+                for (Integer i : map.keySet()) {
+                    WorkHours wh = map.get(i);
+                    assertNotNull(wh);
+                    assertNotNull(wh.id);
+                    assertNotNull(wh.mon_end);
+                    assertNotNull(wh.mon_start);
+                    assertNotNull(wh.tue_end);
+                    assertNotNull(wh.tue_start);
+                    assertNotNull(wh.wed_end);
+                    assertNotNull(wh.wed_start);
+                    assertNotNull(wh.thu_end);
+                    assertNotNull(wh.thu_start);
+                    assertNotNull(wh.fri_end);
+                    assertNotNull(wh.fri_start);
+                    assertNotNull(wh.sat_end);
+                    assertNotNull(wh.sat_start);
+                    assertNotNull(wh.sun_end);
+                    assertNotNull(wh.sun_start);
+                }
+            }
+        });
     }
 
     @Test
@@ -62,24 +69,29 @@ public class RestaurantServiceTest {
 
     @Test
     public void selectById_returnsRestaurant() {
-        Restaurant rest = service.getById(1l);
-        assertNotNull(rest);
-        assertNotNull(rest.address_id);
-        assertNotNull(rest.category_id);
-        assertNotNull(rest.city_id);
-        assertTrue(rest.deleted == false);
-        assertNotNull(rest.deviceLogin);
-        assertNotNull(rest.devicePassword);
-        assertNotNull(rest.discount);
-        assertNotNull(rest.id);
-        //assertNotNull(rest.lastPing);
-        assertNotNull(rest.raiting);
-        assertNotNull(rest.showOnIndex);
-        assertNotNull(rest.twoLetters);
-        assertNotNull(rest.user_id);
-        assertNotNull(rest.title);
-        assertNotNull(rest.workhours_id);
-        //todo check data
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+                Restaurant rest = service.getById(1l);
+                assertNotNull(rest);
+                assertNotNull(rest.address_id);
+                assertNotNull(rest.category_id);
+                assertNotNull(rest.city_id);
+                assertTrue(rest.deleted == false);
+                assertNotNull(rest.deviceLogin);
+                assertNotNull(rest.devicePassword);
+                assertNotNull(rest.discount);
+                assertNotNull(rest.id);
+                //assertNotNull(rest.lastPing);
+                assertNotNull(rest.raiting);
+                assertNotNull(rest.showOnIndex);
+                assertNotNull(rest.twoLetters);
+                assertNotNull(rest.user_id);
+                assertNotNull(rest.title);
+                assertNotNull(rest.workhours_id);
+                //todo check data
+            }
+        });
     }
 
     @Test

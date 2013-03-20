@@ -15,6 +15,7 @@ object ApplicationBuild extends Build {
       withSources(),
     "joda-time" % "joda-time" % "2.1",
     "org.apache.commons" % "commons-lang3" % "3.1",
+    "org.mockito" % "mockito-all" % "1.9.5",
     javaCore,
     javaJdbc,
     javaEbean

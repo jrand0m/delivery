@@ -3,9 +3,7 @@
 # ~~~~
 # Home page
 
-GET     /                                       controllers.Application.index()
-
-GET     /index.php                              controllers.Application.index()
+GET     /                                       @controllers.Application.index()
 GET     /order/index.php                        controllers.Application.order(id :Long)
 GET     /order/checkout.php                     controllers.Application.checkout(id :Long)
 GET     /order/checkAndSend.php                 controllers.Application.checkAndSend(id: Long, aid: Long, name: String, city: Integer, sname: String, streetid: Long, street: String, email: String, app: String, phone: String, oplata: String, addinfo: String)

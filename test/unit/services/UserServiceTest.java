@@ -3,7 +3,7 @@ package unit.services;
 import com.avaje.ebean.Ebean;
 import com.google.inject.Guice;
 import enumerations.UserType;
-import guice.eBeanApplicationConfigurationModule;
+import guice.ServicesConfigurationModule;
 import helpers.Crypto;
 import models.users.User;
 import org.joda.time.LocalDateTime;
@@ -28,7 +28,7 @@ import static play.test.Helpers.running;
 
 public class UserServiceTest {
     @Inject
-    private UserService service = Guice.createInjector(new eBeanApplicationConfigurationModule()).getInstance(UserService.class);
+    private UserService service = Guice.createInjector(new ServicesConfigurationModule()).getInstance(UserService.class);
 
     @Test
     public void injectsUserServiceTest() {
