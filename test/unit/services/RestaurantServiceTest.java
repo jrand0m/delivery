@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -104,9 +105,26 @@ public class RestaurantServiceTest {
     }
 
     @Test
-    @Ignore
     public void getLogoPathFor_returns_valid_path() {
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+                String url = service.getLogoPathFor(1);
+                assertThat(url, equalTo("/public/images/restaurants/logos/1.jpg"));
+            }
+        });
+
         assertFalse("TODO", true);
+    }
+    @Test
+    public void getLogoPathFor_returns_null_if_not_found() {
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+                String url = service.getLogoPathFor(2);
+                assertThat(url, nullValue());
+            }
+        });
     }
 
     @Test

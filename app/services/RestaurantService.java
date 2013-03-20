@@ -17,7 +17,7 @@ public interface RestaurantService {
 
     List<MenuItemGroup> getMenuBookFor(Long id);
 
-    String getLogoPathFor(long id);
+    String getLogoPathFor(int id);
 
     MenuItem getMenuItemById(Long id);
 

@@ -29,8 +29,10 @@ public class RestaurantServiceEbeanImpl implements RestaurantService {
     }
 
     @Override
-    public String getLogoPathFor(long id) {
-        throw new UnsupportedOperationException("Implement Me");
+    public String getLogoPathFor(int id) {
+        int count  = Ebean.find(Restaurant.class).where().eq("id",id).findRowCount();
+        if (count == 0) return null;
+        return "/public/images/restaurants/logos/"+id+".jpg";
     }
 
     @Override

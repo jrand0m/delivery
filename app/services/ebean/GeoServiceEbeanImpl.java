@@ -1,5 +1,6 @@
 package services.ebean;
 
+import com.avaje.ebean.Ebean;
 import models.Restaurant;
 import models.geo.Address;
 import models.geo.City;
@@ -29,7 +30,7 @@ public class GeoServiceEbeanImpl implements GeoService {
 
     @Override
     public List<Restaurant> getIndexPageRestsByCity(Long i) {
-        throw new UnsupportedOperationException("Implement Me");
+        return Ebean.find(Restaurant.class).where().eq("city_id", i).findList();
     }
 
     @Override

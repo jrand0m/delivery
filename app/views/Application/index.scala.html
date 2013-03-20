@@ -48,51 +48,41 @@
 }
 @main(title = "Home")(moreScripts)(moreStyles = Html(""))(breadCrumb){
     @for(restaurant <- restaurants) {
-        <div class="rest_item_prev  @if(!restaurant.isOnline()) {
-            rest_offline
-        }">
+
+        <div class="rest_item_prev">
         <h1>
         <b> @restaurant.getTitle() </b> <br />
         <span> @restaurant.addressToString() </span>
         <a> @restaurant.isOnlineAsString() </a>
         </h1>
         <div class="logo">
-        <i></i> <img class="logo" src="@routes.Application.serveLogo(restaurant.getId().asInstanceOf[Long])" />
+        <i></i> <img class="logo" src="@routes.Application.serveLogo(restaurant.getId())" />
         </div>
         <p class="info"> @descriptions.get(restaurant.getId()) </p>
             @defining(workHours.get(restaurant.getId())) { hours =>
                 <p class="work_time"> <b> Сьогодні </b> @hours.asInstanceOf[time.WorkHours].todayAsString()
                 <span>
                     Понеділок
-                    @hours.asInstanceOf
-                    [time.WorkHours].monAsString() <br/>
+                    @hours.asInstanceOf[time.WorkHours].monAsString() <br/>
                     Вівторок
-                    @hours.asInstanceOf
-                    [time.WorkHours].tueAsString() <br/>
+                    @hours.asInstanceOf[time.WorkHours].tueAsString() <br/>
                     Середа
-                    @hours.asInstanceOf
-                    [time.WorkHours].wedAsString() <br/>
+                    @hours.asInstanceOf[time.WorkHours].wedAsString() <br/>
                     Четвер
-                    @hours.asInstanceOf
-                    [time.WorkHours].thuAsString() <br/>
+                    @hours.asInstanceOf[time.WorkHours].thuAsString() <br/>
                     Пятниця
-                    @hours.asInstanceOf
-                    [time.WorkHours].friAsString() <br/>
+                    @hours.asInstanceOf[time.WorkHours].friAsString() <br/>
                     Субота
-                    @hours.asInstanceOf
-                    [time.WorkHours].satAsString() <br/>
+                    @hours.asInstanceOf[time.WorkHours].satAsString() <br/>
                         Неділя
-                        @hours.asInstanceOf
-                [time.WorkHours].sunAsString()
+                    @hours.asInstanceOf[time.WorkHours].sunAsString()
                     <br/>
                 </span>
                 </p>
             }
         <p class="dostavka"> Доставка <b> 15 грн </b> <span> @Messages.apply("common.basket.title") </span> </p>
-            *{
-            <!--<p class="stars">Рейтинг<span class="rate1"></span></p>-->
-            }*
-            <a class="menu_but" href="@routes.Application.showMenu(restaurant.getId().asInstanceOf[Long])" title="@Messages.apply("common.viewRestMunu")"> @Messages.apply("common.menu")</a>
+
+            <a class="menu_but" href="@routes.Application.showMenu(restaurant.getId())" title="@Messages.apply("common.viewRestMunu")"> @Messages.apply("common.menu")</a>
 </div>
 
 

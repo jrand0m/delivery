@@ -43,6 +43,8 @@ public class Application extends Controller {
     @Inject
     private UserService userService;
 
+
+
     public static class SESSION_KEYS {
         public static final String CITY_ID = "city";
     }
@@ -114,14 +116,14 @@ public class Application extends Controller {
             Logger.debug(String.format("Geo service is initialized with -> %s", geoService));
             Logger.debug(String.format("Got city_id = %s from session", cityId));
         }
-        List<Restaurant> restaurants ;
-        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
 
-            restaurants = new ArrayList<Restaurant>(0);
-            // return badRequest();//todo redirect to cookie cleaner
-        }else{
-            restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
+        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
+            cityId = "1"; //TODO create test that checks that new user gets default id
+                          //TODO get default id from service
+                          //todo get city id based on ip
+            session(SESSION_KEYS.CITY_ID, cityId);
         }
+        List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
         Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
         Map<Integer,String>descriptions = restaurantService.getDescriptionsMapFor(restaurants);
         return ok(index.render(restaurants,descriptions,workHours));
@@ -158,7 +160,7 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public static Result showMenu(Long id) {
+    public static Result showMenu(Integer id) {
 //        notFoundIfNull(id);
 //        Restaurant restaurant = restaurantService.getById(id);
 //        notFoundIfNull(restaurant);
@@ -491,13 +493,13 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public static Result serveLogo(long id) {
-//        String url = restaurantService.getLogoPathFor(id);
-//        if (url == null){
-//            redirectToStatic("/public/images/no_image.jpg");
-//        }
-//        redirectToStatic(url);
-        return TODO;
+    public  Result serveLogo(Integer id) {
+        String url = restaurantService.getLogoPathFor(id);
+        if (url!=null) {
+            return redirect(url);
+        } else {
+            return notFound();
+        }
     }
 
     /* ----------- private -------------- */
