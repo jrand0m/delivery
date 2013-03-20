@@ -20,7 +20,7 @@ import java.util.Map;
 public class RestaurantServiceEbeanImpl implements RestaurantService {
     @Override
     public Restaurant getById(Long id) {
-        throw new UnsupportedOperationException("Implement Me");
+        return Ebean.find(Restaurant.class).where().eq("id", id).findUnique();
     }
 
     @Override
@@ -164,9 +164,23 @@ public class RestaurantServiceEbeanImpl implements RestaurantService {
         throw new UnsupportedOperationException("Implement Me");
     }
 
+
+
     @Override
     public Map<Integer, String> getDescriptionsMapFor(List<Restaurant> restaurants) {
-        throw new UnsupportedOperationException("Implement Me");
+        Map<Integer, String> result = new HashMap<Integer, String>();
+        for (Restaurant restaurant: restaurants){
+            Integer id = restaurant.getId();
+            String description = Ebean.find(RestaurantDescription.class)
+                    .where()
+                    .eq("restaurantId",id)
+                    .eq("lang","ua")
+                    .findUnique()
+                    .description;
+            result.put(id,description);
+
+        }
+        return result;
     }
 
     @Override

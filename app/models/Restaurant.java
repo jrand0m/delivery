@@ -144,51 +144,51 @@ public class Restaurant extends Model {
 
     @Id
     @GeneratedValue(generator = "restaurant_seq_gen", strategy = GenerationType.SEQUENCE)
-    public Integer id;
+    private Integer id;
 
     @Column(name = "city_id", insertable = false, updatable = false, nullable = false)
-    public Long city_id;
+    private Long city_id;
     @ManyToOne
     @JoinColumn(name = "city_id")
     @Deprecated
-    public City city;
+    private City city;
 
     @Column(name = "address_id", insertable = false, updatable = false, nullable = false)
-    public Long address_id;
+    private Long address_id;
     @OneToOne
     @JoinColumn(name = "address_id")
     @Deprecated
-    public Address address;
+    private Address address;
 
     @Column(name = "category_id", insertable = false, updatable = false, nullable = false)
-    public Integer category_id;
+    private Integer category_id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @Deprecated
-    public RestaurantCategory category;
+    private RestaurantCategory category;
 
     @Column(name = "workhours_id", insertable = false, updatable = false, nullable = false)
-    public Integer workhours_id;
+    private Integer workhours_id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workhours_id")
     @Deprecated
-    public WorkHours workhours;
+    private WorkHours workhours;
     /**
      * loginable power user id
      */
     @Column(name = "user_id", insertable = false, updatable = false, nullable = false)
-    public Long user_id;
+    private Long user_id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @Deprecated
-    public User restaurantAdminUser;
+    private User restaurantAdminUser;
 
     @Column(name = "title")
-    public String title;
+    private String title;
     @Column(name = "deleted", nullable = false)
-    public boolean deleted = false;
-    @Column(name = "show_on_index", nullable = false)
-    public boolean showOnIndex = false;
+    private boolean deleted = false;
+    @Column(name = "showonindex", nullable = false)
+    private boolean showOnIndex = false;
 
     /**
      * logo image , ATTENTION! stores in /attachents/ dir
@@ -202,23 +202,23 @@ public class Restaurant extends Model {
      * 30 days
      */
     @Column(name = "raiting", nullable = false)
-    public Integer raiting;
+    private Integer raiting;
 
     @Column(name = "deviceLogin", nullable = false)
-    public String deviceLogin;
+    private String deviceLogin;
     @Column(name = "devicePassword", nullable = false)
-    public String devicePassword;
+    private String devicePassword;
 
     @Column(name = "lastPing")
-    public DateTime lastPing;
+    private DateTime lastPing;
     /**
      * XXX should i store it here ? Restaurant setting ?
      */
     @Column(name = "discount")
-    public Integer discount;
+    private Integer discount;
 
     @Column(name = "twoLetters", nullable = false, length = 2)
-    public String twoLetters;
+    private String twoLetters;
 
 
     public boolean isOnline() {

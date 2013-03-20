@@ -31,7 +31,7 @@ public class BasketServiceTest{
         User u = new User();
         Restaurant r = new Restaurant();
         u.id = 43l;
-        r.id = 1;
+        r.setId(1);
         Order order = orderService.getCurrentOrderFor(u,r);
         if (order == null){
             order =  orderService.createNewOpenOrderFor(u, r);

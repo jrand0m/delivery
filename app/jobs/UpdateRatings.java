@@ -68,7 +68,7 @@ public class UpdateRatings {
                     average = 1;
                 }
 
-                restaurantService.updateRating(r.id, average);
+                restaurantService.updateRating(r.getId(), average);
             }
             Logger.info(String.format(
                     "UpdateRatings Job: Finished refreshing (total time: %s s)",

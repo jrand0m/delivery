@@ -52,15 +52,15 @@
             rest_offline
         }">
         <h1>
-        <b> @restaurant.title </b> <br />
+        <b> @restaurant.getTitle() </b> <br />
         <span> @restaurant.addressToString() </span>
         <a> @restaurant.isOnlineAsString() </a>
         </h1>
         <div class="logo">
-        <i></i> <img class="logo" src="@routes.Application.serveLogo(restaurant.id.asInstanceOf[Long])" />
+        <i></i> <img class="logo" src="@routes.Application.serveLogo(restaurant.getId().asInstanceOf[Long])" />
         </div>
-        <p class="info"> @descriptions.get(restaurant.id) </p>
-            @defining(workHours.get(restaurant.id)) { hours =>
+        <p class="info"> @descriptions.get(restaurant.getId()) </p>
+            @defining(workHours.get(restaurant.getId())) { hours =>
                 <p class="work_time"> <b> Сьогодні </b> @hours.asInstanceOf[time.WorkHours].todayAsString()
                 <span>
                     Понеділок
@@ -92,7 +92,7 @@
             *{
             <!--<p class="stars">Рейтинг<span class="rate1"></span></p>-->
             }*
-            <a class="menu_but" href="@routes.Application.showMenu(restaurant.id.asInstanceOf[Long])" title="@Messages.apply("common.viewRestMunu")"> @Messages.apply("common.menu")</a>
+            <a class="menu_but" href="@routes.Application.showMenu(restaurant.getId().asInstanceOf[Long])" title="@Messages.apply("common.viewRestMunu")"> @Messages.apply("common.menu")</a>
 </div>
 
 

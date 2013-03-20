@@ -1,5 +1,6 @@
 package models.settings;
 
+import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -24,16 +25,18 @@ public class SystemSetting extends Model {
     @Column(name = "id", nullable = false)
     public Integer id;
 
-    //TODO:@Required
+    @Constraints.Required
     //TODO:@Min(3)
     //TODO:@Max(32)
     @Column(name = "_stg_key")
     public String stg_key;
-    //TODO:@Required
+
+    @Constraints.Required
     //TODO:@Min(1)
     @Column(name = "_stg_value")
     public String stg_value;
-    //TODO:@Required
+
+    @Constraints.Required
     @Column(name = "isDefault")
     public boolean isDefault = false;
     /**
