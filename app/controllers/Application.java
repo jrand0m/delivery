@@ -129,13 +129,6 @@ public class Application extends Controller {
         return ok(index.render(restaurants,descriptions,workHours));
     }
 
-    private static User getCurrentUser() {
-        User user = null;
-//        if (Security.isConnected()) {
-//            user = userService.getUserByLogin(Security.connected());
-//        }
-        return user;
-    }
 
     public static Result showRestaurants() {
 //        List<City> cityList = geoService.getVisibleCities();

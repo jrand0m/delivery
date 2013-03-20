@@ -30,7 +30,7 @@ public class Global extends GlobalSettings {
     @Override
     public <A> A getControllerInstance(Class<A> aClass) throws Exception {
         if (Logger.isDebugEnabled()){
-            Logger.debug(String.format("Injector is ready -> %s", injector));
+            Logger.debug(String.format("Injector injects class -> %s", aClass.getCanonicalName()));
         }
         return injector.getInstance(aClass);
     }
