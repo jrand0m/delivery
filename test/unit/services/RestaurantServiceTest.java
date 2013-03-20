@@ -113,8 +113,6 @@ public class RestaurantServiceTest {
                 assertThat(url, equalTo("/public/images/restaurants/logos/1.jpg"));
             }
         });
-
-        assertFalse("TODO", true);
     }
     @Test
     public void getLogoPathFor_returns_null_if_not_found() {
