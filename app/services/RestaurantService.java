@@ -15,7 +15,7 @@ import java.util.Map;
 public interface RestaurantService {
     Restaurant getById(Integer id);
 
-    List<MenuItemGroup> getMenuBookFor(Integer id);
+    List<MenuItemGroup> getMenuGroupsFor(Integer id);
 
     String getLogoPathFor(int id);
 
@@ -58,6 +58,12 @@ public interface RestaurantService {
      * @param id of restaurant
      */
     List<MenuItem> getAllMenuItemsFor(Integer id);
+
+    /**
+     * @param groupId id of group
+     * @param restaurantId id of restaurant
+     */
+    List<MenuItem> getAllMenuItemsBy(Integer groupId, Integer restaurantId);
 
     MenuItemGroup insertMenuGroup(MenuItemGroup group);
 

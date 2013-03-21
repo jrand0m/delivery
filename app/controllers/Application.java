@@ -1,23 +1,14 @@
 package controllers;
 
-import enumerations.OrderStatus;
-import enumerations.UserType;
 import models.*;
-import models.dto.extern.BasketJSON;
-import models.dto.extern.LastOrdersJSON;
-import models.dto.extern.MenuCompWrapJson;
-import models.geo.Address;
-import models.geo.City;
-import models.geo.Street;
 import models.time.WorkHours;
 import models.users.User;
 import play.Logger;
-import play.i18n.Lang;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.With;
 import services.*;
 import views.html.Application.index;
+import views.html.Application.showMenu;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -43,13 +34,11 @@ public class Application extends Controller {
     @Inject
     private UserService userService;
 
-
-
     public static class SESSION_KEYS {
         public static final String CITY_ID = "city";
     }
 
-    //todo:@Before(unless = {"getLastOrders", "serveLogo", "loadFix", "comps","changeCity", "changeLng"}
+    //@Before(unless = {"getLastOrders", "serveLogo", "loadFix", "comps","changeCity", "changeLng"}
                                          /*
 										 * unless =
 										 * {"getCurrentUser","guessCity"
@@ -154,12 +143,19 @@ public class Application extends Controller {
     }
 
     public Result showMenu(Integer id) {
-        List<MenuItemGroup> menuItems = restaurantService.getMenuBookFor(id);
         Restaurant restaurant = restaurantService.getById(id);
-        if (restaurant == null/*todo remove with NOT_FOUND*/ || menuItems.size() == 0){
+        List<MenuItemGroup> itemGroups = restaurantService.getMenuGroupsFor(id);
+        if (restaurant == null/*todo replace with NOT_FOUND*/ || itemGroups.size() == 0){
             return redirect("/");
         }
-        return ok(showMenu.render());
+
+        LinkedHashMap<MenuItemGroup, List<MenuItem>> menu = new LinkedHashMap<MenuItemGroup, List<MenuItem>>();
+        for(MenuItemGroup grp : itemGroups){
+            List <MenuItem> list  =restaurantService.getAllMenuItemsBy(grp.id,restaurant.getId());
+            menu.put(grp,list);
+        }
+
+        return ok(showMenu.render(restaurant,menu));
     }
 
     public static Result newUser() {

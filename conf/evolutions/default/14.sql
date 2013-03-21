@@ -11,7 +11,7 @@ CREATE TABLE vd_menu_items (
   menuItemCreated timestamp not null default now(),
   available       bool not null default true,
   currency        varchar(3)  not null default 'UAH',
-  price           money,
+  price           numeric(16,0),
   deleted         bool not null,
   restaurant_id   int4 not null,
   menu_item_group_id   int4 not null,

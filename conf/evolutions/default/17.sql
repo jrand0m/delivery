@@ -8,7 +8,7 @@ CREATE TABLE vd_menu_item_components (
     name              varchar (255) not null,
     description       varchar(255) not null,
 
-    price             money,
+    price             numeric(16,0),
     price_currency    varchar(3) not null default 'UAH',
 
     deleted           bool not null default false,

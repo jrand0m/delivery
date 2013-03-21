@@ -28,9 +28,6 @@ public class MenuItemGroup extends Model {
     @Deprecated
     public Restaurant restaurant;
 
-    //EXCEPTION! needed for backward compatibility with templates.... todo:investigate
-    public List<MenuItem> items = new ArrayList<MenuItem>();
-
     public String anchorName() {
         return "g" + hashCode();
     }

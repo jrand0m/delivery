@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.annotation.EmbeddedColumns;
+import com.avaje.ebean.annotation.Formula;
 import org.joda.money.Money;
 import org.joda.time.LocalDateTime;
 import play.db.ebean.Model;
@@ -30,10 +31,13 @@ public class MenuItem extends Model {
 
     @Column(name = "available")
     public boolean available = false;
-    // filled dynamicaly via sql
+
+    @Transient
+    @Formula(select = "_b${ta}.has_components",
+            join = "left outer join (select (count(id)>0) as has_components, menu_item_id from vd_menu_item_components where deleted='f' group by menu_item_id) as _b${ta} on _b${ta}.menu_item_id = ${ta}.id")
     public boolean showComponents = false;
 
-    @EmbeddedColumns( columns = "currency=price_currency, cents=price")
+    @EmbeddedColumns( columns = "currency=currency, cents=price")
     public Money price;
 
     @Column(name = "restaurant_id", nullable = false, updatable = false, insertable = false)

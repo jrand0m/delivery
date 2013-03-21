@@ -2,6 +2,8 @@ package unit.services;
 
 import com.google.inject.Guice;
 import guice.ServicesConfigurationModule;
+import models.MenuItem;
+import models.MenuItemGroup;
 import models.Restaurant;
 import models.time.WorkHours;
 import org.junit.Ignore;
@@ -13,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -71,7 +72,8 @@ public class RestaurantServiceTest {
         assertFalse("TODO", true);
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void selectById_returnsNoRestaurantIfNotFound() {
         running(fakeApplication(), new Runnable() {
             @Override
@@ -81,7 +83,6 @@ public class RestaurantServiceTest {
             }
         });
     }
-
 
     @Test
     public void selectById_returnsRestaurantIfFound() {
@@ -110,10 +111,25 @@ public class RestaurantServiceTest {
     }
 
     @Test
-    @Ignore
-    public void getMenuBookFor_FillsSowMenuAndItems() {
 
-        assertFalse("TODO", true);
+    public void getMenuBookFor_ReturnsMenuGroups() {
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+                List<MenuItemGroup> list = service.getMenuGroupsFor(1);
+                assertThat(list, notNullValue());
+                assertThat(list.size(), is(2));
+                MenuItemGroup grp1 = list.get(0);
+                MenuItemGroup grp2 = list.get(1);
+                assertThat(grp1.name, notNullValue(String.class));
+                assertThat(grp2.name, notNullValue(String.class));
+                assertThat(grp1.deleted, is(false));
+                assertThat(grp2.deleted, is(false));
+                assertThat(grp1.description, notNullValue(String.class));
+                assertThat(grp2.description, notNullValue(String.class));
+            }
+        });
+
     }
 
     @Test
@@ -126,6 +142,7 @@ public class RestaurantServiceTest {
             }
         });
     }
+
     @Test
     public void getLogoPathFor_returns_null_if_not_found() {
         running(fakeApplication(), new Runnable() {
@@ -153,7 +170,7 @@ public class RestaurantServiceTest {
                 when(rest.getId()).thenReturn(1);
                 list.add(rest);
                 Map<Integer, String> map = service.getDescriptionsMapFor(list);
-                assertThat("contains only one element ", map.size(),equalTo(1));
+                assertThat("contains only one element ", map.size(), equalTo(1));
                 String description = map.get(1);
                 assertThat(description, equalTo("Test Description"));
             }
@@ -172,5 +189,29 @@ public class RestaurantServiceTest {
     @Ignore
     public void testGetDescriptionMap_DefaultsToDefaultLanguageIfNoTranslationAndResultsWarning() throws Exception {
         assertFalse("TODO", true);
+    }
+
+    @Test
+    public void getAllMenuItemsBy_Returns_ItemsOfAGroup() throws Exception {
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+                List<MenuItem> items = service.getAllMenuItemsBy(1, 1);
+                assertThat("contains only one element ", items.size(), equalTo(2));
+                assertThat(items.get(0), notNullValue(MenuItem.class));
+                assertThat(items.get(1), notNullValue(MenuItem.class));
+                for (MenuItem i : items) {
+                    assertThat(i.id, notNullValue());
+                    assertThat(i.description, notNullValue());
+                    assertThat(i.deleted, notNullValue());
+                    assertThat(i.menuItemCreated, notNullValue());
+                    assertThat(i.available, notNullValue());
+                    assertThat(i.restaurantId, is(1));
+                    assertThat(i.menuItemGroupId, is(1));
+                }
+
+            }
+        });
+
     }
 }

@@ -3,9 +3,11 @@ package services.ebean;
 import com.avaje.ebean.Ebean;
 import models.*;
 import models.time.WorkHours;
+import play.Logger;
 import services.RestaurantService;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +26,9 @@ public class RestaurantServiceEbeanImpl implements RestaurantService {
     }
 
     @Override
-    public List<MenuItemGroup> getMenuBookFor(Integer id) {
-        throw new UnsupportedOperationException("Implement Me");
+    public List<MenuItemGroup> getMenuGroupsFor(Integer id) {
+        List<MenuItemGroup> result = Ebean.find(MenuItemGroup.class).where().eq("restaurant_id", id).findList();
+        return result;
     }
 
     @Override
@@ -104,6 +107,15 @@ public class RestaurantServiceEbeanImpl implements RestaurantService {
     @Override
     public List<MenuItem> getAllMenuItemsFor(Integer id) {
         throw new UnsupportedOperationException("Implement Me");
+    }
+
+    public List<MenuItem> getAllMenuItemsBy(Integer groupId, Integer restaurantId){
+        List<MenuItem> result = Ebean.find(MenuItem.class).where()
+                .eq("menu_item_group_id", groupId)
+                .eq("restaurant_id", restaurantId)
+                .eq("deleted", false)
+                .findList();
+        return result;
     }
 
     @Override
