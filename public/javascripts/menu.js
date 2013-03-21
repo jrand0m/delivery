@@ -54,7 +54,7 @@ Basket = {
     $update: function (data) {
         this.$reset();
         $.each(data.items, function (i, e) {
-            $(Basket.renderContainer).append(tmpl("ittmp", {id: e["id"], cnt: e["count"], nm: e["name"], de: e.desc, pc: format(e.price)}));
+            $(Basket.renderContainer).append(Mustache.render($("#ittmp"), {id: e["id"], cnt: e["count"], nm: e["name"], de: e.desc, pc: format(e.price)}));
         });
 
         $(Basket.renderContainer).append("<input type=\"hidden\" name=\"id\" value=\"" + data["no"] + "\"/>");
@@ -68,14 +68,14 @@ Basket = {
         });
     },
     $setDeliveryPrice: function (c) {
-        $(Basket.renderContainer).append(tmpl("dptmp", {pc: format(c)}));
+        $(Basket.renderContainer).append(Mustache.render($("#dptmp"), {pc: format(c)}));
     },
     $setTotalPrice: function (c) {
-        $(Basket.renderContainer).append(tmpl("tptmp", {pc: format(c)}));
+        $(Basket.renderContainer).append(Mustache.render($("tptmp"), {pc: format(c)}));
     },
     $setDiscount: function (c) {
         if (c && c > 0)
-            $(Basket.renderContainer).append(tmpl("dctmp", {pc: format(c)}));
+            $(Basket.renderContainer).append(Mustache.render($("dctmp"), {pc: format(c)}));
     }
 };
 
@@ -91,19 +91,19 @@ var rndr = function (c) {
         var ei = {id: comps[i].no, nm: comps[i]["name"], pr: comps[i].price};
         cmp[ei.id] = {en: false, pc: ei.pr};
         ei.pr = format(ei.pr);
-        itmz.push(tmpl("dtmp", {d: ei}));
+        itmz.push(Mustache.render($("dtmp"), {d: ei}));
     }
     ;
     obj["tb"] = "";
     for (var i = 0; i < itmz.length + (itmz.length % 2 ? 1 : 0); i = i + 2) {
         var le = itmz[i];
         var re = itmz[i + 1];
-        if (!re) re = tmpl("dtmp", {d: {}});
+        if (!re) re = Mustache.render($("#dtmp"), {d: {}});
         var ei = {l: le, r: re};
-        obj["tb"] = obj["tb"] + (tmpl("rotmp", {i: ei}));
+        obj["tb"] = obj["tb"] + (Mustache.render($("#rotmp"), {i: ei}));
     }
     obj.pcd = format(obj.pc);
-    return tmpl("cmfrtmp", {i: obj});
+    return Mustache.render($("#cmfrtmp"), {i: obj});
 }
 var add = function (i, c) {
     $('#a' + i).addClass('current');
