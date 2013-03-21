@@ -13,9 +13,9 @@ import java.util.Map;
  * Time: 12:17 AM
  */
 public interface RestaurantService {
-    Restaurant getById(Long id);
+    Restaurant getById(Integer id);
 
-    List<MenuItemGroup> getMenuBookFor(Long id);
+    List<MenuItemGroup> getMenuBookFor(Integer id);
 
     String getLogoPathFor(int id);
 

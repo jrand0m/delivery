@@ -71,12 +71,24 @@ public class RestaurantServiceTest {
         assertFalse("TODO", true);
     }
 
-    @Test
-    public void selectById_returnsRestaurant() {
+    @Test @Ignore
+    public void selectById_returnsNoRestaurantIfNotFound() {
         running(fakeApplication(), new Runnable() {
             @Override
             public void run() {
-                Restaurant rest = service.getById(1l);
+                Restaurant rest = service.getById(0);
+                assertTrue("TODO", false);
+            }
+        });
+    }
+
+
+    @Test
+    public void selectById_returnsRestaurantIfFound() {
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+                Restaurant rest = service.getById(1);
                 assertNotNull(rest);
                 assertNotNull(rest.getAddress_id());
                 assertNotNull(rest.getCategory_id());
@@ -119,7 +131,7 @@ public class RestaurantServiceTest {
         running(fakeApplication(), new Runnable() {
             @Override
             public void run() {
-                String url = service.getLogoPathFor(2);
+                String url = service.getLogoPathFor(0);
                 assertThat(url, nullValue());
             }
         });

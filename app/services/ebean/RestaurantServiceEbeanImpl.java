@@ -19,12 +19,12 @@ import java.util.Map;
  */
 public class RestaurantServiceEbeanImpl implements RestaurantService {
     @Override
-    public Restaurant getById(Long id) {
+    public Restaurant getById(Integer id) {
         return Ebean.find(Restaurant.class).where().eq("id", id).findUnique();
     }
 
     @Override
-    public List<MenuItemGroup> getMenuBookFor(Long id) {
+    public List<MenuItemGroup> getMenuBookFor(Integer id) {
         throw new UnsupportedOperationException("Implement Me");
     }
 
