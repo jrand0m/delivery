@@ -153,15 +153,13 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public static Result showMenu(Integer id) {
-//        notFoundIfNull(id);
-//        Restaurant restaurant = restaurantService.getById(id);
-//        notFoundIfNull(restaurant);
-//        List<MenuItemGroup> menuItems = restaurantService.getMenuBookFor(id);
-//        renderArgs.put("restaurant", restaurant);
-//        renderArgs.put("menuItems", menuItems);
-//        render();
-        return TODO;
+    public Result showMenu(Integer id) {
+        List<MenuItemGroup> menuItems = restaurantService.getMenuBookFor(id);
+        Restaurant restaurant = restaurantService.getById(id);
+        if (restaurant == null/*todo remove with NOT_FOUND*/ || menuItems.size() == 0){
+            return redirect("/");
+        }
+        return ok(showMenu.render());
     }
 
     public static Result newUser() {
@@ -376,7 +374,7 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public static Result comps(final Long id) {
+    public Result comps(final Long id) {
 //        notFoundIfNull(id);
 //        await(1000);
 //        /*MenuItem mi = MenuItem.findById(id);
@@ -397,7 +395,7 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public static Result addOrderItem(Long id, String comps /*Long... component*/) {
+    public Result addOrderItem(Long id, String comps /*Long... component*/) {
 //        if (!Security.isConnected() || id == null) {
 //            await(15000);
 //            notFound("Order not found");
@@ -425,7 +423,7 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public static Result cngOrderItem(Long id, Integer count) {
+    public Result cngOrderItem(Long id, Integer count) {
 //        if (!Security.isConnected() || id == null || count == null) {
 //            await(15000);
 //            notFound("Order not found");
@@ -448,7 +446,7 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public static Result basket(Long chart) {
+    public Result basket(Long chart) {
         /*
            * FIXME best place to create new user when user reaches place with
            * basket create token basket checks if the user is logged in and if it
