@@ -1,10 +1,12 @@
+package functional;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
 @Ignore
-public class APIFunctionalTest {
+public class RestaurantAPIFunctionalTest {
 	
 	@Test
     public void testUnloginedUserGetApiAccess() {
