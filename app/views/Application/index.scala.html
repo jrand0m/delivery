@@ -1,14 +1,14 @@
 @(restaurants: List[Restaurant], descriptions: Map[Integer, String], workHours: Map[Integer, time.WorkHours])
 @moreScripts = {
     <script type="text/javascript">
-            var cngcty = function () {return @routes.Application.changeCity(1)
+            /*var cngcty = function () {return @routes.Application.changeCity(1)
             }();
             var loupd = function () {return @routes.Application.getLastOrders(false)
-            }();
+            }();*/
     </script>
-    <script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/cookies.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/mustache.min.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/index.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/cookies.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/mustache.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/index.js")"></script>
     <style>
             div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
     </style>
