@@ -1,12 +1,12 @@
 @(restaurant: Restaurant, menu: Map[MenuItemGroup, List[MenuItem]])
 
 @moreScripts = {
-<script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/jquery.fancybox-1.3.4.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/jquery.floatobject-1.0.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/inputs_and_labels.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/jquery.jNice.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/jquery.mousewheel-3.0.4.pack.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/mustache.min.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/jquery.fancybox-1.3.4.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/jquery.floatobject-1.0.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/inputs_and_labels.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/jquery.jNice.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/jquery.mousewheel-3.0.4.pack.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/mustache.min.js")"></script>
 
 <script type="text/javascript">
         var uu = function() { return @routes.Application.basket(1) ; }();
@@ -90,7 +90,7 @@
         <td>{{pc}} @Messages.apply("common.uah")</td>
     </tr>
 </script>
-<script type="text/javascript" src="@routes.Assets.at("/public", "/javascripts/menu.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/menu.js")"></script>
 }
 
 @main(title = restaurant.getTitle())(moreScripts)(moreStyles = Html(""))(breadCrumb = Html("")) {
