@@ -8,6 +8,7 @@ import models.users.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDateTime;
+import play.Logger;
 import services.UserService;
 
 import java.util.HashSet;
@@ -69,7 +70,9 @@ public class UserServiceEbeanImpl implements UserService{
         anon.name = anon.login;
         anon.phoneNumber = anon.login;
         anon.userType = UserType.ANONYMOUS;
-
+        if (Logger.isDebugEnabled()){
+            Logger.debug(String.format("Created anonymous user -> %s", anon));
+        }
         return insertUser(anon);
     }
 

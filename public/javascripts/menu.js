@@ -21,11 +21,14 @@ Basket = {
     add: function (i) {
         var data = "id=" + i;
         if (cmp.length != 0) {
+            var cmps=""
             $.each(cmp, function (i, e) {
                 if (e && e.en) {
-                    data = data + "&component=" + i;
+                    cmps = cmps + i + ","
                 }
             });
+            cmps = cmps.slice(0,cmps.length-1);
+            data = data + "&component=" + cmps;
         }
         $.ajax({
             type: "POST",

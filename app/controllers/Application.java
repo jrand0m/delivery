@@ -391,7 +391,8 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public Result addOrderItem(Long id, String comps /*Long... component*/) {
+    public Result addOrderItem(Long id, String component) {
+
 //        if (!Security.isConnected() || id == null) {
 //            await(15000);
 //            notFound("Order not found");
@@ -442,7 +443,7 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public Result basket(Long chart) {
+    public Result basket(Integer chart) {
         /*
            * FIXME best place to create new user when user reaches place with
            * basket create token basket checks if the user is logged in and if it
@@ -462,6 +463,11 @@ public class Application extends Controller {
            * last login date > 1 year(or other period, mb 3 month) which have
            * associated orders in above sent state
            */
+          String userId = session(Security.USER_ID_SESSION_KEY);
+          Order order = orderService.getCurrentOrderFor(userId, chart);
+          if (order == null){}
+          //todo next continue here ->
+
 //        notFoundIfNull(chart);
 //        Order order = null;
 //        User user = (User) renderArgs.get(RENDER_KEYS.USER);

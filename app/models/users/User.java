@@ -13,7 +13,10 @@ import javax.persistence.*;
 @Table(name = "vd_user")
 @SequenceGenerator(name = "user_seq_gen", sequenceName = "user_seq")
 public class User {
-
+    /**
+     * @todo switch to UUID and use id field as identifier safely until that query for ID field
+     */
+    public static String GET_USER_ID_FIELD_NAME(){return "phoneNumber";}
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(generator = "user_seq_gen", strategy = GenerationType.SEQUENCE)
@@ -70,5 +73,10 @@ public class User {
      */
     public String landingUrl() {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User[phone=%s;login=%s]",this.phoneNumber,this.login);    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

@@ -9,10 +9,12 @@
 <script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/mustache.min.js")"></script>
 
 <script type="text/javascript">
-        var uu = function() { return @routes.Application.basket(1) ; }();
-        var cu = function() { return @routes.Application.comps(1)  ; }();
-        var au = function() { return @routes.Application.addOrderItem(1, "2")  ; }();
-        var du = function() { return @routes.Application.cngOrderItem(1, 2)  ; }();
+        var subdue = function(options, pt) {var pattern = pt; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern }
+
+        var uu = function(opt) { return subdue(opt, '/order/list.php?chart=:chart')};
+        var cu = function(opt) { return '/show/comp.php' };
+        var au = function(opt) { return '/order/add.php' };
+        var du = function(opt) { return '/order/cng.php' };
         var rid = @restaurant.getId() +0;
 </script>
 <script type="text/html" id="cmfrtmp">

@@ -19,12 +19,12 @@ public interface OrderService {
 
     City getOrdersCity(Order order);
 
-    Order getCurrentOrderFor(User user, Restaurant restaurant);
+    Order getCurrentOrderFor(String userId, Integer restaurantId);
 
     /**
-     * Must close all open orders before creating new one
+     * Will close all open orders before creating new one
      * */
-    Order createNewOpenOrderFor(User user, Restaurant restaurant);
+    Order createNewOpenOrderFor(String userId, Integer restaurantId);
 
     void deleteOrderItem(OrderItem itm);
 
