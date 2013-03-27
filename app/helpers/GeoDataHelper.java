@@ -1,28 +1,10 @@
 package helpers;
 
-import java.util.Date;
-import java.util.concurrent.ExecutionException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import enumerations.LogActionType;
-
-import models.geo.City;
-import models.geo.Coordinates;
-import models.geo.IpGeoData;
-import models.geo.IpGeoData.HQL;
-import models.settings.SystemSetting;
-import models.settings.SystemSetting.DEFAULT_VALUES;
-import models.settings.SystemSetting.KEYS;
-import play.cache.Cache;
-import play.libs.F.Promise;
-import play.libs.WS;
-import play.libs.WS.HttpResponse;
 
 public class GeoDataHelper {
-	private static final String GEOIP_EXTERNAL_URL = "http://api.hostip.info/?ip=%s&position=%s";
+/*	private static final String GEOIP_EXTERNAL_URL = "http://api.hostip.info/?ip=%s&position=%s";
+    @Inject
+    private static GeoService geoService;
 
 	public static Promise<IpGeoData> requestFromExternalServer(final String ip) {
 		final Promise<IpGeoData> geoDataPromise = new Promise<IpGeoData>();
@@ -40,10 +22,10 @@ public class GeoDataHelper {
 					geoDataPromise.invoke(null);
 					play.Logger
 							.warn("Cannot access or read from external geodata API ");
-					Logger.logSystemWarn(
+					*//*XXX Logger.logSystemWarn(
 							LogActionType.DUMP,
 							"Cannot access or read from external geodata API for IP %s ",
-							ip);
+							ip);*//*
 					return;
 				}
 				NodeList nameNodes = doc.getElementsByTagNameNS("gml", "name");
@@ -52,15 +34,15 @@ public class GeoDataHelper {
 					play.Logger
 							.debug("City name for IP %s is %s", ip, cityName);
 					result = new IpGeoData();
-					City city = City.find("cityNameEN = ?", cityName).first();
+					City city = geoService.getCityByAlias("cityName");
 					if (city == null) {
 						play.Logger
 								.debug("City '%s' was not found in DB, creating new one",
 										cityName);
 						city = new City();
 						city.display = false;
-						city.cityNameEN = cityName;
-						city.create();
+                        city.cityAliasName = cityName;
+						geoService.insertCity(city);
 					}
 					result.city = city;
 					result.ip = ip;
@@ -102,10 +84,10 @@ public class GeoDataHelper {
 					}
 
 				} else {
-					Logger.logSystemWarn(
+					*//*XXX Logger.logSystemWarn(
 							LogActionType.DUMP,
 							"Coordinates tag present but contains invalid content(%s)",
-							textContent);
+							textContent);*//*
 				}
 				return resultCoordinates;
 			}
@@ -113,9 +95,9 @@ public class GeoDataHelper {
 		geoDataFetchThread.start();
 		return geoDataPromise;
 	}
-
+    @Deprecated
 	public static City getSystemDefaultCity() {
-		City city = (City) Cache.get(CACHE_KEYS.DEFAULT_CITY);
+		*//*City city = (City) Cache.get(CACHE_KEYS.DEFAULT_CITY);
 		if (city == null){
 			String defCityId = PropertyVault.getSystemValueFor(SystemSetting.KEYS.DEFAULT_CITY_ID);
 			if (defCityId == null){
@@ -124,8 +106,8 @@ public class GeoDataHelper {
 				city = City.findById(Long.valueOf(defCityId));
 			}
 			Cache.set(CACHE_KEYS.DEFAULT_CITY, city);
-		}
+		} *//*
 		
-		return city ;
-	}
+		return null ;
+	}*/
 }

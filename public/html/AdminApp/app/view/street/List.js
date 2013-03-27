@@ -50,7 +50,7 @@ Ext.define('AV.view.street.List', {
                         },
                         {
                             xtype: 'booleancolumn',
-                            dataIndex: 'use',
+                            dataIndex: 'display',
                             text: 'Use'
                         }
                     ]

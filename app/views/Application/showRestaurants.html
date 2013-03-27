@@ -3,11 +3,13 @@
 #{set 'moreScripts'}
 <script type="text/javascript" src="@{'/public/javascripts/restSearchListPage.js'}"></script>
 <script type="text/javascript">
-var cngcty = #{jsAction @Application.changeCity(':id') /}
+    var cngcty = #{jsAction @Application.changeCity(':id') /}
 </script>
 #{/set}
 <style>
-div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
+    div#wrapper div#wrapper_inner div#header div.header_bottom {
+        display: none
+    }
 </style>
 #{set 'breadCrumb' }
 <!--label class="forsel">Місто:</label>
@@ -21,60 +23,63 @@ div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
 </div-->
 <label class="forsel">Тип ресторану:</label>
 <div class="selWrap selWrapPp">
-	<p id="selText2"  class="selText"></p>
-	<ul id="selDrop2" class="selDrop">
-		<li class="selected" id='all'>Всі</li>
-		#{list items:categories, as:'category' }
-		<li id="${category.categoryDisplayNameEN.slugify()}">${category.localizedName()}</li>
-		#{/list}
-	</ul>
+    <p id="selText2" class="selText"></p>
+    <ul id="selDrop2" class="selDrop">
+        <li class="selected" id='all'>Всі</li>
+        #{list items:categories, as:'category' }
+            <li id="${category.categoryDisplayNameEN.slugify()}">${category.localizedName()}</li>
+        #{/list}
+    </ul>
 </div>
 <label class="forsel">Показати:</label>
 <div class="selWrap selWrapPp">
-	<p id="selText3" class="selText"></p>
-	<ul id="selDrop3" class="selDrop">
-		<li id="all" class="selected">Всі</li>
-		<li id="on">Відчинені</li>
-	</ul>
+    <p id="selText3" class="selText"></p>
+    <ul id="selDrop3" class="selDrop">
+        <li id="all" class="selected">Всі</li>
+        <li id="on">Відчинені</li>
+    </ul>
 </div>
-#{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
-<a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
-*{<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>}*
-#{/if}
-#{else}
-<a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
-*{<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>}*
-#{/else}
+    #{if ((user != null )&&!(user instanceof models.users.AnonymousEndUser))}
+    <a class="enter" href="@{Secure.logout()}">&{'common.logout'}</a>
+    *{<a class="enter" href="@{Locker.index()}">&{'common.loggedinas', controllers.Security.connected()}</a>}*
+    #{/if}
+    #{else}
+    <a class="enter" href="@{Secure.login()}">&{'common.login'}</a>
+    *{<a class="enter" href="@{Application.newUser()}">&{'common.register'}</a>}*
+    #{/else}
 #{/set}
 <div class="left_cont" id="rest-sort-list">
 #{list items:restaurants, as:'restaurant'} *{TODO make special field or function for classes of category}*
-					<div class="rest_list_prev all ${restaurant.isOnline()?"on":" rest_list_prev_off"} ${restaurant.category?.categoryDisplayNameEN?.slugify()}">
-						<h1>
-							${restaurant.title},
-							<span>${restaurant.addressToString()}</span>
-							<a class=" ${restaurant.isOnline()?"":"offline"}">${restaurant.isOnlineAsString()}</a>
-						</h1>
-						<div class="rlp_cont">
-							<div class="img_wrap">
-								<i></i><img src="@{Application.serveLogo(restaurant.id)}" />
-							</div>
-							<div class="properties">
-								<p class="rating stars">&{'restaurants.rating.text'}<span class="rate${restaurant.raiting}"></span></p>
-								<p class="work_time">10:00 - 22:00</p>
-								<p class="dostavka">&{'common.basket.delivery'}</p>
-							</div>
-							<div class="description">
-								<p>${restaurant.description()}</p>
-								<a class="menu" href="@{Application.showMenu(restaurant.id)}">&{'common.menu'}</a>
-							</div>
-						</div>
-					</div>
+    <div class="rest_list_prev all ${restaurant.isOnline()?"on":" rest_list_prev_off"} ${restaurant.category?.categoryDisplayNameEN?.slugify()}">
+        <h1>
+        ${restaurant.title},
+            <span>${restaurant.addressToString()}</span>
+            <a class=" ${restaurant.isOnline()?"":"offline"}">${restaurant.isOnlineAsString()}</a>
+        </h1>
+
+        <div class="rlp_cont">
+            <div class="img_wrap">
+                <i></i><img src="@{Application.serveLogo(restaurant.id)}"/>
+            </div>
+            <div class="properties">
+                <p class="rating stars">&{'restaurants.rating.text'}<span class="rate${restaurant.raiting}"></span></p>
+
+                <p class="work_time">${restaurant.workHoursToday()}</p>
+
+                <p class="dostavka">&{'common.basket.delivery'}</p>
+            </div>
+            <div class="description">
+                <p>${restaurant.description()}</p>
+                <a class="menu" href="@{Application.showMenu(restaurant.id)}">&{'common.menu'}</a>
+            </div>
+        </div>
+    </div>
 #{/list}
-				</div>
-				<div class="right_cont">
-					<div class="right_block advert">
-						<a href="#">
-							<img src="/public/images/banners/banner0001.jpg" />
-						</a>
-					</div>
-				</div>
+</div>
+<div class="right_cont">
+    <div class="right_block advert">
+        <a href="#">
+            <img src="/public/images/banners/banner0001.jpg"/>
+        </a>
+    </div>
+</div>

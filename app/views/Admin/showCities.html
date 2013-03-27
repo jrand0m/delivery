@@ -1,14 +1,20 @@
 #{extends 'main-admin.html' /}
 #{set 'c__cities'}active#{/set}
 #{set 'navHelp'}
-  <a href="@{Admin.addCity}">ADD NEW !</a>
+<a href="@{Admin.addCity}">ADD NEW !</a>
 #{/set}
 <table border="1">
-<tr> <th>City Name</th> <th>Display</th> <th>Actions</th> </tr>
+    <tr>
+        <th>City Name</th>
+        <th>Display</th>
+        <th>Actions</th>
+    </tr>
 #{list items:cities, as:'city'}
-<tr>
-<td>${city.cityNameUA}</td><td>${city.display}</td> <td><a href="@{Admin.editCity(city.id)}">edit</a></td>
-</tr>
+    <tr>
+        <td>&{city.cityNameKey} (${city.cityNameKey})</td>
+        <td>${city.display}</td>
+        <td><a href="@{Admin.editCity(city.city_id)}">edit</a></td>
+    </tr>
 #{/list}
 </table>
 

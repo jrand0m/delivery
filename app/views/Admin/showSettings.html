@@ -1,0 +1,25 @@
+#{extends 'main-admin.html' /}
+#{set 'c__settings'}active#{/set}
+#{set 'navHelp'}
+<a href="">ADD NEW (todo)!</a>
+#{/set}
+<table border="1">
+    <tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>default(doesnt work now)</th>
+        <th>Affection Start Date(doesnt work now)</th>
+        <th>Affection End Date(doesnt work now)</th>
+        <th>Actions</th>
+    </tr>
+#{list items:settings, as:'cat'}
+    <tr>
+        <td>${cat.stg_key}</td>
+        <td>${cat.stg_value}</td>
+        <td>${cat.isDefaultSetting}</td>
+        <td>${cat.startDate}</td>
+        <td>${cat.endDate}</td>
+        <td><a href="">[edit]</a> <a href="">[delete]</a></td>
+    </tr>
+#{/list}
+</table>

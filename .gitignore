@@ -21,9 +21,15 @@ logs/*
 /crud
 /betterlogs-1.0
 /target
-1.2.x
-test-result/
 project/target
 project/project/target
 .idea
 .idea_modules
+*.ids
+*.iml
+*.ipr
+*.iws
+1.2.x
+test-result/
+
+

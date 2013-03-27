@@ -1,110 +1,100 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import com.avaje.ebean.annotation.EmbeddedColumns;
+import com.avaje.ebean.annotation.Formula;
+import org.joda.money.Money;
+import org.joda.time.LocalDateTime;
+import play.db.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Where;
-
-import play.db.jpa.Model;
+import javax.persistence.*;
 
 @Entity
-//@Where(clause = "deleted = 0")
+@Table(name = "vd_menu_items")
+@SequenceGenerator(name = "menu_items_seq_gen", sequenceName = "menu_items_seq")
 public class MenuItem extends Model {
-	public static final class FIELDS {
-		public static final String MENU_ITEM_AVALIABLE = "avaliable";
-		public static final String MENU_ITEM_DELETED = "deleted";
-		public static final String MENU_ITEM_RESTAURANT = "restaurant";
-		public static final String MENU_ITEM_GROUP = "menuItemGroup";
-		public static final String MENU_ITEM_DESCRIPTION = "description";
-		public static final String MENU_ITEM_MENUITEM_CREATED = "menuItemCreated";
-		public static final String MENU_ITEM_NAME = "name";
-		public static final String MENU_ITEM_PRICE = "price";
-	}
 
-	public boolean avaliable = false;
-	@ManyToOne(fetch=FetchType.LAZY)
-	public Restaurant restaurant;
-	public boolean deleted = false;
-	public String description;
-	@ManyToOne(fetch=FetchType.LAZY)
-	public MenuItemGroup menuItemGroup;
-	@OneToMany(fetch = FetchType.EAGER)
-	public List<MenuItemComponent> components = new ArrayList<MenuItemComponent>();
+    @Id
+    @GeneratedValue(generator = "menu_items_seq_gen", strategy = GenerationType.SEQUENCE)
+    public Long id;
 
-	public Date menuItemCreated;
-	public boolean showComponents = false;
-	public String name;
-	/**
-	 * value in coins
-	 * */
+    @Column(name = "name")
+    public String name;
 
-	public Integer price;
+    @Column(name = "deleted")
+    public boolean deleted = false;
 
-	public MenuItem() {
+    @Column(name = "description")
+    public String description;
 
-	}
+    @Column(name = "menuItemCreated")
+    public LocalDateTime menuItemCreated;
 
-	public MenuItem(Long id, String name, String description, Integer price,
-			Boolean avaliable, Date menuItemCreated, MenuItemGroup group,
-			Restaurant restaurant, Boolean deleted) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.avaliable = avaliable;
-		this.menuItemCreated = menuItemCreated;
-		this.menuItemGroup = group;
-		this.restaurant = restaurant;
-		this.deleted = deleted;
-	}
+    @Column(name = "available")
+    public boolean available = false;
 
-	/**
-	 * Cloning constructor generates new id immutable >>>??
-	 * */
-	public MenuItem(MenuItem item) {
-		this(null, item.name, item.description, item.price, item.avaliable,
-				item.menuItemCreated, item.menuItemGroup, item.restaurant,
-				item.deleted);
-	}
+    @Transient
+    @Formula(select = "_b${ta}.has_components",
+            join = "left outer join (select (count(id)>0) as has_components, menu_item_id from vd_menu_item_components where deleted='f' group by menu_item_id) as _b${ta} on _b${ta}.menu_item_id = ${ta}.id")
+    public boolean showComponents = false;
 
-	public String price() {
-		int h = price / 100;
-		int c = price - h * 100;
-		assert c >= 0;
-		return String.valueOf(h) + (0 < c && c < 10 ? ".0" : ".")
-				+ (c != 0 ? String.valueOf(c) : "00");
-	}
+    @EmbeddedColumns( columns = "currency=currency, cents=price")
+    public Money price;
 
-	public String name() {
-		// TODO add transliteration/translation
-		return name;
-	}
+    @Column(name = "restaurant_id", nullable = false, updatable = false, insertable = false)
+    public Integer restaurantId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    @Deprecated
+    public Restaurant restaurant;
 
-	public String description() {
-		// TODO add transliteration/translation
-		return description;
-	}
-	@Override
-	public String toString() {
-		StringBuilder b = new StringBuilder();
-		b.append('[');
-		if (components != null){
-			for (MenuItemComponent mi: components){
-				b.append(mi.toString());
-				b.append(',');
-			}
-		}
-		b.append(']');
-		return name + ":" + price + ":" + (restaurant != null? restaurant.title:"<detached>");
-	}
+    @Column(name = "menu_item_group_id", nullable = false, updatable = false, insertable = false)
+    public Integer menuItemGroupId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_item_group_id")
+    @Deprecated
+    public MenuItemGroup menuItemGroup;
+
+
+    public MenuItem() {
+
+    }
+
+    public MenuItem(Long id, String name, String description, Money price,
+                    Boolean available, LocalDateTime menuItemCreated, MenuItemGroup group,
+                    Restaurant restaurant, Boolean deleted) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.available = available;
+        this.menuItemCreated = menuItemCreated;
+        this.menuItemGroup = group;
+        this.restaurant = restaurant;
+        this.deleted = deleted;
+    }
+
+    /**
+     * Cloning constructor generates new id immutable >>>??
+     */
+    public MenuItem(MenuItem item) {
+        this(null, item.name, item.description, item.price, item.available,
+                item.menuItemCreated, item.menuItemGroup, item.restaurant,
+                item.deleted);
+    }
+
+    public String price() {
+        //price.getAmountMajorInt() + "." + price.getAmountMinorInt()
+        return price.toString();
+    }
+
+    public String name() {
+        // TODO add transliteration/translation
+        return name;
+    }
+
+    public String description() {
+        // TODO add transliteration/translation
+        return description;
+    }
 }

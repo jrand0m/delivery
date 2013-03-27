@@ -4,200 +4,255 @@
  */
 package models;
 
-import helpers.PropertyVault;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-import models.device.RestaurantDevice;
 import models.geo.Address;
 import models.geo.City;
-import models.settings.SystemSetting;
-import models.users.EndUser;
-import models.users.RestaurantUser;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.Where;
-
+import models.time.WorkHours;
+import models.users.User;
+import org.joda.time.DateTime;
+import play.Logger;
 import play.cache.Cache;
-import play.data.validation.Max;
-import play.data.validation.Min;
-import play.data.validation.Phone;
-import play.db.jpa.Blob;
-import play.db.jpa.Model;
-import play.i18n.Lang;
+import play.db.ebean.Model;
 import play.i18n.Messages;
-import play.libs.Codec;
+import javax.persistence.*;
 
 /**
- * 
  * @author mike
- * 
  */
 @Entity
+@Table(name = "vd_restaurant")
+@SequenceGenerator(name = "restaurant_seq_gen", sequenceName = "restaurant_seq")
 public class Restaurant extends Model {
-	public static class FIELDS {
-		public static final String RESTAURANT_COMMENTS = "comments";
-		public static final String RESTAURANT_USERS = "users";
-		public static final String RESTAURANT_RAITING = "raiting";
-		public static final String RESTAURANT_CONTACT_PERSON = "contactPerson";
-		public static final String RESTAURANT_DISCOUNT = "discount";
-		public static final String RESTAURANT_MENU_BOOK = "menuBook";
-		public static final String RESTAURANT_TITLE = "title";
-		public static final String RESTAURANT_WORK_HOURS = "workHours";
-		// /public static final String RESTAURANT_LAST_CONNECTION =
-		// "lastConnection";
-		public static final String RESTAURANT_LOGO = "logo";
-		public static final String RESTAURANT_CITY = "city";
-		public static final String RESTAURANT_DEVICE = "device";
-		public static final String DESCRIPTIONS = "descriptions";
-		public static final String DELETED = "deleted";
-		public static final String SHOW_ON_INDEX = "showOnIndex";
-		public static final String CATEGORY = "category";
-		
-		public static final String TWO_LETTERS = "twoLetters";
-	}
-	
-	public static class HQL {
-		public static final String BY_CITY_AND_SHOW_ON_INDEX = FIELDS.RESTAURANT_CITY + " = ? and " +FIELDS.SHOW_ON_INDEX + " = ?";
-		public static final String BY_CITY = FIELDS.RESTAURANT_CITY +" = ? ";
-		
-	}
-	@ManyToOne
-	public RestaurantCategory category;
-	public boolean deleted = false;
-	public boolean showOnIndex = false;
-	@ManyToOne
-	public City city;
-	@OneToOne
-	public Address address;
-	/**
-	 * All comments given to this restaurant
-	 * */
-	@OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
-	public List<Comment> comments;
-	/**
-	 * logo image , ATTENTION! stores in /attachents/ dir
-	 * */
-	public Blob logo;
-	/**
-	 * Associated device
-	 * */
-	@OneToOne(fetch=FetchType.EAGER)
-	public RestaurantDevice device;
-	/**
-	 * loginable users
-	 * */
-	@OneToMany(fetch = FetchType.LAZY)
-	public List<RestaurantUser> users;
-	/**
-	 * Zip of city in witch Restaurant resides
-	 * */
-	@Max(100000)
-	@Min(999)
-	public Integer cityZip;
-	/**
-	 * Updates by job at 4 o'clock every day based on approved comments for past
-	 * 30 days
-	 * */
-	public Integer raiting;
-	/**
-	 * Name of contact person to contact( assigned by Restaurant through admin
-	 * i-face)
-	 * */
-	public String contactPerson;
-	public String salt = Codec.UUID();
-	/**
-	 * Fone of contact person (assigned by Restaurant through admin i-face)
-	 * */
-	@Phone
-	public String contactPhone;
-	/**
-	 * XXX should i store it here ? Restaurant setting ?
-	 * */
-	public Double discount;
-	@OneToMany(mappedBy = "restaurant")
-    @Where(clause = "deleted = 'f' ")
-	public List<MenuItemGroup> menuBook = new ArrayList<MenuItemGroup>();
-	/**
-	 * Restaurant Title
-	 * */
-	public String title;
+    public Integer getId() {
+        return id;
+    }
 
-	@OneToMany(mappedBy = RestaurantDescription.FIELDS.RESTAURANT)
-	public List<RestaurantDescription> descriptions = new ArrayList<RestaurantDescription>();
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	@OneToOne(fetch = FetchType.LAZY)
-	public WorkHours workHours = new WorkHours();
-	public String twoLetters;
-	@Column(name = "restaurant_descr")
-	public String desc;
+    public Long getCity_id() {
+        return city_id;
+    }
 
-	public boolean isOnline() {
-		Boolean online = (Boolean) Cache.get("isOnline_" + getId());
-		if (online == null) {
-			long waitTimeInMiliseconds = Long.parseLong(PropertyVault
-					.getSystemValueFor("pingTime"));
-			if (device != null && device.lastPing != null) {
-				online = System.currentTimeMillis() - device.lastPing.getTime() < waitTimeInMiliseconds;
-			} else {
-				// FIXME Hardcore workaround on device null;
-				online = true;
-			}
-			long waitTimeInMin = (waitTimeInMiliseconds / 1000 / 60) + 1;
+    public void setCity_id(Long city_id) {
+        this.city_id = city_id;
+    }
 
-			Cache.set("isOnline_" + getId(), online, waitTimeInMin + "mn");
-		}
-		return online;
-	}
+    public Long getAddress_id() {
+        return address_id;
+    }
 
-	public String description() {
-		/*String lang = Lang.get();
-		for (RestaurantDescription desc : descriptions) {
-			if (desc.lang.equalsIgnoreCase(lang)) {
-				return desc.description;
-			}
-		}*/
-		if(desc == null || desc.isEmpty()){
-		return Messages.get("restaurant.nodescription");
-		}else {return desc;}
-	}
+    public void setAddress_id(Long address_id) {
+        this.address_id = address_id;
+    }
 
-	public String addressToString() {
-		// FIXME Hardcore workaround
-		return address != null ? address.toString() : Messages
-				.get("restaurant.noaddress");
-	}
+    public Integer getCategory_id() {
+        return category_id;
+    }
 
-	public String workHoursToday() {
-		return workHours.today();
-	}
+    public void setCategory_id(Integer category_id) {
+        this.category_id = category_id;
+    }
 
-	public String isOnlineAsString() {
-		return isOnline() ? Messages.get("restaurant.online") : Messages
-				.get("restaurant.offline");
-	}
+    public Integer getWorkhours_id() {
+        return workhours_id;
+    }
 
-	public String getTwoLetters() {
-		if (twoLetters == null || twoLetters.isEmpty())
-		{
-			return "VD";
-		} else 
-		return twoLetters;
-	}
-	public void setTwoLetters(String ltrs) {
-			twoLetters = ltrs;
-	}
+    public void setWorkhours_id(Integer workhours_id) {
+        this.workhours_id = workhours_id;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public boolean isShowOnIndex() {
+        return showOnIndex;
+    }
+
+    public void setShowOnIndex(boolean showOnIndex) {
+        this.showOnIndex = showOnIndex;
+    }
+
+    public Integer getRaiting() {
+        return raiting;
+    }
+
+    public void setRaiting(Integer raiting) {
+        this.raiting = raiting;
+    }
+
+    public String getDeviceLogin() {
+        return deviceLogin;
+    }
+
+    public void setDeviceLogin(String deviceLogin) {
+        this.deviceLogin = deviceLogin;
+    }
+
+    public String getDevicePassword() {
+        return devicePassword;
+    }
+
+    public void setDevicePassword(String devicePassword) {
+        this.devicePassword = devicePassword;
+    }
+
+    public DateTime getLastPing() {
+        return lastPing;
+    }
+
+    public void setLastPing(DateTime lastPing) {
+        this.lastPing = lastPing;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public String getTwoLetters() {
+        return twoLetters;
+    }
+
+    public void setTwoLetters(String twoLetters) {
+        this.twoLetters = twoLetters;
+    }
+
+    @Id
+    @GeneratedValue(generator = "restaurant_seq_gen", strategy = GenerationType.SEQUENCE)
+    private Integer id;
+
+    @Column(name = "city_id", insertable = false, updatable = false, nullable = false)
+    private Long city_id;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    @Deprecated
+    private City city;
+
+    @Column(name = "address_id", insertable = false, updatable = false, nullable = false)
+    private Long address_id;
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    @Deprecated
+    private Address address;
+
+    @Column(name = "category_id", insertable = false, updatable = false, nullable = false)
+    private Integer category_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    @Deprecated
+    private RestaurantCategory category;
+
+    @Column(name = "workhours_id", insertable = false, updatable = false, nullable = false)
+    private Integer workhours_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "workhours_id")
+    @Deprecated
+    private WorkHours workhours;
+    /**
+     * loginable power user id
+     */
+    @Column(name = "user_id", insertable = false, updatable = false, nullable = false)
+    private Long user_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @Deprecated
+    private User restaurantAdminUser;
+
+    @Column(name = "title")
+    private String title;
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false;
+    @Column(name = "showonindex", nullable = false)
+    private boolean showOnIndex = false;
+
+    /**
+     * logo image , ATTENTION! stores in /attachents/ dir
+     * Stored file entity ?
+     */
+    //TODO: public Blob logo;
+
+
+    /**
+     * Updates by job at 4 o'clock every day based on approved comments for past
+     * 30 days
+     */
+    @Column(name = "raiting", nullable = false)
+    private Integer raiting;
+
+    @Column(name = "deviceLogin", nullable = false)
+    private String deviceLogin;
+    @Column(name = "devicePassword", nullable = false)
+    private String devicePassword;
+
+    @Column(name = "lastPing")
+    private DateTime lastPing;
+    /**
+     * XXX should i store it here ? Restaurant setting ?
+     */
+    @Column(name = "discount")
+    private Integer discount;
+
+    @Column(name = "twoLetters", nullable = false, length = 2)
+    private String twoLetters;
+
+
+    public boolean isOnline() {
+        Boolean online = (Boolean) Cache.get("isOnline_" + id);
+        if (online == null) {
+            int waitTimeInMillisecond = 300000;
+            if (Logger.isDebugEnabled()){
+                Logger.debug(String.format("//TODO:get from system properties >>> %s", waitTimeInMillisecond));
+            }
+            /* Long.parseLong(PropertyVault
+                       .getSystemValueFor("pingTime"));*/
+
+            if (lastPing != null) {
+                online = System.currentTimeMillis() - lastPing.getMillis() < waitTimeInMillisecond;
+            } else {
+                // TODO Hardcore workaround on device null;
+                online = true;
+            }
+            int waitTimeInSeconds = (waitTimeInMillisecond / 1000 ) + 1;
+
+            Cache.set("isOnline_" + id, online, waitTimeInSeconds);
+        }
+        return online;
+    }
+
+    public String addressToString() {
+        // FIXME Hardcore workaround
+        return address != null ? address.toString() : Messages
+                .get("restaurant.noaddress");
+    }
+
+    public String isOnlineAsString() {
+        return isOnline() ? Messages.get("restaurant.online") : Messages
+                .get("restaurant.offline");
+    }
 
 }

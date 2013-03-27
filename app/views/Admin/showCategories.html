@@ -1,13 +1,21 @@
 #{extends 'main-admin.html' /}
 #{set 'c__itmCat'}active#{/set}
 #{set 'navHelp'}
-  <a href="@{Admin.addCategory}">ADD NEW !</a>
+<a href="@{Admin.addCategory}">ADD NEW !</a>
 #{/set}
 <table border="1">
-<tr> <th>Restaurant</th> <th>Name</th> <th>Description</th> <th>Actions</th> </tr>
+    <tr>
+        <th>Restaurant</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
 #{list items:categories, as:'cat'}
-<tr>
-<td>${cat.restaurant.title}(${cat.restaurant.id})</td><td>${cat.name}</td><td>${cat.description}</td> <td><a href="@{Admin.editCategory(cat.id)}">edit</a></td>
-</tr>
+    <tr>
+        <td>${cat.restaurant.title}</td>
+        <td>${cat.name}</td>
+        <td>${cat.description}</td>
+        <td><a href="@{Admin.editCategory(cat.id)}">edit</a></td>
+    </tr>
 #{/list}
 </table>

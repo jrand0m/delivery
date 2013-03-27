@@ -1,0 +1,99 @@
+@(restaurants: List[Restaurant], descriptions: Map[Integer, String], workHours: Map[Integer, time.WorkHours])
+@moreScripts = {
+    <script type="text/javascript">
+            /*var cngcty = function () {return @routes.Application.changeCity(1)
+            }();
+            var loupd = function () {return @routes.Application.getLastOrders(false)
+            }();*/
+    </script>
+    <script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/cookies.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/mustache.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/index.js")"></script>
+    <style>
+            div#wrapper div#wrapper_inner div#header div.header_bottom{display:none}
+    </style>
+
+
+    <script type="text/mustache" id="lotmpl">
+
+        <div class="zaraz_item"> <h2>
+                {{itm.s}} </h2> <h3>
+                {{itm.f}} </h3>
+            <p>
+                    {{itm.d}} </p>
+        </div>
+    </script>
+}@breadCrumb = {
+    <form class="search jNice wrap" action="#">
+        <label for="inpec01"> @Messages.apply("header.findyourrest") </label>
+        <div class="selWrap">
+            <p class="selText"></p>
+            <ul class="selDrop">
+            </ul>
+        </div>
+        <input type="text" value="" name="you_restraunt" id="inpec01" />
+        <input type="submit" class="submit" name="you_restraunt_submit" value="" />
+    </form >
+}
+@main(title = "Home")(moreScripts)(moreStyles = Html(""))(breadCrumb){
+    @for(restaurant <- restaurants) {
+
+        <div class="rest_item_prev">
+        <h1>
+        <b> @restaurant.getTitle() </b> <br />
+        <span> @restaurant.addressToString() </span>
+        <a> @restaurant.isOnlineAsString() </a>
+        </h1>
+        <div class="logo">
+        <i></i> <img class="logo" src="@routes.Application.serveLogo(restaurant.getId())" />
+        </div>
+        <p class="info"> @descriptions.get(restaurant.getId()) </p>
+            @defining(workHours.get(restaurant.getId())) { hours =>
+                <p class="work_time"> <b> Сьогодні </b> @hours.asInstanceOf[time.WorkHours].todayAsString()
+                <span>
+                    Понеділок
+                    @hours.asInstanceOf[time.WorkHours].monAsString() <br/>
+                    Вівторок
+                    @hours.asInstanceOf[time.WorkHours].tueAsString() <br/>
+                    Середа
+                    @hours.asInstanceOf[time.WorkHours].wedAsString() <br/>
+                    Четвер
+                    @hours.asInstanceOf[time.WorkHours].thuAsString() <br/>
+                    Пятниця
+                    @hours.asInstanceOf[time.WorkHours].friAsString() <br/>
+                    Субота
+                    @hours.asInstanceOf[time.WorkHours].satAsString() <br/>
+                    Неділя
+                    @hours.asInstanceOf[time.WorkHours].sunAsString()
+                    <br/>
+                </span>
+                </p>
+            }
+        <p class="dostavka"> Доставка <b> 15 грн </b> <span> @Messages.apply("common.basket.title") </span> </p>
+
+            <a class="menu_but" href="@routes.Application.showMenu(restaurant.getId())" title="@Messages.apply("common.viewRestMunu")"> @Messages.apply("common.menu")</a>
+</div>
+
+
+            }
+<div class="index_bottom">
+            @Messages.apply("common.3steps")
+    <div class="staps first">
+        <h3> <span> 1.</span> @Messages.apply("common.3steps.1title") </h3>
+        <p> @Messages.apply("common.3steps.1body") </p>
+    </div>
+    <div class="staps">
+        <h3> <span> 2.</span> @Messages.apply("common.3steps.2title") </h3>
+        <p> @Messages.apply("common.3steps.2body") </p>
+    </div>
+    <div class="staps">
+        <h3> <span> 3.</span> @Messages.apply("common.3steps.3title") </h3>
+        <p> @Messages.apply("common.3steps.3body") </p>
+    </div>
+    <div class="zaraz">
+        <h1> @Messages.apply("common.noworder") </h1>
+        <div class="zaraz_container">
+        </div>
+    </div>
+</div>
+}

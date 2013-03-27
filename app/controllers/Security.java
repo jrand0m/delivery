@@ -1,161 +1,145 @@
-/**
- * 
- */
 package controllers;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
-import models.users.EndUser;
+import com.google.inject.Injector;
 import models.users.User;
+import org.codehaus.jackson.node.ObjectNode;
 import play.Logger;
-import play.Play;
-import play.mvc.Controller;
-import play.utils.Java;
-import enumerations.LogActionType;
+import play.libs.Json;
+import play.mvc.*;
+import services.UserService;
+
+import javax.inject.Inject;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
+ * Security will be controller which performs login and logout functionality
+ * also maintains API's to login and logout via JSON request, or simple logins
+ * via HTML page.
+ * Authenticated user receives its own id in a signed session cookie with
+ * key <b>uid</b>.
+ *
  * @author Mike
- * 
  */
+
 public class Security extends Controller {
+    public static String USER_ID_SESSION_KEY = "u";
+    @Inject
+    static UserService userService;
 
-	/**
-	 * @Deprecated
-	 * 
-	 * @param username
-	 * @param password
-	 * @return
-	 */
-	static boolean authentify(String username, String password) {
-		throw new UnsupportedOperationException();
-	}
 
-	/**
-	 * This method is called during the authentication process. This is where
-	 * you check if the user is allowed to log in into the system. This is the
-	 * actual authentication process against a third party system (most of the
-	 * time a DB).
-	 * 
-	 * @param username
-	 * @param password
-	 * @return true if the authentication process succeeded
-	 */
-	static boolean authenticate(String username, String password) {
-		Logger.debug("Trying to login as %s", username);
-		// FIXME login by db
-		User user = User.find(User.HQL.BY_LOGIN_OR_EMAIL, username, username)
-				.first();
-		if (user != null && user.password.equals(password)) {
 
-			return true;
-		}
-		Logger.debug("Login failed.");
-		return false;
-	}
+    /*
+    * Provides signed login cookie
+    * */
+    public static Result authenticate(String username, String password, Boolean remember) {
+        if (Logger.isTraceEnabled()){
+            Logger.trace(String.format("Trying to login as %s", username));
+        }
+        ObjectNode response = Json.newObject();
+        long id = userService.verifyCredentials(username, password);
+        request().username();
+        if (userService.verifyCredentials(username, password) > 0) {
+            Logger.trace("Login Succeed.");
+            session(USER_ID_SESSION_KEY, username);
+            response.put("success", true);
+        } else {
+            Logger.trace("Login failed.");
+            session().remove(USER_ID_SESSION_KEY);
+            response.put("success", false);
+        }
 
-	/**
-	 * This method checks that a profile is allowed to view this page/method.
-	 * This method is called prior to the method's controller annotated with the @Check
-	 * method.
-	 * 
-	 * @param profile
-	 * @return true if you are allowed to execute this controller method.
-	 */
-	public static boolean check(Class<? extends User> userClass) {
-		if (isConnected()) {
-			User user = User.find(EndUser.HQL.BY_LOGIN, connected()).first();
-			if (userClass.isInstance((user))){
-				renderArgs.put("user", user);
-				return true;
-			}
-			return false;
-		}
-		return false;
-	}
+        return ok(response.toString()).as("application/json");
+    }
 
-	/**
-	 * This method returns the current connected username
-	 * 
-	 * @return
-	 */
-	static String connected() {
-		return session.get("username");
-	}
+    public static Result logout() {
+        return TODO;
+    }
+    public static Result login() {
+        return TODO;
+    }
 
-	/**
-	 * Indicate if a user is currently connected
-	 * 
-	 * @return true if the user is connected
-	 */
-	static boolean isConnected() {
-		return session.contains("username");
-	}
 
-	/**
-	 * This method is called after a successful authentication. You need to
-	 * override this method if you with to perform specific actions (eg. Record
-	 * the time the user signed in)
-	 */
-	static void onAuthenticated() {
-		if (session.contains("username")) {
-			User user = User.find(User.HQL.BY_LOGIN, session.get("username"))
-					.first();
-			if (user == null) {
-				badRequest();
-			}
-			String url = user.landingUrl();
-			if (url != null) {
-				flash.put("url", url);
-			}
+    /**
+     * Wraps the annotated action in an <code>AuthenticatedAction</code>.
+     */
+    @With(AuthenticatedAction.class)
+    @Target({ElementType.TYPE, ElementType.METHOD})
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Authenticated {
+        Class<? extends AbstractAuthenticator> value() default AbstractAuthenticator.class;
+    }
 
-		} else {
-			helpers.Logger.logSystemWarn(LogActionType.INFO,
-					"Strange behaviour on auth: signed in but no username. %s",
-					request.remoteAddress);
-		}
-	}
+    public static class AuthenticatedAction extends Action<Authenticated> {
 
-	/**
-	 * This method is called before a user tries to sign off. You need to
-	 * override this method if you wish to perform specific actions (eg. Record
-	 * the name of the user who signed off)
-	 */
-	static void onDisconnect() {
-	}
+        public Result call(Http.Context ctx) {
+            try {
+                AbstractAuthenticator authenticator = configuration.value().newInstance();
+                String username = authenticator.getUsername(ctx);
+                if(username == null) {
+                    return authenticator.onUnauthorized(ctx, delegate);
+                } else {
+                    try {
+                        ctx.request().setUsername(username);
+                        return delegate.call(ctx);
+                    } finally {
+                        ctx.request().setUsername(null);
+                    }
+                }
+            } catch(RuntimeException e) {
+                throw e;
+            } catch(Throwable t) {
+                throw new RuntimeException(t);
+            }
+        }
 
-	/**
-	 * This method is called after a successful sign off. You need to override
-	 * this method if you wish to perform specific actions (eg. Record the time
-	 * the user signed off)
-	 */
-	static void onDisconnected() {
-	}
+    }
 
-	/**
-	 * This method is called if a check does not succeed. By default it shows
-	 * the not allowed page (the controller forbidden method).
-	 * 
-	 * @param profile
-	 */
-	static void onCheckFailed(Class<?extends User> profile) {
-		forbidden();
-	}
 
-	static Object invoke(String m, Object... args) throws Throwable {
-		Class security = null;
-		List<Class> classes = Play.classloader
-				.getAssignableClasses(Security.class);
-		if (classes.size() == 0) {
-			security = Security.class;
-		} else {
-			security = classes.get(0);
-		}
-		try {
-			return Java.invokeStaticOrParent(security, m, args);
-		} catch (InvocationTargetException e) {
-			throw e.getTargetException();
-		}
-	}
+    public static class LoggedInOrCreateAnonymous extends AbstractAuthenticator {
+
+        @Override
+        public Result onUnauthorized(Http.Context ctx, Action delegate) throws Throwable{
+            User u = getUserService().createAnonymousUser();
+            ctx.session().put(USER_ID_SESSION_KEY,u.phoneNumber);
+            return delegate.call(ctx);
+        }
+    }
+
+    /**
+     * Basic authentication handler
+     */
+    public static abstract class AbstractAuthenticator extends Results {
+
+        private static Injector injector;
+
+        final protected UserService getUserService(){
+            return injector.getInstance(UserService.class);
+        }
+
+        final public static void setInjector(Injector injector) {
+            if (injector != null)
+                AbstractAuthenticator.injector = injector;
+        }
+
+        /**
+         * Retrieves the username from the HTTP context; the default is to read from the session cookie.
+         * @todo null is bad idea :/
+         * @return null if the user is not authenticated.
+         */
+        public String getUsername(Http.Context ctx) {
+            return ctx.session().get(USER_ID_SESSION_KEY);
+        }
+
+        /**
+         * Generates an alternative result if the user is not authenticated;
+         * the default a simple '401 Not Authorized' page.
+         */
+        public Result onUnauthorized(Http.Context ctx, Action delegate) throws Throwable {
+            return unauthorized(views.html.defaultpages.unauthorized.render());
+        }
+    }
 
 }

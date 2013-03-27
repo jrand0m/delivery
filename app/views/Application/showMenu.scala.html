@@ -1,0 +1,186 @@
+@(restaurant: Restaurant, menu: Map[MenuItemGroup, List[MenuItem]])
+
+@moreScripts = {
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/jquery.fancybox-1.3.4.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/jquery.floatobject-1.0.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/inputs_and_labels.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/jquery.jNice.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/jquery.mousewheel-3.0.4.pack.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/mustache.min.js")"></script>
+
+<script type="text/javascript">
+        var subdue = function(options, pt) {var pattern = pt; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern }
+
+        var uu = function(opt) { return subdue(opt, '/order/list.php?chart=:chart')};
+        var cu = function(opt) { return '/show/comp.php' };
+        var au = function(opt) { return '/order/add.php' };
+        var du = function(opt) { return '/order/cng.php' };
+        var rid = @restaurant.getId() +0;
+</script>
+<script type="text/html" id="cmfrtmp">
+    <div class="ing_popup" id="ing_popup">
+        <h1>{{i.nm}}</h1>
+
+        <p>{{i.dc}}</p>
+
+        <form class="jNice">
+            <input type="hidden" id="basePc" value="{{i.pc}}"/>
+            <table class="wrapper">
+                <tr class="ing_headr">
+                    <th colspan="6">@Messages.apply("common.additionalComponents")</th>
+                </tr>
+                {{i.tb}}
+                <tr class="total">
+                    <td><span class="txt">@Messages.apply("common.basket.all")</span></td>
+                    <td colspan="4"></td>
+                    <td class="price">+{{i.pcd}} @Messages.apply("common.uah")</td>
+                </tr>
+                <tr class="button">
+                    <td colspan="6">
+                        <div onclick="Basket.add({{i.no}})">@Messages.apply("common.basket.add")</div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</script>
+<script type="text/html" id="rotmp">
+    <tr>
+        <td colspan="3">
+            <table>{{i.l}}</table>
+        </td>
+        <td colspan="3">
+            <table>{{i.r}}</table>
+        </td>
+    </tr>
+</script>
+<script type="text/html" id="dtmp">
+    <tr>
+        <td>{{#d.id}}
+            <input type="checkbox" id="ck{{d.id}}" onClick="toggle(this);"/>
+            {{/d.id}}
+        </td>
+        <td><label for="ck{{d.id}}">
+                {{d.nm}}
+        </label></td>
+        <td class="price">
+            {{#d.pr}}
+                +{{d.pr}} @Messages.apply("common.uah")
+            {{/d.pr}}
+        </td></tr>
+</script>
+<script type="text/html" id="ittmp">
+    <tr>
+        <th><span class="delete" onclick="Basket.cng({{id}},-1)"></span></th>
+        <td><p>{{nm}}</p>
+
+            <p class="descr">{{de}}</p></td>
+        <td>{{pc}} @Messages.apply("common.uah")</td>
+    </tr>
+</script>
+<script type="text/html" id="dptmp">
+    <tr class="total total2">
+        <th></th>
+        <td><p>@Messages.apply("common.basket.delivery")</p></td>
+        <td>{{pc}} @Messages.apply("common.uah")</td>
+    </tr>
+</script>
+<script type="text/html" id="tptmp">
+    <tr class="total">
+        <th></th>
+        <td><p>Загальна сумма</p></td>
+        <td>{{pc}} @Messages.apply("common.uah")</td>
+    </tr>
+</script>
+<script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/menu.js")"></script>
+}
+
+@main(title = restaurant.getTitle())(moreScripts)(moreStyles = Html(""))(breadCrumb = Html("")) {
+
+<div class="left_cont restMenu">
+    <div class="rest_menu">
+        <h1>
+            @restaurant.getTitle()
+            <span>@restaurant.addressToString()</span>
+            <a>@restaurant.isOnlineAsString()</a>
+        </h1>
+        <table>
+            <tr>
+                @for( item <- menu.keys){
+                         <td><a href="#@item.anchorName()">@item.name</a></td>
+                }
+            </tr>
+
+        </table>
+    </div>
+
+
+    @for(grp <- menu.keys) {
+        <div class="det_rest_menu">
+            <a class="anchor_link" name="@grp.anchorName()"></a>
+
+            <h1>@grp.name</h1>
+            <table> <!-- class="od" -->
+            @defining(menu.get(grp)) { list =>
+                @for(i <- 0 until list.size() ){
+                    @defining(list.get(i)) { itm =>
+
+                        <tr onclick="add(@itm.id +0, @itm.showComponents )"
+                        @defining(i%2!=0){ odd =>
+                            @odd match {
+                                case true => {
+                                     class="od"
+                                }
+                                case false => {
+                                     class="even"
+                                }
+                            }
+                        }
+                        >
+
+                            <th><a id="a@itm.id" class="ingredient_popup_but" title="@Messages.apply("common.basket.buttonTitle")"></a></th>
+                            <td>
+                                <p>@itm.name</p>
+
+                                <p class="descr">@itm.description</p>
+                            </td>
+                            <td>@Html(itm.price()) @Messages.apply("common.uah")</td>
+                        </tr>
+                    }
+                }
+            }
+            </table>
+        </div>
+    }
+</div>
+<div class="right_cont">
+    <div class="right_block" id="basket">
+        <div><h1><!--  --></h1></div>
+        <div class="rb_cont">
+            <form action="@routes.Application.checkout(1)">
+                <table>
+                    <tr class="total total2">
+                        <tr align="center">
+                            <td colspan="2" align="center"><img src="@routes.Assets.at("/public", "images/ajax-loader-2.gif")"/></td>
+                        </tr>
+                        <th></th>
+                        <td>
+                            <p>@Messages.apply("common.basket.delivery")</p>
+                        </td>
+                        <td>-- @Messages.apply("common.uah")</td>
+                    </tr>
+                    <tr class="total">
+                        <th></th>
+                        <td>
+                            <p>Загальна сумма</p>
+                        </td>
+                        <td> -- @Messages.apply("common.uah")</td>
+                    </tr>
+                </table>
+                <input type="submit" value="@Messages.apply("common.basket.go")"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+}
