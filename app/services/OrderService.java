@@ -19,10 +19,18 @@ public interface OrderService {
 
     City getOrdersCity(Order order);
 
+    /**
+     *  gets current order for specified user and restaurant
+     *  if no order found will call <b>createNewOpenOrderFor</b>
+     *  @param userId - user provided id (see models.User.GET_USER_ID_FIELD_NAME())
+     *  @param restaurantId - internal id of restaurant
+     * */
     Order getCurrentOrderFor(String userId, Integer restaurantId);
 
     /**
      * Will close all open orders before creating new one
+     *  @param userId - user provided id (see models.User.GET_USER_ID_FIELD_NAME())
+     *  @param restaurantId - internal id of restaurant
      * */
     Order createNewOpenOrderFor(String userId, Integer restaurantId);
 

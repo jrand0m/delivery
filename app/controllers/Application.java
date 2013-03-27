@@ -9,6 +9,7 @@ import play.mvc.Result;
 import services.*;
 import views.html.Application.index;
 import views.html.Application.showMenu;
+import org.codehaus.jackson.node.ObjectNode;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -465,25 +466,13 @@ public class Application extends Controller {
            */
           String userId = session(Security.USER_ID_SESSION_KEY);
           Order order = orderService.getCurrentOrderFor(userId, chart);
-          if (order == null){}
+          if (order == null){
+            return notFound();
+          }
           //todo next continue here ->
+          ObjectNode json = basketService.getBasketAsJSON(order);
 
-//        notFoundIfNull(chart);
-//        Order order = null;
-//        User user = (User) renderArgs.get(RENDER_KEYS.USER);
-//        if (user == null) {
-//            user = userService.createAnonymousUser();
-//            session.put("username", user.login);
-//        }
-//        Restaurant restaurant = restaurantService.getById(chart);
-//        notFoundIfNull(restaurant);
-//        order = orderService.getCurrentOrderFor(user, restaurant);
-//        if (order == null) {
-//            order = orderService.createNewOpenOrderFor(user, restaurant);
-//        }
-//        BasketJSON json = basketService.getBasketAsJSON(order);
-//        renderJSON(json);
-        return TODO;
+        return ok(json);
     }
 
     public  Result serveLogo(Integer id) {

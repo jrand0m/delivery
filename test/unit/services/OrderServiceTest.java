@@ -21,6 +21,7 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -65,9 +66,22 @@ public class OrderServiceTest {
         assertFalse("TODO", true);
     }
 
-    @Test @Ignore
+    @Test
     public void getCurrentOrderFor_returnsNullInCaseOfInValidUserOrRestaurant() {
-        assertFalse("TODO", true);
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+                Ebean.beginTransaction();
+                User u = userService.createAnonymousUser();
+                Order o = service.getCurrentOrderFor(u.phoneNumber, -2);
+                assertThat(o, nullValue());
+                Ebean.rollbackTransaction();
+                Ebean.beginTransaction();
+                o = service.getCurrentOrderFor("=-=-=-=-", 1);
+                assertThat(o, nullValue());
+                Ebean.rollbackTransaction();
+            }
+        });
     }
 
 

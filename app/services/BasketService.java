@@ -3,6 +3,7 @@ package services;
 import models.Order;
 import models.dto.extern.BasketJSON;
 import models.dto.extern.MenuCompWrapJson;
+import org.codehaus.jackson.node.ObjectNode;
 
 /**
  * User: Mike Stetsyshyn
@@ -14,5 +15,5 @@ import models.dto.extern.MenuCompWrapJson;
 public interface BasketService {
     MenuCompWrapJson getComponentsForMenuItem(Long id);
 
-    BasketJSON getBasketAsJSON(Order order);
+    ObjectNode getBasketAsJSON(Order order);
 }
