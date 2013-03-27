@@ -18,7 +18,7 @@ import javax.persistence.*;
 import java.math.RoundingMode;
 
 @Entity
-@Table(name = "vd_orders")
+@Table(name = "vd_order")
 @SequenceGenerator(name = "orders_seq_gen", sequenceName = "orders_seq")
 public class Order extends Model {
 
