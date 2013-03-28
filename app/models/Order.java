@@ -16,6 +16,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.math.RoundingMode;
+import java.util.UUID;
 
 @Entity
 @Table(name = "vd_order")
@@ -90,7 +91,7 @@ public class Order extends Model {
     @Column(name = "orderTaken")
     public LocalDateTime orderTaken;
 
-    @Column(name = "updated_at")
+    @Column(name = "updatedat")
     public DateTime updatedAt;
     /**
      * is set + time told by client
@@ -116,7 +117,7 @@ public class Order extends Model {
      * User who made this order
      */
     @Column(name = "order_owner_id")
-    public Long order_owner_id;
+    public UUID order_owner_id;
     @ManyToOne
     @JoinColumn(name = "order_owner_id")
     @Deprecated
@@ -129,7 +130,7 @@ public class Order extends Model {
     @Deprecated
     public Restaurant restaurant;
     @Column(name = "confirmed_courier_id")
-    public Long confirmed_courier_id;
+    public UUID confirmed_courier_id;
     @ManyToOne
     @JoinColumn(name = "confirmed_courier_id")
     @Deprecated

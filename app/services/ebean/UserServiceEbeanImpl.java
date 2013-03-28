@@ -44,6 +44,9 @@ public class UserServiceEbeanImpl implements UserService{
 
     @Override
     public User insertUser(User user) {
+        if(!Ebean.getBeanState(user).isNew()){
+            return Ebean.find(User.class).where().idEq(user.id).findUnique();
+        }
         user.password = StringUtils.defaultString(Crypto.passwordHash(user.password));
         user.createdDate = null; // this field will be set by db
         user.updatedDate = new LocalDateTime(); // this field will be set by db

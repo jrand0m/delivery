@@ -4,6 +4,7 @@ import enumerations.UserType;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * @author Mike
@@ -19,8 +20,7 @@ public class User {
     public static String GET_USER_ID_FIELD_NAME(){return "phoneNumber";}
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(generator = "user_seq_gen", strategy = GenerationType.SEQUENCE)
-    public Long id;
+    public UUID id;
 
     //todo:@Required
     //todo:@Max(255)

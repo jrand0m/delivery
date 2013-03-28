@@ -13,6 +13,8 @@ import services.UserService;
 
 import javax.inject.Inject;
 
+import java.util.UUID;
+
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -41,7 +43,7 @@ public class UserServiceTest {
             public void run() {
                 User user = service.getUserByLogin("+380630683088");
                 assertNotNull("User must not be null", user);
-                assertThat("User Id must be set", user.id, equalTo(new Long(43)));
+                assertThat("User Id must be set", user.phoneNumber, notNullValue());
                 assertThat("User login must be set", user.login, equalTo("mickey123"));
                 assertThat("user email must be set", user.email, equalTo("jays.demons@gmail.com"));
                 assertThat("user phoneNumber Must be set", user.phoneNumber, equalTo("+380630683088"));
@@ -105,7 +107,7 @@ public class UserServiceTest {
             public void run() {
                 User u = service.createAnonymousUser();
                 assertNotNull(u);
-                assertThat("Anon user must have an id ", u.id, allOf(notNullValue(Long.class)));
+                assertThat("Anon user must have an id ", u.id, allOf(notNullValue(UUID.class)));
                 assertThat("login is not null and is not empty", u.login, allOf(notNullValue(String.class), not(equalTo(""))));
                 assertThat("email is empty but not null", u.email, equalTo(""));
                 assertThat("Default password for anon is its generated name", u.password, equalTo(Crypto.passwordHash(u.login)));

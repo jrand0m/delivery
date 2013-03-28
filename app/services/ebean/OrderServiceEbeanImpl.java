@@ -35,7 +35,9 @@ public class OrderServiceEbeanImpl implements OrderService {
     public Order getCurrentOrderFor(final String userId, final Integer restaurantId) {
         Order order;
         User u = Ebean.find(User.class).where().eq(User.GET_USER_ID_FIELD_NAME(),userId).findUnique();
-
+        if(u == null){
+            return null;
+        }
         List<Order> list = Ebean.find(Order.class)
                 .where().eq("order_owner_id", u.id).eq("restaurant_id",restaurantId).eq("orderStatus", OrderStatus.OPEN).orderBy().asc("orderCreated").setMaxRows(1).findList();
         if (list.size()==0){
@@ -89,7 +91,7 @@ public class OrderServiceEbeanImpl implements OrderService {
 
     @Override
     public void update(Order order) {
-        throw new UnsupportedOperationException("Implement Me");
+        Ebean.update(order);
     }
 
     @Override

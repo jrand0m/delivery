@@ -1,12 +1,13 @@
 import sbt._
 import play.Project._
 import com.typesafe.config._
+import de.johoop.jacoco4sbt.JacocoPlugin._
 
 object ApplicationBuild extends Build {
 
   val appName = "vdoma"
   val appVersion = scala.util.Properties.envOrElse("appVersion", "999.0-SNAPSHOT" )
-
+  lazy val s = Defaults.defaultSettings ++ Seq(jacoco.settings:_*)
   val appDependencies = Seq(
     // Add your project dependencies here,
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
@@ -22,8 +23,8 @@ object ApplicationBuild extends Build {
 
   )
 
-  val main = play.Project(appName, appVersion, appDependencies).settings(
-    // Add your own project settings here
+  val main = play.Project(appName, appVersion, appDependencies, settings = s).settings(
+        //parallelExecution in jacoco.Config := false
   )
 
 }

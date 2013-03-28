@@ -1,12 +1,8 @@
 --// create addresses table and sequence
 # --- !Ups
-CREATE SEQUENCE user_seq
- INCREMENT 1
- START 1001;
-
 
 CREATE TABLE vd_user (
-  id          int8 NOT NULL DEFAULT nextval('user_seq') PRIMARY KEY,
+  id          uuid NOT NULL DEFAULT uuid_generate_v4() PRIMARY KEY,
   login       varchar(255)  not null,
   email       varchar(255),
   phoneNumber varchar(255)  not null,
@@ -24,5 +20,3 @@ CREATE TABLE vd_user (
 --//@UNDO
 # --- !Downs
 DROP TABLE vd_user;
-
-DROP SEQUENCE user_seq;

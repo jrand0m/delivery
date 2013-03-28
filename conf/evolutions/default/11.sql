@@ -19,7 +19,7 @@ CREATE TABLE vd_restaurant (
   address_id      int8 not null,
   category_id     int4 not null,
   workhours_id    int4 not null,
-  user_id         int8 not null,
+  user_id         uuid not null,
   FOREIGN KEY ( city_id ) REFERENCES vd_city (city_id),
   FOREIGN KEY ( address_id ) REFERENCES vd_address (address_id),
   FOREIGN KEY ( category_id ) REFERENCES vd_restaurants_categories (id),
