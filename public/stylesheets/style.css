@@ -61,7 +61,7 @@ div.rest_item_prev{width: 230px; margin-left: 11px; padding-bottom: 20px; float:
 div.rest_item_prev:first-child{margin-left: 15px}
 div.rest_item_prev h1{position: relative; background: url(/public/images/main_gray.png); font-size: 23px; font-weight: normal;  height: 40px; line-height: 17px; padding: 3px 10px; border-radius:3px 3px 0 0; }
 div.rest_item_prev h1 span{font-size: 13px; width:140px; white-space:nowrap; display: inline-block; overflow: hidden;}
-div.rest_item_prev h1 b{display: inline-block;font-weight: normal; height: 20px; overflow: hidden; white-space: nowrap; width: 210px; font-size: 17px; font-family: "Roboto"}
+div.rest_item_prev h1 b{display: inline-block;font-weight: normal; height: 20px; overflow: hidden; white-space: nowrap; width: 210px; font-size: 17px; font-family: "Roboto"; }
 div.rest_item_prev h1 a{display: none;font-family: Arial; font-size: 13px;position: absolute; right: 10px; top: 25px;}
 div.rest_item_prev div.logo{height: 110px; position: relative; width: 210px; padding: 10px 10px 0 10px; text-align: center; display: table-cell; vertical-align: middle;}
 div.rest_item_prev div.logo i{display: inline-block; height: 100%; vertical-align: middle;}
@@ -122,13 +122,13 @@ div#login {width: 220px; display: table; }
 div#login h1{position: relative; line-height: 20px; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
 div#login form{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
 div#login div.linner{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
-div#login input[type="text"], div#login input[type="password"]{font-family: 'Roboto',Sans-Serif; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; border: 1px solid #b3b3b3;}
+div#login input[type="text"], div#login input[type="password"]{font-family: "Roboto" ,Sans-Serif; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; border: 1px solid #b3b3b3;}
 div#login input[type="text"]{margin-bottom: 2px;}
 div#login p.tl label{float: left; cursor: text; margin-bottom: -22px; margin-left: 10px; position: relative; top: 13px; z-index: 2;}
 div#login p.error{text-align: center; color: red; font-size: 14px; text-decoration: blink;}
 div#login p#remember-field{margin-bottom: -10px;}
-div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px;float: left; font-family: 'Roboto',Sans-Serif; padding:5px ;margin-top: 15px; width: 191px;}
-div#login div input[type="submit"]{margin: 10px 0;background: #fff; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Roboto',Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
+div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px;float: left; font-family: "Roboto" ,Sans-Serif; padding:5px ;margin-top: 15px; width: 191px;}
+div#login div input[type="submit"]{margin: 10px 0;background: #fff; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: "Roboto" ,Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 665px; float: left; margin-bottom: 15px;margin-left:10px;border-radius:3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(/public/images/main.png);box-shadow:0px 1px 3px #666; line-height: 34px; font-size: 17px; font-weight: normal; height: 34px; padding: 3px 10px; border-radius:3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 span{font-size: 13px; margin-left: 7px;}
@@ -247,11 +247,11 @@ div#wrapper div#wrapper_inner div#content div.index_bottom{ background: #fff url
 div#wrapper div#wrapper_inner div#content div.index_bottom h2{font-weight: normal; font-size: 25px;margin-left:15px;}
 div#wrapper div#wrapper_inner div#content div.index_bottom div.staps{margin-top: 20px; width: 297px; float: left; margin-left: 35px;}
 div#wrapper div#wrapper_inner div#content div.index_bottom div.first{margin-left: 10px;}
-div#wrapper div#wrapper_inner div#content div.index_bottom div.staps h3{color:#333;font-size: 20px; font-weight: normal; line-height: 30px; margin-bottom: 10px; font-family: "Roboto"}
+div#wrapper div#wrapper_inner div#content div.index_bottom div.staps h3{color:#333;font-size: 20px; font-weight: normal; line-height: 30px; margin-bottom: 10px; font-family: "Roboto"; }
 div#wrapper div#wrapper_inner div#content div.index_bottom div.staps h3 span{ font-family: "Ubuntu Condensed"; color: #BE2424; display: inline-block; font-size: 26px; height: 25px; line-height: 31px; text-indent: 2px; width: 31px;}
 div#wrapper div#wrapper_inner div#content div.index_bottom div.staps p{color: #333333; font-size: 13px; line-height: 19px; padding-left: 30px;}
 div#wrapper div#wrapper_inner div#content div.zaraz{float: right; margin-top: 40px; width: 291px;margin-right:15px;}
-div#wrapper div#wrapper_inner div#content div.zaraz h1{color: #BE2424; margin-bottom: 10px; font-size: 19px; font-weight:normal; font-family:"Roboto"}
+div#wrapper div#wrapper_inner div#content div.zaraz h1{color: #BE2424; margin-bottom: 10px; font-size: 19px; font-weight:normal; font-family:"Roboto"; }
 div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item{margin-bottom: 2px; width: 289px; height: 73px; overflow: hidden; border: 1px solid #e83f0b; background-color: #fff;}
 div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item h2{float: left;margin-left:0; background-color: #e83f0b; width: 73px; height: 73px; text-align: center; line-height: 73px;  margin-right: 5px; color: #fff; font-weight: normal; font-size: 47px;}
 div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item h3{font-size: 15px;}
