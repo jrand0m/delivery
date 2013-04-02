@@ -130,7 +130,7 @@ div#login p#remember-field{margin-bottom: -10px;}
 div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px;float: left; font-family: "Roboto" ,Sans-Serif; padding:5px ;margin-top: 15px; width: 191px;}
 div#login div input[type="submit"]{margin: 10px 0;background: #fff; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: "Roboto" ,Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 665px; float: left; margin-bottom: 15px;margin-left:10px;border-radius:3px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu .h1 {position: relative; border: 1px solid #aaa; height: 30px; padding: 3px 10px; border-radius:3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu .h1 {position: relative; border: 1px solid #aaa;  padding: 3px 10px; border-radius:3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu .h1 .h2{position: relative; font-size: 17px; font-weight: normal; border-bottom:2px solid #eee }
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu .h2:hover{cursor: pointer; border-bottom:2px solid #848484; }
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu .h1 span{font-size: 13px; margin-left: 7px;}
