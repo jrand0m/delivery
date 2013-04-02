@@ -7,6 +7,7 @@ import models.geo.City;
 import models.users.User;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * User: Mike Stetsyshyn
@@ -25,14 +26,14 @@ public interface OrderService {
      *  @param userId - user provided id (see models.User.GET_USER_ID_FIELD_NAME())
      *  @param restaurantId - internal id of restaurant
      * */
-    Order getCurrentOrderFor(String userId, Integer restaurantId);
+    Order getCurrentOrderFor(UUID userId, Integer restaurantId);
 
     /**
      * Will close all open orders before creating new one
      *  @param userId - user provided id (see models.User.GET_USER_ID_FIELD_NAME())
      *  @param restaurantId - internal id of restaurant
      * */
-    Order createNewOpenOrderFor(String userId, Integer restaurantId);
+    Order createNewOpenOrderFor(UUID userId, Integer restaurantId);
 
     void deleteOrderItem(OrderItem itm);
 

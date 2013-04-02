@@ -37,9 +37,9 @@ public class OrderServiceEbeanImpl implements OrderService {
     }
 
     @Override
-    public Order getCurrentOrderFor(final String userId, final Integer restaurantId) {
+    public Order getCurrentOrderFor(final UUID userId, final Integer restaurantId) {
         Order order;
-        User u = Ebean.find(User.class).where().eq(User.GET_USER_ID_FIELD_NAME(),userId).findUnique();
+        User u = Ebean.find(User.class).where().eq("id",userId).findUnique();
         if(u == null){
             return null;
         }
@@ -48,6 +48,9 @@ public class OrderServiceEbeanImpl implements OrderService {
         if (list.size()==0){
 
             order = createNewOpenOrderFor(userId,restaurantId);
+            if (Logger.isDebugEnabled()){
+                Logger.debug(String.format("created new OPEN order for [user=%s, restaurant=%s, order=%s]",userId,restaurantId,order));
+            }
             order = insertOrder(order);Logger.warn("there must be tes for me !");
         } else {
             order = list.get(0);
@@ -56,9 +59,9 @@ public class OrderServiceEbeanImpl implements OrderService {
     }
 
     @Override
-    public Order createNewOpenOrderFor(final String userId, final Integer restaurantId) {
+    public Order createNewOpenOrderFor(final UUID userId, final Integer restaurantId) {
         
-        User u = Ebean.find(User.class).where().eq(User.GET_USER_ID_FIELD_NAME(),userId).findUnique();
+        User u = Ebean.find(User.class).where().eq("id",userId).findUnique();
         Restaurant restaurant = Ebean.find(Restaurant.class).where().eq("id",restaurantId).findUnique();
         if (u == null || restaurant == null){
             return null;
