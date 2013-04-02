@@ -114,6 +114,14 @@ function initialize() {
     
 }
 initialize();
+!function ($) {
+    
+    $(function(){
+$('.h2').click( function(){
+	$(this).next().slideToggle();
+});
+    })
+}(window.jQuery)
 </script>
 }
 
@@ -123,10 +131,10 @@ initialize();
     <div class="rest_menu">
         <div class="h1">
             <div class="h2">@restaurant.getTitle()
-            <span>@restaurant.addressToString()</span>
-            <a class="info">ще &#8595;</a></div>
+            <span>@restaurant.addressToString() </span> &#8595;
+			</div>
 		<div class="forsquare">
-			<div id="uk_office" style="width: 100%; height: 200px;"></div>
+			<div id="uk_office" style="width: 100%; height: 220px;"></div>
 		</div>
 			
             <a>@restaurant.isOnlineAsString()</a>
