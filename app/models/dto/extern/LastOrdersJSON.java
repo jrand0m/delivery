@@ -4,13 +4,6 @@ import models.Order;
 
 public class LastOrdersJSON {
 
-    public LastOrdersJSON(Order ord) {
-        s = ord.restaurant.getTwoLetters();
-        f = ord.restaurant.getTitle();
-        fid = ord.restaurant.getId();
-        d = ord.oneLineDescription();
-    }
-
     /**
      * Short letters of rest
      */

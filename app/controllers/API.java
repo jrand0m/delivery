@@ -20,6 +20,7 @@ import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import services.CalculationsService;
 import services.OrderService;
 import services.RestaurantService;
 import services.UserService;
@@ -42,6 +43,9 @@ public class API extends Controller {
     private static OrderService orderService;
     @Inject
     private static UserService userService;
+    @Inject
+    private static CalculationsService calculationsService;
+
 
     public static Result g(Long from) {
 
@@ -71,14 +75,14 @@ public class API extends Controller {
             ObjectNode job = Json.newObject();
             job.put("id", String.valueOf(order.id));
             job.put("status" , order.orderStatus.toString());
-            job.put("price" , convertMoneyToCents(order.getMenuTotal()));
+            job.put("price" , calculationsService.getMenuTotalFor(order.id).getAmountMinorInt());
             job.put("paymentStatus",  order.paymentStatus.toString());
             job.put("time", order.orderConfirmed.toDateTime().toDate().getTime());
             job.put("timeToFinish", order.orderStatus == OrderStatus.ACCEPTED ? new Period(order.orderAccepted.plus(order.orderPlanedCooked), new LocalDateTime(), PeriodType.minutes())
                     .toStandardMinutes().getMinutes()
                     : null);
             ArrayNode list = job.putArray("list");
-            for (OrderItem oi : orderService.getItems(order)) {
+            for (OrderItem oi : orderService.getItems(order.id)) {
                 ObjectNode item = Json.newObject();
                 item.put("count",oi.count );
                 item.put("name", oi.menuItem.name);
@@ -124,8 +128,8 @@ public class API extends Controller {
                 job.status = order.orderStatus.toString();
             }
 
-            job.price = convertMoneyToCents(order.getMenuTotal());
-            job.customerPrice = convertMoneyToCents(order.getGrandTotal());
+            job.price = calculationsService.getMenuTotalFor(order.id).getAmountMinorInt();
+            job.customerPrice = calculationsService.getOrderPriceTotalForUser(order.id).getAmountMinorInt();
             job.paymentStatus = order.paymentStatus.toString();
             job.time = order.updatedAt.toDate().getTime();
             job.timeToFinish = order.orderStatus == OrderStatus.ACCEPTED ?
@@ -144,7 +148,7 @@ public class API extends Controller {
                     : order.deliveryAddress.toString();
             job.timeToDelivered = order.orderStatus.equals(OrderStatus.DELIVERING) || order.orderStatus.equals(OrderStatus.COOKED) ?
                     order.orderCooked.plus(order.orderPlanedDeliveryTime).toDateTime().toDate().getTime() : 0;
-            for (OrderItem oi : orderService.getItems(order)) {
+            for (OrderItem oi : orderService.getItems(order.id)) {
                 job.list.add(new MenuItem(oi));
             }
             job.phone = order.orderOwner.phoneNumber;
@@ -160,7 +164,7 @@ public class API extends Controller {
 
         Logger.debug(String.format("p in message = %s", Json.stringify(message)));
         PushMessage p = Json.fromJson(message, PushMessage.class);
-        if (p.id == null || p.id.length() < 8) {
+        if (p.id == null) {
             return notFound();
         }
         User user = (User) userService.getUserByLogin(session("login"));

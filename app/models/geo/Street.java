@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class Street extends Model {
 
 
+    public static final Long NO_STREET_ID = -1L;
     @Id
     @Column(name = "street_id")
     @GeneratedValue(generator = "street_seq_gen", strategy = GenerationType.SEQUENCE)

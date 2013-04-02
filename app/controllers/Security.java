@@ -40,7 +40,6 @@ public class Security extends Controller {
         }
         ObjectNode response = Json.newObject();
         long id = userService.verifyCredentials(username, password);
-        request().username();
         if (userService.verifyCredentials(username, password) > 0) {
             Logger.trace("Login Succeed.");
             session(USER_ID_SESSION_KEY, username);
@@ -103,7 +102,7 @@ public class Security extends Controller {
         @Override
         public Result onUnauthorized(Http.Context ctx, Action delegate) throws Throwable{
             User u = getUserService().createAnonymousUser();
-            ctx.session().put(USER_ID_SESSION_KEY,u.phoneNumber);
+            ctx.session().put(USER_ID_SESSION_KEY,u.id.toString());
             return delegate.call(ctx);
         }
     }

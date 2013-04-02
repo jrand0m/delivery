@@ -1,16 +1,21 @@
 package services.ebean;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.InvalidValue;
 import enumerations.OrderStatus;
 import models.Order;
 import models.OrderItem;
 import models.Restaurant;
+import models.geo.Address;
 import models.geo.City;
+import models.geo.Street;
 import models.users.User;
+import play.Logger;
 import services.OrderService;
 import enumerations.OrderStatus;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -43,6 +48,7 @@ public class OrderServiceEbeanImpl implements OrderService {
         if (list.size()==0){
 
             order = createNewOpenOrderFor(userId,restaurantId);
+            order = insertOrder(order);Logger.warn("there must be tes for me !");
         } else {
             order = list.get(0);
         }
@@ -70,6 +76,12 @@ public class OrderServiceEbeanImpl implements OrderService {
         o.orderStatus = OrderStatus.OPEN;
         o.restaurant_id = restaurantId;
         o.order_owner_id = u.id;
+        Address delivery_address_stub  = new Address();
+        delivery_address_stub.city_id= City.NO_CITY_ID;
+        delivery_address_stub.street_id= Street.NO_STREET_ID;
+        Ebean.save(delivery_address_stub);
+        o.delivery_address_id = delivery_address_stub.id;
+        o = insertOrder(o);
         return o;
 
     }
@@ -105,8 +117,10 @@ public class OrderServiceEbeanImpl implements OrderService {
     }
 
     @Override
-    public List<OrderItem> getItems(Order o) {
-        throw new UnsupportedOperationException("Implement Me");
+    public List<OrderItem> getItems(Long orderId) {
+        Logger.warn("implement tests for me!!!");
+        List<OrderItem> items = Ebean.find(OrderItem.class).where().eq("deleted", false).eq("orderId", orderId).findList();
+        return items;
     }
 
     @Override
@@ -135,12 +149,15 @@ public class OrderServiceEbeanImpl implements OrderService {
     }
 
     @Override
-    public Order getById(String id) {
-        throw new UnsupportedOperationException("Implement Me");
+    public Order getById(Long id) {
+        Logger.warn("implement tests for me !");
+        return Ebean.find(Order.class).where().eq("id",id).findUnique();
     }
 
     @Override
     public Order insertOrder(Order o) {
-        throw new UnsupportedOperationException("Implement Me");
+        Logger.warn("Implement tests for me plz!!!");
+        Ebean.save(o);
+        return o;
     }
 }

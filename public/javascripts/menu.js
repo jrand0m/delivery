@@ -11,7 +11,7 @@ Basket = {
     update: function (resp) {
         if (resp)Basket.$update(resp); else
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: uu({chart: rid}),
                 success: function (msg) {
                     Basket.update(msg);

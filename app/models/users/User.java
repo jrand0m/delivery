@@ -18,7 +18,7 @@ public class User {
     /**
      * @todo switch to UUID and use id field as identifier safely until that query for ID field
      */
-    public static String GET_USER_ID_FIELD_NAME(){return "phoneNumber";}
+    public static String GET_USER_ID_FIELD_NAME(){return "id";}
     @Id
     @Column(name = "id", nullable = false)
     public UUID id;

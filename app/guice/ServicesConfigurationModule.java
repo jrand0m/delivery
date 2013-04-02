@@ -23,5 +23,6 @@ public class ServicesConfigurationModule extends AbstractModule{
         bind(RestaurantService.class).to(RestaurantServiceEbeanImpl.class);
         bind(SystemService.class).to(SystemServiceEbeanImpl.class);
         bind(UserService.class).to(UserServiceEbeanImpl.class);
+        bind(CalculationsService.class).to(CalculationsServiceEbeanImpl.class);
     }
 }

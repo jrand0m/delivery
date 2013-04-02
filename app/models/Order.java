@@ -3,7 +3,6 @@ package models;
 import com.avaje.ebean.annotation.EmbeddedColumns;
 import enumerations.OrderStatus;
 import enumerations.PaymentStatus;
-import helpers.SystemCalc;
 import models.geo.Address;
 import models.users.User;
 import org.joda.money.CurrencyUnit;
@@ -15,7 +14,6 @@ import play.Logger;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.math.RoundingMode;
 import java.util.UUID;
 
 @Entity
@@ -37,8 +35,9 @@ public class Order extends Model {
 
     @Column(name = "delivery_address_id", nullable = false, updatable = false, insertable = false)
     public Long delivery_address_id;
-    @ManyToOne
-    @JoinColumn(name = "delivery_address_id")
+@Transient
+//    @ManyToOne
+//    @JoinColumn(name = "delivery_address_id")
     @Deprecated
     public Address deliveryAddress;
     /**
@@ -46,13 +45,13 @@ public class Order extends Model {
      * user. value in coins
      */
     @EmbeddedColumns(columns = "currency=deliveryPrice_currency, cents=deliveryPrice")
-    public Money deliveryPrice;
+    public Money deliveryPrice = Money.zero(CurrencyUnit.of("UAH"));
 
     /**
      * Menu total price saved when order is accepted by user
      */
     @EmbeddedColumns(columns = "currency=totalMenuPrice_currency, cents=totalMenuPrice")
-    public Money totalMenuPrice;
+    public Money totalMenuPrice = Money.zero(CurrencyUnit.of("UAH"));
 
 
     /**
@@ -92,7 +91,7 @@ public class Order extends Model {
     public LocalDateTime orderTaken;
 
     @Column(name = "updatedat")
-    public DateTime updatedAt;
+    public DateTime updatedAt = DateTime.now();
     /**
      * is set + time told by client
      */
@@ -118,110 +117,27 @@ public class Order extends Model {
      */
     @Column(name = "order_owner_id")
     public UUID order_owner_id;
-    @ManyToOne
-    @JoinColumn(name = "order_owner_id")
+@Transient
+//    @ManyToOne
+//    @JoinColumn(name = "order_owner_id")
     @Deprecated
     public User orderOwner;
 
     @Column(name = "restaurant_id")
     public Integer restaurant_id;
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
+@Transient
+//    @ManyToOne
+//    @JoinColumn(name = "restaurant_id")
     @Deprecated
     public Restaurant restaurant;
     @Column(name = "confirmed_courier_id")
     public UUID confirmed_courier_id;
-    @ManyToOne
-    @JoinColumn(name = "confirmed_courier_id")
+@Transient
+//    @ManyToOne
+//    @JoinColumn(name = "confirmed_courier_id")
     @Deprecated
     public User confirmedCourier;
 
-    /**
-     * calculated delivery price for this order
-     */
-    public Money getDeliveryPrice() {
-        Logger.debug("<- Called!");
-
-        return SystemCalc.getDeliveryPrice(this);
-    }
-
-    /**
-     * @deprecated use getDeliveryPrice().toString
-     */
-    public String getDeliveryPriceString() {
-        Logger.debug("<- Called!");
-        return getDeliveryPrice().toString();
-    }
-
-    /**
-     * Grand total including delivery price and minus calculated user discount
-     */
-    public Money getGrandTotal() {
-        Logger.debug("<- Called!");
-        Money menuTotal = getMenuTotal();
-        return menuTotal.plus(getDeliveryPrice().minus(getUserDiscount().multipliedBy(menuTotal.getAmount(), RoundingMode.HALF_EVEN)));
-    }
-
-    /**
-     * @deprecated use getGrandTotal().toString
-     */
-    public String getGrandTotalString() {
-        Logger.debug("<- Called!");
-        return getGrandTotal().toString();
-    }
-
-    /**
-     * Just sum of all items without discount
-     */
-    public Money getMenuTotal() {
-        Logger.debug("<- Called!");
-        //todo extract to outer method
-        //if (true) throw new UnsupportedOperationException("extract order.menuTotal to service");
-        Money i = Money.zero(CurrencyUnit.of("UAH"));
-        //for (OrderItem item : service.getAll(this)) {
-        //    i = i.plus(item.totalPriceInclComponents());
-        //}
-        //return i;
-        throw new UnsupportedOperationException("TODO: implement get all subsequent order items");
-    }
-
-    /*
-   * @deprecated don't use this
-   * */
-    public String getMenuTotalString() {
-        /*getMenuTotal();*/
-        Logger.debug("<- Called!");
-        return getMenuTotal().toString();
-    }
-
-    /**
-     * calculated discount for entire order
-     */
-    public Money getUserDiscount() {
-        Logger.debug("<- Called!");
-        return SystemCalc.getUserDiscount(this);
-    }
-
-    /**
-     * is called for index page
-     */
-    public String oneLineDescription() {
-        Logger.debug("<- Called!");
-        StringBuilder b = new StringBuilder("to be done");
-        /*for (Iterator<OrderItem> it = items.iterator(); it.hasNext(); ) {
-            b.append(it.next().menuItem.name);
-            if (it.hasNext()) {
-                b.append(", ");
-            } else {
-                break;
-            }
-            if (b.length() > 240) {
-                b.append("...");
-                break;
-            }
-        }*/
-        return b.toString();
-    }
 
     public String aproxTime() {
         Logger.debug("<- Called!");
@@ -250,7 +166,6 @@ public class Order extends Model {
         } else {
             return "00";
         }
-
 
     }
 

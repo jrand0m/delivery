@@ -9,7 +9,9 @@ import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 import play.libs.Json;
 import services.BasketService;
+import services.CalculationsService;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -20,6 +22,9 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class BasketServiceEbeanImpl implements BasketService {
+    @Inject
+    private CalculationsService calculationsService;
+
     @Override
     public MenuCompWrapJson getComponentsForMenuItem(Long id) {
         throw new UnsupportedOperationException("Implement Me");
@@ -29,8 +34,8 @@ public class BasketServiceEbeanImpl implements BasketService {
     public ObjectNode getBasketAsJSON(Order order) {
         ObjectNode result = Json.newObject();
         result.put("no",order.id);
-        result.put("discount",0);
-        result.put("total",order.getMenuTotal().plus(order.getDeliveryPrice()).getAmountMinorLong());
+        result.put("discount", calculationsService.getDiscountForOrder(order.id).getAmountMinorInt());
+        result.put("total",  calculationsService.getMenuTotalFor(order.id).plus(calculationsService.getDeliveryPrice(order.id)).getAmountMinorLong());
         ArrayNode items = result.putArray("items");
         extractItemsFromOrderAsJson(order,items);
         //todo next

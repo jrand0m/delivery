@@ -1,7 +1,7 @@
 package models.dto.intern;
 
 public class PushMessage {
-    public String id;
+    public Long id;
     public String status;
     public String comment;
     public Integer time;

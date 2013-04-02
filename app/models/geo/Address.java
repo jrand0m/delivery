@@ -34,22 +34,24 @@ public class Address extends Model {
     @Column(name = "deleted", nullable = false)
     public boolean deleted = false;
 
-    @Column(name = "city_id", insertable = false, nullable = false, updatable = false)
-    public Long city_id;
+    @Column(name = "city_id",  nullable = false)
+    public Long city_id = City.NO_CITY_ID;
 
-    @Column(name = "street_id", insertable = false, nullable = false, updatable = false)
-    public Long street_id;
+    @Column(name = "street_id", nullable = false)
+    public Long street_id = Street.NO_STREET_ID;
 
 
     //TODO:@Required
-    @ManyToOne
-    @JoinColumn(name = "city_id")
+    @Transient
+//    @ManyToOne
+//    @JoinColumn(name = "city_id")
     @Deprecated
     public City city;
 
     //TODO:@Required
-    @ManyToOne
-    @JoinColumn(name = "street_id")
+//    @ManyToOne
+//    @JoinColumn(name = "street_id")
+    @Transient
     @Deprecated
     public Street street;
 

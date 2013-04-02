@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.annotation.EmbeddedColumns;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import play.db.ebean.Model;
@@ -30,6 +31,7 @@ public class OrderItem extends Model {
      * (That was calculated in moment, when order was approved).
      */
     @Column(name = "total_order_item_price")
+    @EmbeddedColumns(columns = "currency = totalorderitemprice_currency, cents=totalorderitemprice")
     public Money orderItemPrice;
 
     @Column(name = "menu_item_id")

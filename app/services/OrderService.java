@@ -46,7 +46,7 @@ public interface OrderService {
 
     Restaurant getRestaurantFromOrderItem(OrderItem itm);
 
-    List<OrderItem> getItems(Order o);
+    List<OrderItem> getItems(Long orderId);
 
     boolean isEmptyOrder(Order order);
 
@@ -58,7 +58,10 @@ public interface OrderService {
 
     List<Order> getOrdersOrderedByCreationDateFor(Long id);
 
-    Order getById(String id);
+    /**
+     * @return order with specified id
+     * */
+    Order getById(Long id);
 
     Order insertOrder(Order o);
 
