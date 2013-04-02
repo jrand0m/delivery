@@ -1,13 +1,13 @@
 # --- !Ups
 
 CREATE TABLE vd_attachments (
-    id             uuid NOT NULL  PRIMARY KEY,
+    id             varchar(38) NOT NULL  PRIMARY KEY,
     commentText    varchar (255) not null,
     createdAt      timestamp not null default now(),
     fileType       varchar(100) not null default 'UNKNOWN',
     fileExt        varchar(10) not null default ''
 );
-ALTER TABLE vd_restaurant ADD COLUMN logo_id uuid;
+ALTER TABLE vd_restaurant ADD COLUMN logo_id varchar(38);
 ALTER TABLE vd_restaurant ADD foreign key (logo_id) references vd_attachments (id);
 --//@UNDO
 # --- !Downs

@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.annotation.EmbeddedColumns;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.Id;

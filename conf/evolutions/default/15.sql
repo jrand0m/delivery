@@ -25,8 +25,8 @@ CREATE TABLE vd_order (
   paymentStatus  varchar(100) not null default 'NOT_PAID',
 
   delivery_address_id int8,
-  confirmed_courier_id uuid,
-  order_owner_id  uuid not null,
+  confirmed_courier_id varchar(38),
+  order_owner_id  varchar(38) not null,
   restaurant_id   int4 not null,
 
   FOREIGN KEY ( delivery_address_id ) REFERENCES vd_address (address_id),

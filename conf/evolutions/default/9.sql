@@ -2,7 +2,7 @@
 # --- !Ups
 
 CREATE TABLE vd_user (
-  id          uuid NOT NULL DEFAULT uuid_generate_v4() PRIMARY KEY,
+  id          varchar(38) NOT NULL PRIMARY KEY,
   login       varchar(255)  not null,
   email       varchar(255),
   phoneNumber varchar(255)  not null,

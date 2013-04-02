@@ -94,7 +94,7 @@ insert into vd_restaurant (
   1, -- address_id      ,
   1, -- category_id     ,
   1, -- workhours_id    ,
-  101  -- user_id
+  '38bab275-cdea-40f9-a659-275b72572a29'  -- user_id
 );
 
 

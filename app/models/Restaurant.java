@@ -14,6 +14,7 @@ import play.cache.Cache;
 import play.db.ebean.Model;
 import play.i18n.Messages;
 import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * @author mike
@@ -62,11 +63,11 @@ public class Restaurant extends Model {
         this.workhours_id = workhours_id;
     }
 
-    public Long getUser_id() {
+    public UUID getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(UUID user_id) {
         this.user_id = user_id;
     }
 
@@ -177,7 +178,7 @@ public class Restaurant extends Model {
      * loginable power user id
      */
     @Column(name = "user_id", insertable = false, updatable = false, nullable = false)
-    private Long user_id;
+    private UUID user_id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @Deprecated

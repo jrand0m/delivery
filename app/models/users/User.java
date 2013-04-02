@@ -1,5 +1,6 @@
 package models.users;
 
+import com.avaje.ebean.annotation.EmbeddedColumns;
 import enumerations.UserType;
 import org.joda.time.LocalDateTime;
 
