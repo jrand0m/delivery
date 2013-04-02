@@ -40,13 +40,13 @@ public class OrderServiceEbeanImpl implements OrderService {
     public Order getCurrentOrderFor(final UUID userId, final Integer restaurantId) {
         Order order;
         User u = Ebean.find(User.class).where().eq("id",userId).findUnique();
-        if(u == null){
+        Restaurant restaurant = Ebean.find(Restaurant.class).where().eq("id",restaurantId).findUnique();
+        if (u == null || restaurant == null){
             return null;
         }
         List<Order> list = Ebean.find(Order.class)
                 .where().eq("order_owner_id", u.id).eq("restaurant_id",restaurantId).eq("orderStatus", OrderStatus.OPEN).orderBy().asc("orderCreated").setMaxRows(1).findList();
         if (list.size()==0){
-
             order = createNewOpenOrderFor(userId,restaurantId);
             if (Logger.isDebugEnabled()){
                 Logger.debug(String.format("created new OPEN order for [user=%s, restaurant=%s, order=%s]",userId,restaurantId,order));
