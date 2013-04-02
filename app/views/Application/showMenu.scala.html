@@ -93,17 +93,44 @@
     </tr>
 </script>
 <script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/menu.js")"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAecufxcO7aKvLjN-rc4OdBEj1TrvyqgRg&sensor=true"></script>
+<script>
+function initialize() {
+    
+    if (document.getElementById("uk_office") != null) {
+    	var swLatlng = new google.maps.LatLng(59.406918,17.934856);
+    	var swOptions = {
+    		      center: swLatlng,
+    		      zoom: 14,
+    		      mapTypeId: google.maps.MapTypeId.ROADMAP
+    		    };
+    	var swMap = new google.maps.Map(document.getElementById("uk_office"),
+    			swOptions);
+    	var swMarker = new google.maps.Marker({
+            position: swLatlng,
+            map: swMap
+        });
+    }
+    
+}
+initialize();
+</script>
 }
 
 @main(title = restaurant.getTitle())(moreScripts)(moreStyles = Html(""))(breadCrumb = Html("")) {
 
 <div class="left_cont restMenu">
     <div class="rest_menu">
-        <h1>
-            @restaurant.getTitle()
+        <div class="h1">
+            <div class="h2">@restaurant.getTitle()
             <span>@restaurant.addressToString()</span>
+            <a class="info">ще &#8595;</a></div>
+		<div class="forsquare">
+			<div id="uk_office" style="width: 100%; height: 200px;"></div>
+		</div>
+			
             <a>@restaurant.isOnlineAsString()</a>
-        </h1>
+        </div>
         <table>
             <tr>
                 @for( item <- menu.keys){
@@ -184,3 +211,7 @@
 </div>
 
 }
+<script type="text/javascript">
+
+initialize();
+</script>
