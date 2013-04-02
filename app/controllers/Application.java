@@ -465,7 +465,7 @@ public class Application extends Controller {
            * associated orders in above sent state
            */
           String userId = session(Security.USER_ID_SESSION_KEY);
-          Order order = orderService.getCurrentOrderFor(userId, chart);
+          Order order = orderService.getCurrentOrderFor(UUID.fromString(userId), chart);
           if (order == null){
               if (Logger.isDebugEnabled()){
                   Logger.debug(String.format("basket -> returning not found because bad user or restaurant [%s,%s]", userId,chart));
