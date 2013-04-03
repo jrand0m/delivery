@@ -71,14 +71,14 @@ Basket = {
         });
     },
     $setDeliveryPrice: function (c) {
-        $(Basket.renderContainer).append(Mustache.render($("#dptmp"), {pc: format(c)}));
+        $(Basket.renderContainer).append(Mustache.render($("#dptmp").text(), {pc: format(c)}));
     },
     $setTotalPrice: function (c) {
-        $(Basket.renderContainer).append(Mustache.render($("tptmp"), {pc: format(c)}));
+        $(Basket.renderContainer).append(Mustache.render($("#tptmp").text(), {pc: format(c)}));
     },
     $setDiscount: function (c) {
         if (c && c > 0)
-            $(Basket.renderContainer).append(Mustache.render($("dctmp"), {pc: format(c)}));
+            $(Basket.renderContainer).append(Mustache.render($("#dctmp").text(), {pc: format(c)}));
     }
 };
 

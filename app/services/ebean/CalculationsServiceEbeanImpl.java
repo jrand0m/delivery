@@ -50,7 +50,7 @@ public class CalculationsServiceEbeanImpl implements CalculationsService {
     }
 
     @Override
-    public Money getDeliveryPrice(Long orderId) {
+    public Money getDeliveryPriceForOrder(Long orderId) {
         Logger.warn("implement tests for me!!!");
         CurrencyUnit u = CurrencyUnit.of("UAH");
         Money total = getMenuTotalFor( orderId);

@@ -38,5 +38,5 @@ public interface CalculationsService {
      *
      * @return price for delivery
      */
-    Money getDeliveryPrice(Long orderId);
+    Money getDeliveryPriceForOrder(Long orderId);
 }
