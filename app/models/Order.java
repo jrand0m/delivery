@@ -33,7 +33,7 @@ public class Order extends Model {
     @Column(name = "deleted")
     public boolean deleted = false;
 
-    @Column(name = "delivery_address_id", nullable = false, updatable = false, insertable = false)
+    @Column(name = "delivery_address_id")
     public Long delivery_address_id;
 @Transient
 //    @ManyToOne
