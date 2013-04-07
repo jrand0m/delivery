@@ -143,7 +143,7 @@ public class API extends Controller {
             } else {
                 job.additionalInfo = order.deliveryAddress.additionalInfo;
             }
-            job.from = order.restaurant.addressToString();
+            job.from = order.restaurant.getAddress().toString();
             job.to = order.deliveryAddress == null ? "none"
                     : order.deliveryAddress.toString();
             job.timeToDelivered = order.orderStatus.equals(OrderStatus.DELIVERING) || order.orderStatus.equals(OrderStatus.COOKED) ?
