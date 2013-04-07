@@ -1,19 +1,26 @@
 package controllers;
 
-import models.*;
+import models.MenuItem;
+import models.MenuItemGroup;
+import models.Order;
+import models.Restaurant;
 import models.time.WorkHours;
-import models.users.User;
+import org.codehaus.jackson.node.ObjectNode;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.*;
 import views.html.Application.index;
 import views.html.Application.showMenu;
-import org.codehaus.jackson.node.ObjectNode;
 
 import javax.inject.Inject;
-import java.util.*;
-import static controllers.Security.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import static controllers.Security.Authenticated;
+import static controllers.Security.LoggedInOrCreateAnonymous;
 
 @Authenticated(LoggedInOrCreateAnonymous.class)
 public class Application extends Controller {
@@ -35,13 +42,9 @@ public class Application extends Controller {
     @Inject
     private UserService userService;
 
-    public static class SESSION_KEYS {
-        public static final String CITY_ID = "city";
-    }
-
     //@Before(unless = {"getLastOrders", "serveLogo", "loadFix", "comps","changeCity", "changeLng"}
                                          /*
-										 * unless =
+                                         * unless =
 										 * {"getCurrentUser","guessCity"
 										 * ,"deleteOrRemOrderItem"
 										 * ,"createNewOpenOrder",
@@ -98,28 +101,6 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public Result index() {
-
-        String cityId = session(SESSION_KEYS.CITY_ID);
-        if (Logger.isDebugEnabled()) {
-            Logger.debug(String.format("Restaurant service is initialized with -> %s", restaurantService));
-            Logger.debug(String.format("Geo service is initialized with -> %s", geoService));
-            Logger.debug(String.format("Got city_id = %s from session", cityId));
-        }
-
-        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
-            cityId = "1"; //TODO create test that checks that new user gets default id
-                          //TODO get default id from service
-                          //todo get city id based on ip
-            session(SESSION_KEYS.CITY_ID, cityId);
-        }
-        List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
-        Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
-        Map<Integer,String>descriptions = restaurantService.getDescriptionsMapFor(restaurants);
-        return ok(index.render(restaurants,descriptions,workHours));
-    }
-
-
     public static Result showRestaurants() {
 //        List<City> cityList = geoService.getVisibleCities();
 //        String cityId = session.get(SESSION_KEYS.CITY_ID);
@@ -143,50 +124,15 @@ public class Application extends Controller {
         return TODO;
     }
 
-    public Result showMenu(Integer id) {
-        Restaurant restaurant = restaurantService.getById(id);
-        List<MenuItemGroup> itemGroups = restaurantService.getMenuGroupsFor(id);
-        if (restaurant == null/*todo replace with NOT_FOUND*/ || itemGroups.size() == 0){
-            return redirect("/");
-        }
-
-        LinkedHashMap<MenuItemGroup, List<MenuItem>> menu = new LinkedHashMap<MenuItemGroup, List<MenuItem>>();
-        for(MenuItemGroup grp : itemGroups){
-            List <MenuItem> list  =restaurantService.getAllMenuItemsBy(grp.id,restaurant.getId());
-            menu.put(grp,list);
-        }
-
-        return ok(showMenu.render(restaurant,menu));
-    }
-
-    public static Result newUser() {
-//        render();
-        return TODO;
-    }
-
-    public Result registerNewUser(User user) {
-//        Logger.debug(">>> Registering new user %s", user.toString());
-//        userService.insertUser(user);
-//        Logger.debug(">>> TODO: Try converting order history.");
-//        try {
-//            Secure.authenticate(user.login, user.password, false);
-//        } catch (Throwable e) {
-//            Logger.error(e, "Failed to login in App.registerNewUser()");
-//            error();
-//        }
-
-        return index();
-    }
-
     /**
      * id:ff808181333095ab0133309ed4e90005 name:sda city:1 surname:asd
      * street:asd email:asd@cacc.ccom apartment:ds phone:asd oplata:on
      * TODO get orderCity one time(extract to varialble)
      */
     public static Result checkAndSend(Long id, Long aid, String name,
-                                    Integer city, String sname, Long streetid, String street,
-                                    String email, String app, String phone,
-                                    String oplata, String addinfo) {
+                                      Integer city, String sname, Long streetid, String street,
+                                      String email, String app, String phone,
+                                      String oplata, String addinfo) {
 //        User user = (User) renderArgs.get(RENDER_KEYS.USER);
 //        if (user == null)
 //            Logger.error("User is null");
@@ -325,10 +271,8 @@ public class Application extends Controller {
 //          }*/
 //        mailService.sendNewOrderNotification(o);
 //        return order(o.id);
-           return TODO;
+        return TODO;
     }
-
-    /* ------------ UTIL Pages -------------- */
 
     /**
      * Change Language
@@ -354,8 +298,6 @@ public class Application extends Controller {
         return TODO;
     }
 
-    /* ------------ AJAX ---------------- */
-
     public static Result getLastOrders(boolean top) {
 //        ArrayList<LastOrdersJSON> o = new ArrayList<LastOrdersJSON>();
 //        if (session.contains(SESSION_KEYS.CITY_ID)) {
@@ -370,6 +312,47 @@ public class Application extends Controller {
 //        renderJSON(o);
         return TODO;
     }
+
+    /* ------------ UTIL Pages -------------- */
+
+    public Result index() {
+
+        String cityId = session(SESSION_KEYS.CITY_ID);
+        if (Logger.isDebugEnabled()) {
+            Logger.debug(String.format("Restaurant service is initialized with -> %s", restaurantService));
+            Logger.debug(String.format("Geo service is initialized with -> %s", geoService));
+            Logger.debug(String.format("Got city_id = %s from session", cityId));
+        }
+
+        if (cityId == null || !cityId.matches("([1-9])|([1-9][0-9])")) {
+            cityId = "1"; //TODO create test that checks that new user gets default id
+            //TODO get default id from service
+            //todo get city id based on ip
+            session(SESSION_KEYS.CITY_ID, cityId);
+        }
+        List<Restaurant> restaurants = geoService.getIndexPageRestsByCity(Long.parseLong(cityId));
+        Map<Integer, WorkHours> workHours = restaurantService.getWorkHoursMap(restaurants);
+        Map<Integer, String> descriptions = restaurantService.getDescriptionsMapFor(restaurants);
+        return ok(index.render(restaurants, descriptions, workHours));
+    }
+
+    public Result showMenu(Integer id) {
+        Restaurant restaurant = restaurantService.getById(id);
+        List<MenuItemGroup> itemGroups = restaurantService.getMenuGroupsFor(id);
+        if (restaurant == null/*todo replace with NOT_FOUND*/ || itemGroups.size() == 0) {
+            return redirect("/");
+        }
+
+        LinkedHashMap<MenuItemGroup, List<MenuItem>> menu = new LinkedHashMap<MenuItemGroup, List<MenuItem>>();
+        for (MenuItemGroup grp : itemGroups) {
+            List<MenuItem> list = restaurantService.getAllMenuItemsBy(grp.id, restaurant.getId());
+            menu.put(grp, list);
+        }
+        String address = restaurant.getAddress().toString();
+        return ok(showMenu.render(restaurant, address, menu));
+    }
+
+    /* ------------ AJAX ---------------- */
 
     public Result comps(final Long id) {
 //        notFoundIfNull(id);
@@ -464,27 +447,31 @@ public class Application extends Controller {
            * last login date > 1 year(or other period, mb 3 month) which have
            * associated orders in above sent state
            */
-          String userId = session(Security.USER_ID_SESSION_KEY);
-          Order order = orderService.getCurrentOrderFor(UUID.fromString(userId), chart);
-          if (order == null){
-              if (Logger.isDebugEnabled()){
-                  Logger.debug(String.format("basket -> returning not found because bad user or restaurant [%s,%s]", userId,chart));
-              }
+        String userId = session(Security.USER_ID_SESSION_KEY);
+        Order order = orderService.getCurrentOrderFor(UUID.fromString(userId), chart);
+        if (order == null) {
+            if (Logger.isDebugEnabled()) {
+                Logger.debug(String.format("basket -> returning not found because bad user or restaurant [%s,%s]", userId, chart));
+            }
             return notFound();
-          }
-          //todo next continue here ->
-          ObjectNode json = basketService.getBasketAsJSON(order);
+        }
+        //todo next continue here ->
+        ObjectNode json = basketService.getBasketAsJSON(order);
 
         return ok(json);
     }
 
-    public  Result serveLogo(Integer id) {
+    public Result serveLogo(Integer id) {
         String url = restaurantService.getLogoPathFor(id);
-        if (url!=null) {
+        if (url != null) {
             return redirect(url);
         } else {
             return notFound();
         }
+    }
+
+    public static class SESSION_KEYS {
+        public static final String CITY_ID = "city";
     }
 
     /* ----------- private -------------- */

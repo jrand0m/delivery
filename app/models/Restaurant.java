@@ -39,12 +39,12 @@ public class Restaurant extends Model {
         this.city_id = city_id;
     }
 
-    public Long getAddress_id() {
-        return address_id;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddress_id(Long address_id) {
-        this.address_id = address_id;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Integer getCategory_id() {
@@ -154,11 +154,10 @@ public class Restaurant extends Model {
     @Deprecated
     private City city;
 
-    @Column(name = "address_id", insertable = false, updatable = false, nullable = false)
-    private Long address_id;
-    @OneToOne
+//    @Column(name = "address_id", insertable = false, updatable = false, nullable = false)
+//    private Long address_id;
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-    @Deprecated
     private Address address;
 
     @Column(name = "category_id", insertable = false, updatable = false, nullable = false)
@@ -243,12 +242,6 @@ public class Restaurant extends Model {
             Cache.set("isOnline_" + id, online, waitTimeInSeconds);
         }
         return online;
-    }
-
-    public String addressToString() {
-        // FIXME Hardcore workaround
-        return address != null ? address.toString() : Messages
-                .get("restaurant.noaddress");
     }
 
     public String isOnlineAsString() {

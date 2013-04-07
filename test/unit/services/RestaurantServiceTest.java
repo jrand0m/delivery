@@ -91,7 +91,7 @@ public class RestaurantServiceTest {
             public void run() {
                 Restaurant rest = service.getById(1);
                 assertNotNull(rest);
-                assertNotNull(rest.getAddress_id());
+                assertNotNull(rest.getAddress());
                 assertNotNull(rest.getCategory_id());
                 assertNotNull(rest.getCity_id());
                 assertFalse(rest.isDeleted());

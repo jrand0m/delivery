@@ -40,25 +40,16 @@ public class Address extends Model {
     @Column(name = "street_id", nullable = false)
     public Long street_id = Street.NO_STREET_ID;
 
-
-    //TODO:@Required
     @Transient
-//    @ManyToOne
-//    @JoinColumn(name = "city_id")
-    @Deprecated
     public City city;
 
-    //TODO:@Required
-//    @ManyToOne
-//    @JoinColumn(name = "street_id")
     @Transient
-    @Deprecated
     public Street street;
 
     @Override
     public String toString() {
 
-        return String.format("%s, %s/%s", street, buildingNumber, apartmentsNumber);
+        return String.format("%s, %s", street, buildingNumber);
     }
 
 }

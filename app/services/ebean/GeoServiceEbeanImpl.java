@@ -5,6 +5,7 @@ import models.Restaurant;
 import models.geo.Address;
 import models.geo.City;
 import models.geo.Street;
+import play.Logger;
 import play.data.validation.Validation;
 import services.GeoService;
 
@@ -75,7 +76,14 @@ public class GeoServiceEbeanImpl implements GeoService {
 
     @Override
     public Address getAddressById(Long aid) {
-        throw new UnsupportedOperationException("Implement Me");
+        Logger.warn("implement tests for me plz!");
+        Address s = Ebean.find(Address.class).where().eq("id",aid).findUnique();
+        //use join or annotations to fast-load objects
+        Street str = Ebean.find(Street.class).where().eq("id",s.street_id).findUnique();
+        City city = Ebean.find(City.class).where().eq("id",s.city_id).findUnique();
+//        if (str != null)  s.street = str;
+//        if (city != null) s.city = city;
+        return s;
     }
 
     @Override

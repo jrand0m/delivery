@@ -1,4 +1,5 @@
-@(restaurant: Restaurant, menu: Map[MenuItemGroup, List[MenuItem]])
+@(restaurant: Restaurant, address: String, menu: Map[MenuItemGroup, List[MenuItem]])
+@import geo.Address
 
 @moreScripts = {
 <script type="text/javascript" src="@routes.Assets.at("/public", "javascripts/jquery.fancybox-1.3.4.js")"></script>
@@ -131,7 +132,7 @@ $('.h2').click( function(){
     <div class="rest_menu">
         <div class="h1">
             <div class="h2">@restaurant.getTitle()
-            <span>@restaurant.addressToString() </span> &#8595;
+            <span>@address </span> &#8595;
 			</div>
 		<div class="forsquare">
 			<div id="uk_office" style="width: 100%; height: 220px;"></div>
