@@ -9,6 +9,6 @@ libraryDependencies ++= Seq(
     "org.jacoco" % "org.jacoco.report" % "0.6.2.201302030002" artifacts(Artifact("org.jacoco.report", "jar", "jar")))
 
 // Use the Play sbt plugin for Play projects
-addSbtPlugin("play" % "sbt-plugin" % "2.1.0")
+addSbtPlugin("play" % "sbt-plugin" % "2.1.1")
 
 addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.0.0")
