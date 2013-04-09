@@ -7,6 +7,7 @@ import models.Restaurant;
 import models.time.WorkHours;
 import org.codehaus.jackson.node.ObjectNode;
 import play.Logger;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.*;
@@ -354,7 +355,7 @@ public class Application extends Controller {
 
     /* ------------ AJAX ---------------- */
 
-    public Result comps(final Long id) {
+    public Result comps() {
 //        notFoundIfNull(id);
 //        await(1000);
 //        /*MenuItem mi = MenuItem.findById(id);
@@ -374,9 +375,9 @@ public class Application extends Controller {
 //        renderJSON(wrap);
         return TODO;
     }
-
-    public Result addOrderItem(Long id, String component) {
-
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result addOrderItem() {
+          System.out.println(">>>> Form add "+ request().body().asJson());
 //        if (!Security.isConnected() || id == null) {
 //            await(15000);
 //            notFound("Order not found");
@@ -403,8 +404,9 @@ public class Application extends Controller {
 //        renderJSON(json);
         return TODO;
     }
-
-    public Result cngOrderItem(Long id, Integer count) {
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result cngOrderItem() {
+        System.out.println(">>>> Form chng "+ request().body().asJson());
 //        if (!Security.isConnected() || id == null || count == null) {
 //            await(15000);
 //            notFound("Order not found");

@@ -19,21 +19,21 @@ Basket = {
             });
     },
     add: function (i) {
-        var data = "id=" + i;
+        var data = {};
+        data["id"] = i;
+        data["components"]=[];
         if (cmp.length != 0) {
-            var cmps=""
             $.each(cmp, function (i, e) {
                 if (e && e.en) {
-                    cmps = cmps + i + ","
+                    data["components"].push(i);
                 }
             });
-            cmps = cmps.slice(0,cmps.length-1);
-            data = data + "&component=" + cmps;
         }
         $.ajax({
             type: "POST",
             url: au({}),
-            data: data,
+            data: JSON.stringify(data),
+            contentType: "application/json",
             success: function (msg) {
                 Basket.update(msg);
             }
@@ -43,11 +43,15 @@ Basket = {
         $('#a' + i).removeClass('current');
     },
     cng: function (i, c) {
-        var data = "id=" + i + "&count=" + c;
+        var data = {
+            "id": i,
+            "count": c
+        };
         $.ajax({
             type: "POST",
             url: du({}),
-            data: data,
+            data: JSON.stringify(data),
+            contentType: "application/json",
             success: function (msg) {
                 Basket.update(msg);
             }
