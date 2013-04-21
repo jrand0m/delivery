@@ -5,6 +5,7 @@ import models.MenuItemGroup;
 import models.Order;
 import models.Restaurant;
 import models.time.WorkHours;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import play.Logger;
 import play.mvc.BodyParser;
@@ -314,7 +315,7 @@ public class Application extends Controller {
         return TODO;
     }
 
-    /* ------------ UTIL Pages -------------- */
+
 
     public Result index() {
 
@@ -353,7 +354,7 @@ public class Application extends Controller {
         return ok(showMenu.render(restaurant, address, menu));
     }
 
-    /* ------------ AJAX ---------------- */
+
 
     public Result comps() {
 //        notFoundIfNull(id);
@@ -377,7 +378,13 @@ public class Application extends Controller {
     }
     @BodyParser.Of(BodyParser.Json.class)
     public Result addOrderItem() {
-          System.out.println(">>>> Form add "+ request().body().asJson());
+        JsonNode s = request().body().asJson();
+        System.out.println(">>>> Form add " + s);
+        if(!s.has("id") || !s.has("componens")) return badRequest();
+        Long id  = s.get("id").asLong();
+
+
+
 //        if (!Security.isConnected() || id == null) {
 //            await(15000);
 //            notFound("Order not found");
