@@ -1,4 +1,4 @@
-﻿$(document).ready(function() {
+$(document).ready(function() {
 	$('p#selText1').text($('ul#selDrop1').children('li.selected').text());
 	$('p#selText2').text($('ul#selDrop2').children('li.selected').text());
 	$('p#selText3').text($('ul#selDrop3').children('li.selected').text());
