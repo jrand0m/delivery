@@ -1,32 +1,6 @@
-#To resolve all dependencies use 
-# $ play dependencies
-lib/
-modules/
-# Preventing workspace prefs from being comited:
-nbproject/
-/eclipse
-/tmp
-.classpath
-.project
-.settings/
-/gae-1.4
-/precompiled
-*.kate-swp
-data/*
-server.pid
-log/*
-logs/*
-*~
-/.sonar/batch/
-/crud
-/betterlogs-1.0
-/target
-1.2.x
-test-result/
-project/target
-project/project/target
 .idea
 .idea_modules
+*.iws
 *.py[co]
 .env
-local_settings.py
+delivery/settings/local_settings.py
