@@ -227,9 +227,8 @@ class User(AbstractUser):
     name = models.CharField(max_length=255)
     user_type = models.CharField(max_length=100)
     last_login_date = models.DateTimeField(blank=True, null=True)
-    created_date = models.DateTimeField()
-    updated_date = models.DateTimeField()
-    deleted = models.BooleanField()
+    updated_date = models.DateTimeField(null=True)
+    deleted = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'
 
