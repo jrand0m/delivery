@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render_to_response
 from django.http import HttpResponse
 
 
@@ -6,3 +6,6 @@ from django.http import HttpResponse
 
 def index(request):
     return HttpResponse('Hello world!')
+
+def indexM(request):
+    return render_to_response('main.html', {'test':':)'});
