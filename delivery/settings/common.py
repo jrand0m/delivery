@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'static_precompiler',
+    'django_admin_generator',
 
     'delivery.website',
 )
@@ -104,6 +105,8 @@ STATIC_PRECOMPILER_ROOT = os.path.join(DJANGO_ROOT, 'common/static')
 LOCALE_PATHS = (
     os.path.join(DJANGO_ROOT, 'i18n'),
 )
+
+AUTH_USER_MODEL = 'website.User'
 
 import os
 
