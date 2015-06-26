@@ -27,3 +27,5 @@ project/target
 project/project/target
 .idea
 .idea_modules
+*.py[co]
+.env
