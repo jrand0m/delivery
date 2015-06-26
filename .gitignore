@@ -3,4 +3,6 @@
 *.iws
 *.py[co]
 .env
+
+local_settings.py
 delivery/settings/local_settings.py
