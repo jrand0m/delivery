@@ -1,5 +1,5 @@
 """
-Django settings for delivery_py project.
+Django settings for delivery project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -48,9 +48,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'delivery_py.urls'
+ROOT_URLCONF = 'delivery.urls'
 
-WSGI_APPLICATION = 'delivery_py.wsgi.application'
+WSGI_APPLICATION = 'delivery.wsgi.application'
 
 
 # Database
