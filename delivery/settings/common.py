@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+DJANGO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO_ROOT = os.path.dirname(DJANGO_ROOT)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -39,6 +41,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     # 'django.contrib.sites',
     'django.contrib.staticfiles',
+
+    'static_precompiler',
 
     'delivery.website',
 )
@@ -77,9 +81,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk-ua'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
@@ -91,7 +95,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+STATIC_ROOT = os.path.join(DJANGO_ROOT, 'static')
+
 STATIC_URL = '/static/'
+
+STATIC_PRECOMPILER_ROOT = os.path.join(DJANGO_ROOT, 'common/static')
+
+LOCALE_PATHS = (
+    os.path.join(DJANGO_ROOT, 'i18n'),
+)
 
 import os
 
