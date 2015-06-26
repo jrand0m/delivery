@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>vdoma.com.ua - Кухня улюблених закладів в тебе вдома.</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<!--<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>-->
+        <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/style.css'}" charset="utf-8" />
+    </head>
+    <body>
+    	<div id="wrapper">
+			<div id="wrapper_inner">
+				<div id="header">
+					<div class="header_top">
+						<a href="@{Application.index()}" class="logo"><img alt="На головну!" title="На головну!" src="@{'/public/images/logo.png'}" width="79" /></a>
+						<h1>&{'common.slogan'}</h1>
+						<img class="h1" src="@{'/public/images/h1.png'}" />
+						<img id="slogan" src="@{'/public/images/slogan.png'}" />
+						<div class="right_links">
+							<ul class="lang">
+								<li class="${"uk".equals(lang)?"active":""}"><a href="@{Application.changeLang("uk")}">українською</a></li>
+								<li class="${"ru".equals(lang)?"active":""}"><a href="@{Application.changeLang("ru")}">русский</a></li>
+								<li class="${"en".equals(lang)?"active":""}"><a href="@{Application.changeLang("en")}">in english</a></li>
+							</ul>
+							
+						</div>
+						<ul class='main_nav'>
+							<!--<li><a title="&{'header.nav.restorauntlist.tooltip'}" href="@{Application.showRestaurants()}">&{'header.nav.restorauntlist.text'}</a></li>-->
+							<!--li class="unactive"><a title="&{'header.nav.orderhistory.tooltip'}" href="#">&{'header.nav.orderhistory.text'}</a></li-->
+							<!--li><a title="&{'header.nav.deliveryandpayment.tooltip'}" href="#">&{'header.nav.deliveryandpayment.text'}</a></li-->
+						</ul>
+					</div>
+<div class="header_bottom">
+						
+<a href="/" class="enter back">назад</a>
+
+
+<a href="/login.php" class="enter">Войти в личный кабинет</a>
+
+
+
+					</div>
+				</div>
+				<div id="content">
+					<div class="main_cont">
+						<div class="static_left"><h2>Сторінка для ресторанів</h2></div>
+						<div class="static_left">
+							<h3>Хто ми є?</h3>
+							<ul>
+								<li>Фірма, яка займається доставкою готової продукції з закладів харчування з можливістю замовлення через інтернет.</li>
+								<li>Професійна команда, спрямована на розробку та вдосконалення користувацьких сервісів за допомогою новітніх технологій, в особливості Інтернет-орієнтованих.</li>
+							</ul>
+						</div>
+						<div class="static_left">
+							<h3>Як це працює?</h3>
+							<ul>
+								<li>Якщо ви зацікавленні співпрацювати з нами - <a href="mailto:office@vdoma.com.ua?subject=Collaboration">зв'яжіться з нами</a>.</li>
+								<li>У нас діє гнучка система договорів і обумовлюється в рамках конкретного договору. Ми впевнені, що зможемо підібрати оптимальні для вас умови.</li>
+							</ul>
+						</div>
+						<div class="static_left">
+							<h3>Що ви отримуєте?</h3>
+							<ul>
+								<li>Збільшення клієнтської бази за рахунок замовлень через Інтернет.</li>
+								<li>Персональна сторінка та додаткова реклама в Інтернеті</li>
+								<li>Підвищення індексу вашої присутності в Інтернеті.</li>
+								<li>Приватний кабінет з гнучкою можливістю налаштування вашого меню та детальними звітами з продаж через наш сайт.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="empty_block">
+				</div>
+			</div>
+		</div>
+		<div id="footer_outer">
+			<div id="footer">
+				<table>
+					<tr>
+						<td>
+							<a href="/" class="flogo"><img src="/public/images/logo.png" width="71" /><br />&copy; вдома.сom.ua</a>
+						</td>
+						<td>
+							<ul>
+								<li><a href="/">головна</a></li>
+								<li><a href="@{Static.rules}">умови доставки</a></li>
+								<li><a href="@{Static.forRestaurants}">для ресторанів</a></li>
+								<li style="display: none;"><a href="@{Static.about}">про нас</a></li>
+								<li><a href="@{Static.contacts}">контакти</a></li>
+							</ul>
+						</td>
+						<td class="social_icons">
+							<!--<p>Ми у соціальних мережах:</p>-->
+							<a title="Вконтакте" href="http://vkontakte.ru/vdoma_com_ua"><img alt="vk" src="@{'/public/images/vk.png'}" /></a>
+							<a title="Фейсбук" href="http://www.facebook.com/groups/272545222759382/"><img alt="fb" src="@{'/public/images/fb.png'}" /></a>
+							<a title="Твіттер" href="http://twitter.com/#!/vdoma_com_ua/"><img alt="tw" src="@{'/public/images/tw.png'}" /></a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<a title="Google Analytics Alternative" href="http://getclicky.com/66479952"><img style="display:none;" alt="Google Analytics Alternative" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66479952); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66479952ns.gif" /></p></noscript>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27118723-1']);
+  _gaq.push(['_setDomainName', 'vdoma.com.ua']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>    </body>
+</html>

@@ -1,0 +1,25 @@
+#{extends 'main-admin.html' /}
+#{set 'helpNav'}
+
+#{/set}
+#{set 'c__itmCat'}active#{/set}
+#{form @Admin.addCategory() , id:'form', enctype:'multipart/form-data' } 
+<input type="hidden" value="${group?.id}" name="group.id" /> 
+<div>
+<label for="group.name">name</label>
+<input type="text" id="group.name" name="group.name" value="${group?.name}" />
+</div>
+<div>
+<label for="group.description">description</label>
+<input type="text" id="group.description" name="group.description" value="${group?.description}"/>
+</div>
+<div>
+<label for="id">Restaurant</label>
+#{select 'id', value:group?.restaurant?.id, name:'id',  id:'id'}
+#{list items:restaurants, as:'restaurant'}
+#{option restaurant.id} ${restaurant.title} ${restaurant.id} #{/option}
+#{/list}
+#{/select}
+</div>
+<input type="submit" />
+#{/form}
