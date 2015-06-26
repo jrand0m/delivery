@@ -1,0 +1,360 @@
+html,body {height: 100%;}
+.empty_block {height: 70px; clear: both;}
+* {margin: 0; padding: 0;}
+a img{border: 0 none;}
+a, input{outline: 0px none;}
+html{font-family:Tahoma, Helvetica, Arial,Sans-Serif; font-size: 13px; color: #333;  background: #f4f4f4 url(/public/images/body.png);}
+body{background:url(/public/images/wrapper_bg.png) center 25px no-repeat;}
+textarea{resize: none;}
+li{list-style: none;}
+div#wrapper{margin: 0 auto; width: 984px;min-height: 100%;}
+div#wrapper div#wrapper_inner{display: inline-block;background: #f4f4f4 url(/public/images/f4.png); width: 984px; margin-top:20px; min-height: 100%;box-shadow:0px -1px 3px #666; border-radius:0 0 3px 3px;}
+div#wrapper div#wrapper_inner div#header{}
+div#wrapper div#wrapper_inner div#header div.header_top{box-shadow: 0 1px 3px #333333;margin: 0 -5px; margin-bottom: 15px; min-height: 51px; background: url(/public/images/main.png); position:relative;}
+*+html div#wrapper div#wrapper_inner div#header div.header_top{height: 75px;}
+div#wrapper div#wrapper_inner div#header div.header_top a.logo{float: left; margin-left: 9px; margin-top: -21px;}
+div#wrapper div#wrapper_inner div#header div.header_top h1{color: #000; font-weight: normal; display: none; margin-top: 6px; text-shadow: 1px 1px 1px #E6E6E6; filter: Shadow(Color=#E6E6E6, Direction=45, Strength=2);}
+div#wrapper div#wrapper_inner div#header div.header_top img.h1{display: inline; margin: 11px 0 0 15px;}
+div#wrapper div#wrapper_inner div#header div.header_top img#slogan{display: block;float: right;height: 51px;}
+div#wrapper div#wrapper_inner div#header div.header_top div.right_links{float: right; width: 201px;}
+*+html div#wrapper div#wrapper_inner div#header div.header_top div.right_links{margin-top: -40px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang{font-family: Arial; font-size: 12px; margin-top: 6px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang li{float: left; margin-right: 9px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang li.active a, div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a:hover{color: #000;  text-decoration: none;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.lang li a{color: #666;}
+div#wrapper div#wrapper_inner div#header div.header_top a.enter{font-family: Arial; font-size: 12px; float: right; font-weight: bold; margin-top: 35px; margin-right: 9px;}
+div#wrapper div#wrapper_inner div#header div.header_top a.enter{color: #fff;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav{ float: right; margin-right: 14px; margin-top: 18px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li{float: left; margin-left: 70px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li:first-child{margin-left: 0px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a{color: #fff; font-size: 22px;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li a:hover{text-decoration:none; text-shadow:0px 0px 2px #fff;}
+div#wrapper div#wrapper_inner div#header div.header_top ul.main_nav li.unactive a{text-decoration: none;}
+div#wrapper div#wrapper_inner div#header div.header_bottom{/*min-height: 34px; background-color: #e83f0b; border: 1px solid #999999; border-radius: 7px 7px 7px 7px; box-shadow: 0 0 0 3px #EDEDED;*/}
+div#wrapper div#wrapper_inner div#header div.header_bottom form{float: left; margin-left: 6px; display:none;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form input[type="text"]{font-size: 17px; margin-top: 3px; border: none; height: 28px; line-height: 28px; width: 360px; border-radius: 0 5px 5px 0; padding: 0 35px 0 5px; font-family: Open Sans Condensed, sans-serif;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .submit{background: url(/public/images/search_ico.png) no-repeat scroll center center transparent;border: medium none;cursor: pointer;height: 22px;opacity:0.5;width: 33px;line-height: 22px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .submit:hover{opacity: 1;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form label{color: #FFFFFF;float: left;font-size: 19px;line-height: 32px;margin-right: 16px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceInputWrapper{float: left; margin-top: 3px;}
+*+html div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceInputWrapper{margin-top: 9px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper {margin-top: 3px; border-radius: 2px 0px 0px 2px; min-width: 118px; position: relative; height: 28px; float: left; background: #f5f5f5;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper div span {width: 108px; line-height: 28px; position: absolute; height: 28px; color: #000; cursor: pointer; font-size: 17px; text-align: center;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper div a {display: block; right: 0px; width: 100%; position: absolute; height: 28px; background: url(/public/images/arrow_down.gif) no-repeat 105px 3px transparent;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul {background-color: #fff; line-height: 24px; overflow: hidden; display: none; z-index: 100; left: 0px; width: 108px; list-style-type: none; position: absolute; top: 25px; height: auto;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a {color: #000; text-align: center; display: block; font-size: 17px; text-decoration: none}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a:hover {background-color: #e6e6e6;}
+div#wrapper div#wrapper_inner div#header div.header_bottom form .jNiceSelectWrapper ul a.selected {background-color: #e6e6e6;}
+div#wrapper div#wrapper_inner div#header div.header_bottom a.enter {display:none;font-family: Arial;color: #FFFFFF; float: right; font-size: 13px; line-height: 33px; margin-right: 10px; text-decoration:none;}
+div#wrapper div#wrapper_inner div#header div.header_bottom a.enter:hover{ text-decoration:underline; text-shadow:0px 0px 2px #fff;}
+div#wrapper div#wrapper_inner div#header div.header_bottom a.back {display:block;color:#000;margin-top: -15px;visibility:visible !important;padding-left: 26px; float: left; margin-left: 10px; background: url(/public/images/back_arrow.gif) no-repeat left center transparent;}
+.jNiceHidden {display: none;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap{margin-top: 3px; border-radius: 2px 0px 0px 2px; min-width: 118px; position: relative; height: 28px; float: left; background: #fff;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap:hover{background:#f5f5f5}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap p{width: 100%; line-height: 28px; position: absolute; height: 28px; color: #000; cursor: pointer; font-size: 17px; text-align: center; background: url(/public/images/arrow_down.gif) no-repeat 105px 3px transparent;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul{background-color: #fff; line-height: 24px; overflow: hidden; display: none; z-index: 100; left: 0px; width: 108px; list-style-type: none; position: absolute; top: 25px; height: auto;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li{cursor: pointer; color: #000; text-align: center; display: block; font-size: 17px; text-decoration: none}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li:hover, div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrap ul li.selected{background-color: #e6e6e6;}
+div#wrapper div#wrapper_inner div#content{}
+div#wrapper div#wrapper_inner div#content div.main_cont{padding-bottom: 10px; float: left; width: 100%; color: #111;}
+div.rest_item_prev{width: 230px; margin-left: 11px; padding-bottom: 20px; float: left;  background:#fff; box-shadow: 0px 1px 3px #666; border-radius:3px; }
+div.rest_item_prev:first-child{margin-left: 15px}
+div.rest_item_prev h1{position: relative; background: url(/public/images/main_gray.png); font-size: 23px; font-weight: normal;  height: 40px; line-height: 17px; padding: 3px 10px; border-radius:3px 3px 0 0; }
+div.rest_item_prev h1 span{font-size: 13px; width:140px; white-space:nowrap; display: inline-block; overflow: hidden;}
+div.rest_item_prev h1 b{display: inline-block;font-weight: normal; height: 20px; overflow: hidden; white-space: nowrap; width: 210px; font-size: 17px; font-family: "Roboto"}
+div.rest_item_prev h1 a{display: none;font-family: Arial; font-size: 13px;position: absolute; right: 10px; top: 25px;}
+div.rest_item_prev div.logo{height: 110px; position: relative; width: 210px; padding: 10px 10px 0 10px; text-align: center; display: table-cell; vertical-align: middle;}
+div.rest_item_prev div.logo i{display: inline-block; height: 100%; vertical-align: middle;}
+div.rest_item_prev div.logo img.logo{vertical-align: middle; max-width: 210px; max-height: 110px}
+div.rest_item_prev p{padding-left: 27px; padding-right: 10px; margin-left: 10px; font-size: 13px; margin-bottom: 5px; line-height: 20px;}
+div.rest_item_prev p.info{ line-height: 22px; overflow: hidden;padding-left:0px;min-height: 44px;}
+div.rest_item_prev p.work_time{background: url(/public/images/clock-select.png) no-repeat left center transparent;}
+div.rest_item_prev p.work_time:hover{position:relative;}
+div.rest_item_prev p.work_time:hover span{cursor:help;-moz-transition:all 200ms ease-in-out 0s; opacity:0.9; top:-150px;display:block; padding:5px; position:absolute; background:#464444; border:1px solid #333; color:#fff;font-size:11px;}
+div.rest_item_prev p.work_time span{display:none;}
+div.rest_item_prev p.work_time b{font-weight:normal;text-decoration: underline;cursor:help;}
+div.rest_item_prev p.dostavka{background: url(/public/images/car-red.png) no-repeat left center transparent;}
+div.rest_item_prev p.dostavka:hover{position:relative}
+div.rest_item_prev p.dostavka b{color: #D01515;font:normal 15px 'Ubuntu Condensed';}
+div.rest_item_prev p.dostavka span{display:none;}
+div.rest_item_prev p.dostavka:hover span{-moz-transition:all 200ms ease-in-out 0s;opacity:0.9;display:block;position:absolute;top:-50px;left:0; background:#464444; border:1px solid #333; color:#fff;font-size:11px; width:170px;line-height:13px; padding:5px;}
+div.rest_item_prev a.menu_but{-moz-transition:all 200ms ease-in-out 0s; background:  #76cc1e; font-family:"Ubuntu Condensed"; border-radius:4px;border: 1px solid #9f9f9f;text-shadow: 0 0 3px #000;color: #fff;display: inline-block;font-size: 16px;height: 29px;line-height: 28px;margin-left: 46px;text-align: center;text-decoration: none;width: 137px;}
+div.rest_item_prev a.menu_but:hover{color:#fff;box-shadow:0px 0px 0px 0px #fff inset;background:#67b813;}
+div.rest_item_prev form.rform{float: left; margin-bottom: 14px; margin-left: 37px; margin-top: 3px;}
+div.rest_item_prev form.rform label.rlabel{float: left; display: inline !important;}
+div.rest_item_prev form.rform .ui-stars-star{margin-top: 3px;}
+div.rest_item_prev form.rform .ui-stars-cancel{visibility: hidden}
+/*div.rest_offline h1{background: url(/public/images/offline.png); }
+div.rest_offline h1 a{color:white;}
+div.rest_offline a.menu_but{background-position: 0 -36px; }
+div.rest_network_view{background-color: #fc7c0d;}*/
+
+div#wrapper div#wrapper_inner div#content div.left_cont{width: 680px; float: left; position: relative;}
+div#wrapper div#wrapper_inner div#content div.restMenu{margin-bottom: 30px;}
+div#wrapper div#wrapper_inner div#content div.right_cont{width: 285px; float: right; padding-right: 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev{width: 675px; float: left; margin-bottom: 15px; border-radius: 5px; border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1{position: relative; background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 20px; border-radius: 5px 5px 0 0; font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1 span{font-size: 13px; margin-left: 7px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev h1 a{font-family: Arial; font-size: 13px; font-weight: bold; position: absolute; right: 10px; top: 3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont{padding: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.img_wrap{float: left; width: 160px; height: 110px; text-align: center; display: table-cell; vertical-align: middle;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.img_wrap i{display: inline-block; height: 100%; vertical-align: middle;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.img_wrap img{vertical-align: middle; max-width: 150px; max-height: 100px}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties{float: left; font-size: 13px; line-height: 27px; margin-left: 15px; width: 190px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description {float: right; width: 285px; padding-right: 5px; position: relative; min-height: 110px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description a.menu{position: absolute; bottom: 5px; right: 0; text-align: center; text-decoration: none; background: url(/public/images/menu_but_bg2.gif) repeat-x scroll 0 0 transparent; height: 34px; line-height: 34px; width: 160px; border: 1px solid #C03409; border-radius: 3px 3px 3px 3px; color: #000000; display: inline-block; font-size: 19px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.description p{max-height: 66px; overflow: hidden; font-size: 13.5px; line-height: 16px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block{width: 285px; margin-bottom: 15px; background:url("/public/images/main_gray.png") repeat scroll 0 0 transparent; border-radius:3px;box-shadow:0px 1px 3px #666; }
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block div:first-child{background:url("/public/images/order_head.png") no-repeat scroll 0 0 transparent; height:40px; border-radius: 3px 3px 0 0;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check{width: 288px; margin-bottom: 15px; border-radius: 0px; border: none; background-color: #f4f4f4;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.advert{border-radius: 0; border: 0;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.advert a img{border: 1px solid #b3b3b3;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block h1{background: url(/public/images/rpi_h1_bg.gif) repeat-x scroll 0 0 transparent; line-height: 25px; border-radius: 5px 5px 0 0; font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.right_block div.rb_cont{padding: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off {}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off .offline{ font-weight:normal; color:white;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off h1{background-image: none; background-color: #979797;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev_off div.rlp_cont div.description a.menu{border: 1px solid #979797; background:url("/public/images/offline_button.png"); color:white;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.rating {background: url(/public/images/star--arrow.png) no-repeat left center transparent; padding-left: 27px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.work_time {background: url(/public/images/clock-select.png) no-repeat left center transparent; padding-left: 27px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_list_prev div.rlp_cont div.properties p.dostavka {background: url(/public/images/car-red.png) no-repeat left center transparent; padding-left: 27px; }
+div#login {width: 220px; display: table; }
+div#login h1{position: relative; line-height: 20px; font-size: 23px; font-weight: normal; height: 25px; padding: 3px 10px;}
+div#login form{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
+div#login div.linner{padding-bottom: 25px; width: 190px; margin: 0 auto; padding-top: 10px;}
+div#login input[type="text"], div#login input[type="password"]{font-family: 'Roboto',Sans-Serif; float: left; font-size: 19px; margin-bottom: 10px; margin-top: 9px; height: 30px; line-height: 30px; width: 170px; padding: 0 10px; border-radius: 5px; border: 1px solid #b3b3b3;}
+div#login input[type="text"]{margin-bottom: 2px;}
+div#login p.tl label{float: left; cursor: text; margin-bottom: -22px; margin-left: 10px; position: relative; top: 13px; z-index: 2;}
+div#login p.error{text-align: center; color: red; font-size: 14px; text-decoration: blink;}
+div#login p#remember-field{margin-bottom: -10px;}
+div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px;float: left; font-family: 'Roboto',Sans-Serif; padding:5px ;margin-top: 15px; width: 191px;}
+div#login div input[type="submit"]{margin: 10px 0;background: #fff; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Roboto',Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 665px; float: left; margin-bottom: 15px;margin-left:10px;border-radius:3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(/public/images/main.png);box-shadow:0px 1px 3px #666; line-height: 34px; font-size: 17px; font-weight: normal; height: 34px; padding: 3px 10px; border-radius:3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 span{font-size: 13px; margin-left: 7px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 a{font-family: Arial; font-size: 13px; position: absolute; right: 10px; top: 3px; display:none;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table{padding: 5px 10px; width: 100%; line-height: 26px; border-radius:3px;background:url("/public/images/f4.png") repeat scroll 0 0 #F4F4F4;border:1px solid #999; margin:15px 0 0 0;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td{width: 25%; vertical-align: top;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a{color: #000; padding: 3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table td a:hover{background-color: #cccccc;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket h1{background: url(/public/images/ico_shopping_cart.png) no-repeat 252px 5px; color: #fff;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu{position: relative; width: 665px;margin-left:10px; float: left; margin-bottom: 15px; border-radius:3px;/*box-shadow:0px 1px 3px #666;*/}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu a.anchor_link{position: absolute; top: -15px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu h1{position: relative; background: url(/public/images/main_gray.png);border:1px solid #999;margin:0 0 5px; line-height: 24px; font-size: 17px; font-weight: normal; height: 25px; padding: 3px 10px;border-radius:3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table{padding: 5px 10px; width: 100%; border-collapse: collapse;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th{width: 5%; vertical-align: top; padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a{width: 24px; display: inline-block; margin-top: 4px; height: 24px; background: url(/public/images/add_but2.png) no-repeat 0 0 transparent;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a.current{background: url(/public/images/ajax-loader.gif) no-repeat 0 0 transparent;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table th a.current:hover{background-position: 0 0;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover th a{background-position: 0 -24px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p{line-height: 19px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child{color: #D01515;font:normal 15px 'Ubuntu Condensed';width: 75px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr td:last-child sup {text-decoration: underline; }
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td p.descr{font-size: 13px;color:#444;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table td{padding: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr.od{background-color: #f5f5f5; border-top:1px solid #bbb; border-bottom:1px solid #bbb;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr.od:last-child{border-bottom:none;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.det_rest_menu table tr:hover{background-color: #cccccc; cursor: pointer;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table{padding-bottom: 10px; border-collapse: collapse; width: 270px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span{float: left; width: 12px; height: 12px; margin-top: 4px; background: url(/public/images/plus_minus_delete_but2.gif) no-repeat transparent;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.minus{background-position: 0 -12px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.minus:hover{background-position: 0 -48px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.plus{background-position: 0 0;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.plus:hover{background-position: 0 -36px; cursor: copy;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th input{float: left; width: 17px; height: 18px; line-height: 18px; border: 1px solid #ccc; font-family: Arial; font-size: 13px; text-align: center; border-radius: 3px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th {width: 18px; vertical-align: top;padding-top: 4px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table td {vertical-align: top; padding-top: 5px; min-width: 60px; }
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table td p{line-height: 18px; }
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table td p.descr{font-size: 13px; font-weight: normal; color:#444;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr td:last-child{text-decoration: underline; text-align: right; white-space: nowrap;font:normal 15px 'Ubuntu Condensed';}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td{color: #D01515; text-decoration: none; white-space: nowrap;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total2{border-top: 1px solid #ededed;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total2 td{padding-top: 5px; padding-bottom: 0;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total{line-height: 15px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr .total{background: #fff;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total th{}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table tr.total td p{color: #D01515;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]{-moz-transition:all 200ms ease-in-out 0s;border-radius: 2px;font-family:Arial; cursor: pointer; background: #89C12A; box-shadow:0px 1px 3px #666; border: 1px solid #515151; color: #FFFFFF; font-size: 17px; height: 45px; position: relative; left: 21px; margin: 10px 0; width: 230px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket input[type="submit"]:hover{color:#fff;box-shadow:0px 0px 0px 0px #fff inset;border:1px solid #929292;background:#A0E02D;}
+
+div#wrapper div#wrapper_inner div#content div.order{width: 345px; float: right; padding-right: 2px;}
+div#wrapper div#wrapper_inner div#content div.order table tr td{width: 400px;}
+div#wrapper div#wrapper_inner div#content div.order table tr td:last-child{width: 60px;font: 15px 'Ubuntu Condensed';}
+div#wrapper div#wrapper_inner div#content div.order th{width: 25px;}
+
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout{width: 665px; float: left; margin-bottom: 15px; margin-left:10px;/*box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;*/border-radius:3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout h1{position: relative; background: url(/public/images/main.png); line-height: 34px;  font-size: 17px; font-weight: normal; height: 34px; padding: 3px 10px; border-radius:3px;box-shadow:0 1px 3px #666666}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.result_form{float:left; margin: 10px 0 0 10px; padding: 5px 10px; line-height: 20px; line-height: 35px; border-collapse: collapse;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.result_form span{ font:normal 13px Arial; padding:0 5px 0 0;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form{margin-top: 10px; padding: 5px 10px; line-height: 20px; line-height: 35px; width: 100%; border-collapse: collapse;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form th{text-transform: capitalize; color: #333333; font-weight: normal; text-align: right; font-size: 13px; padding-right: 5px; font-family:Arial;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form textarea{border: 1px solid #999999;border-radius: 3px 0 0 3px;height: 90px;margin: 5px 0;width: 641px;padding: 0 0 0 5px;font: normal 13px arial;color:#666;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td{font-family: Arial; font-size: 13px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td label{float: left; margin-right: 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout label.tal{line-height: 17px; text-transform: none; vertical-align: top;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td input[type="text"]{border-radius:2px;position: relative; z-index: 2; height: 25px; width: 200px; padding: 0 10px; line-height: 25px; font-size: 14px; font-family: Arial; border: 1px solid #b3b3b3; color: #333;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form textarea#addinfo{border-radius: 2px;position: relative; z-index: 2; height: 56px; width: 200px; padding: 5px 10px; font-size: 14px; font-family: Arial;  border: 1px solid #b3b3b3; color: #333;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .err{ color: #E83F0B; margin-left: 10px; margin-top: 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form td span.wrong_data{color: #E83F0B; display: block; font-family: tahoma; font-size: 11px; margin-top: -15px; position: absolute; z-index: 1;}
+.jRadioWrapper {z-index: 2; position: relative; float: left; margin-right: 22px; margin-top: 10px;}
+.jNiceRadio {background: transparent url(/public/images/radio.jpg) no-repeat center top; height: 17px; width: 17px; position:absolute; left:0px; top:0px; cursor:pointer; vertical-align:middle;}
+.jNiceChecked {background-position: center bottom;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total{border-collapse: collapse; border-top: 1px solid #D01515; float: right; font-size: 17px; line-height: 27px; margin-right: 17px; margin-top: 10px; width: 325px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total span{background:url("/public/images/f4.png") repeat scroll 0 0 #F4F4F4; color: #D01515; padding: 0 5px; white-space: nowrap;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total th{width: 75%; text-align: left; font-weight: normal;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total td{width: 25%; text-align: right;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total td span{font:normal 17px 'Ubuntu Condensed';}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total{border-top: 1px solid #ededed;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.pretotal th{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.pretotal td{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total th{text-transform: uppercase; padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr.total td{padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total th, div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total td{background: url(/public/images/dot.gif) repeat-x -4px 16px transparent;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]{-moz-transition:all 200ms ease-in-out 0s; background: none repeat scroll 0 0 #89C12A;border: 1px solid #515151;box-shadow: 0 0 3px #666666;color: #eee;display: inline-block;font-size: 15px;height: 40px;line-height: 28px;margin:10px 0 10px 46px;text-align: center;text-decoration: none;width: 250px; cursor:pointer;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total input[type="submit"]:hover{color:#fff;box-shadow:0px 0px 0px 0px #fff inset;border:1px solid #929292;background:#A0E02D;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.total tr:last-child td{background-image: none; }
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout .frst span{text-align:left;display:block;margin-left:67px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout img.card_pic{left: 13px; position: relative; top: 6px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses{padding-left: 10px; padding-bottom: 15px; line-height: 30px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses a{color: #e83f0b;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses h2{margin-bottom: 10px;}
+div#wrapper div#wrapper_inner div#content div.left_cont h3.wait_time img{border:1px solid #999;border-radius:3px;margin: 0 0 10px 10px; width:665px;}
+div#footer_outer{ margin: 0 auto;}
+div#footer{height: 51px; box-shadow: 0 0 3px #666;  font: 13px Arial; position: relative; z-index: 100; width: 984px; margin: -80px auto 0; background: url(/public/images/main.png);}
+div#footer table{color: #333; width: 100%; height: 75px; border-collapse: collapse;}
+div#footer table td{width: 33%;padding-left: 3%; vertical-align: top;}
+div#footer table td.social_icons a{opacity: 0.8; position: relative; z-index: 10px; top: 10px; float: left; font-size: 30px; font-weight: bold; height: 31px; line-height: 31px; margin-right: 10px;  text-decoration: none; text-indent: 4px;  text-transform: lowercase;  width: 31px;}
+div#footer table td.social_icons a:hover{opacity: 1;}
+div#footer table td a.flogo{margin-top: -15px; display: block; color: #000; text-decoration: none;}
+div#footer table td ul{margin-top: 58px; width: 560px;}
+div#footer table td ul li{float: left; padding: 0 8px; position: relative; z-index: 10; border-left: 1px solid #333; height: 17px; line-height: 12px;}
+div#footer table td ul li:first-child{border-left: none;}
+div#footer table td ul li a{color: #000;text-decoration:unedrline;}
+div#footer table td ul li a:hover{color: #000;text-decoration:none;text-shadow:0px 0px 1px #666}
+div#footer table td.social_icons{padding-top:49px;}
+p.stars{margin-bottom: 20px;}
+div.rlp_cont p.stars{margin-bottom: 0px;}
+p.stars span{display: inline-block; width: 80px; height: 16px; background: url(/public/images/rate_stars.png) no-repeat 0 0 transparent; margin-left: 10px; position: relative; top: 3px;}
+p.stars span.rate1,p.stars span.rate2, p.stars span.rate3, p.stars span.rate4, p.stars span.rate5{background-position: 0 -64px}
+/*p.stars span.rate2{background-position: 0 -16px}
+p.stars span.rate3{background-position: 0 -32px}
+p.stars span.rate4{background-position: 0 -48px}
+p.stars span.rate5{background-position: 0 -64px}*/
+div#wrapper div#wrapper_inner div#content a.see_all{float: right; width: 230px; margin-right: 2px; margin-top: 20px; clear: both; border-radius: 2px; border: 1px solid #f5f5f5; font-size: 18px; height: 41px; line-height: 41px; text-decoration: none; color: #333; text-align: center; background: url(/public/images/see_all_bg.gif) repeat-x 0 0 transparent;}
+div#wrapper div#wrapper_inner div#content a.see_all:hover{border: 1px solid #C03409; text-shadow:0px 0px 2px #666;}
+div#wrapper div#wrapper_inner div#content div.index_bottom{ background: #fff url(/public/images/homepage_pizza.jpg) no-repeat 0 220px; color: #666; float: left; min-height: 917px; padding: 5px 0 0; width: 100%; margin-top:30px;border-top:1px solid #E83F0B;}
+div#wrapper div#wrapper_inner div#content div.index_bottom h2{font-weight: normal; font-size: 25px;margin-left:15px;}
+div#wrapper div#wrapper_inner div#content div.index_bottom div.staps{margin-top: 20px; width: 297px; float: left; margin-left: 35px;}
+div#wrapper div#wrapper_inner div#content div.index_bottom div.first{margin-left: 10px;}
+div#wrapper div#wrapper_inner div#content div.index_bottom div.staps h3{color:#333;font-size: 20px; font-weight: normal; line-height: 30px; margin-bottom: 10px; font-family: "Roboto"}
+div#wrapper div#wrapper_inner div#content div.index_bottom div.staps h3 span{ font-family: "Ubuntu Condensed"; color: #BE2424; display: inline-block; font-size: 26px; height: 25px; line-height: 31px; text-indent: 2px; width: 31px;}
+div#wrapper div#wrapper_inner div#content div.index_bottom div.staps p{color: #333333; font-size: 13px; line-height: 19px; padding-left: 30px;}
+div#wrapper div#wrapper_inner div#content div.zaraz{float: right; margin-top: 40px; width: 291px;margin-right:15px;}
+div#wrapper div#wrapper_inner div#content div.zaraz h1{color: #BE2424; margin-bottom: 10px; font-size: 19px; font-weight:normal; font-family:"Roboto"}
+div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item{margin-bottom: 2px; width: 289px; height: 73px; overflow: hidden; border: 1px solid #e83f0b; background-color: #fff;}
+div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item h2{float: left;margin-left:0; background-color: #e83f0b; width: 73px; height: 73px; text-align: center; line-height: 73px;  margin-right: 5px; color: #fff; font-weight: normal; font-size: 47px;}
+div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item h3{font-size: 15px;}
+div#wrapper div#wrapper_inner div#content div.zaraz div.zaraz_item p{font-size: 14px; line-height: 17px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom label.forsel{color: #fff;font-size: 19px; margin-left: 50px; margin-right: 11px; margin-top: 4px; float: left;}
+div#wrapper div#wrapper_inner div#header div.header_bottom label.forsel:first-child{margin-left: 20px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp{border-radius: 3px 3px 3px 3px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p{background-position: 101px 3px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p.selText{text-align: left; text-indent: 15px;}
+div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selDrop li{text-align: left; text-indent: 15px;}
+.ing_popup{background:url("/public/images/main_gray.png") repeat scroll 0 0 transparent; border-radius: 5px 5px 5px 5px; color: #333;}
+.ing_popup h1{background: url("/public/images/main.png") repeat scroll 0 0 transparent;border-radius: 5px 5px 5px 5px;font-size: 17px;font-weight: normal;height: 45px;left: 5px;line-height: 42px;margin: 0 0 10px;padding: 0 10px;position: relative;top: 5px;width: 430px;}
+.ing_popup p{margin-left: 10px; font-family: Arail;}
+.ing_popup table.wrapper{width: 440px; margin: 0 10px; line-height: 28px; border-collapse: collapse; border-radius: 3px; color: #333333; font-family: Arial;}
+.ing_popup table.wrapper table{width: 220px; border-collapse: collapse; cursor: default}
+.ing_popup table.wrapper table label{display: inline-block; width: 100%;}
+.ing_popup table.wrapper th{text-align: left;}
+.ing_popup table.wrapper td.price{width: 60px; white-space: nowrap;padding-right: 5px;}
+.ing_popup table.wrapper tr td:first-child{width: 17px;}
+.ing_popup table.wrapper tr.total td{border-top: 1px solid #E83F0B; font-size: 20px;}
+.ing_popup table.wrapper tr.total .price{text-align: right;color: #D01515;font: 20px 'Ubuntu Condensed';}
+.ing_popup table.wrapper tr.total td span.txt{margin-left: 5px;}
+.ing_popup table.wrapper table tr:hover{background-color: #CCCCCC;}
+.ing_popup table.wrapper tr.button{text-align: right;}
+.ing_popup table.wrapper tr.button div{ text-align: center;line-height: 44px;-moz-transition: all 200ms ease-in-out 0s;background: none repeat scroll 0 0 #89C12A;border: 1px solid #515151;border-radius: 2px 2px 2px 2px; box-shadow: 0 1px 3px #666666;color: #FFFFFF;cursor: pointer;font-family: Arial;font-size: 17px;height: 45px;margin: 10px auto;position: relative;width: 230px;}
+.ing_popup table.wrapper tr.button div:hover{color:#fff;box-shadow:0px 0px 0px 0px #fff inset;border:1px solid #929292;background:#A0E02D;}
+.ing_popup table.wrapper input[type="checkbox"]{margin-left: 5px; margin-right: 5px;}
+.ing_popup .jNiceCheckbox {float: left;  margin-left: 5px; margin-right: 10px;display: block; background: transparent url(/public/images/checkbox.png) no-repeat center top; vertical-align: middle; width: 17px; height: 17px}
+.ing_popup .jNiceChecked {background-position: center bottom;}
+input[type="radio"]{ position:relative; top:1px; margin: 0 5px 0 0;}
+#timer{width:100%;background:url(/public/images/timer.jpg);height:250px; border-radius:3px;}
+#timer span{color:#fff; display:inline-block; width:100%; font:normal 13px Arial; padding: 3px 0 0 10px;}
+#timer span b{font:normal 18px Arial;}
+#timer span#int{font:bold 160px/135px "Open Sans Condensed"; text-align:center; padding:10px 0 0 0;}
+#timer span#time{font:normal 20px "Open Sans Condensed"; text-align:center; padding:0;}
+div#wrapper div#wrapper_inner div#content div.cabinetwrap{width: 100%; float: left; border: 1px solid #B3B3B3; border-radius: 5px;}
+div#wrapper div#wrapper_inner div#content div.tabgroup{margin-bottom: 10px; width: 100%; float: left; height: 28px; padding-top: 4px; line-height: 32px; border-bottom: 1px solid #B3B3B3; background: url(/public/images/header_top_bg.gif) repeat-x center center transparent; border-radius: 5px 5px 0 0;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a:first-child{margin-left: 8px; margin-right: 5px;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a{padding: 0 6px; border: 1px solid transparent; line-height: 26px; height: 26px; margin-top: 2px; color: #000; float: left; text-decoration: none;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a.active{border: 1px solid #b3b3b3; border-bottom: 0 none; border-radius: 5px 5px 0 0; background-color: #fff;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a:hover{border: 1px solid #b3b3b3; height: 25px; border-radius: 5px 5px 0 0; background-color: #f1f1f1;}
+div#wrapper div#wrapper_inner div#content div.tabgroup a.active:hover{border: 1px solid #b3b3b3; height: 26px; border-bottom: 0 none; border-radius: 5px 5px 0 0; background-color: #fff;}
+div#wrapper div#wrapper_inner div#content div.cabinetwrap table.lastorders{margin-left: 10px;}
+div#wrapper div#wrapper_inner div#content div.cabinetwrap table.lastorders tr td:first-child{padding-right: 20px;}
+div#wrapper div#wrapper_inner div#content div.cabinetwrap table.lastorders a{color: #000;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check{padding-bottom: 10px; border-collapse: collapse; width: 100%}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check th span{float: left; width: 12px; height: 12px; margin-top: 4px; background: url(/public/images/plus_minus_delete_but2.gif) no-repeat transparent;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check th {width: 45px; vertical-align: top;padding-top: 4px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check td {vertical-align: top; padding-top: 5px; min-width: 60px; }
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check td p{line-height: 18px; font-weight: bold;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check td p.descr{font-size: 13px; font-weight: normal;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.check tr td:last-child{text-decoration: underline; text-align: right; white-space: nowrap;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total{width: 100%; border-collapse: collapse; border-top: 1px solid #E83F0B; font-size: 18px; margin-top: 10px; margin-right: 10px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total span{background-color: #f4f4f4; padding: 0 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th{width: 75%; text-align: left; font-weight: normal;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total td{width: 25%; text-align: right; font-weight: bold;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total{border-top: 1px solid #ededed;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.pretotal th{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.pretotal td{padding-bottom: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total th{text-transform: uppercase; padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr.total td{padding-top: 5px;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total th, div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total td{background: url(/public/images/dot.gif) repeat-x -4px 16px transparent;}
+div#wrapper div#wrapper_inner div#content div.right_cont div.check table.total tr:last-child td{background-image: none; text-align: right;}
+div#wrapper div#wrapper_inner div#content div.right_cont div#basket table th span.delete{cursor: pointer; background-position: 0 -23px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit{width: 330px; margin-bottom: 20px; border-right: 1px dotted #e83f0b; line-height: 30px; float: left;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit th{font-family: Arial; text-align: right; font-weight: normal; font-size: 13px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit th label{margin-right: 5px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td input[type="text"], div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td input[type="password"]{border: 1px solid #b3b3b3; border-radius: 3px; width: 170px; padding: 0 10px; line-height: 25px; height: 25px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td input[type="submit"]{float: right; margin-top: 10px; width: 190px; height: 34px; color: #fff; font-family: 'Open Sans Condensed',Sans-Serif; border: none; font-size: 25px; cursor: pointer; background: url(/public/images/save_bg.png) no-repeat 0 0 transparent;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.profile_edit td {width: 192px; padding-right: 20px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr{border-collapse: collapse; margin-bottom: 20px; width: 300px; font-family: Arial; font-size: 13px; float: left; margin-left: 20px; line-height: 30px;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr tr:hover, div#wrapper div#wrapper_inner div#content div.left_cont table.adr tr.act{background-color: #f5f5f5;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr th{color: #e83f0b; padding: 0 5px; vertical-align: top;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr td{position: relative;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr td a{margin-left: 5px; margin-right: 5px; color: #e83f0b;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr th a{color: #e83f0b; float: left; text-decoration: none; font-weight: normal;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr th a span{border-bottom: 1px solid #e83f0b;}
+div#wrapper div#wrapper_inner div#content div.left_cont table.adr td div{padding-top: 30px; position: absolute; width: 0px; right: -295px; top: 0; overflow: hidden; height: 185px; z-index: 10; background-color: #f5f5f5;}
+div#wrapper div#wrapper_inner div#content div.static_left h2{color:#D01515;}
+div#wrapper div#wrapper_inner div#content div.static_left{z-index: 2; position: relative;  float: left; width: 50%;  padding: 10px;font-family:'Ubuntu Condensed'}
+div#wrapper div#wrapper_inner div#content div.static_center{z-index: 2; top: -29px; position: relative; box-shadow: 0 5px 8px #999999; background-color: #fff; display: table; width: 50%; border-bottom: 1px dashed #d0d0d0; border-right: 1px dashed #d0d0d0; border-left: 1px dashed #d0d0d0; padding: 10px; margin: 0 auto; padding-bottom: 20px;}
+div#wrapper div#wrapper_inner div#content div.static_center h3{clear: left;}
+div#wrapper div#wrapper_inner div#content div.static_center li, div#wrapper div#wrapper_inner div#content div.static_right li, div#wrapper div#wrapper_inner div#content div.static_left li{list-style: disc; list-style-position: inside; margin-top: 10px; font-family: Arial; font-size: 14px; color: #333;}
+div#wrapper div#wrapper_inner div#content div.static_center li.single, div#wrapper div#wrapper_inner div#content div.static_right li.single, div#wrapper div#wrapper_inner div#content div.static_left li.single{list-style: none;}
+div#wrapper div#wrapper_inner div#content div.static_right li a, div#wrapper div#wrapper_inner div#content div.static_center li a, div#wrapper div#wrapper_inner div#content div.static_left li a{color: #000;}
+div#wrapper div#wrapper_inner div#content div.static_right li a:hover, div#wrapper div#wrapper_inner div#content div.static_center li a:hover, div#wrapper div#wrapper_inner div#content div.static_left li a:hover{text-decoration: none; text-shadow: 0px 0px 1px #000;}
+div#wrapper div#wrapper_inner div#content div.static_right ul, div#wrapper div#wrapper_inner div#content div.static_left ul{margin-bottom: 10px;}
+div#wrapper div#wrapper_inner div#content div.static_right{position: relative; z-index: 3; box-shadow: 0 5px 8px #999999; float: right; width: 45%; padding: 10px; border-bottom: 1px dashed #d0d0d0; background-color: #fff;}
+
+
+
+
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses, div#wrapper div#wrapper_inner div#header div.header_top div.right_links, div#wrapper div#wrapper_inner div#header div.header_bottom a.enter, div#wrapper div#wrapper_inner div#header div.header_bottom form{visibility: hidden;}
+
+ul.breadcrump-links{position:absolute; right:0; top: 0}
+ul.breadcrump-links li {float: left; margin:13px 19px; font: normal 18px Lobster; text-shadow: 0 -1px #474747;}
+ul.breadcrump-links li a{color: #fff; text-decoration:none;}
+ul.breadcrump-links li a:hover{text-shadow:0 0 3px #fff}
+
+
+
+
+
+
+
+

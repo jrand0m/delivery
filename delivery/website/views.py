@@ -8,4 +8,4 @@ def index(request):
     return HttpResponse('Hello world!')
 
 def indexM(request):
-    return render_to_response('main.html', {'test':':)'});
+    return render_to_response('main.html', {'test':':)'})

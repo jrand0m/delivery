@@ -1,0 +1,58 @@
+body {background:url("../../../shared/web/img/bodyBG.png") repeat scroll 0 0 transparent; font-family:Tahoma}
+BODY {margin: 0; padding: 0;}
+#audio1 {display: none;}
+
+.DCWFake {width: 1px; height: 1px; font-size: 1px; position: absolute; line-height: 1px; overflow: hidden;}
+#DCWMainOrderTable {width: 100%; height: 100%; border-spacing: 0;}
+#DCWAuthForm {}
+
+#DCWDialogBackgroundDiv {display: none;}
+#DCWDialogBackground {background: none repeat scroll 0 0 #333333; height: 100%; left: 0; opacity: 0.5; 
+	position: fixed; top: 0; width: 100%; z-index: 100;}
+	
+.DCWDialogFrame {opacity: 1; left: 50%; top: 50%; position: fixed; z-index: 101; background-color: #fff;}
+
+.DCWOrdersColumn {vertical-align: top; width: 50%; overflow: hidden;}
+.DCWContentWrapper {overflow-y: auto;}
+.DCWOrdersColumnContent {}
+#DCWNewOrdersColumn .DCWOrderDiv{border:1px solid #e83f0b; border-radius: 5px;}
+#DCWActiveOrdersColumn .DCWOrderDiv{border:1px solid #0b0be8; border-radius: 5px;}
+
+.DCWOrderIdDiv {float: left;}
+.DCWDelayedOrder {background-color: #f00;}
+.DCWTimeToFinishContainer {line-height: 30px;}
+	.DCWOrderTimeDiv {float: right;}
+	.DCWOrderTimePrefix {background: url('../../../shared/web/img/clock.png');height: 24px; margin-top: 3px; width: 24px;}
+	.DCWTimeToFinish {display: inline; padding: 0 5px;}
+		
+.DCWOrderPriceContainer {float: right;}
+	.DCWOrderPriceDiv {}
+	
+
+.DCWOrderButton {padding: 7px 10px 7px 10px;}
+.DCWOrderDiv .DCWOrderButton {padding: 7px 10px 7px 30px;}
+	.DCWRejectOrderButton {float: right;}
+	.DCWTickBtn {background: url("../../../restaurant/web/img/tick.png") no-repeat scroll 4px 2px #EEEEEE;}
+	.DCWCrossBtn {background: url("../../../restaurant/web/img/cross.png") no-repeat scroll 4px 2px #EEEEEE;}
+	.DCWHomeBtn {background: url("../../../restaurant/web/img/home.png") no-repeat scroll 4px 2px #EEEEEE;}
+	
+.DCWDishContent {border-bottom: 1px dashed #999; color: #333; overflow: hidden; padding: 3px 10px;}
+	.DCWDishNumber {font-size: 0.8em;}
+	.DCWDishName {}
+	.DCWDishCount {font-weight: bold; padding: 0 7px 0 8px; background-color: #FFCC00; margin-right: 5px;}
+	.DCWDishPrice {float: right;}
+	.DCWDishIngredient {border: 1px solid #AAAAAA;}
+	
+.DCWTableBorder {}
+.DCWRightFloat {float: right; width: 10px; height: 10px; overflow: hidden;}
+.DCWLeftFloat {float: left; width: 10px; height: 10px; overflow: hidden;}
+.DCW10px {width: 10px; height: 10px; overflow: hidden;}
+
+.DCWOrderHeaderWrapper {overflow: hidden; background: url('../../../shared/web/img/rpi_h1_bg.gif'); 
+	padding: 0 5px 0 10px; line-height: 30px; height: 30px; border-radius: 5px 5px 0 0;}
+	
+.DCWDelayedOrder .DCWOrderHeaderWrapper {background-image: none; background-color: #E83F0B;}
+	.DCWActiveOrdersBtnsWrapper {}
+.DCWAuthAltInput {color: #999;}
+
+.DCWOrderDiv {background: url("../../../shared/web/img/orderBG.png"); box-shadow: 0 0 9px -2px; margin: 0 0 10px;}
