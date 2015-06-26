@@ -4,13 +4,13 @@ html,body {height: 100%;}
 a img{border: 0 none;}
 a, input{outline: 0px none;}
 html{font-family:Tahoma, Helvetica, Arial,Sans-Serif; font-size: 13px; color: #333;  background: #f4f4f4 url(/public/images/body.png);}
-body{background:url(/public/images/wrapper_bg.png) center 25px no-repeat;}
+body{background:url(../images/wrapper_bg.png) center 25px no-repeat;}
 textarea{resize: none;}
 li{list-style: none;}
 div#wrapper{margin: 0 auto; width: 984px;min-height: 100%;}
 div#wrapper div#wrapper_inner{display: inline-block;background: #f4f4f4 url(/public/images/f4.png); width: 984px; margin-top:20px; min-height: 100%;box-shadow:0px -1px 3px #666; border-radius:0 0 3px 3px;}
 div#wrapper div#wrapper_inner div#header{}
-div#wrapper div#wrapper_inner div#header div.header_top{box-shadow: 0 1px 3px #333333;margin: 0 -5px; margin-bottom: 15px; min-height: 51px; background: url(/public/images/main.png); position:relative;}
+div#wrapper div#wrapper_inner div#header div.header_top{box-shadow: 0 1px 3px #333333;margin: 0 -5px; margin-bottom: 15px; min-height: 51px; background: url(../images/main.png); position:relative;}
 *+html div#wrapper div#wrapper_inner div#header div.header_top{height: 75px;}
 div#wrapper div#wrapper_inner div#header div.header_top a.logo{float: left; margin-left: 9px; margin-top: -21px;}
 div#wrapper div#wrapper_inner div#header div.header_top h1{color: #000; font-weight: normal; display: none; margin-top: 6px; text-shadow: 1px 1px 1px #E6E6E6; filter: Shadow(Color=#E6E6E6, Direction=45, Strength=2);}
@@ -130,7 +130,7 @@ div#login p#remember-field{margin-bottom: -10px;}
 div#login input[type="submit"]{cursor: pointer; background: url("/public/images/rpi_h1_bg.gif") repeat-x scroll 0 0 transparent; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px;float: left; font-family: 'Roboto',Sans-Serif; padding:5px ;margin-top: 15px; width: 191px;}
 div#login div input[type="submit"]{margin: 10px 0;background: #fff; border: 1px solid #B3B3B3; border-radius: 5px 5px 5px 5px; box-shadow: 6px 6px 9px -4px #B3B3B3; float: right; font-family: 'Roboto',Sans-Serif; font-size: 28px; height: 45px; width: 190px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu{width: 665px; float: left; margin-bottom: 15px;margin-left:10px;border-radius:3px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(/public/images/main.png);box-shadow:0px 1px 3px #666; line-height: 34px; font-size: 17px; font-weight: normal; height: 34px; padding: 3px 10px; border-radius:3px;}
+div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1{position: relative; background: url(../images/main.png);box-shadow:0px 1px 3px #666; line-height: 34px; font-size: 17px; font-weight: normal; height: 34px; padding: 3px 10px; border-radius:3px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 span{font-size: 13px; margin-left: 7px;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu h1 a{font-family: Arial; font-size: 13px; position: absolute; right: 10px; top: 3px; display:none;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.rest_menu table{padding: 5px 10px; width: 100%; line-height: 26px; border-radius:3px;background:url("/public/images/f4.png") repeat scroll 0 0 #F4F4F4;border:1px solid #999; margin:15px 0 0 0;}
@@ -184,7 +184,7 @@ div#wrapper div#wrapper_inner div#content div.order table tr td:last-child{width
 div#wrapper div#wrapper_inner div#content div.order th{width: 25px;}
 
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout{width: 665px; float: left; margin-bottom: 15px; margin-left:10px;/*box-shadow: 6px 6px 9px -4px #B3B3B3; border: 1px solid #b3b3b3;*/border-radius:3px;}
-div#wrapper div#wrapper_inner div#content div.left_cont div.checkout h1{position: relative; background: url(/public/images/main.png); line-height: 34px;  font-size: 17px; font-weight: normal; height: 34px; padding: 3px 10px; border-radius:3px;box-shadow:0 1px 3px #666666}
+div#wrapper div#wrapper_inner div#content div.left_cont div.checkout h1{position: relative; background: url(../images/main.png); line-height: 34px;  font-size: 17px; font-weight: normal; height: 34px; padding: 3px 10px; border-radius:3px;box-shadow:0 1px 3px #666666}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.result_form{float:left; margin: 10px 0 0 10px; padding: 5px 10px; line-height: 20px; line-height: 35px; border-collapse: collapse;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.result_form span{ font:normal 13px Arial; padding:0 5px 0 0;}
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout table.data_form{margin-top: 10px; padding: 5px 10px; line-height: 20px; line-height: 35px; width: 100%; border-collapse: collapse;}
@@ -221,7 +221,7 @@ div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additio
 div#wrapper div#wrapper_inner div#content div.left_cont div.checkout div.additional_addreses h2{margin-bottom: 10px;}
 div#wrapper div#wrapper_inner div#content div.left_cont h3.wait_time img{border:1px solid #999;border-radius:3px;margin: 0 0 10px 10px; width:665px;}
 div#footer_outer{ margin: 0 auto;}
-div#footer{height: 51px; box-shadow: 0 0 3px #666;  font: 13px Arial; position: relative; z-index: 100; width: 984px; margin: -80px auto 0; background: url(/public/images/main.png);}
+div#footer{height: 51px; box-shadow: 0 0 3px #666;  font: 13px Arial; position: relative; z-index: 100; width: 984px; margin: -80px auto 0; background: url(../images/main.png);}
 div#footer table{color: #333; width: 100%; height: 75px; border-collapse: collapse;}
 div#footer table td{width: 33%;padding-left: 3%; vertical-align: top;}
 div#footer table td.social_icons a{opacity: 0.8; position: relative; z-index: 10px; top: 10px; float: left; font-size: 30px; font-weight: bold; height: 31px; line-height: 31px; margin-right: 10px;  text-decoration: none; text-indent: 4px;  text-transform: lowercase;  width: 31px;}
@@ -235,7 +235,7 @@ div#footer table td ul li a:hover{color: #000;text-decoration:none;text-shadow:0
 div#footer table td.social_icons{padding-top:49px;}
 p.stars{margin-bottom: 20px;}
 div.rlp_cont p.stars{margin-bottom: 0px;}
-p.stars span{display: inline-block; width: 80px; height: 16px; background: url(/public/images/rate_stars.png) no-repeat 0 0 transparent; margin-left: 10px; position: relative; top: 3px;}
+p.stars span{display: inline-block; width: 80px; height: 16px; background: url(../images/rate_stars.png) no-repeat 0 0 transparent; margin-left: 10px; position: relative; top: 3px;}
 p.stars span.rate1,p.stars span.rate2, p.stars span.rate3, p.stars span.rate4, p.stars span.rate5{background-position: 0 -64px}
 /*p.stars span.rate2{background-position: 0 -16px}
 p.stars span.rate3{background-position: 0 -32px}
@@ -243,7 +243,7 @@ p.stars span.rate4{background-position: 0 -48px}
 p.stars span.rate5{background-position: 0 -64px}*/
 div#wrapper div#wrapper_inner div#content a.see_all{float: right; width: 230px; margin-right: 2px; margin-top: 20px; clear: both; border-radius: 2px; border: 1px solid #f5f5f5; font-size: 18px; height: 41px; line-height: 41px; text-decoration: none; color: #333; text-align: center; background: url(/public/images/see_all_bg.gif) repeat-x 0 0 transparent;}
 div#wrapper div#wrapper_inner div#content a.see_all:hover{border: 1px solid #C03409; text-shadow:0px 0px 2px #666;}
-div#wrapper div#wrapper_inner div#content div.index_bottom{ background: #fff url(/public/images/homepage_pizza.jpg) no-repeat 0 220px; color: #666; float: left; min-height: 917px; padding: 5px 0 0; width: 100%; margin-top:30px;border-top:1px solid #E83F0B;}
+div#wrapper div#wrapper_inner div#content div.index_bottom{ background: #fff url(../images/homepage_pizza.jpg) no-repeat 0 220px; color: #666; float: left; min-height: 917px; padding: 5px 0 0; width: 100%; margin-top:30px;border-top:1px solid #E83F0B;}
 div#wrapper div#wrapper_inner div#content div.index_bottom h2{font-weight: normal; font-size: 25px;margin-left:15px;}
 div#wrapper div#wrapper_inner div#content div.index_bottom div.staps{margin-top: 20px; width: 297px; float: left; margin-left: 35px;}
 div#wrapper div#wrapper_inner div#content div.index_bottom div.first{margin-left: 10px;}
@@ -262,8 +262,8 @@ div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp{border-
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p{background-position: 101px 3px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp p.selText{text-align: left; text-indent: 15px;}
 div#wrapper div#wrapper_inner div#header div.header_bottom div.selWrapPp ul.selDrop li{text-align: left; text-indent: 15px;}
-.ing_popup{background:url("/public/images/main_gray.png") repeat scroll 0 0 transparent; border-radius: 5px 5px 5px 5px; color: #333;}
-.ing_popup h1{background: url("/public/images/main.png") repeat scroll 0 0 transparent;border-radius: 5px 5px 5px 5px;font-size: 17px;font-weight: normal;height: 45px;left: 5px;line-height: 42px;margin: 0 0 10px;padding: 0 10px;position: relative;top: 5px;width: 430px;}
+.ing_popup{background:url("../images/main_gray.png") repeat scroll 0 0 transparent; border-radius: 5px 5px 5px 5px; color: #333;}
+.ing_popup h1{background: url("../images/main.png") repeat scroll 0 0 transparent;border-radius: 5px 5px 5px 5px;font-size: 17px;font-weight: normal;height: 45px;left: 5px;line-height: 42px;margin: 0 0 10px;padding: 0 10px;position: relative;top: 5px;width: 430px;}
 .ing_popup p{margin-left: 10px; font-family: Arail;}
 .ing_popup table.wrapper{width: 440px; margin: 0 10px; line-height: 28px; border-collapse: collapse; border-radius: 3px; color: #333333; font-family: Arial;}
 .ing_popup table.wrapper table{width: 220px; border-collapse: collapse; cursor: default}
