@@ -109,6 +109,8 @@ LOCALE_PATHS = (
 
 AUTH_USER_MODEL = 'website.User'
 
+SITE_ID = 1
+
 import os
 
 try:
