@@ -9,3 +9,7 @@ def index(request):
 
 def indexM(request):
     return render_to_response('main.html', {'test':':)'})
+
+def yoda(request):
+    return render_to_response('yoda.html')
+
