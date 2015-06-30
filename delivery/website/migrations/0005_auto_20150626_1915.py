@@ -7,6 +7,8 @@ from django.contrib.sites.models import Site
 
 def update_sites(apps, schema):
     site = Site.objects.first()
+    if not site:
+        site = Site()
     site.name = 'vdo.ma'
     site.domain = '*'
     site.save()
