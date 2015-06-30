@@ -1,5 +1,5 @@
 #!/usr/bin/env python2.7
 #-
-from westrampage import wsgi
+from delivery import wsgi
 
 app = wsgi.application
