@@ -10,6 +10,8 @@ urlpatterns = patterns('',
 
     url(r'^pages/', include('django.contrib.flatpages.urls')),
     url(r'^$', 'delivery.website.views.index', name='index'),
-    url(r'^i$', 'delivery.website.views.indexM', name='indexM'),
-    url(r'^yoda$', 'delivery.website.views.yoda', name='yoda')
+    url(r'^yoda$', 'delivery.website.views.yoda', name='yoda'),
+    url(r'^forRestaurants', 'delivery.website.views.forRestaurants', name='forRestaurants'),
+
+
 )
