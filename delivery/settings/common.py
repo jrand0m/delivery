@@ -83,7 +83,11 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'uk-ua'
+LANGUAGE_CODE = 'uk'
+
+LOCALE_PATHS = (
+    os.path.join(DJANGO_ROOT, 'i18n'),
+)
 
 TIME_ZONE = 'Europe/Kiev'
 
