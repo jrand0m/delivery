@@ -26,6 +26,9 @@ class Address(models.Model):
         verbose_name = _('Address')
         verbose_name_plural = _('Addresses')
 
+    def __unicode__(self):
+        return u'[Address: {}, {}/{} {}]'.format(self.city, self.building_number, self.apartments_number, self.street)
+
 
 class Attachment(models.Model):
     comment_text = models.CharField(max_length=255)
@@ -39,6 +42,9 @@ class Attachment(models.Model):
         verbose_name = _('Attachment')
         verbose_name_plural = _('Attachments')
 
+    def __unicode__(self):
+        return u'[Attachment: {} / {}]'.format(self.file_type, self.file_ext)
+
 
 class City(models.Model):
     city_name_key = models.CharField(max_length=255)
@@ -48,6 +54,11 @@ class City(models.Model):
     class Meta:
         managed = True
         db_table = 'city'
+        verbose_name = _('City')
+        verbose_name_plural = _('Cities')
+
+    def __unicode__(self):
+        return u'[City: {}]'.format(self.city_alias_name)
 
 
 class MenuItemComponent(models.Model):
@@ -63,6 +74,11 @@ class MenuItemComponent(models.Model):
     class Meta:
         managed = True
         db_table = 'menu_item_components'
+        verbose_name = _('Menu item component')
+        verbose_name_plural = _('Menu item components')
+
+    def __unicode__(self):
+        return u'[MenuItemComponent: {} for {} {}]'.format(self.name, self.price, self.price_currency)
 
 
 class MenuItem(models.Model):
@@ -79,6 +95,11 @@ class MenuItem(models.Model):
     class Meta:
         managed = True
         db_table = 'menu_items'
+        verbose_name = _('Menu item')
+        verbose_name_plural = _('Menu items')
+
+    def __unicode__(self):
+        return u'[MenuItem: {} for {} {}]'.format(self.name, self.price, self.currency)
 
 
 class MenuItemsGroup(models.Model):
@@ -90,6 +111,11 @@ class MenuItemsGroup(models.Model):
     class Meta:
         managed = True
         db_table = 'menu_items_groups'
+        verbose_name = _('Menu item group')
+        verbose_name_plural = _('Menu item groups')
+
+    def __unicode__(self):
+        return u'[MenuItemsGroup: {}]'.format(self.name)
 
 
 class Order(models.Model):
@@ -119,6 +145,11 @@ class Order(models.Model):
     class Meta:
         managed = True
         db_table = 'order'
+        verbose_name = _('Order')
+        verbose_name_plural = _('Orders')
+
+    def __unicode__(self):
+        return u'[Order: {} @ {}]'.format(self.order_status, self.restaurant)
 
 
 class OrderItem(models.Model):
@@ -132,6 +163,11 @@ class OrderItem(models.Model):
     class Meta:
         managed = True
         db_table = 'order_items'
+        verbose_name = _('Order item')
+        verbose_name_plural = _('Order items')
+
+    def __unicode__(self):
+        return u'[OrderItem: {} {} for {} {}]'.format(self.count, self.menu_item, self.total_order_item_price, self.total_order_item_price_currency)
 
 
 class Restaurant(models.Model):
@@ -146,7 +182,7 @@ class Restaurant(models.Model):
     two_letters = models.CharField(max_length=2)
     city = models.ForeignKey(City)
     address = models.ForeignKey(Address)
-    category = models.ForeignKey('RestaurantsCategory')
+    category = models.ForeignKey('RestaurantCategory')
     work_hours = models.ForeignKey('RestaurantWorkhours')
     user = models.ForeignKey('User')
     logo = models.ForeignKey('Attachment', blank=True, null=True)
@@ -154,6 +190,11 @@ class Restaurant(models.Model):
     class Meta:
         managed = True
         db_table = 'restaurant'
+        verbose_name = _('Restaurant')
+        verbose_name_plural = _('Restaurants')
+
+    def __unicode__(self):
+        return u'[Restaurant: {} @ {}]'.format(self.title, self.address)
 
 
 class RestaurantDescription(models.Model):
@@ -164,6 +205,11 @@ class RestaurantDescription(models.Model):
     class Meta:
         managed = True
         db_table = 'restaurant_descriptions'
+        verbose_name = _('Restaurant description')
+        verbose_name_plural = _('Restaurant descriptions')
+
+    def __unicode__(self):
+        return u'[RestaurantDescription: {} for {}]'.format(self.description, self.restaurant)
 
 
 class RestaurantWorkhours(models.Model):
@@ -185,16 +231,32 @@ class RestaurantWorkhours(models.Model):
     class Meta:
         managed = True
         db_table = 'restaurant_workhours'
+        verbose_name = _('Restaurant workhours')
+        verbose_name_plural = _('Restaurant workhours')
+
+    def __unicode__(self):
+        keys = ('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun')
+        pairs = [
+            (getattr(self, '{}_start'.format(key)), getattr(self, '{}_end'.format(key))) for key in keys
+        ]
+        return u'[RestaurantWorkhours: {}]'.format(
+            ', '.join(['-'.join([d.strftime('%H:%M') for d in pair]) for pair in pairs])
+        )
 
 
-class RestaurantsCategory(models.Model):
+class RestaurantCategory(models.Model):
     category_display_name_en = models.CharField(max_length=255)
     category_display_name_ru = models.CharField(max_length=255, blank=True, null=True)
     category_display_name_ua = models.CharField(max_length=255)
 
     class Meta:
         managed = True
-        db_table = 'restaurants_categories'
+        db_table = 'restaurant_categories'
+        verbose_name = _('Restaurant category')
+        verbose_name_plural = _('Restaurant categories')
+
+    def __unicode__(self):
+        return u'[RestaurantCategory: {}]'.format(self.category_display_name_ua)
 
 
 class Street(models.Model):
@@ -208,6 +270,11 @@ class Street(models.Model):
     class Meta:
         managed = True
         db_table = 'street'
+        verbose_name = _('Street')
+        verbose_name_plural = _('Streets')
+
+    def __unicode__(self):
+        return u'[Street: {}]'.format(self.title_ua)
 
 
 class SystemSetting(models.Model):
@@ -220,6 +287,11 @@ class SystemSetting(models.Model):
     class Meta:
         managed = True
         db_table = 'system_settings'
+        verbose_name = _('System setting')
+        verbose_name_plural = _('System settings')
+
+    def __unicode__(self):
+        return u'[SystemSetting: {} = {}]'.format(self.field_stg_key, self.field_stg_value)
 
 
 class User(AbstractUser):
@@ -235,3 +307,8 @@ class User(AbstractUser):
     class Meta:
         managed = True
         db_table = 'auth_user'
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
+
+    def __unicode__(self):
+        return u'[User: {} ({} {})]'.format(self.username, self.first_name, self.last_name)
