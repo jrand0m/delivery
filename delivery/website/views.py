@@ -16,5 +16,5 @@ def yoda(request):
     return render_to_response('yoda.html')
 
 
-def for_restaurants():
+def for_restaurants(request):
     return render_to_response("Static/forRestaurants.html")
