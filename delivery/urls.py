@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^pages/', include('django.contrib.flatpages.urls')),
-    url(r'^$', 'delivery.website.views.index', name='index'),
-    url(r'^yoda$', 'delivery.website.views.yoda', name='yoda'),
+    url(r'^IndeX$', 'delivery.website.views.index', name='index'),
+    url(r'^$', 'delivery.website.views.yoda', name='yoda'),
     url(r'^for/restaurants', 'delivery.website.views.for_restaurants', name='for_restaurants'),
 )
