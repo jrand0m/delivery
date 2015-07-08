@@ -13,4 +13,6 @@ urlpatterns = patterns(
     url(r'^IndeX$', 'delivery.website.views.index', name='index'),
     url(r'^$', 'delivery.website.views.yoda', name='yoda'),
     url(r'^for/restaurants', 'delivery.website.views.for_restaurants', name='for_restaurants'),
+    
+    url(r'^google9049961bc731c473.html', 'delivery.website.views.google', name='google'),
 )

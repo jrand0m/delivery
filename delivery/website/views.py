@@ -18,3 +18,5 @@ def yoda(request):
 
 def for_restaurants(request):
     return render_to_response("Static/forRestaurants.html")
+def google(request):
+    return render_to_response("Static/google9049961bc731c473.html")
