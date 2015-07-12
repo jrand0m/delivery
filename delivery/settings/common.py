@@ -46,6 +46,8 @@ INSTALLED_APPS = (
     'static_precompiler',
     'django_admin_generator',
 
+    'rest_framework',
+
     'delivery.website',
 )
 
@@ -58,6 +60,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10
+}
 
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
