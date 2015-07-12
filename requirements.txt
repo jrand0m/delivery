@@ -1,13 +1,14 @@
-Django==1.8.2
 anyjson==0.3.3
+Django==1.8.2
 django-admin-generator==1.3.2
-# django-static-precompiler==0.9
--e git+git://github.com/and3rson/django-static-precompiler#egg=django-static-precompiler
+-e git://github.com/and3rson/django-static-precompiler@0ba44986454f16d76c142719eefdff9b01d327aa#egg=django_static_precompiler-master
 django-suit==0.2.13
 django-utils2==2.0.0
+djangorestframework==3.1.3
 docutils==0.12
+Markdown==2.6.2
 psycopg2==2.6.1
 python-utils==1.6.2
 six==1.9.0
 suit==2.0.2
-wsgiref==0.1.2
+wheel==0.24.0
