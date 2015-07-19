@@ -5,12 +5,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return render_to_response("Application/index.html")
-
-
-def index_m(request):
-    return render_to_response('main.html', {'test': ':)'})
-
+    return render_to_response("index.html")
 
 def yoda(request):
     return render_to_response('yoda.html')

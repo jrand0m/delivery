@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <title>vdo.ma</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    {% load static %}
+    {% load less %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{% static 'css/main.css' %}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{% static "css/header.css" %}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{% static "css/footer.css"%}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{% static "css/media.css"%}" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Lobster|Noto+Sans:400,700,400italic,700italic&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<div class="wrapper wrapper-main">
+    <header>
+        <div>
+            <a href="http://vdo.ma" class="logo-link"><span>vdo</span>.<span>ma</span></a>
+            <div class="sign-in-block">
+                <a class="login btn" href="#">Увійти</a>
+            </div>
+            <nav>
+                <a href="#">Як це працює</a>
+                <a href="#">Отримай 10₴</a>
+                <a href="#">Задати питання</a>
+            </nav>
+        </div>
+        <div class="section search_block">
+            <h1>Знайди, замов, випий чаю, поки ми доставляємо.</h1>
+            <form id="search_form" action="/" accept-charset="UTF-8">
+                <ul class="main-tabs">
+                    <li class="active">
+                        <a href="#">Готова їжа</a>
+                    </li>
+                    <li>
+                        <a href="#">Алкоголь</a>
+                    </li>
+                    <li>
+                        <a href="#">Продукти</a>
+                    </li>
+                    <li>
+                        <a href="#">Шлюхи</a>
+                    </li>
+                </ul>
+                <input type="text" placeholder="Це пошук, він кльовий" />
+            </form>
+            <p>Популярні запити: <a href="#">суші Львів</a>, <a href="#">обіди в офіс</a>, <a href="#">42</a></p>
+        </div>
+    </header>
+    <div class="content">
+        Сюди треба вхуярити ще якоїсь інформації. Але так як ми ніхуя не придумали крім як спіздити в делівері.ком, а у них там лінки на сторінки пошуку і містах, лінки на сторінки категорій, а у нас концептуально то не придумано ще, то я зробив наразі отак і дороблю коли ми придумаємо ціткіше, що то має бути
+    </div>
+    <div class="push"></div>
+</div>
+<footer>
+    <div>
+        <a class="copyright" href="/"></a> <span>Copyright © 2015 vdo.ma</span>
+        <a class="privacy-policy-link" href="/privacy">Privacy Policy</a>
+        <nav>
+            <a class="tw" target="_blank" href="https://twitter.com/vdo_ma"></a>
+            <a class="fb" target="_blank" href="https://www.facebook.com/vdo_ma"></a>
+        </nav>
+    </div>
+</footer>
+</body>
+<script src="http://requirejs.org/docs/release/2.1.19/minified/require.js"></script>
+<script src="{{ STATIC_URL }}{% static 'js/background.js' %}"></script>
+<script src="{{ STATIC_URL }}{% static 'js/js.js' %}"></script>
+<script src="{{ STATIC_URL }}{% static 'js/v.js' %}"></script>
+
+</html>
