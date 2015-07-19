@@ -301,6 +301,7 @@ class User(AbstractUser):
     last_login_date = models.DateTimeField(blank=True, null=True)
     updated_date = models.DateTimeField(null=True)
     deleted = models.BooleanField(default=False)
+    address = models.ForeignKey(Address)
 
     USERNAME_FIELD = 'username'
 
