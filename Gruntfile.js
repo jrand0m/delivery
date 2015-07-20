@@ -1,13 +1,12 @@
-// Configuration for static
-
-LESS_DIR = 'delivery/website/static/less';
-CSS_DIR = 'delivery/static/css';
+// Do not edit below this line
 
 module.exports = function(grunt) {
     grunt.initConfig({
         less: {
             v1: {
-                files: LESS_DIR + '/*.less',
+                files: {
+                    './delivery/website/static/css/app.css': './delivery/website/static/less/app.less'
+                },
                 options:  {
                     paths: ['bower_components/'],
                     compress: false,
@@ -17,8 +16,8 @@ module.exports = function(grunt) {
         },
         watch: {
             v1: {
-                files: [LESS_DIR + "*.less"],
-                tasks: ["less:v2"]
+                files: ['./delivery/website/static/less/*.less'],
+                tasks: ['less:v1']
             }
         },
         cssmin: {

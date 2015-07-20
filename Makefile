@@ -1,7 +1,7 @@
 MANAGE_PY = ./manage.py
 NPM_REQS = $(shell cat npm-requirements.txt)
 NPM_OPTS = --prefix .
-GRUNT = ./node_modules/.bin/grunt
+GRUNT = node ./node_modules/.bin/grunt
 export NPM_CONFIG_PREFIX
 
 init: | createuser update migrate
