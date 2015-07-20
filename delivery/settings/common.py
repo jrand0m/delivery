@@ -29,6 +29,11 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 
+def do_cssmin(data):
+    import cssmin
+    return cssmin.cssmin(data)
+
+
 # Application definition
 
 INSTALLED_APPS = (
