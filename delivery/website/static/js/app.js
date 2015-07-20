@@ -9,9 +9,6 @@ requirejs.config({
         'angular': {
             exports: 'angular'
         }
-    },
-
-    // запустить приложение
-    deps: ['./bootstrap']
+    }
 });
-//requirejs(['app/main']);
+requirejs(['app/main']);
