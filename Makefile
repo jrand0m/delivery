@@ -51,5 +51,3 @@ static:
 watch:
 	$(GRUNT) less
 	$(GRUNT) watch
-
-deploy: | static
