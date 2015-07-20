@@ -8,3 +8,4 @@
 local_settings.py
 delivery/settings/local_settings.py
 tmp/
+node_modules
