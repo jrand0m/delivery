@@ -45,9 +45,11 @@ killcache:
 
 wtf: | update migrate killcache
 
-static:
+less:
 	$(GRUNT) less
 
 watch:
 	$(GRUNT) less
 	$(GRUNT) watch
+
+static: | less
