@@ -1,17 +1,20 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponse
 
 
 # Create your views here.
 
 def index(request):
-    return render_to_response("index.html")
+    return render(request, "index.html")
+
 
 def yoda(request):
-    return render_to_response('yoda.html')
+    return render(request, 'yoda.html')
 
 
 def for_restaurants(request):
-    return render_to_response("Static/forRestaurants.html")
+    return render(request, "Static/forRestaurants.html")
+
+
 def google(request):
-    return render_to_response("Static/google9049961bc731c473.html")
+    return render(request, "Static/google9049961bc731c473.html")

@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     {% load static %}
     {% load less %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{% less 'less/main.less' %}" media="screen">
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{% less 'less/header.less' %}" media="screen">
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{% less 'less/footer.less' %}" media="screen">
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{% less 'less/media.less' %}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ static_prefix }}{% less 'less/main.less' %}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ static_prefix }}{% less 'less/header.less' %}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ static_prefix }}{% less 'less/footer.less' %}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ static_prefix }}{% less 'less/media.less' %}" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Lobster|Noto+Sans:400,700,400italic,700italic&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
@@ -66,8 +66,8 @@
 </footer>
 </body>
 <script src="http://requirejs.org/docs/release/2.1.19/minified/require.js"></script>
-<script src="{{ STATIC_URL }}{% static 'js/background.js' %}"></script>
-<script src="{{ STATIC_URL }}{% static 'js/js.js' %}"></script>
-<script src="{{ STATIC_URL }}{% static 'js/v.js' %}"></script>
+<script src="{% static 'js/background.js' %}"></script>
+<script src="{% static 'js/js.js' %}"></script>
+<script src="{% static 'js/v.js' %}"></script>
 
 </html>

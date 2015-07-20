@@ -68,6 +68,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
+    'delivery.website.context_processors.common.general',
 )
 
 ROOT_URLCONF = 'delivery.urls'
@@ -110,7 +111,7 @@ STATIC_ROOT = os.path.join(DJANGO_ROOT, 'static')
 
 STATIC_URL = '/static/'
 
-STATIC_PRECOMPILER_ROOT = os.path.join(DJANGO_ROOT, 'common/static')
+STATIC_PRECOMPILER_ROOT = os.path.join(DJANGO_ROOT, 'website/static')
 
 LOCALE_PATHS = (
     os.path.join(DJANGO_ROOT, 'i18n'),
