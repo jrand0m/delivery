@@ -2,6 +2,7 @@
 .idea_modules
 *.iws
 *.py[co]
+*.css
 .env
 
 local_settings.py
