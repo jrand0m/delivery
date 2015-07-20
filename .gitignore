@@ -2,8 +2,10 @@
 .idea_modules
 *.iws
 *.py[co]
+*.css
 .env
 
 local_settings.py
 delivery/settings/local_settings.py
 tmp/
+node_modules
