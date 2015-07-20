@@ -49,4 +49,5 @@ static:
 	$(GRUNT) less
 
 watch:
+	$(GRUNT) less
 	$(GRUNT) watch
