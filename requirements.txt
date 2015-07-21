@@ -8,7 +8,7 @@ django-utils2==2.0.0
 docutils==0.12
 psycopg2==2.6.1
 python-utils==1.6.2
-raven==5.4.4
+raven==5.3.1
 six==1.9.0
 suit==2.0.2
 wsgiref==0.1.2
