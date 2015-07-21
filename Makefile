@@ -4,7 +4,32 @@ NPM_OPTS = --prefix .
 GRUNT = node ./node_modules/.bin/grunt
 export NPM_CONFIG_PREFIX
 
-init: | createuser update migrate
+initUbuntu: 
+	@echo -e '$(YELLOW)Installing ubuntu dependencies$(RESET)'	
+	sudo apt-get install postgresql libpq-dev python-dev npm python-pip
+	@echo -e '$(YELLOW)init database$(RESET)'
+	sudo -u postgres psql <<EOF
+	CREATE DATABASE vdoma;
+	CREATE USER vdoma WITH password 'vdoma';
+	GRANT ALL privileges ON DATABASE vdoma TO vdoma;
+	EOF
+	@echo -e '$(YELLOW)create simple local properties file$(RESET)'
+	cat <<EOF > delivery/settings/local_settings.py
+	#!/bin/python2.7
+	DEBUG = True
+	
+	DATABASES = {
+    	'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'vdoma',
+        'USER': 'vdoma',
+        'PASSWORD': 'vdoma',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    	}
+	}
+	EOF
+init: | update createuser migrate
 
 createuser:
 	$(MANAGE_PY) createsuperuser --user admin --email admin@localhost
