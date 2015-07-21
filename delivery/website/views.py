@@ -8,6 +8,10 @@ def index(request):
     return render(request, "index.html")
 
 
+def test_500(request):
+    raise AssertionError('Test')
+
+
 def yoda(request):
     return render(request, 'yoda.html')
 
