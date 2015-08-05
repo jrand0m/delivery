@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import TeamMate
 
 
 # Create your views here.
@@ -16,7 +17,10 @@ def yoda(request):
     return render(request, 'yoda.html')
 
 def team_mate(request):
-    return render(request, "Static/forRestaurants.html")
+    mates = TeamMate.objects.all()
+    context = {'team_mates': mates}
+    return render(request, 'team.html', context)
+
 
 def for_restaurants(request):
     return render(request, "Static/forRestaurants.html")
