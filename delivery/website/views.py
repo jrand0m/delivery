@@ -15,6 +15,8 @@ def test_500(request):
 def yoda(request):
     return render(request, 'yoda.html')
 
+def team_mate(request):
+    return render(request, "Static/forRestaurants.html")
 
 def for_restaurants(request):
     return render(request, "Static/forRestaurants.html")
