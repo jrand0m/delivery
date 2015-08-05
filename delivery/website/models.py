@@ -312,3 +312,8 @@ class User(AbstractUser):
 
     def __unicode__(self):
         return u'[User: {} ({} {})]'.format(self.username, self.first_name, self.last_name)
+
+class TeamMate(User):
+    photo = models.ImageField(upload_to='pics')
+    job_title = models.CharField(max_length=255, null=False)
+    description = models.TextField(blank=True, null=False)

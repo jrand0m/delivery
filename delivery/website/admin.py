@@ -71,7 +71,8 @@ class UserAdmin(NativeUserAdmin):
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')})
     )
-
+class TeamMateAdmin(admin.ModelAdmin):
+    pass
 admin.site.register(Address, AddressAdmin)
 admin.site.register(Attachment, AttachmentAdmin)
 admin.site.register(City, CityAdmin)
@@ -87,3 +88,4 @@ admin.site.register(RestaurantCategory, RestaurantsCategoryAdmin)
 admin.site.register(Street, StreetAdmin)
 admin.site.register(SystemSetting, SytemSettingAdmin)
 admin.site.register(User, UserAdmin)
+admin.site.register(TeamMate, TeamMateAdmin)

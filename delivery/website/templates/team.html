@@ -1,0 +1,12 @@
+
+<html>
+<body>
+{% if team_mates %}
+    <ul>
+    {% for mate in team_mates %}
+        <li>{{ mate.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+</body>
+</html>
