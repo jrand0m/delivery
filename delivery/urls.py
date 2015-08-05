@@ -8,7 +8,7 @@ urlpatterns = patterns(
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^team/', 'delivery.website.views.team_mate'),
+    url(r'^team/', 'delivery.website.views.team_mate', name='mates'),
     url(r'^pages/', include('django.contrib.flatpages.urls')),
     url(r'^test-index$', 'delivery.website.views.index', name='index'),
     url(r'^test-500$', 'delivery.website.views.test_500', name='test_500'),
