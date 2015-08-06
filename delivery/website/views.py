@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import TeamMate
+from settings import common
 
 
 # Create your views here.
@@ -18,7 +19,7 @@ def yoda(request):
 
 def team_mate(request):
     mates = TeamMate.objects.all()
-    context = {'team_mates': mates}
+    context = {'team_mates': mates, 'STATIC_URL':common.STATIC_URL}
     return render(request, 'team.html', context)
 
 
