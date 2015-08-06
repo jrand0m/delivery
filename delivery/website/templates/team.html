@@ -1,12 +1,29 @@
 
 <html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <body>
+
 {% if team_mates %}
-    <ul>
+<div class="container">
+  <div class="row">
     {% for mate in team_mates %}
-        <li>{{ mate.name }}</a></li>
+    <div class="col-lg-4">
+        <img class="img-circle" src="{{STATIC_URL}}{{mate.photo.name}}" alt="{{mate.name}}" width="140" height="140">
+        <h2>{{mate.name}}</h2>
+        <h4>{{mate.job}}</h4>
+        <p>{{mate.description}}</p>
+        <!--p><a class="btn btn-default" href="#" role="button">View details »</a></p-->
+    </div>
     {% endfor %}
-    </ul>
+  </div>
+</div>
 {% endif %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
