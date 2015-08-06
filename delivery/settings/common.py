@@ -22,7 +22,7 @@ REPO_ROOT = os.path.dirname(DJANGO_ROOT)
 SECRET_KEY = '8)&b(s#!gy%f1&syi7=cuxv$1ew+$%580@b0n!qhg(800_*=-2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
