@@ -11,7 +11,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser
-from django.conf.settings import STATIC_ROOT
+from django.conf import settings
 
 class Address(models.Model):
     building_number = models.CharField(max_length=30, blank=True, null=True)
@@ -315,6 +315,6 @@ class User(AbstractUser):
         return u'[User: {} ({} {})]'.format(self.username, self.first_name, self.last_name)
 
 class TeamMate(User):
-    photo = models.ImageField(upload_to=STATIC_ROOT+"/images/u/")
+    photo = models.ImageField(upload_to=settings.STATIC_ROOT+"/images/u/")
     job_title = models.CharField(max_length=255, null=False)
     description = models.TextField(blank=True, null=False)
