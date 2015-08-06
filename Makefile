@@ -59,7 +59,12 @@ newtest:
 
 killcache:
 	find . -name *.py[co] -exec rm {} \;
+pipupgrade:|pipdistupdate
+	pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+	pip freeze > requirements.txt 
 
+pipdistupdate:
+	pip install --upgrade distribute
 wtf: | update migrate killcache
 
 less:
