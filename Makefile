@@ -21,6 +21,20 @@ initUbuntu:
 	@echo -e '$(YELLOW)create simple local properties file$(RESET)'
 	echo "$(SAMPLE_LOCAL_CONFIG)" > delivery/settings/local_settings.py
 
+initOsx:
+	@echo -e '$(YELLOW)Installing OSX dependencies$(RESET)'
+	brew install npm wget python postgres pyenv-virtualenv
+	ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+	launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+	@echo -e '$(YELLOW)Create virtual env (:trollface:) $(RESET)'
+	#pyenv virtualenv .env
+	@echo -e '$(YELLOW)init database$(RESET)'
+	echo "$(BOOTSTRAP_SQL)" > tmp.sql
+	psql -f tmp.sql
+	rm -rfv tmp.sql
+	@echo -e '$(YELLOW)create simple local properties file$(RESET)'
+	echo "$(SAMPLE_LOCAL_CONFIG)" > delivery/settings/local_settings.py
+
 init: | update migrate createuser
 
 createuser:
@@ -61,7 +75,7 @@ killcache:
 	find . -name *.py[co] -exec rm {} \;
 pipupgrade:|pipdistupdate
 	pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
-	pip freeze > requirements.txt 
+	pip freeze > requirements.txt
 
 pipdistupdate:
 	pip install --upgrade distribute
